@@ -1,0 +1,4 @@
+{
+  "extends": "@exiftools/tsconfig/tsconfig-react",
+  "include": ["src"]
+}

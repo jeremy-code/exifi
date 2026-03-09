@@ -1,0 +1,4 @@
+{
+  "extends": "@exiftools/tsconfig/tsconfig-base",
+  "includes": ["vite.config.ts"]
+}

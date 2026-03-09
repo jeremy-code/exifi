@@ -1,0 +1,27 @@
+{
+  "name": "exiftools",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "prepare": "husky",
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "keywords": [],
+  "author": "Jeremy Nguyen <nguyen.jeremyt@gmail.com> (https://jeremy.ng)",
+  "license": "MIT",
+  "dependencies": {
+    "@exiftools/eslint-config": "workspace:*",
+    "@exiftools/tsconfig": "workspace:*",
+    "eslint": "^9.34.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.2",
+    "prettier": "^3.8.1",
+    "turbo": "^2.8.14",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.31.0+sha512.e3927388bfaa8078ceb79b748ffc1e8274e84d75163e67bc22e06c0d3aed43dd153151cbf11d7f8301ff4acb98c68bdc5cadf6989532801ffafe3b3e4a63c268"
+}
