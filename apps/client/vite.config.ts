@@ -1,4 +1,5 @@
 /// <reference types="vitest" />
+import netlifyReactRouter from "@netlify/vite-plugin-react-router";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
@@ -11,6 +12,7 @@ export default defineConfig({
       },
     }),
     tailwindcss(),
+    netlifyReactRouter({ edge: true }),
   ],
   esbuild: {
     supported: {
