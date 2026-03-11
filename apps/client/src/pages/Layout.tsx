@@ -7,7 +7,8 @@ const Layout = () => {
   return (
     <>
       <Navbar />
-      <main className="container py-8">
+      {/* `mt-15.25` accounts for <Navbar> height */}
+      <main className="container mt-15.25 py-8">
         <Outlet />
       </main>
       <Footer />

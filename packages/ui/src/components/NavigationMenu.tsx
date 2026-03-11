@@ -168,6 +168,7 @@ export {
   NavigationMenu,
   type NavigationMenuProps,
   NavigationMenuList,
+  navigationMenuTriggerVariants,
   NavigationMenuTrigger,
   NavigationMenuLink,
   NavigationMenuContent,

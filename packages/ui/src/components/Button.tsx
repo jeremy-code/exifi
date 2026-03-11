@@ -14,6 +14,7 @@ const buttonVariants = tv({
     },
     variant: {
       muted: null,
+      ghost: null,
     },
     size: {
       xs: "h-8 min-w-8 gap-1 px-2.5 text-xs/4",
@@ -28,6 +29,11 @@ const buttonVariants = tv({
       color: "default",
       variant: "muted",
       className: "bg-muted hover:bg-border",
+    },
+    {
+      color: "default",
+      variant: "ghost",
+      className: "bg-transparent hover:bg-muted",
     },
   ],
   defaultVariants: {

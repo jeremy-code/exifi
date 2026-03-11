@@ -28,6 +28,7 @@
   );
   --color-border: light-dark(var(--color-gray-300), var(--color-gray-700));
   --color-solid: var(--color-gray-600);
+  --color-surface: light-dark(var(--color-gray-50), var(--color-gray-900))
 }
 
 @layer base {

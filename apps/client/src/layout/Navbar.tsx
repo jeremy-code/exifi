@@ -10,28 +10,26 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@exiftools/ui/components/NavigationMenu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@exiftools/ui/components/Tooltip";
 
-const NAVBAR_ITEMS = [
-  {
-    href: "/",
-    name: "Home",
-  },
-  {
-    href: "/viewer",
-    name: "Viewer",
-  },
-  {
-    href: "/editor",
-    name: "Editor",
-  },
-];
+import { MobileNav } from "./MobileNav";
+import { NAVIGATION_ITEMS } from "./constants";
 
-export const Navbar = ({
-  className,
-  ...props
-}: ComponentPropsWithRef<"header">) => {
+type NavbarProps = ComponentPropsWithRef<"header">;
+
+const Navbar = ({ className, ...props }: NavbarProps) => {
   return (
-    <header className={cn("border-b", className)} {...props}>
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 border-b bg-background",
+        className,
+      )}
+      {...props}
+    >
       <div className="container flex items-center justify-between py-4">
         <RouterLink className="flex items-center gap-2 font-semibold" to="/">
           exiftools
@@ -39,7 +37,7 @@ export const Navbar = ({
         <div className="flex items-center gap-2">
           <NavigationMenu className="grow max-sm:hidden">
             <NavigationMenuList>
-              {NAVBAR_ITEMS.map((item) => (
+              {NAVIGATION_ITEMS.map((item) => (
                 <NavigationMenuItem key={item.href}>
                   <NavigationMenuLink asChild variant="trigger">
                     <RouterLink to={item.href}>{item.name}</RouterLink>
@@ -48,9 +46,17 @@ export const Navbar = ({
               ))}
             </NavigationMenuList>
           </NavigationMenu>
-          <ThemeToggle size="lg" />
+          <Tooltip>
+            <TooltipTrigger>
+              <ThemeToggle size="lg" />
+            </TooltipTrigger>
+            <TooltipContent>Toggle theme</TooltipContent>
+          </Tooltip>
+          <MobileNav />
         </div>
       </div>
     </header>
   );
 };
+
+export { Navbar, type NavbarProps };
