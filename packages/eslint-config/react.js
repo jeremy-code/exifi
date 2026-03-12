@@ -1,6 +1,7 @@
 import { defineConfig, globalIgnores } from "@eslint/config-helpers";
 import eslintReact from "@eslint-react/eslint-plugin";
 import globals from "globals";
+import pluginQuery from "@tanstack/eslint-plugin-query";
 import reactCompiler from "eslint-plugin-react-compiler";
 import reactHooks from "eslint-plugin-react-hooks";
 
@@ -11,6 +12,7 @@ export const reactConfig = defineConfig(
   globalIgnores(["dist"]),
   baseConfig,
   eslintReact.configs["recommended-type-checked"],
+  pluginQuery.configs["flat/recommended"],
   reactCompiler.configs.recommended,
   reactHooks.configs.flat["recommended-latest"],
   {

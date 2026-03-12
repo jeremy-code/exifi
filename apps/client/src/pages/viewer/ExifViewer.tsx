@@ -1,7 +1,6 @@
-import { useEffect, useEffectEvent, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-import { ExifData } from "libexif-wasm";
-
+import { useExifData } from "#hooks/useExifData";
 import { mapExifData } from "#utils/mapExifData";
 import {
   Accordion,
@@ -9,31 +8,27 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@exiftools/ui/components/Accordion";
+import { Skeleton } from "@exiftools/ui/components/Skeleton";
 
 type ExifViewerProps = {
   file: File;
 };
 
 const ExifViewer = ({ file }: ExifViewerProps) => {
-  const [arrayBuffer, setArrayBuffer] = useState<ArrayBuffer | null>(null);
-  const exifData = arrayBuffer !== null ? ExifData.from(arrayBuffer) : null;
-  const freeExifData = useEffectEvent(() => {
-    exifData?.free();
+  const { isPending, data: arrayBuffer } = useQuery({
+    queryKey: [file],
+    queryFn: () => file.arrayBuffer(),
   });
+  const exifData = useExifData(arrayBuffer);
 
-  useEffect(() => {
-    void file.arrayBuffer().then((a) => setArrayBuffer(a));
-  }, [file]);
-
-  useEffect(() => {
-    return freeExifData;
-  }, []);
-
-  // TODO: This loads both on loading state and in error state, fix that
   if (exifData === null) {
-    return (
-      <>An error occurred while attempting to read the file's EXIF data.</>
-    );
+    if (isPending) {
+      return <Skeleton className="h-50" />;
+    } else {
+      return (
+        <>An error occurred while attempting to read the file's EXIF data.</>
+      );
+    }
   }
 
   const exifDataObject = mapExifData(exifData);

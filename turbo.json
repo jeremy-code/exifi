@@ -4,6 +4,7 @@
   "ui": "tui",
   "tasks": {
     "build": {
+      "env": ["DEV"],
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "outputs": ["dist/**"]

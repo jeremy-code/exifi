@@ -21,6 +21,7 @@
   "dependencies": {
     "@exiftools/ui": "workspace:*",
     "@fontsource-variable/lexend": "^5.2.11",
+    "@tanstack/react-query": "^5.90.21",
     "libexif-wasm": "^0.0.3",
     "lucide-react": "^0.577.0",
     "next-themes": "^0.4.6",
@@ -37,6 +38,8 @@
     "@exiftools/eslint-config": "workspace:*",
     "@exiftools/tsconfig": "workspace:*",
     "@tailwindcss/vite": "^4.2.1",
+    "@tanstack/react-devtools": "^0.9.13",
+    "@tanstack/react-query-devtools": "^5.91.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
