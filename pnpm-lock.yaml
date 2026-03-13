@@ -43,6 +43,9 @@ importers:
       "@fontsource-variable/lexend":
         specifier: ^5.2.11
         version: 5.2.11
+      "@std/path":
+        specifier: npm:@jsr/std__path@^1.1.4
+        version: "@jsr/std__path@1.1.4"
       "@tanstack/react-query":
         specifier: ^5.90.21
         version: 5.90.21(react@19.2.4)
@@ -70,6 +73,9 @@ importers:
       react-dropzone:
         specifier: ^15.0.0
         version: 15.0.0(react@19.2.4)
+      react-hook-form:
+        specifier: ^7.71.2
+        version: 7.71.2(react@19.2.4)
       react-router:
         specifier: ^7.13.1
         version: 7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -882,6 +888,20 @@ packages:
     resolution:
       {
         integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==,
+      }
+
+  "@jsr/std__internal@1.0.12":
+    resolution:
+      {
+        integrity: sha512-6xReMW9p+paJgqoFRpOE2nogJFvzPfaLHLIlyADYjKMUcwDyjKZxryIbgcU+gxiTygn8yCjld1HoI0ET4/iZeA==,
+        tarball: https://npm.jsr.io/~/11/@jsr/std__internal/1.0.12.tgz,
+      }
+
+  "@jsr/std__path@1.1.4":
+    resolution:
+      {
+        integrity: sha512-SK4u9H6NVTfolhPdlvdYXfNFefy1W04AEHWJydryYbk+xqzNiVmr5o7TLJLJFqwHXuwMRhwrn+mcYeUfS0YFaA==,
+        tarball: https://npm.jsr.io/~/11/@jsr/std__path/1.1.4.tgz,
       }
 
   "@napi-rs/wasm-runtime@0.2.12":
@@ -4028,6 +4048,15 @@ packages:
     peerDependencies:
       react: ">= 16.8 || 18.0.0"
 
+  react-hook-form@7.71.2:
+    resolution:
+      {
+        integrity: sha512-1CHvcDYzuRUNOflt4MOq3ZM46AronNJtQ1S7tnX6YN4y72qhgiUItpacZUAQ0TyWYci3yz1X+rXaSxiuEm86PA==,
+      }
+    engines: { node: ">=18.0.0" }
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
+
   react-is@16.13.1:
     resolution:
       {
@@ -5178,6 +5207,12 @@ snapshots:
     dependencies:
       "@jridgewell/resolve-uri": 3.1.2
       "@jridgewell/sourcemap-codec": 1.5.5
+
+  "@jsr/std__internal@1.0.12": {}
+
+  "@jsr/std__path@1.1.4":
+    dependencies:
+      "@jsr/std__internal": 1.0.12
 
   "@napi-rs/wasm-runtime@0.2.12":
     dependencies:
@@ -7281,6 +7316,10 @@ snapshots:
       attr-accept: 2.2.5
       file-selector: 2.1.2
       prop-types: 15.8.1
+      react: 19.2.4
+
+  react-hook-form@7.71.2(react@19.2.4):
+    dependencies:
       react: 19.2.4
 
   react-is@16.13.1: {}
