@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@exiftools/ui/components/Card";
+import { Link } from "@exiftools/ui/components/Link";
 
 type FileInformationProps = { file: File } & ComponentPropsWithRef<"div">;
 
@@ -34,7 +35,17 @@ const FileInformation = ({ file, ...props }: FileInformationProps) => {
             <p className="text-sm font-medium text-muted-foreground">
               File name
             </p>
-            <p>{file.name}</p>
+            <Link
+              onClick={() => {
+                const objectUrl = URL.createObjectURL(file);
+                window.open(objectUrl);
+                URL.revokeObjectURL(objectUrl);
+              }}
+              className="cursor-pointer"
+              underline
+            >
+              {file.name}
+            </Link>
           </div>
           <div className="flex flex-col">
             <p className="text-sm font-medium text-muted-foreground">
