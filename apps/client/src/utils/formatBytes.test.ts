@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { formatBytes } from "./formatBytes.js";
+import { formatBytes } from "./formatBytes";
 
 describe("formatBytes()", () => {
   describe("formats base SI units in bytes", () => {

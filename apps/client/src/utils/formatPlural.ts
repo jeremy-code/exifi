@@ -1,6 +1,9 @@
+type PluralRules = Partial<Record<Intl.LDMLPluralRule, string>> &
+  Record<"other", string>;
+
 const formatPlural = (
   num: number,
-  rules: Partial<Record<Intl.LDMLPluralRule, string>> & Record<"other", string>,
+  rules: PluralRules,
   ...[locales, options]: ConstructorParameters<Intl.PluralRulesConstructor>
 ) => {
   const suffix =
@@ -8,7 +11,7 @@ const formatPlural = (
 
   // Options are not passed to `toLocaleString` and using the shared parameters
   // of Intl.PluralRules. Feel free to add as an parameter if needed.
-  return `${num.toLocaleString(locales, options)}${suffix}`;
+  return `${num.toLocaleString(locales, options)}${suffix ?? ""}`;
 };
 
-export { formatPlural };
+export { formatPlural, type PluralRules };
