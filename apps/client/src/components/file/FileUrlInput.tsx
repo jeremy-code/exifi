@@ -7,6 +7,7 @@ import { useDropzoneState } from "#hooks/useDropzoneState";
 import { Button, type ButtonProps } from "@exiftools/ui/components/Button";
 import { Input, type InputProps } from "@exiftools/ui/components/Input";
 import { Spinner } from "@exiftools/ui/components/Spinner";
+import { toast } from "@exiftools/ui/hooks/useToast";
 
 type FieldValues = {
   exifUrl: string;
@@ -30,7 +31,12 @@ const FileUrlInput = ({
     const urlObject = new URL(data.exifUrl);
     const response = await fetch(urlObject);
     if (!response.ok) {
-      alert("Request failed");
+      toast({
+        title: "Fetching from URL failed",
+        description: `Fetching ${data.exifUrl} failed with error ${response.status}.`,
+        variant: "destructive",
+      });
+      return;
     }
     const file = new File(
       [await response.blob()],

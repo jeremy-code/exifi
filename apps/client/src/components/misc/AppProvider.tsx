@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 
+import { Toaster } from "@exiftools/ui/components/Toaster";
 import { TooltipProvider } from "@exiftools/ui/components/Tooltip";
 
 const Devtools =
@@ -23,6 +24,7 @@ const AppProvider = ({ children }: { children: Readonly<ReactNode> }) => {
         <TooltipProvider>
           {children}
           <Devtools />
+          <Toaster />
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>
