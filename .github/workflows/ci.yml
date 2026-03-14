@@ -33,5 +33,11 @@ jobs:
       - name: Check code formatting with Prettier
         run: pnpm run format:check
 
+      - name: Install Playwright browsers
+        run: pnpm --filter @exiftools/client exec playwright install --with-deps
+
+      - name: Test
+        run: pnpm run test
+
       - name: Build
         run: pnpm run build
