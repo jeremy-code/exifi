@@ -1,12 +1,13 @@
 packages:
   - apps/*
   - packages/*
+allowBuilds:
+  core-js: true
+  esbuild: true
+  unrs-resolver: true
 
 # Other Settings (https://pnpm.io/settings#other-settings)
 shellEmulator: true
 
 # Build settings (https://pnpm.io/settings#build-settings)
 verifyDepsBeforeRun: install
-allowBuilds:
-  esbuild: true
-  unrs-resolver: true

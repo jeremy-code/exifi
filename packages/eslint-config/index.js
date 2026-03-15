@@ -66,6 +66,8 @@ export const baseConfig = defineConfig(
           ignoreStatic: true,
         },
       ],
+      // I intend to use TS Enums like "a namespaced bag of values"
+      "@typescript-eslint/no-unsafe-enum-comparison": "off",
     },
     settings: {
       /**

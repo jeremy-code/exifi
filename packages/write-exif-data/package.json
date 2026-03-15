@@ -1,0 +1,21 @@
+{
+  "name": "@exiftools/write-exif-data",
+  "version": "0.0.0",
+  "private": false,
+  "exports": {
+    "./*": {
+      "@exiftools/development": "./src/*.js",
+      "default": "./src/*"
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "vitest --run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@exiftools/eslint-config": "workspace:*",
+    "@exiftools/tsconfig": "workspace:*",
+    "vitest": "^4.1.0"
+  }
+}
