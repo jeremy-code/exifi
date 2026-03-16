@@ -24,6 +24,11 @@ import {
   DataListItemValue,
 } from "@exiftools/ui/components/DataList";
 import { Skeleton } from "@exiftools/ui/components/Skeleton";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@exiftools/ui/components/Tooltip";
 
 type ExifViewerProps = {
   file: File;
@@ -100,7 +105,17 @@ const ExifViewer = ({ file, className, ...props }: ExifViewerProps) => {
                           key={entry.tag}
                         >
                           <DataListItemLabel className="font-medium md:w-1/3">
-                            {ExifTagInfo.getTitleInIfd(entry.tag!, ifdName)}
+                            <Tooltip delayDuration={0}>
+                              <TooltipTrigger className="select-text">
+                                {ExifTagInfo.getTitleInIfd(entry.tag!, ifdName)}
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                {ExifTagInfo.getDescriptionInIfd(
+                                  entry.tag!,
+                                  ifdName,
+                                )}
+                              </TooltipContent>
+                            </Tooltip>
                           </DataListItemLabel>
                           <DataListItemValue className="relative before:relative before:left-0 before:pr-1.5 before:text-muted-foreground before:content-['=']">
                             {entry.getValue()}
