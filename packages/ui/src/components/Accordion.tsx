@@ -9,7 +9,7 @@ const accordionVariants = tv({
   variants: {
     variant: {
       outline: null,
-      enclosed: "overflow-hidden rounded-sm border",
+      enclosed: "overflow-hidden rounded-sm border bg-surface",
     },
     size: {
       sm: "[--accordion-padding-x:--spacing(3)] [--accordion-padding-y:--spacing(2)]",

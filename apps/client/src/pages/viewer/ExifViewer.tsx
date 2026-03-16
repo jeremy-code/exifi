@@ -94,37 +94,44 @@ const ExifViewer = ({ file, className, ...props }: ExifViewerProps) => {
                 </div>
               </AccordionTrigger>
 
-              {!isEmpty ?
+              {!isEmpty && (
                 <AccordionContent>
-                  <DataList>
+                  <DataList variant="bold">
                     {ifd.entries
                       .filter((entry) => entry.tag !== null)
-                      .map((entry) => (
-                        <DataListItem
-                          className="flex-col! max-md:items-start md:flex-row!"
-                          key={entry.tag}
-                        >
-                          <DataListItemLabel className="font-medium md:w-1/3">
-                            <Tooltip delayDuration={0}>
-                              <TooltipTrigger className="select-text">
-                                {ExifTagInfo.getTitleInIfd(entry.tag!, ifdName)}
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                {ExifTagInfo.getDescriptionInIfd(
-                                  entry.tag!,
-                                  ifdName,
-                                )}
-                              </TooltipContent>
-                            </Tooltip>
-                          </DataListItemLabel>
-                          <DataListItemValue className="relative before:relative before:left-0 before:pr-1.5 before:text-muted-foreground before:content-['=']">
-                            {entry.getValue()}
-                          </DataListItemValue>
-                        </DataListItem>
-                      ))}
+                      .map((entry) => {
+                        const tag = entry.tag!;
+                        const title = ExifTagInfo.getTitleInIfd(tag, ifdName);
+                        const description = ExifTagInfo.getDescriptionInIfd(
+                          tag,
+                          ifdName,
+                        );
+
+                        return (
+                          <DataListItem
+                            className="flex-col! md:flex-row!"
+                            key={tag}
+                          >
+                            <DataListItemLabel className="md:w-1/3">
+                              {/* Some tags (e.g. RECOMMENDED_EXPOSURE_INDEX) don't have a description in ExifTagTable[] */}
+                              {description !== null && description !== "" ?
+                                <Tooltip delayDuration={0}>
+                                  <TooltipTrigger className="select-auto">
+                                    {title}
+                                  </TooltipTrigger>
+                                  <TooltipContent>{description}</TooltipContent>
+                                </Tooltip>
+                              : title}
+                            </DataListItemLabel>
+                            <DataListItemValue className="relative before:relative before:left-0 before:pr-1.5 before:text-muted-foreground before:content-['=']">
+                              {entry.getValue()}
+                            </DataListItemValue>
+                          </DataListItem>
+                        );
+                      })}
                   </DataList>
                 </AccordionContent>
-              : null}
+              )}
             </AccordionItem>
           );
         })}

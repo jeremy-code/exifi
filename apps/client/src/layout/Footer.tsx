@@ -1,11 +1,9 @@
 import type { ComponentPropsWithRef } from "react";
 
+import { Code } from "lucide-react";
 import { cn } from "tailwind-variants";
 
-import {
-  HorizontalList,
-  HorizontalListItem,
-} from "@exiftools/ui/components/HorizontalList";
+import { Button } from "@exiftools/ui/components/Button";
 import { Link } from "@exiftools/ui/components/Link";
 
 export const Footer = ({
@@ -13,27 +11,25 @@ export const Footer = ({
   ...props
 }: ComponentPropsWithRef<"footer">) => {
   return (
-    <footer
-      className={cn("grid place-content-center border-t", className)}
-      {...props}
-    >
-      <div className="container py-4">
-        <HorizontalList>
-          <HorizontalListItem>
-            {"Made by "}
-            <Link href="https://jeremy.ng" underline="hover">
-              Jeremy Nguyen
-            </Link>
-          </HorizontalListItem>
-          <HorizontalListItem>
-            <Link
-              href="https://github.com/jeremy-code/exiftools"
-              underline="hover"
-            >
-              Source code
-            </Link>
-          </HorizontalListItem>
-        </HorizontalList>
+    <footer className={cn("shrink border-t", className)} {...props}>
+      <div className="container flex items-center justify-between py-4">
+        <span>
+          {"Made by "}
+          <Link
+            color="blue"
+            href="https://jeremy.ng"
+            underline="hover"
+            isExternal
+          >
+            Jeremy Nguyen
+          </Link>
+        </span>
+        <Button asChild>
+          <Link href="https://github.com/jeremy-code/exiftools">
+            <Code />
+            Source code
+          </Link>
+        </Button>
       </div>
     </footer>
   );

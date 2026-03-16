@@ -18,6 +18,7 @@ const linkVariants = tv({
       ],
     },
     color: {
+      blue: "text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-400",
       /**
        * Styling colors based on system colors (LinkText, VisitedText). This
        * passes AA contrast ratio (light: 5.17, Dark: 5.57).

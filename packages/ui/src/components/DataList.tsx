@@ -51,7 +51,7 @@ const DataListItem = ({ asChild, className, ...props }: DataListItemProps) => {
   return (
     <Comp
       className={cn(
-        "inline-flex items-center gap-1",
+        "inline-flex gap-1",
         "group-data-[orientation=horizontal]/data-list:flex-row group-data-[orientation=vertical]/data-list:flex-col",
         "group-data-[size=sm]/data-list:text-xs/4",
         "group-data-[size=md]/data-list:text-sm/5",
@@ -75,8 +75,7 @@ const DataListItemLabel = ({
   return (
     <Comp
       className={cn(
-        "flex min-w-30 items-center gap-1",
-        "group-data-[variant=subtle]/data-list:text-muted-foreground",
+        "flex min-w-30 items-center gap-1 text-muted-foreground",
         "group-data-[variant=bold]/data-list:font-medium",
         className,
       )}
