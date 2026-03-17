@@ -1,7 +1,7 @@
 import type { ComponentPropsWithRef } from "react";
 
 import { useQuery } from "@tanstack/react-query";
-import { ExifIfd, ExifTagInfo, getEnumKeyFromValue } from "libexif-wasm";
+import { ExifTagInfo } from "libexif-wasm";
 import { ArrowLeft } from "lucide-react";
 import { cn } from "tailwind-variants";
 
@@ -66,19 +66,16 @@ const ExifViewer = ({ file, className, ...props }: ExifViewerProps) => {
       <Accordion
         // Expand all nonempty IFDs
         defaultValue={exifData.ifd
-          .filter((ifd) => ifd.entries.length !== 0)
-          .map((_, index) => getEnumKeyFromValue(ExifIfd, index) ?? "COUNT")}
+          .filter((ifd) => ifd.count !== 0)
+          .map((ifd) => ifd.getIfd() ?? "COUNT")}
         variant="enclosed"
         type="multiple"
         size="lg"
         className="shadow-sm"
       >
-        {exifData.ifd.map((ifd, index) => {
-          const ifdName = getEnumKeyFromValue(ExifIfd, index) ?? "COUNT";
-          if (ifdName === "COUNT") {
-            throw new Error("Invalid number of IFDs found");
-          }
-          const isEmpty = ifd.entries.length === 0;
+        {exifData.ifd.map((ifd) => {
+          const ifdName = ifd.getIfd() ?? "COUNT";
+          const isEmpty = ifd.count === 0;
 
           return (
             <AccordionItem key={ifdName} value={ifdName} disabled={isEmpty}>
@@ -86,7 +83,7 @@ const ExifViewer = ({ file, className, ...props }: ExifViewerProps) => {
                 <div className="flex gap-2">
                   {ifdName}
                   <Badge>
-                    {formatPlural(ifd.entries.length, {
+                    {formatPlural(ifd.count, {
                       one: " tag",
                       other: " tags",
                     })}
