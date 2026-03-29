@@ -2,6 +2,7 @@ import { ExifIfd, type ExifData } from "libexif-wasm";
 import { Marker, Popup } from "react-leaflet";
 
 import { Map } from "#components/map/Map";
+import { icon } from "#components/map/icon";
 import { formatLatLngFromExif } from "#lib/exif/gps/formatLatLngFromExif";
 import { getLatLngFromExif } from "#lib/exif/gps/getLatLngFromExif";
 
@@ -20,7 +21,7 @@ const ExifViewerGps = ({ exifData }: ExifViewerGpsProps) => {
 
   return (
     <Map className="h-120 rounded" center={coordinate}>
-      <Marker position={coordinate}>
+      <Marker icon={icon} position={coordinate}>
         <Popup>
           {formatLatLngFromExif(exifDataGpsIfd)}{" "}
           <a
