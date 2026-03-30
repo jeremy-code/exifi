@@ -10,57 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as staticIndexRouteImport } from './routes/(static)/index'
-import { Route as appviewerViewerRouteImport } from './routes/(app)/(viewer)/viewer'
-import { Route as appeditorEditorRouteImport } from './routes/(app)/(editor)/editor'
+import { Route as appViewerIndexRouteImport } from './routes/(app)/viewer/index'
+import { Route as appEditorIndexRouteImport } from './routes/(app)/editor/index'
 
 const staticIndexRoute = staticIndexRouteImport.update({
   id: '/(static)/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const appviewerViewerRoute = appviewerViewerRouteImport.update({
-  id: '/(app)/(viewer)/viewer',
-  path: '/viewer',
+const appViewerIndexRoute = appViewerIndexRouteImport.update({
+  id: '/(app)/viewer/',
+  path: '/viewer/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const appeditorEditorRoute = appeditorEditorRouteImport.update({
-  id: '/(app)/(editor)/editor',
-  path: '/editor',
+const appEditorIndexRoute = appEditorIndexRouteImport.update({
+  id: '/(app)/editor/',
+  path: '/editor/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof staticIndexRoute
-  '/editor': typeof appeditorEditorRoute
-  '/viewer': typeof appviewerViewerRoute
+  '/editor/': typeof appEditorIndexRoute
+  '/viewer/': typeof appViewerIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof staticIndexRoute
-  '/editor': typeof appeditorEditorRoute
-  '/viewer': typeof appviewerViewerRoute
+  '/editor': typeof appEditorIndexRoute
+  '/viewer': typeof appViewerIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/(static)/': typeof staticIndexRoute
-  '/(app)/(editor)/editor': typeof appeditorEditorRoute
-  '/(app)/(viewer)/viewer': typeof appviewerViewerRoute
+  '/(app)/editor/': typeof appEditorIndexRoute
+  '/(app)/viewer/': typeof appViewerIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/editor' | '/viewer'
+  fullPaths: '/' | '/editor/' | '/viewer/'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/editor' | '/viewer'
-  id:
-    | '__root__'
-    | '/(static)/'
-    | '/(app)/(editor)/editor'
-    | '/(app)/(viewer)/viewer'
+  id: '__root__' | '/(static)/' | '/(app)/editor/' | '/(app)/viewer/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   staticIndexRoute: typeof staticIndexRoute
-  appeditorEditorRoute: typeof appeditorEditorRoute
-  appviewerViewerRoute: typeof appviewerViewerRoute
+  appEditorIndexRoute: typeof appEditorIndexRoute
+  appViewerIndexRoute: typeof appViewerIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -72,18 +68,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof staticIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(app)/(viewer)/viewer': {
-      id: '/(app)/(viewer)/viewer'
+    '/(app)/viewer/': {
+      id: '/(app)/viewer/'
       path: '/viewer'
-      fullPath: '/viewer'
-      preLoaderRoute: typeof appviewerViewerRouteImport
+      fullPath: '/viewer/'
+      preLoaderRoute: typeof appViewerIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(app)/(editor)/editor': {
-      id: '/(app)/(editor)/editor'
+    '/(app)/editor/': {
+      id: '/(app)/editor/'
       path: '/editor'
-      fullPath: '/editor'
-      preLoaderRoute: typeof appeditorEditorRouteImport
+      fullPath: '/editor/'
+      preLoaderRoute: typeof appEditorIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -91,8 +87,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   staticIndexRoute: staticIndexRoute,
-  appeditorEditorRoute: appeditorEditorRoute,
-  appviewerViewerRoute: appviewerViewerRoute,
+  appEditorIndexRoute: appEditorIndexRoute,
+  appViewerIndexRoute: appViewerIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

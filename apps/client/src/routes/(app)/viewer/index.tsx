@@ -41,7 +41,7 @@ const ViewerComponent = () => {
   return null;
 };
 
-const Route = createFileRoute("/(app)/(viewer)/viewer")({
+const Route = createFileRoute("/(app)/viewer/")({
   component: ViewerComponent,
 });
 
