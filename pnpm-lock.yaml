@@ -43,6 +43,9 @@ importers:
       "@exiftools/write-exif-data":
         specifier: workspace:*
         version: link:../../packages/write-exif-data
+      "@react-leaflet/core":
+        specifier: ^3.0.0
+        version: 3.0.0(leaflet@1.9.4)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       "@std/path":
         specifier: npm:@jsr/std__path@^1.1.4
         version: "@jsr/std__path@1.1.4"
@@ -61,6 +64,9 @@ importers:
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4
+      leaflet-geosearch:
+        specifier: ^4.4.0
+        version: 4.4.0
       libexif-wasm:
         specifier: ^0.0.6
         version: 0.0.6
@@ -940,6 +946,12 @@ packages:
     resolution:
       {
         integrity: sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg==,
+      }
+
+  "@googlemaps/js-api-loader@1.16.10":
+    resolution:
+      {
+        integrity: sha512-c2erv2k7P2ilYzMmtYcMgAR21AULosQuUHJbStnrvRk2dG93k5cqptDrh9A8p+ZNlyhiqEOgHW7N9PAizdUM7Q==,
       }
 
   "@humanfs/core@0.19.1":
@@ -4572,6 +4584,12 @@ packages:
         integrity: sha512-4VVDnbOpLXy/s8rdRCSXb+zfMeFR0WlJWpET1iA9CQdlZDfwyLjUuGQzXU4VeOoey6AicSAluWan7Etga6Kcmg==,
       }
 
+  leaflet-geosearch@4.4.0:
+    resolution:
+      {
+        integrity: sha512-Pt/3JU0Oxvk+5ccGChNOV8yxk+Vl+3P83drGwW8/6ugF+K7zKPkx3naGDbPdhfeUmy+QuSCeVdvjN1jLCgwbaQ==,
+      }
+
   leaflet@1.9.4:
     resolution:
       {
@@ -6648,6 +6666,9 @@ snapshots:
       react-dom: 19.2.4(react@19.2.4)
 
   "@floating-ui/utils@0.2.11": {}
+
+  "@googlemaps/js-api-loader@1.16.10":
+    optional: true
 
   "@humanfs/core@0.19.1": {}
 
@@ -9245,6 +9266,11 @@ snapshots:
     dependencies:
       picocolors: 1.1.1
       shell-quote: 1.8.3
+
+  leaflet-geosearch@4.4.0:
+    optionalDependencies:
+      "@googlemaps/js-api-loader": 1.16.10
+      leaflet: 1.9.4
 
   leaflet@1.9.4: {}
 
