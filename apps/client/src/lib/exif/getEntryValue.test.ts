@@ -6,7 +6,7 @@ import {
 } from "libexif-wasm";
 import { describe, expect, it } from "vitest";
 
-import { parseRationals } from "./parseRationals";
+import { getEntryValue } from "./getEntryValue";
 
 const RATIONAL_SIZE = exifFormatGetSize("RATIONAL");
 
@@ -73,7 +73,7 @@ const RATIONALS_TABLE = [
   },
 ] as const;
 
-describe("parseRationals()", () => {
+describe("getEntryValue()", () => {
   describe("parses ExifEntry rationals", () => {
     it.each(RATIONALS_TABLE)(
       "should return the correct value for data $data and order $byteOrder",
@@ -90,7 +90,7 @@ describe("parseRationals()", () => {
         exifEntry.components = data.length / RATIONAL_SIZE;
         exifEntry.size = data.length;
 
-        expect(parseRationals(exifEntry)).toStrictEqual(expected);
+        expect(getEntryValue(exifEntry)).toStrictEqual(expected);
 
         exifEntry.free();
         exifContent.free();

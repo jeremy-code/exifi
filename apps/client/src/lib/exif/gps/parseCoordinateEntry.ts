@@ -2,16 +2,23 @@ import type { ExifEntry } from "libexif-wasm";
 
 import { isDirection, type DMS } from "#lib/leaflet/interfaces";
 
-import { parseRationals } from "../parseRationals";
+import { getEntryValue } from "../getEntryValue";
 
 const parseCoordinateEntry = (
   coordinateEntry: ExifEntry,
   coordinateRefEntry: ExifEntry,
 ): DMS => {
-  const [degrees, minutes, seconds] = parseRationals(coordinateEntry);
+  const [degrees, minutes, seconds] = getEntryValue(coordinateEntry);
   const coordinateRef = coordinateRefEntry.getValue();
 
-  if (degrees === undefined || minutes === undefined || seconds === undefined) {
+  if (
+    degrees === undefined ||
+    minutes === undefined ||
+    seconds === undefined ||
+    typeof degrees !== "number" ||
+    typeof minutes !== "number" ||
+    typeof seconds !== "number"
+  ) {
     throw new Error(
       `Exif entry "${coordinateEntry.tag}" has a corrupted value: ${coordinateEntry.getValue()}.`,
     );

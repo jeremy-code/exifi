@@ -4,8 +4,8 @@ import type { ExifContent } from "libexif-wasm";
 import { dmsToDecimalDegrees } from "#lib/leaflet/dmsToDecimalDegrees";
 
 import { parseCoordinateEntry } from "./parseCoordinateEntry";
+import { getEntryValue } from "../getEntryValue";
 import { getRequiredEntry } from "../getRequiredEntry";
-import { parseRationals } from "../parseRationals";
 
 const getLatLngFromExif = (exifDataGpsIfd: ExifContent): LatLng => {
   const latitude = dmsToDecimalDegrees(
@@ -25,8 +25,11 @@ const getLatLngFromExif = (exifDataGpsIfd: ExifContent): LatLng => {
   const altitudeRefEntry = exifDataGpsIfd.getEntry("ALTITUDE_REF");
 
   if (altitudeEntry !== null && altitudeRefEntry !== null) {
-    const absoluteAltitude = parseRationals(altitudeEntry)[0];
-    if (absoluteAltitude !== undefined) {
+    const absoluteAltitude = getEntryValue(altitudeEntry)[0];
+    if (
+      absoluteAltitude !== undefined &&
+      typeof absoluteAltitude === "number"
+    ) {
       const isSeaLevel = altitudeRefEntry.data[0] === 0;
       const altitude = isSeaLevel ? absoluteAltitude : -absoluteAltitude;
       return new LatLng(latitude, longitude, altitude);

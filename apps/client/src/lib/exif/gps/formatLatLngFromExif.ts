@@ -2,8 +2,8 @@ import type { ExifContent } from "libexif-wasm";
 
 import type { DMS } from "#lib/leaflet/interfaces";
 
+import { getEntryValue } from "../getEntryValue";
 import { getRequiredEntry } from "../getRequiredEntry";
-import { parseRationals } from "../parseRationals";
 import { parseCoordinateEntry } from "./parseCoordinateEntry";
 
 const formatCoordinate = ({
@@ -33,7 +33,7 @@ const formatLatLngFromExif = (exifDataGpsIfd: ExifContent): string => {
   const altitudeRefEntry = exifDataGpsIfd.getEntry("ALTITUDE_REF");
 
   if (altitudeEntry !== null && altitudeRefEntry !== null) {
-    const altitude = parseRationals(altitudeEntry)[0];
+    const altitude = getEntryValue(altitudeEntry)[0];
     if (altitude !== undefined) {
       const isSeaLevel = altitudeRefEntry.data[0] === 0;
       return `${latitude} ${longitude} ${!isSeaLevel ? "\u2212" : ""}${altitude}m`;
