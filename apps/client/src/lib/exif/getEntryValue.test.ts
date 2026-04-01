@@ -17,7 +17,11 @@ const RATIONALS_TABLE = [
       100,
     ]),
     byteOrder: "MOTOROLA",
-    expected: [33, 45, 40.15],
+    expected: [
+      { numerator: 33, denominator: 1 },
+      { numerator: 45, denominator: 1 },
+      { numerator: 4015, denominator: 100 },
+    ],
   },
   {
     data: new Uint8Array([
@@ -25,13 +29,17 @@ const RATIONALS_TABLE = [
       200,
     ]),
     byteOrder: "MOTOROLA",
-    expected: [117, 58, 5.125],
+    expected: [
+      { numerator: 117, denominator: 1 },
+      { numerator: 58, denominator: 1 },
+      { numerator: 1025, denominator: 200 },
+    ],
   },
 
   {
     data: new Uint8Array([0, 0, 14, 159, 0, 0, 0, 200]),
     byteOrder: "MOTOROLA",
-    expected: [18.715],
+    expected: [{ numerator: 3743, denominator: 200 }],
   },
   {
     data: new Uint8Array([
@@ -40,7 +48,11 @@ const RATIONALS_TABLE = [
     ]),
 
     byteOrder: "INTEL",
-    expected: [26, 34.951, 0],
+    expected: [
+      { numerator: 26, denominator: 1 },
+      { numerator: 349510, denominator: 10000 },
+      { numerator: 0, denominator: 1 },
+    ],
   },
   {
     data: new Uint8Array([
@@ -48,7 +60,11 @@ const RATIONALS_TABLE = [
       0,
     ]),
     byteOrder: "INTEL",
-    expected: [80, 12.014, 0],
+    expected: [
+      { numerator: 80, denominator: 1 },
+      { numerator: 120140, denominator: 10000 },
+      { numerator: 0, denominator: 1 },
+    ],
   },
   {
     data: new Uint8Array([
@@ -56,7 +72,11 @@ const RATIONALS_TABLE = [
       0, 0,
     ]),
     byteOrder: "INTEL",
-    expected: [33, 44, 40.1],
+    expected: [
+      { numerator: 33, denominator: 1 },
+      { numerator: 44, denominator: 1 },
+      { numerator: 4010, denominator: 100 },
+    ],
   },
   {
     data: new Uint8Array([
@@ -64,12 +84,16 @@ const RATIONALS_TABLE = [
       0,
     ]),
     byteOrder: "INTEL",
-    expected: [117, 58, 8.27],
+    expected: [
+      { numerator: 117, denominator: 1 },
+      { numerator: 58, denominator: 1 },
+      { numerator: 827, denominator: 100 },
+    ],
   },
   {
     data: new Uint8Array([95, 7, 0, 0, 100, 0, 0, 0]),
     byteOrder: "INTEL",
-    expected: [18.87],
+    expected: [{ numerator: 1887, denominator: 100 }],
   },
 ] as const;
 

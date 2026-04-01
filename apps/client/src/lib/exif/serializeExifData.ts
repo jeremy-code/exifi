@@ -8,7 +8,7 @@ import type {
   ExifEntry,
 } from "libexif-wasm";
 
-import { getEntryValue } from "./getEntryValue";
+import { getEntryValue, type EntryValue } from "./getEntryValue";
 
 type ExifIfd = Exclude<ExifIfdKey, "COUNT">;
 
@@ -19,7 +19,7 @@ type ExifEntryObject = {
   components: number;
   data: number[];
   size: number;
-  value: string | number[];
+  value: EntryValue;
   formattedValue: string | null;
 };
 

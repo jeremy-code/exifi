@@ -14,7 +14,7 @@ const MOCK_EXIF_DATA_OBJECT = {
         components: 1,
         data: [0, 0, 0, 72, 0, 0, 0, 1],
         size: 8,
-        value: [72],
+        value: [{ numerator: 72, denominator: 1 }],
         formattedValue: "72",
       },
       {
@@ -24,7 +24,7 @@ const MOCK_EXIF_DATA_OBJECT = {
         components: 1,
         data: [0, 0, 0, 72, 0, 0, 0, 1],
         size: 8,
-        value: [72],
+        value: [{ numerator: 72, denominator: 1 }],
         formattedValue: "72",
       },
       {
