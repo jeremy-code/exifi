@@ -87,6 +87,7 @@ const serializeExifData = (exifData: ExifData): ExifDataObject => {
 };
 
 export {
+  serializeExifEntry,
   type ExifEntryObject,
   type ExifIfdObject,
   type ExifDataObject,
