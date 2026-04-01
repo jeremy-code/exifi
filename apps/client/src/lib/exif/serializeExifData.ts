@@ -8,6 +8,8 @@ import type {
   ExifEntry,
 } from "libexif-wasm";
 
+import { getEntryValue } from "./getEntryValue";
+
 type ExifIfd = Exclude<ExifIfdKey, "COUNT">;
 
 type ExifEntryObject = {
@@ -17,7 +19,8 @@ type ExifEntryObject = {
   components: number;
   data: number[];
   size: number;
-  value: string | null;
+  value: string | number[];
+  formattedValue: string | null;
 };
 
 type ExifIfdObject = Record<ExifIfd, ExifEntryObject[]>;
@@ -51,7 +54,8 @@ const serializeExifEntry = (entry: ExifEntry): ExifEntryObject | null => {
     components: entry.components,
     data: Array.from(entry.data),
     size: entry.size,
-    value: entry.getValue(),
+    value: getEntryValue(entry),
+    formattedValue: entry.getValue(),
   };
 };
 

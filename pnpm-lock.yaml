@@ -50,8 +50,8 @@ importers:
         specifier: npm:@jsr/std__path@^1.1.4
         version: "@jsr/std__path@1.1.4"
       "@tanstack/react-query":
-        specifier: ^5.95.2
-        version: 5.95.2(react@19.2.4)
+        specifier: ^5.96.0
+        version: 5.96.0(react@19.2.4)
       "@tanstack/react-router":
         specifier: ^1.168.10
         version: 1.168.10(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -68,8 +68,8 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0
       libexif-wasm:
-        specifier: ^0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
       lucide-react:
         specifier: ^1.7.0
         version: 1.7.0(react@19.2.4)
@@ -126,8 +126,8 @@ importers:
         specifier: ^0.10.0
         version: 0.10.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(csstype@3.2.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(solid-js@1.9.11)
       "@tanstack/react-query-devtools":
-        specifier: ^5.95.2
-        version: 5.95.2(@tanstack/react-query@5.95.2(react@19.2.4))(react@19.2.4)
+        specifier: ^5.96.0
+        version: 5.96.0(@tanstack/react-query@5.96.0(react@19.2.4))(react@19.2.4)
       "@tanstack/react-router-devtools":
         specifier: ^1.166.11
         version: 1.166.11(@tanstack/react-router@1.168.10(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@tanstack/router-core@1.168.9)(csstype@3.2.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -186,14 +186,14 @@ importers:
         specifier: ^9.39.4
         version: 9.39.4
       "@tanstack/eslint-plugin-query":
-        specifier: ^5.95.2
-        version: 5.95.2(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+        specifier: ^5.96.0
+        version: 5.96.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
       "@tanstack/eslint-plugin-router":
         specifier: ^1.161.6
         version: 1.161.6(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
       "@vitest/eslint-plugin":
-        specifier: ^1.6.13
-        version: 1.6.13(@typescript-eslint/eslint-plugin@8.58.0(@typescript-eslint/parser@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)(vitest@4.1.2)
+        specifier: ^1.6.14
+        version: 1.6.14(@typescript-eslint/eslint-plugin@8.58.0(@typescript-eslint/parser@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)(vitest@4.1.2)
       eslint-import-resolver-typescript:
         specifier: ^4.4.4
         version: 4.4.4(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1)))(eslint@9.39.4(jiti@2.6.1))
@@ -210,8 +210,8 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1(eslint@9.39.4(jiti@2.6.1))
       eslint-plugin-turbo:
-        specifier: ^2.9.1
-        version: 2.9.1(eslint@9.39.4(jiti@2.6.1))(turbo@2.9.1)
+        specifier: ^2.9.3
+        version: 2.9.3(eslint@9.39.4(jiti@2.6.1))(turbo@2.9.1)
       globals:
         specifier: ^17.4.0
         version: 17.4.0
@@ -2750,10 +2750,10 @@ packages:
     peerDependencies:
       solid-js: ">=1.9.7"
 
-  "@tanstack/eslint-plugin-query@5.95.2":
+  "@tanstack/eslint-plugin-query@5.96.0":
     resolution:
       {
-        integrity: sha512-EYUFRaqjBep4EHMPpZR12sXP7Kr5qv9iDIlq93NfbhHwhITaW6Txu3ROO6dLFz5r84T8p+oZXBG77pa2Wuok7A==,
+        integrity: sha512-iPxSM1lNBzz63scYaudGeJk4yqb51MpvnX2GUmBjEvoLLwcaCTZg+OQmjmaoe5o3TApQZK8INYnmYhN4p4uxuQ==,
       }
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
@@ -2777,16 +2777,16 @@ packages:
       }
     engines: { node: ">=20.19" }
 
-  "@tanstack/query-core@5.95.2":
+  "@tanstack/query-core@5.96.0":
     resolution:
       {
-        integrity: sha512-o4T8vZHZET4Bib3jZ/tCW9/7080urD4c+0/AUaYVpIqOsr7y0reBc1oX3ttNaSW5mYyvZHctiQ/UOP2PfdmFEQ==,
+        integrity: sha512-sfO3uQeol1BU7cRP6NYY7nAiX3GiNY20lI/dtSbKLwcIkYw/X+w/tEsQAkc544AfIhBX/IvH/QYtPHrPhyAKGw==,
       }
 
-  "@tanstack/query-devtools@5.95.2":
+  "@tanstack/query-devtools@5.96.0":
     resolution:
       {
-        integrity: sha512-QfaoqBn9uAZ+ICkA8brd1EHj+qBF6glCFgt94U8XP5BT6ppSsDBI8IJ00BU+cAGjQzp6wcKJL2EmRYvxy0TWIg==,
+        integrity: sha512-MEdO1M/9ItB62OtTqVo8AIj/G6vJemA642N56bw8aIqpXKIj5VG/3xWgh2piw76NmoCIlapxjjWp1MMLmrvKJw==,
       }
 
   "@tanstack/react-devtools@0.10.0":
@@ -2801,19 +2801,19 @@ packages:
       react: ">=16.8"
       react-dom: ">=16.8"
 
-  "@tanstack/react-query-devtools@5.95.2":
+  "@tanstack/react-query-devtools@5.96.0":
     resolution:
       {
-        integrity: sha512-AFQFmbznVkbtfpx8VJ2DylW17wWagQel/qLstVLkYmNRo2CmJt3SNej5hvl6EnEeljJIdC3BTB+W7HZtpsH+3g==,
+        integrity: sha512-P0WFX0s3iYii4oZTSCK9T3/PBQ9uY/SVTzcZFbyzCo5ujeIAsqos3HjBWoF/lhJXWVe8UXkjAmgXr3TUD11q2A==,
       }
     peerDependencies:
-      "@tanstack/react-query": ^5.95.2
+      "@tanstack/react-query": ^5.96.0
       react: ^18 || ^19
 
-  "@tanstack/react-query@5.95.2":
+  "@tanstack/react-query@5.96.0":
     resolution:
       {
-        integrity: sha512-/wGkvLj/st5Ud1Q76KF1uFxScV7WeqN1slQx5280ycwAyYkIPGaRZAEgHxe3bjirSd5Zpwkj6zNcR4cqYni/ZA==,
+        integrity: sha512-6qbjdm1K5kizVKv9TNqhIN3doq2anRhdF2XaFMFSn4m8L22S69RV+FilvlyVT4RoJyMxtPU5rs4RpdFa/PEC7A==,
       }
     peerDependencies:
       react: ^18 || ^19
@@ -3487,10 +3487,10 @@ packages:
     peerDependencies:
       vitest: 4.1.2
 
-  "@vitest/eslint-plugin@1.6.13":
+  "@vitest/eslint-plugin@1.6.14":
     resolution:
       {
-        integrity: sha512-ui7JGWBoQpS5NKKW0FDb1eTuFEZ5EupEv2Psemuyfba7DfA5K52SeDLelt6P4pQJJ/4UGkker/BgMk/KrjH3WQ==,
+        integrity: sha512-PXZ5ysw4eHU9h8nDtBvVcGC7Z2C/T9CFdheqSw1NNXFYqViojub0V9bgdYI67iBTOcra2mwD0EYldlY9bGPf2Q==,
       }
     engines: { node: ">=18" }
     peerDependencies:
@@ -4341,10 +4341,10 @@ packages:
       eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
       typescript: ">=4.8.4 <6.0.0"
 
-  eslint-plugin-turbo@2.9.1:
+  eslint-plugin-turbo@2.9.3:
     resolution:
       {
-        integrity: sha512-JokSUoAaP+IBnOC/CwKyfU4U08+KUKBEwVkbp117UBFhItVZSUKBP3qL7Fabm9vtPv95UujWGVDYao13PC3q6w==,
+        integrity: sha512-64Zgp0eb42D8fD0a0gktpk9gTgHd2sQGx3UL5n4bSoV9E213Rj+swyRaRrqy9ej2J9ajzwOSj9hN5jOnkb38Dg==,
       }
     peerDependencies:
       eslint: ">6.6.0"
@@ -4934,10 +4934,10 @@ packages:
       }
     engines: { node: ">= 0.8.0" }
 
-  libexif-wasm@0.0.6:
+  libexif-wasm@0.0.7:
     resolution:
       {
-        integrity: sha512-uCUHXyROIsq/dYTOed8b7uj8d8RNiqP+fhH/85PBSSzGoAQTGP9AGwBysJTbfDlQ9xMIrGK2p9s6cEnIC6XBNA==,
+        integrity: sha512-Nd8+cuX1wGgz8NiOsATa+6LXBcXuPSCVvLOZ9mvJfpa1SU0kp+LtT53gjY1jY4CTFKB8nP1cekr9P2IPpHjDLw==,
       }
     engines: { node: ">=16.0.0" }
 
@@ -8249,9 +8249,9 @@ snapshots:
       - csstype
       - utf-8-validate
 
-  "@tanstack/eslint-plugin-query@5.95.2(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)":
+  "@tanstack/eslint-plugin-query@5.96.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)":
     dependencies:
-      "@typescript-eslint/utils": 8.57.2(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+      "@typescript-eslint/utils": 8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
       eslint: 9.39.4(jiti@2.6.1)
     optionalDependencies:
       typescript: 5.9.3
@@ -8268,9 +8268,9 @@ snapshots:
 
   "@tanstack/history@1.161.6": {}
 
-  "@tanstack/query-core@5.95.2": {}
+  "@tanstack/query-core@5.96.0": {}
 
-  "@tanstack/query-devtools@5.95.2": {}
+  "@tanstack/query-devtools@5.96.0": {}
 
   "@tanstack/react-devtools@0.10.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(csstype@3.2.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(solid-js@1.9.11)":
     dependencies:
@@ -8285,15 +8285,15 @@ snapshots:
       - solid-js
       - utf-8-validate
 
-  "@tanstack/react-query-devtools@5.95.2(@tanstack/react-query@5.95.2(react@19.2.4))(react@19.2.4)":
+  "@tanstack/react-query-devtools@5.96.0(@tanstack/react-query@5.96.0(react@19.2.4))(react@19.2.4)":
     dependencies:
-      "@tanstack/query-devtools": 5.95.2
-      "@tanstack/react-query": 5.95.2(react@19.2.4)
+      "@tanstack/query-devtools": 5.96.0
+      "@tanstack/react-query": 5.96.0(react@19.2.4)
       react: 19.2.4
 
-  "@tanstack/react-query@5.95.2(react@19.2.4)":
+  "@tanstack/react-query@5.96.0(react@19.2.4)":
     dependencies:
-      "@tanstack/query-core": 5.95.2
+      "@tanstack/query-core": 5.96.0
       react: 19.2.4
 
   "@tanstack/react-router-devtools@1.166.11(@tanstack/react-router@1.168.10(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@tanstack/router-core@1.168.9)(csstype@3.2.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)":
@@ -8802,10 +8802,10 @@ snapshots:
       - utf-8-validate
       - vite
 
-  "@vitest/eslint-plugin@1.6.13(@typescript-eslint/eslint-plugin@8.58.0(@typescript-eslint/parser@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)(vitest@4.1.2)":
+  "@vitest/eslint-plugin@1.6.14(@typescript-eslint/eslint-plugin@8.58.0(@typescript-eslint/parser@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)(vitest@4.1.2)":
     dependencies:
-      "@typescript-eslint/scope-manager": 8.57.2
-      "@typescript-eslint/utils": 8.57.2(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+      "@typescript-eslint/scope-manager": 8.58.0
+      "@typescript-eslint/utils": 8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
       eslint: 9.39.4(jiti@2.6.1)
     optionalDependencies:
       "@typescript-eslint/eslint-plugin": 8.58.0(@typescript-eslint/parser@8.58.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
@@ -9431,7 +9431,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-turbo@2.9.1(eslint@9.39.4(jiti@2.6.1))(turbo@2.9.1):
+  eslint-plugin-turbo@2.9.3(eslint@9.39.4(jiti@2.6.1))(turbo@2.9.1):
     dependencies:
       dotenv: 16.0.3
       eslint: 9.39.4(jiti@2.6.1)
@@ -9799,7 +9799,7 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  libexif-wasm@0.0.6: {}
+  libexif-wasm@0.0.7: {}
 
   lightningcss-android-arm64@1.32.0:
     optional: true

@@ -70,7 +70,7 @@ const columns = [
   columnHelper.accessor("ifd", { header: "Ifd" }),
   columnHelper.accessor("tag", { header: "Tag" }),
   columnHelper.accessor("format", { header: "Format" }),
-  columnHelper.accessor("value", { header: "Value", cell: ValueCell }),
+  columnHelper.accessor("formattedValue", { header: "Value", cell: ValueCell }),
 ];
 
 const fallbackData: ExifEntryObject[] = [];

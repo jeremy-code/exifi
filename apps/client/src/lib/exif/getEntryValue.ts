@@ -16,7 +16,7 @@ const getEntryValue = (exifEntry: ExifEntry) => {
   }
 
   const byteOrder = exifEntry.parent?.parent?.getByteOrder() ?? "MOTOROLA";
-  const size = exifFormatGetSize("RATIONAL");
+  const size = exifFormatGetSize(format);
 
   switch (format) {
     case "BYTE":
