@@ -1,17 +1,17 @@
 import type { ExifEntry } from "libexif-wasm";
 
 import { isDirection, type DMS } from "#lib/leaflet/interfaces";
+import { Rational } from "#lib/math/Rational";
 
 import { getEntryValue } from "../getEntryValue";
-import { isRational } from "../interfaces";
 
 const parseCoordinateEntry = (
   coordinateEntry: ExifEntry,
   coordinateRefEntry: ExifEntry,
 ): DMS => {
   const [degrees, minutes, seconds] = [...getEntryValue(coordinateEntry)]
-    .filter((coordinate) => isRational(coordinate))
-    .map((rational) => rational.numerator / rational.denominator);
+    .filter((coordinate) => coordinate instanceof Rational)
+    .map((rational) => rational.valueOf());
   const coordinateRef = coordinateRefEntry.getValue();
 
   if (degrees === undefined || minutes === undefined || seconds === undefined) {

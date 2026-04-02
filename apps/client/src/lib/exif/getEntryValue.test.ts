@@ -6,6 +6,8 @@ import {
 } from "libexif-wasm";
 import { describe, expect, it } from "vitest";
 
+import { Rational } from "#lib/math/Rational";
+
 import { getEntryValue } from "./getEntryValue";
 
 const RATIONAL_SIZE = exifFormatGetSize("RATIONAL");
@@ -18,9 +20,9 @@ const RATIONALS_TABLE = [
     ]),
     byteOrder: "MOTOROLA",
     expected: [
-      { numerator: 33, denominator: 1 },
-      { numerator: 45, denominator: 1 },
-      { numerator: 4015, denominator: 100 },
+      new Rational(33, 1),
+      new Rational(45, 1),
+      new Rational(4015, 100),
     ],
   },
   {
@@ -30,16 +32,16 @@ const RATIONALS_TABLE = [
     ]),
     byteOrder: "MOTOROLA",
     expected: [
-      { numerator: 117, denominator: 1 },
-      { numerator: 58, denominator: 1 },
-      { numerator: 1025, denominator: 200 },
+      new Rational(117, 1),
+      new Rational(58, 1),
+      new Rational(1025, 200),
     ],
   },
 
   {
     data: new Uint8Array([0, 0, 14, 159, 0, 0, 0, 200]),
     byteOrder: "MOTOROLA",
-    expected: [{ numerator: 3743, denominator: 200 }],
+    expected: [new Rational(3743, 200)],
   },
   {
     data: new Uint8Array([
@@ -49,9 +51,9 @@ const RATIONALS_TABLE = [
 
     byteOrder: "INTEL",
     expected: [
-      { numerator: 26, denominator: 1 },
-      { numerator: 349510, denominator: 10000 },
-      { numerator: 0, denominator: 1 },
+      new Rational(26, 1),
+      new Rational(349510, 10000),
+      new Rational(0, 1),
     ],
   },
   {
@@ -61,9 +63,9 @@ const RATIONALS_TABLE = [
     ]),
     byteOrder: "INTEL",
     expected: [
-      { numerator: 80, denominator: 1 },
-      { numerator: 120140, denominator: 10000 },
-      { numerator: 0, denominator: 1 },
+      new Rational(80, 1),
+      new Rational(120140, 10000),
+      new Rational(0, 1),
     ],
   },
   {
@@ -73,9 +75,9 @@ const RATIONALS_TABLE = [
     ]),
     byteOrder: "INTEL",
     expected: [
-      { numerator: 33, denominator: 1 },
-      { numerator: 44, denominator: 1 },
-      { numerator: 4010, denominator: 100 },
+      new Rational(33, 1),
+      new Rational(44, 1),
+      new Rational(4010, 100),
     ],
   },
   {
@@ -85,15 +87,15 @@ const RATIONALS_TABLE = [
     ]),
     byteOrder: "INTEL",
     expected: [
-      { numerator: 117, denominator: 1 },
-      { numerator: 58, denominator: 1 },
-      { numerator: 827, denominator: 100 },
+      new Rational(117, 1),
+      new Rational(58, 1),
+      new Rational(827, 100),
     ],
   },
   {
     data: new Uint8Array([95, 7, 0, 0, 100, 0, 0, 0]),
     byteOrder: "INTEL",
-    expected: [{ numerator: 1887, denominator: 100 }],
+    expected: [new Rational(1887, 100)],
   },
 ] as const;
 

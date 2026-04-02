@@ -9,7 +9,7 @@ import {
   exifGetSRational,
 } from "libexif-wasm";
 
-import type { Rational } from "./interfaces";
+import { Rational } from "#lib/math/Rational";
 
 type EntryValue = string | Rational[] | number[];
 
@@ -43,30 +43,14 @@ const getEntryValue = (exifEntry: ExifEntry): EntryValue => {
             exifEntry.data.subarray(offset, offset + size),
             byteOrder,
           );
-          if (rational.denominator === 0) {
-            throw new Error(
-              `Exif entry "${exifEntry.tag}" has a rational with a denominator of 0.`,
-            );
-          }
-          return {
-            numerator: rational.numerator,
-            denominator: rational.denominator,
-          };
+          return new Rational(rational.numerator, rational.denominator);
         }
         case "SRATIONAL": {
           const sRational = exifGetSRational(
             exifEntry.data.subarray(offset, offset + size),
             byteOrder,
           );
-          if (sRational.denominator === 0) {
-            throw new Error(
-              `Exif entry "${exifEntry.tag}" has a signed rational with a denominator of 0.`,
-            );
-          }
-          return {
-            numerator: sRational.numerator,
-            denominator: sRational.denominator,
-          };
+          return new Rational(sRational.numerator, sRational.denominator);
         }
       }
     });

@@ -1,11 +1,11 @@
 import type { ExifContent } from "libexif-wasm";
 
 import type { DMS } from "#lib/leaflet/interfaces";
+import { Rational } from "#lib/math/Rational";
 
 import { getEntryValue } from "../getEntryValue";
 import { getRequiredEntry } from "../getRequiredEntry";
 import { parseCoordinateEntry } from "./parseCoordinateEntry";
-import { isRational } from "../interfaces";
 
 const formatCoordinate = ({
   degrees,
@@ -34,12 +34,10 @@ const formatLatLngFromExif = (exifDataGpsIfd: ExifContent): string => {
   const altitudeRefEntry = exifDataGpsIfd.getEntry("ALTITUDE_REF");
 
   if (altitudeEntry !== null && altitudeRefEntry !== null) {
-    const altitudeRational = getEntryValue(altitudeEntry)[0];
-    if (altitudeRational !== undefined && isRational(altitudeRational)) {
-      const altitude =
-        altitudeRational.numerator / altitudeRational.denominator;
+    const altitude = getEntryValue(altitudeEntry)[0];
+    if (altitude !== undefined && altitude instanceof Rational) {
       const isSeaLevel = altitudeRefEntry.data[0] === 0;
-      return `${latitude} ${longitude} ${!isSeaLevel ? "\u2212" : ""}${altitude}m`;
+      return `${latitude} ${longitude} ${!isSeaLevel ? "\u2212" : ""}${altitude.valueOf()}m`;
     }
   }
 
