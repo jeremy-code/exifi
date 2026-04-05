@@ -9,12 +9,15 @@ import {
   useReactTable,
   type CellContext,
 } from "@tanstack/react-table";
-import type { ExifSupportLevelKey } from "libexif-wasm";
+import {
+  getExifTagTable,
+  type SupportLevel,
+  type TagEntry,
+} from "libexif-wasm";
 
 import { ColumnResizer } from "#components/table/ColumnResizer";
 import { ExpandRows } from "#components/table/ExpandRows";
 import { SortingHandlerToggle } from "#components/table/SortingHandlerToggle";
-import { getExifTagTable, type ExifTag } from "#lib/exif/getExifTagTable";
 import { formatPlural } from "#utils/formatPlural";
 import { titlecase } from "#utils/titlecase";
 import { Badge } from "@exiftools/ui/components/Badge";
@@ -30,9 +33,9 @@ import {
 
 const exifTagTable = getExifTagTable();
 
-const columnHelper = createColumnHelper<ExifTag>();
+const columnHelper = createColumnHelper<TagEntry>();
 
-const SupportLevelCell = (props: CellContext<ExifTag, ExifSupportLevelKey>) => {
+const SupportLevelCell = (props: CellContext<TagEntry, SupportLevel>) => {
   const value = props.getValue();
 
   if (value === "UNKNOWN") {
@@ -64,23 +67,23 @@ const columns = [
     id: "supportLevel",
     header: "Support Level",
     columns: [
-      columnHelper.accessor("supportLevel.IFD_0", {
+      columnHelper.accessor("esl.IFD_0", {
         header: () => "IFD 0",
         cell: SupportLevelCell,
       }),
-      columnHelper.accessor("supportLevel.IFD_1", {
+      columnHelper.accessor("esl.IFD_1", {
         header: () => "IFD 1",
         cell: SupportLevelCell,
       }),
-      columnHelper.accessor("supportLevel.EXIF", {
+      columnHelper.accessor("esl.EXIF", {
         header: () => "EXIF",
         cell: SupportLevelCell,
       }),
-      columnHelper.accessor("supportLevel.GPS", {
+      columnHelper.accessor("esl.GPS", {
         header: () => "GPS",
         cell: SupportLevelCell,
       }),
-      columnHelper.accessor("supportLevel.INTEROPERABILITY", {
+      columnHelper.accessor("esl.INTEROPERABILITY", {
         header: () => "Interoperability",
         cell: SupportLevelCell,
       }),

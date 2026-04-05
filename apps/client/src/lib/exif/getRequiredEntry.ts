@@ -1,8 +1,8 @@
-import type { ExifContent, ExifEntry, ExifTagUnifiedKey } from "libexif-wasm";
+import type { ExifContent, ExifEntry, Tag } from "libexif-wasm";
 
 const getRequiredEntry = (
   exifContent: ExifContent,
-  exifTag: ExifTagUnifiedKey,
+  exifTag: Tag,
 ): ExifEntry => {
   const exifEntry = exifContent.getEntry(exifTag);
 
