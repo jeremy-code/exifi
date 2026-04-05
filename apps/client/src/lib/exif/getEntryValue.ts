@@ -19,14 +19,14 @@ const getEntryValue = (exifEntry: ExifEntry): EntryValue => {
     throw new Error("Entry has null format");
   }
 
-  const byteOrder = exifEntry.parent?.parent?.getByteOrder() ?? "MOTOROLA";
+  const byteOrder = exifEntry.byteOrder;
   const size = exifFormatGetSize(format);
 
   switch (format) {
     case "BYTE":
       return Array.from(exifEntry.data);
     case "ASCII":
-      return exifEntry.getValue() ?? "";
+      return exifEntry.value;
     case "UNDEFINED":
       return Array.from(exifEntry.data);
     case "SBYTE":

@@ -1,21 +1,19 @@
 import type {
   ExifData,
-  ExifIfdKey,
-  ExifFormatKey,
-  ExifTagUnifiedKey,
-  ExifDataTypeKey,
-  ExifByteOrderKey,
   ExifEntry,
+  Ifd,
+  Tag,
+  Format,
+  DataType,
+  ByteOrder,
 } from "libexif-wasm";
 
 import { getEntryValue, type EntryValue } from "./getEntryValue";
 
-type ExifIfd = Exclude<ExifIfdKey, "COUNT">;
-
 type ExifEntryObject = {
-  ifd: ExifIfd;
-  tag: ExifTagUnifiedKey;
-  format: ExifFormatKey;
+  ifd: Ifd;
+  tag: Tag;
+  format: Format;
   components: number;
   data: number[];
   size: number;
@@ -23,13 +21,13 @@ type ExifEntryObject = {
   formattedValue: string | null;
 };
 
-type ExifIfdObject = Record<ExifIfd, ExifEntryObject[]>;
+type ExifIfdObject = Record<Ifd, ExifEntryObject[]>;
 
 type ExifDataObject = {
   ifd: ExifIfdObject;
   data: number[];
-  dataType: ExifDataTypeKey | null;
-  byteOrder: ExifByteOrderKey | null;
+  dataType: DataType | null;
+  byteOrder: ByteOrder | null;
 };
 
 const EMPTY_EXIF_IFD_OBJECT: ExifIfdObject = {
@@ -41,7 +39,7 @@ const EMPTY_EXIF_IFD_OBJECT: ExifIfdObject = {
 };
 
 const serializeExifEntry = (entry: ExifEntry): ExifEntryObject | null => {
-  const ifd = entry.getIfd();
+  const ifd = entry.ifd;
 
   if (entry.tag === null || entry.format === null || ifd === null) {
     return null;
@@ -55,7 +53,7 @@ const serializeExifEntry = (entry: ExifEntry): ExifEntryObject | null => {
     data: Array.from(entry.data),
     size: entry.size,
     value: getEntryValue(entry),
-    formattedValue: entry.getValue(),
+    formattedValue: entry.value,
   };
 };
 
@@ -67,7 +65,7 @@ const serializeExifEntry = (entry: ExifEntry): ExifEntryObject | null => {
 const serializeExifData = (exifData: ExifData): ExifDataObject => {
   const ifd = exifData.ifd.reduce(
     (acc, exifContent) => {
-      const ifdName = exifContent.getIfd();
+      const ifdName = exifContent.ifd;
       if (ifdName !== null && exifContent.count !== 0) {
         acc[ifdName] = exifContent.entries
           .map(serializeExifEntry)
@@ -81,8 +79,8 @@ const serializeExifData = (exifData: ExifData): ExifDataObject => {
   return {
     data: Array.from(exifData.data),
     ifd,
-    dataType: exifData.getDataType(),
-    byteOrder: exifData.getByteOrder(),
+    dataType: exifData.dataType,
+    byteOrder: exifData.byteOrder,
   };
 };
 

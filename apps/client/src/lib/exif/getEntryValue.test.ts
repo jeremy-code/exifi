@@ -105,7 +105,7 @@ describe("getEntryValue()", () => {
       "should return the correct value for data $data and order $byteOrder",
       ({ data, byteOrder, expected }) => {
         const exifData = ExifData.new();
-        exifData.setByteOrder(byteOrder);
+        exifData.byteOrder = byteOrder;
         const exifContent = ExifContent.new();
         exifContent.parent = exifData;
         const exifEntry = ExifEntry.new();

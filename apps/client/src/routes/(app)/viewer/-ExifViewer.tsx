@@ -70,14 +70,19 @@ const ExifViewer = ({ file, className, ...props }: ExifViewerProps) => {
         // Expand all nonempty IFDs
         defaultValue={exifData.ifd
           .filter((ifd) => ifd.count !== 0)
-          .map((ifd) => ifd.getIfd() ?? "COUNT")}
+          .map((ifd) => ifd.ifd)
+          .filter((ifd) => ifd !== null)}
         variant="enclosed"
         type="multiple"
         size="lg"
         className="shadow-sm"
       >
         {exifData.ifd.map((ifd) => {
-          const ifdName = ifd.getIfd() ?? "COUNT";
+          const ifdName = ifd.ifd;
+          if (ifdName === null) {
+            throw new Error("Invalid IFD");
+          }
+
           const isEmpty = ifd.count === 0;
 
           return (
@@ -124,7 +129,7 @@ const ExifViewer = ({ file, className, ...props }: ExifViewerProps) => {
                               : title}
                             </DataListItemLabel>
                             <DataListItemValue className="relative before:relative before:left-0 before:pr-1.5 before:text-muted-foreground before:content-['=']">
-                              {entry.getValue()}
+                              {entry.value}
                             </DataListItemValue>
                           </DataListItem>
                         );

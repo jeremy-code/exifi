@@ -5,7 +5,7 @@ import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 const MOCK_EXIF_DATA_OBJECT = {
   byteOrder: "MOTOROLA",
   data: [],
-  dataType: "COUNT",
+  dataType: null,
   ifd: {
     IFD_0: [
       {

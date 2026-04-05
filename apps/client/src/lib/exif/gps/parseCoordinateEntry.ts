@@ -12,16 +12,16 @@ const parseCoordinateEntry = (
   const [degrees, minutes, seconds] = [...getEntryValue(coordinateEntry)]
     .filter((coordinate) => coordinate instanceof Rational)
     .map((rational) => rational.valueOf());
-  const coordinateRef = coordinateRefEntry.getValue();
+  const coordinateRef = coordinateRefEntry.value;
 
   if (degrees === undefined || minutes === undefined || seconds === undefined) {
     throw new Error(
-      `Exif entry "${coordinateEntry.tag}" has a corrupted value: ${coordinateEntry.getValue()}.`,
+      `Exif entry "${coordinateEntry.tag}" has a corrupted value: ${coordinateEntry.value}.`,
     );
   }
   if (!isDirection(coordinateRef)) {
     throw new Error(
-      `Exif entry "${coordinateRefEntry.tag}" has an invalid value: ${coordinateRefEntry.getValue()}.`,
+      `Exif entry "${coordinateRefEntry.tag}" has an invalid value: ${coordinateRefEntry.value}.`,
     );
   }
 

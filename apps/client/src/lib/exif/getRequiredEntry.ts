@@ -8,7 +8,7 @@ const getRequiredEntry = (
 
   if (exifEntry === null) {
     throw new Error(
-      `Required tag "${exifTag}" was not found in ifd ${exifContent.getIfd()}.`,
+      `Required tag "${exifTag}" was not found in ifd ${exifContent.ifd}.`,
     );
   }
   return exifEntry;
