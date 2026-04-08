@@ -27,6 +27,10 @@
     var(--color-gray-600)
   );
   --color-border: light-dark(var(--color-gray-300), var(--color-gray-700));
+  --color-border-hover: light-dark(
+    --alpha(var(--color-gray-400) / 80%),
+    var(--color-gray-600)
+  );
   --color-solid: var(--color-gray-600);
   --color-surface: light-dark(var(--color-gray-50), var(--color-gray-900));
 }
