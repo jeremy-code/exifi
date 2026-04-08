@@ -1,3 +1,5 @@
+import { Decimal } from "decimal.js";
+
 const DEFAULT_MAX_ITERATIONS = 10;
 const DEFAULT_TOLERANCE = 1e-10; // = 1/10_000_000_000
 
@@ -8,26 +10,26 @@ const DEFAULT_TOLERANCE = 1e-10; // = 1/10_000_000_000
  * @see {@link https://en.wikipedia.org/wiki/Simple_continued_fraction}
  */
 const getContinuedFraction = (
-  value: number,
+  value: Decimal.Value,
   maxIterations = DEFAULT_MAX_ITERATIONS,
   tolerance = DEFAULT_TOLERANCE,
 ): number[] => {
   const coefficients: number[] = [];
-  let remainder = value;
+  let remainder = new Decimal(value);
 
   for (let i = 0; i < maxIterations; i++) {
-    const integerPart = Math.floor(remainder);
-    const fractionalPart = remainder - integerPart;
-    coefficients.push(integerPart);
+    const integerPart = remainder.floor();
+    const fractionalPart = remainder.minus(integerPart);
+    coefficients.push(integerPart.toNumber());
 
     // The remainder is negligible — there exists a sufficiently close rational
     // representation.
-    if (Math.abs(fractionalPart) < tolerance) {
+    if (fractionalPart.lessThan(tolerance)) {
       break;
     }
 
     // Reciprocal of the fractional part becomes the next coefficient
-    remainder = 1 / fractionalPart;
+    remainder = Decimal.div(1, fractionalPart);
   }
 
   return coefficients;
@@ -36,36 +38,6 @@ const getContinuedFraction = (
 type RationalObject = {
   numerator: number;
   denominator: number;
-};
-
-/**
- * Converts a list of continued-fraction coefficients [a₀, a₁, …, aₙ] back
- * into a rational p/q by evaluating the convergents from the tail inward
- *
- * The recurrence is:
- *   h_n = a_n,  h_{i} = a_i · h_{i+1} + h_{i+2}   (numerators)
- *   k_n = 1,    k_{i} = a_i · k_{i+1} + k_{i+2}   (denominators)
- */
-const convergentFromCoefficients = (coefficients: number[]): RationalObject => {
-  if (coefficients.length === 0) {
-    throw new RangeError(
-      "Cannot build a convergent from an empty coefficient list.",
-    );
-  }
-
-  const convergent = coefficients.toReversed().reduce<[number, number]>(
-    ([numerator, denominator], coefficient, index) => {
-      // First element (original a_n) initializes the first convergent
-      if (index === 0) {
-        return [coefficient, 1];
-      }
-
-      return [coefficient * numerator + denominator, numerator];
-    },
-    [0, 1], // dummy initialValue, overridden on first iteration
-  );
-
-  return { numerator: convergent[0], denominator: convergent[1] };
 };
 
 /**
@@ -79,6 +51,8 @@ const approximateRational = (
   value: number,
   maxIterations = DEFAULT_MAX_ITERATIONS,
   tolerance = DEFAULT_TOLERANCE,
+  maxNumerator?: number,
+  maxDenominator?: number,
 ): RationalObject => {
   if (!Number.isFinite(value)) {
     throw new RangeError(
@@ -90,9 +64,20 @@ const approximateRational = (
       `maxIterations must be a positive integer, but received: ${maxIterations}`,
     );
   }
+  if (!Number.isFinite(tolerance) || tolerance < 0) {
+    throw new RangeError(
+      `tolerance must be a non-negative finite number, but received: ${tolerance}`,
+    );
+  }
 
   if (value < 0) {
-    const rational = approximateRational(-value, maxIterations, tolerance);
+    const rational = approximateRational(
+      -value,
+      maxIterations,
+      tolerance,
+      maxNumerator,
+      maxDenominator,
+    );
     return {
       numerator: -rational.numerator,
       denominator: rational.denominator,
@@ -101,7 +86,56 @@ const approximateRational = (
 
   const coefficients = getContinuedFraction(value, maxIterations, tolerance);
 
-  return convergentFromCoefficients(coefficients);
+  if (coefficients.length === 0) {
+    throw new RangeError(
+      "Cannot build a convergent from an empty coefficient list.",
+    );
+  }
+
+  let p2 = 0;
+  let q2 = 1; // p_{k-2}, q_{k-2}
+  let p1 = 1;
+  let q1 = 0; // p_{k-1}, q_{k-1}
+
+  // Tracks the last convergent that was within bounds. Starts undefined so we
+  // can detect the edge case where even the first convergent (a_0/1) is too big.
+  let lastValid: RationalObject | undefined;
+
+  for (const a of coefficients) {
+    const p = a * p1 + p2;
+    const q = a * q1 + q2;
+
+    if (
+      (maxNumerator !== undefined && p > maxNumerator) ||
+      (maxDenominator !== undefined && q > maxDenominator)
+    ) {
+      // This convergent overshoots — stop and use the previous one.
+      break;
+    }
+
+    lastValid = { numerator: p, denominator: q };
+    p2 = p1;
+    q2 = q1;
+    p1 = p;
+    q1 = q;
+  }
+
+  if (lastValid === undefined) {
+    if (maxNumerator === undefined || maxDenominator === undefined) {
+      throw new Error(
+        "Unable to find convergent despite numerator and denomintor not being constrained",
+      );
+    }
+
+    // Even a_0/1 exceeded bounds. The best we can do is clamp to the integer
+    // part or, if that is also 0, return 0/1.
+    return {
+      numerator: Math.min(coefficients[0]!, maxNumerator),
+      denominator: 1,
+    };
+  }
+
+  return lastValid;
 };
 
-export { approximateRational };
+export { getContinuedFraction, approximateRational };

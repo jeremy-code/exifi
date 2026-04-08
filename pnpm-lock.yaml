@@ -61,6 +61,9 @@ importers:
       "@tanstack/react-table":
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      decimal.js:
+        specifier: ^10.6.0
+        version: 10.6.0
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4
@@ -4073,6 +4076,12 @@ packages:
     resolution:
       {
         integrity: sha512-2LPqkLeu8XWHU8qNCS3kcF6sCcb5zIzvWaAHYSvPfwhdd7mHuah29NssMzrTYyHN4F5oFy2ko9OBYxegtU0FEw==,
+      }
+
+  decimal.js@10.6.0:
+    resolution:
+      {
+        integrity: sha512-YpgQiITW3JXGntzdUmyUR1V812Hn8T1YVXhCu+wO3OpS4eU9l4YdD3qjyiKdV6mvV29zapkMeD390UVEf2lkUg==,
       }
 
   deep-is@0.1.4:
@@ -9263,6 +9272,8 @@ snapshots:
     dependencies:
       callsite: 1.0.0
     optional: true
+
+  decimal.js@10.6.0: {}
 
   deep-is@0.1.4: {}
 

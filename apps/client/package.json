@@ -27,6 +27,7 @@
     "@tanstack/react-router": "^1.168.10",
     "@tanstack/react-start": "^1.167.16",
     "@tanstack/react-table": "^8.21.3",
+    "decimal.js": "^10.6.0",
     "leaflet": "^1.9.4",
     "leaflet-geosearch": "^4.4.0",
     "libexif-wasm": "^0.4.3",

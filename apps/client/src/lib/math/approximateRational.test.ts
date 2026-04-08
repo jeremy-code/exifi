@@ -1,6 +1,16 @@
 import { describe, expect, test } from "vitest";
 
-import { approximateRational } from "./approximateRational";
+import {
+  approximateRational,
+  getContinuedFraction,
+} from "./approximateRational";
+
+describe("getContinuedFraction", () => {
+  test("get continued fraction", () => {
+    expect(getContinuedFraction(3.245)).toEqual([3, 4, 12, 4]);
+    expect(getContinuedFraction(2.875)).toEqual([2, 1, 7]);
+  });
+});
 
 const RATIONAL_CASES = [
   { value: 3.245, expectedValue: { numerator: 649, denominator: 200 } },
@@ -47,19 +57,13 @@ const MISC_RATIONAL_CASES = [
   /* LATITUDE () */
   {
     value: 34.951,
-    unexpectedValue: {
-      numerator: 283_147_891_411_969,
-      denominator: 8_101_281_548_796,
-    },
+    unexpectedValue: { numerator: 34_951, denominator: 1000 },
     expectedValue: { numerator: 349_510, denominator: 10_000 },
   },
   /* LONGITUDE (80, 12.0140, 0) */
   {
     value: 12.014,
-    unexpectedValue: {
-      numerator: 27_331_945_494_096_372,
-      denominator: 2_275_007_948_568_035,
-    },
+    unexpectedValue: { numerator: 6007, denominator: 500 },
     expectedValue: { numerator: 120140, denominator: 10000 },
   },
 ];

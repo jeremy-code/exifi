@@ -1,11 +1,13 @@
-import { MapContainer, type MapContainerProps } from "react-leaflet";
+import type { ComponentPropsWithRef } from "react";
+
+import { MapContainer } from "react-leaflet";
 import { cn } from "tailwind-variants";
 
 import { OsmTileLayer } from "./OsmTileLayer";
 
 const DEFAULT_ZOOM = 13;
 
-type MapProps = MapContainerProps;
+type MapProps = ComponentPropsWithRef<typeof MapContainer>;
 
 const Map = ({ className, children, zoom, ...props }: MapProps) => {
   return (
