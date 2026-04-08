@@ -1,11 +1,10 @@
 import type { ExifDataObject } from "#lib/exif/serializeExifData";
-import { Rational } from "#lib/math/Rational";
 import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 
 const MOCK_EXIF_DATA_OBJECT = {
   byteOrder: "MOTOROLA",
   data: [],
-  dataType: null,
+  dataType: "UNKNOWN",
   ifd: {
     IFD_0: [
       {
@@ -15,7 +14,7 @@ const MOCK_EXIF_DATA_OBJECT = {
         components: 1,
         data: [0, 0, 0, 72, 0, 0, 0, 1],
         size: 8,
-        value: [new Rational(72, 1)],
+        value: new Uint32Array([72, 1]),
         formattedValue: "72",
       },
       {
@@ -25,7 +24,7 @@ const MOCK_EXIF_DATA_OBJECT = {
         components: 1,
         data: [0, 0, 0, 72, 0, 0, 0, 1],
         size: 8,
-        value: [new Rational(72, 1)],
+        value: new Uint32Array([72, 1]),
         formattedValue: "72",
       },
       {
@@ -35,7 +34,7 @@ const MOCK_EXIF_DATA_OBJECT = {
         components: 1,
         data: [0, 2],
         size: 2,
-        value: [2],
+        value: new Uint16Array([2]),
         formattedValue: "Inch",
       },
       {
@@ -45,7 +44,7 @@ const MOCK_EXIF_DATA_OBJECT = {
         components: 1,
         data: [0, 1],
         size: 2,
-        value: [1],
+        value: new Uint16Array([1]),
         formattedValue: "Centered",
       },
     ],
@@ -58,7 +57,7 @@ const MOCK_EXIF_DATA_OBJECT = {
         components: 4,
         data: [48, 50, 51, 50],
         size: 4,
-        value: [48, 50, 51, 50],
+        value: new Uint8Array([48, 50, 51, 50]),
         formattedValue: "Exif Version 2.32",
       },
       {
@@ -68,7 +67,7 @@ const MOCK_EXIF_DATA_OBJECT = {
         components: 20,
         data: Array.from(encodeStringToUtf8("1970:01:01 12:00:00")),
         size: 20,
-        value: "1970:01:01 12:00:00",
+        value: encodeStringToUtf8("1970:01:01 12:00:00"),
         formattedValue: "1970:01:01 12:00:00",
       },
       {
@@ -78,7 +77,7 @@ const MOCK_EXIF_DATA_OBJECT = {
         components: 4,
         data: [1, 2, 3, 0],
         size: 4,
-        value: [1, 2, 3, 0],
+        value: new Uint8Array([1, 2, 3, 0]),
         formattedValue: "Y Cb Cr -",
       },
       {
@@ -88,7 +87,7 @@ const MOCK_EXIF_DATA_OBJECT = {
         components: 1,
         data: [255, 255],
         size: 2,
-        value: [65535],
+        value: new Uint16Array([65535]),
         formattedValue: "Uncalibrated",
       },
       {
@@ -98,7 +97,7 @@ const MOCK_EXIF_DATA_OBJECT = {
         components: 4,
         data: [48, 49, 48, 48],
         size: 4,
-        value: [48, 49, 48, 48],
+        value: new Uint8Array([48, 49, 48, 48]),
         formattedValue: "FlashPix Version 1.0",
       },
     ],

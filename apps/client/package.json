@@ -29,7 +29,7 @@
     "@tanstack/react-table": "^8.21.3",
     "leaflet": "^1.9.4",
     "leaflet-geosearch": "^4.4.0",
-    "libexif-wasm": "^0.3.1",
+    "libexif-wasm": "^0.4.1",
     "lucide-react": "^1.7.0",
     "next-themes": "^0.4.6",
     "radix-ui": "^1.4.3",

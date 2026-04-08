@@ -1,10 +1,9 @@
 import { LatLng } from "leaflet";
-import type { ExifContent } from "libexif-wasm";
+import { mapRationalToObject, type ExifContent } from "libexif-wasm";
 
 import { dmsToDecimalDegrees } from "#lib/leaflet/dmsToDecimalDegrees";
 
 import { parseCoordinateEntry } from "./parseCoordinateEntry";
-import { getEntryValue } from "../getEntryValue";
 import { getRequiredEntry } from "../getRequiredEntry";
 
 const getLatLngFromExif = (exifDataGpsIfd: ExifContent): LatLng => {
@@ -25,13 +24,15 @@ const getLatLngFromExif = (exifDataGpsIfd: ExifContent): LatLng => {
   const altitudeRefEntry = exifDataGpsIfd.getEntry("ALTITUDE_REF");
 
   if (altitudeEntry !== null && altitudeRefEntry !== null) {
-    const absoluteAltitude = getEntryValue(altitudeEntry)[0];
-    if (
-      absoluteAltitude !== undefined &&
-      typeof absoluteAltitude === "number"
-    ) {
-      const isSeaLevel = altitudeRefEntry.data[0] === 0;
-      const altitude = isSeaLevel ? absoluteAltitude : -absoluteAltitude;
+    const absoluteAltitude = mapRationalToObject(
+      altitudeEntry.toTypedArray(),
+    )[0];
+    if (absoluteAltitude !== undefined) {
+      const isSeaLevel = altitudeRefEntry.toTypedArray()[0] === 0;
+      const altitude =
+        isSeaLevel ?
+          absoluteAltitude.numerator / absoluteAltitude.denominator
+        : -(absoluteAltitude.numerator / absoluteAltitude.denominator);
       return new LatLng(latitude, longitude, altitude);
     }
   }

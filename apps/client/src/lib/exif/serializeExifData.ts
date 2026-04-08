@@ -6,9 +6,8 @@ import type {
   Format,
   DataType,
   ByteOrder,
+  ValidTypedArray,
 } from "libexif-wasm";
-
-import { getEntryValue, type EntryValue } from "./getEntryValue";
 
 type ExifEntryObject = {
   ifd: Ifd;
@@ -17,7 +16,7 @@ type ExifEntryObject = {
   components: number;
   data: number[];
   size: number;
-  value: EntryValue;
+  value: ValidTypedArray;
   formattedValue: string | null;
 };
 
@@ -52,8 +51,8 @@ const serializeExifEntry = (entry: ExifEntry): ExifEntryObject | null => {
     components: entry.components,
     data: Array.from(entry.data),
     size: entry.size,
-    value: getEntryValue(entry),
-    formattedValue: entry.value,
+    value: entry.toTypedArray(),
+    formattedValue: entry.toString(),
   };
 };
 

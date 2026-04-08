@@ -1,9 +1,7 @@
-import type { ExifContent } from "libexif-wasm";
+import { mapRationalToObject, type ExifContent } from "libexif-wasm";
 
 import type { DMS } from "#lib/leaflet/interfaces";
-import { Rational } from "#lib/math/Rational";
 
-import { getEntryValue } from "../getEntryValue";
 import { getRequiredEntry } from "../getRequiredEntry";
 import { parseCoordinateEntry } from "./parseCoordinateEntry";
 
@@ -34,10 +32,10 @@ const formatLatLngFromExif = (exifDataGpsIfd: ExifContent): string => {
   const altitudeRefEntry = exifDataGpsIfd.getEntry("ALTITUDE_REF");
 
   if (altitudeEntry !== null && altitudeRefEntry !== null) {
-    const altitude = getEntryValue(altitudeEntry)[0];
-    if (altitude !== undefined && altitude instanceof Rational) {
+    const altitude = mapRationalToObject(altitudeEntry.toTypedArray())[0];
+    if (altitude !== undefined) {
       const isSeaLevel = altitudeRefEntry.data[0] === 0;
-      return `${latitude} ${longitude} ${!isSeaLevel ? "\u2212" : ""}${altitude.valueOf()}m`;
+      return `${latitude} ${longitude} ${!isSeaLevel ? "\u2212" : ""}${altitude.numerator / altitude.denominator}m`;
     }
   }
 
