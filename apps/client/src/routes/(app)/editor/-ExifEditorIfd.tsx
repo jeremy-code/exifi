@@ -32,6 +32,7 @@ import {
 } from "@exiftools/ui/components/Table";
 
 import { DeleteCell } from "./-components/DeleteCell";
+import { EditCell } from "./-components/EditCell";
 import { ValueCell } from "./-components/ValueCell";
 
 declare module "@tanstack/react-table" {
@@ -46,6 +47,7 @@ const columns = [
   columnHelper.accessor("format", { header: "Format" }),
   columnHelper.accessor("formattedValue", { header: "Value", cell: ValueCell }),
   columnHelper.display({ id: "delete", cell: DeleteCell }),
+  columnHelper.display({ id: "edit", cell: EditCell }),
 ];
 
 const fallbackData: ExifEntryObject[] = [];
@@ -65,6 +67,7 @@ const ExifEditorIfd = (props: ExifEditorIfdProps) => {
       updateExifEntry: state.updateExifEntry,
       removeExifEntry: state.removeExifEntry,
       fix: state.fix,
+      addImageDimensions: state.addImageDimensions,
     })),
   );
   const table = useReactTable({

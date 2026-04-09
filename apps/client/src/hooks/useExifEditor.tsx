@@ -1,7 +1,7 @@
 import { createContext, use, useCallback, useMemo } from "react";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ExifData, ExifIfd } from "libexif-wasm";
+import { ExifData, ExifIfd, type ValidTypedArray } from "libexif-wasm";
 import { create, useStore } from "zustand";
 
 import { getOrInsertEntry } from "#lib/exif/getOrInsertEntry";
@@ -20,7 +20,10 @@ type ExifEditorStoreState = {
 };
 
 type ExifEditorStoreActions = {
-  updateExifEntry: (exifEntryObject: ExifEntryObject, value: string) => void;
+  updateExifEntry: (
+    exifEntryObject: ExifEntryObject,
+    value: string | ValidTypedArray,
+  ) => void;
   removeExifEntry: (exifEntryObject: ExifEntryObject) => void;
   fix: () => void;
   addImageDimensions: () => Promise<void>;
@@ -65,9 +68,18 @@ const useExifEditor = (file: File) => {
 
             // TODO: Handle other formats than ASCII
             if (exifEntry.format === "ASCII") {
+              if (typeof value !== "string") {
+                throw new Error("ASCII entries expect a string value");
+              }
+
               const utf8Array = encodeStringToUtf8(value);
               exifEntry.data = utf8Array;
               exifEntry.components = utf8Array.length;
+            } else {
+              if (typeof value === "string") {
+                throw new Error("Non-ASCII entries expect a TypedArray value");
+              }
+              exifEntry.fromTypedArray(value);
             }
 
             return { exifDataObject: serializeExifData(exifData) };
