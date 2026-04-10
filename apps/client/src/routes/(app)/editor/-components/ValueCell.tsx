@@ -1,6 +1,9 @@
 import type { CellContext } from "@tanstack/react-table";
 
+import { EXIF_TAG_VALUE_MAP } from "#lib/exif/exifTagValueMap";
 import type { ExifEntryObject } from "#lib/exif/serializeExifData";
+
+import { EnumValueCell } from "./EnumValueCell";
 
 type ValueCellProps = CellContext<
   ExifEntryObject,
@@ -39,31 +42,48 @@ const ValueCell = ({ getValue, row, table }: ValueCellProps) => {
   const value = getValue() ?? "";
   const isAscii = row.original.format === "ASCII";
   const isDateTime = DATETIME_TAGS.includes(row.original.tag);
+  const isEnum =
+    row.original.tag in EXIF_TAG_VALUE_MAP &&
+    row.original.components === 1 &&
+    value in
+      EXIF_TAG_VALUE_MAP[row.original.tag as keyof typeof EXIF_TAG_VALUE_MAP];
 
-  return (
-    <input
-      className="border border-transparent focus:border-border focus:bg-background focus:outline-none"
-      disabled={!isAscii}
-      type={isDateTime ? "datetime-local" : "text"}
-      value={!isDateTime ? value : convertExifTimestampToIsoTimestamp(value)}
-      onChange={(e) => {
-        if (!isDateTime) {
-          table.options.meta?.updateExifEntry(row.original, e.target.value);
-        } else {
-          console.log(e.target.value);
-          console.log(
-            formatDateAsExifTimestamp(new Date(Date.parse(e.target.value))),
-          );
-          if (e.target.value !== "") {
-            table.options.meta?.updateExifEntry(
-              row.original,
-              formatDateAsExifTimestamp(new Date(Date.parse(e.target.value))),
-            );
+  if (isEnum) {
+    return (
+      <EnumValueCell
+        exifEntryObject={row.original}
+        value={value}
+        updateExifEntry={table.options.meta!.updateExifEntry}
+      />
+    );
+  }
+
+  // All DateTime inputs are also ASCII format, so this is fine
+  if (isAscii) {
+    return (
+      <input
+        className="border border-transparent focus:border-border focus:bg-background focus:outline-none"
+        type={isDateTime ? "datetime-local" : "text"}
+        value={!isDateTime ? value : convertExifTimestampToIsoTimestamp(value)}
+        onChange={(e) => {
+          if (!isDateTime) {
+            table.options.meta?.updateExifEntry(row.original, e.target.value);
+          } else {
+            if (e.target.value !== "") {
+              table.options.meta?.updateExifEntry(
+                row.original,
+                formatDateAsExifTimestamp(new Date(Date.parse(e.target.value))),
+              );
+            }
           }
-        }
-      }}
-    />
-  );
+        }}
+      />
+    );
+  }
+
+  // Return as is. Ideally I would like to have a way to quick edit these in the
+  // future, but for now, users can rely on ExifEntryEditor
+  return value;
 };
 
 export { ValueCell, type ValueCellProps };
