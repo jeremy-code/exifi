@@ -1,6 +1,7 @@
-import { createContext, use, useCallback, useMemo } from "react";
+import { createContext, use, useMemo } from "react";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
+import { imageDimensionsFromStream } from "image-dimensions";
 import { ExifData, ExifIfd, type ValidTypedArray } from "libexif-wasm";
 import { create, useStore } from "zustand";
 
@@ -11,7 +12,6 @@ import {
   type ExifEntryObject,
 } from "#lib/exif/serializeExifData";
 import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
-import { getImageDimensions } from "#utils/getImageDimensions";
 
 import { useExifData } from "./useExifData";
 
@@ -38,12 +38,6 @@ const useExifEditor = (file: File) => {
     queryFn: () => file.arrayBuffer(),
   });
   const exifData = useExifData(arrayBuffer);
-  const getExifData = useCallback(() => {
-    if (exifData === null) {
-      throw new Error("Reference to ExifData instance not found");
-    }
-    return exifData;
-  }, [exifData]);
 
   const initialExifDataObject = useMemo(() => {
     const exifData = ExifData.from(arrayBuffer);
@@ -58,7 +52,9 @@ const useExifEditor = (file: File) => {
         exifDataObject: initialExifDataObject,
         updateExifEntry: (exifEntryObject, value) => {
           set(() => {
-            const exifData = getExifData();
+            if (exifData === null) {
+              throw new Error("Reference to ExifData instance not found");
+            }
             const exifContent = exifData.ifd[ExifIfd[exifEntryObject.ifd]];
             const exifEntry = exifContent?.getEntry(exifEntryObject.tag);
 
@@ -87,7 +83,9 @@ const useExifEditor = (file: File) => {
         },
         removeExifEntry: (exifEntryObject) => {
           set(() => {
-            const exifData = getExifData();
+            if (exifData === null) {
+              throw new Error("Reference to ExifData instance not found");
+            }
             const exifContent = exifData.ifd[ExifIfd[exifEntryObject.ifd]];
             const exifEntry = exifContent?.getEntry(exifEntryObject.tag);
 
@@ -102,17 +100,27 @@ const useExifEditor = (file: File) => {
         },
         fix: () => {
           set(() => {
-            const exifData = getExifData();
+            if (exifData === null) {
+              throw new Error("Reference to ExifData instance not found");
+            }
             exifData.fix();
 
             return { exifDataObject: serializeExifData(exifData) };
           });
         },
         addImageDimensions: async () => {
-          const imageDimensions = await getImageDimensions(file);
+          const imageDimensions = await imageDimensionsFromStream(
+            file.stream(),
+          );
+
+          if (imageDimensions === undefined) {
+            throw new Error("File is an invalid image");
+          }
 
           set(() => {
-            const exifData = getExifData();
+            if (exifData === null) {
+              throw new Error("Reference to ExifData instance not found");
+            }
             const exifIfd = exifData.ifd[ExifIfd.IFD_0];
 
             const imageWidthEntry = getOrInsertEntry(exifIfd, "IMAGE_WIDTH");
@@ -132,7 +140,7 @@ const useExifEditor = (file: File) => {
           });
         },
       })),
-    [getExifData, initialExifDataObject, file],
+    [exifData, initialExifDataObject, file],
   );
 
   return { exifEditorStore, exifData };
