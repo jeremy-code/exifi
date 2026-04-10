@@ -3,6 +3,7 @@ import { Suspense, type ComponentPropsWithRef } from "react";
 import { ArrowLeft } from "lucide-react";
 import { cn } from "tailwind-variants";
 import { useStore } from "zustand";
+import { useShallow } from "zustand/react/shallow";
 
 import { FileInformation } from "#components/file/FileInformation";
 import { useDropzoneState } from "#hooks/useDropzoneState";
@@ -26,9 +27,13 @@ const ExifEditor = ({ file, className, ...props }: ExifEditorProps) => {
     (state) => state.addImageDimensions,
   );
 
-  const removeAcceptedFileByIndex = useDropzoneState(
-    (state) => state.removeAcceptedFileByIndex,
-  );
+  const [removeAcceptedFileByIndex, replaceAcceptedFileByIndex] =
+    useDropzoneState(
+      useShallow((state) => [
+        state.removeAcceptedFileByIndex,
+        state.replaceAcceptedFileByIndex,
+      ]),
+    );
 
   return (
     <Suspense fallback={<Skeleton className="h-50" />}>
@@ -57,6 +62,7 @@ const ExifEditor = ({ file, className, ...props }: ExifEditorProps) => {
                   { type: file.type, lastModified: new Date().getTime() },
                 );
                 await saveFile(newFile);
+                replaceAcceptedFileByIndex(0, newFile);
               }}
             >
               Export

@@ -4,6 +4,7 @@ type DropzoneState = {
   acceptedFiles: File[];
   addAcceptedFiles: (acceptedFiles: File[]) => void;
   removeAcceptedFileByIndex: (index: number) => void;
+  replaceAcceptedFileByIndex: (index: number, acceptedFile: File) => void;
 };
 
 const useDropzoneState = create<DropzoneState>((set) => ({
@@ -15,6 +16,10 @@ const useDropzoneState = create<DropzoneState>((set) => ({
   removeAcceptedFileByIndex: (index) =>
     set((state) => ({
       acceptedFiles: state.acceptedFiles.toSpliced(index, 1),
+    })),
+  replaceAcceptedFileByIndex: (index, acceptedFile) =>
+    set((state) => ({
+      acceptedFiles: state.acceptedFiles.with(index, acceptedFile),
     })),
 }));
 

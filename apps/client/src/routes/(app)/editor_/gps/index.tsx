@@ -3,6 +3,7 @@ import { useEffect, useEffectEvent, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { LatLng, type LeafletEvent, type Map as LeafletMap } from "leaflet";
 import { ExifData, ExifIfd } from "libexif-wasm";
+import { useShallow } from "zustand/react/shallow";
 
 import { Dropzone } from "#components/file/Dropzone";
 import { FileUrlInput } from "#components/file/FileUrlInput";
@@ -17,7 +18,12 @@ import { writeExifData } from "@exiftools/write-exif-data";
 const EditorGpsComponent = () => {
   const [map, setMap] = useState<LeafletMap | null>(null);
   const [latLng, setLatLng] = useState<LatLng | null>(null);
-  const acceptedFiles = useDropzoneState((state) => state.acceptedFiles);
+  const [acceptedFiles, replaceAcceptedFileByIndex] = useDropzoneState(
+    useShallow((state) => [
+      state.acceptedFiles,
+      state.replaceAcceptedFileByIndex,
+    ]),
+  );
 
   const setLocation = useEffectEvent((event: LeafletEvent) => {
     if (
@@ -86,6 +92,7 @@ const EditorGpsComponent = () => {
             { type: acceptedFiles[0].type, lastModified: new Date().getTime() },
           );
           await saveFile(newFile);
+          replaceAcceptedFileByIndex(0, newFile);
         }}
       >
         Submit
