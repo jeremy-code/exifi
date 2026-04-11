@@ -1,6 +1,8 @@
-import type { ComponentPropsWithRef } from "react";
+import { Suspense, type ComponentPropsWithRef } from "react";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
+import { imageDimensionsFromStream } from "image-dimensions";
 
 import { formatBytes } from "#utils/formatBytes";
 import { Badge } from "@exiftools/ui/components/Badge";
@@ -15,8 +17,37 @@ import {
   DataListItem,
   DataListItemLabel,
   DataListItemValue,
+  type DataListItemValueProps,
 } from "@exiftools/ui/components/DataList";
 import { Link } from "@exiftools/ui/components/Link";
+import { Skeleton } from "@exiftools/ui/components/Skeleton";
+
+const FileDimensionsInformation = ({
+  file,
+  ...props
+}: { file: File } & DataListItemValueProps) => {
+  const { data: dimensions } = useSuspenseQuery({
+    queryKey: [
+      "FileDimensionsInformation",
+      {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+        webkitRelativePath: file.webkitRelativePath,
+        lastModified: file.lastModified,
+      },
+      file,
+    ],
+    queryFn: async () =>
+      (await imageDimensionsFromStream(file.stream())) ?? null,
+  });
+
+  return (
+    <DataListItemValue {...props}>
+      {dimensions?.height} x {dimensions?.width}
+    </DataListItemValue>
+  );
+};
 
 type FileInformationProps = { file: File } & ComponentPropsWithRef<"div">;
 
@@ -87,6 +118,12 @@ const FileInformation = ({ file, ...props }: FileInformationProps) => {
                   {file.type !== "" ? file.type : "Unknown"}
                 </Badge>
               </DataListItemValue>
+            </DataListItem>
+            <DataListItem>
+              <DataListItemLabel>Dimensions</DataListItemLabel>
+              <Suspense fallback={<Skeleton className="h-5 w-20" />}>
+                <FileDimensionsInformation file={file} />
+              </Suspense>
             </DataListItem>
           </DataList>
         </CardContent>
