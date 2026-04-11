@@ -2,9 +2,9 @@ import { Suspense, type ComponentPropsWithRef } from "react";
 
 import { useSuspenseQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
-import { imageDimensionsFromStream } from "image-dimensions";
 
 import { formatBytes } from "#utils/formatBytes";
+import { getImageDimensions } from "#utils/getImageDimensions";
 import { Badge } from "@exiftools/ui/components/Badge";
 import {
   Card,
@@ -38,13 +38,12 @@ const FileDimensionsInformation = ({
       },
       file,
     ],
-    queryFn: async () =>
-      (await imageDimensionsFromStream(file.stream())) ?? null,
+    queryFn: () => getImageDimensions(file),
   });
 
   return (
     <DataListItemValue {...props}>
-      {dimensions?.height} x {dimensions?.width}
+      {dimensions?.width} x {dimensions?.height}
     </DataListItemValue>
   );
 };

@@ -1,6 +1,5 @@
 import { createContext, use, useMemo } from "react";
 
-import { imageDimensionsFromStream } from "image-dimensions";
 import { ExifIfd, type ValidTypedArray } from "libexif-wasm";
 import { create, useStore } from "zustand";
 
@@ -11,6 +10,7 @@ import {
   type ExifEntryObject,
 } from "#lib/exif/serializeExifData";
 import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
+import { getImageDimensions } from "#utils/getImageDimensions";
 
 import { useExifData } from "./useExifData";
 
@@ -116,13 +116,7 @@ const useExifEditor = (file: File) => {
           });
         },
         addImageDimensions: async () => {
-          const imageDimensions = await imageDimensionsFromStream(
-            file.stream(),
-          );
-
-          if (imageDimensions === undefined) {
-            throw new Error("File is an invalid image");
-          }
+          const imageDimensions = await getImageDimensions(file);
 
           set(() => {
             if (exifData === null) {
