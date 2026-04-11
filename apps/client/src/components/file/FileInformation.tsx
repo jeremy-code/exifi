@@ -1,5 +1,7 @@
 import type { ComponentPropsWithRef } from "react";
 
+import dayjs from "dayjs";
+
 import { formatBytes } from "#utils/formatBytes";
 import { Badge } from "@exiftools/ui/components/Badge";
 import {
@@ -73,14 +75,8 @@ const FileInformation = ({ file, ...props }: FileInformationProps) => {
             <DataListItem>
               <DataListItemLabel>Last modified</DataListItemLabel>
               <DataListItemValue>
-                <time dateTime={new Date(file.lastModified).toISOString()}>
-                  {new Date(file.lastModified).toLocaleString(undefined, {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                  })}
+                <time dateTime={dayjs(file.lastModified).toISOString()}>
+                  {dayjs(file.lastModified).format("YYYY MMM D, h:mmA")}
                 </time>
               </DataListItemValue>
             </DataListItem>
