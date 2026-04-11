@@ -1,6 +1,6 @@
-import type { ComponentPropsWithRef } from "react";
+import type { ComponentPropsWithRef, RefObject } from "react";
 
-import { FileIcon, FileUp, X } from "lucide-react";
+import { Clapperboard, File, FileUp, Image, Music, X } from "lucide-react";
 import { AccessibleIcon } from "radix-ui";
 import {
   useDropzone,
@@ -8,6 +8,7 @@ import {
   type DropzoneOptions,
 } from "react-dropzone";
 import { cn } from "tailwind-variants";
+import { useShallow } from "zustand/react/shallow";
 
 import { useDropzoneState } from "#hooks/useDropzoneState";
 import { formatBytes } from "#utils/formatBytes";
@@ -16,21 +17,39 @@ import { Link } from "@exiftools/ui/components/Link";
 
 type AcceptedFileProps = {
   file: File;
-  index: number;
-};
+  removeFile: () => void;
+} & ComponentPropsWithRef<"li">;
 
-const AcceptedFile = ({ file, index }: AcceptedFileProps) => {
-  const removeAcceptedFileByIndex = useDropzoneState(
-    (state) => state.removeAcceptedFileByIndex,
-  );
+const AcceptedFile = ({
+  className,
+  file,
+  removeFile,
+  ...props
+}: AcceptedFileProps) => {
+  const AcceptedFileIcon =
+    file.type.startsWith("image/") ? Image
+    : file.type.startsWith("video/") ? Clapperboard
+    : file.type.startsWith("audio/") ? Music
+    : File;
 
   return (
-    <li className="flex justify-between gap-3 rounded border bg-muted p-3 text-muted-foreground">
-      <div className="grid aspect-square place-content-center">
-        <FileIcon className="size-[1em]" />
+    <li
+      className={cn(
+        "flex max-w-full justify-between gap-3 rounded border bg-muted p-3 text-muted-foreground",
+        className,
+      )}
+      {...props}
+    >
+      <div
+        className="grid aspect-square place-content-center rounded border bg-subtle"
+        aria-hidden={true}
+      >
+        <AcceptedFileIcon className="size-[1.25em]" />
       </div>
-      <div className="grow">
-        <p className="line-clamp-1 text-sm font-semibold">{file.name}</p>
+      <div className="min-w-0 grow">
+        <p className="line-clamp-1 font-mono text-sm font-semibold text-ellipsis">
+          {file.name}
+        </p>
         <p className="text-xs text-subtle-foreground">
           {formatBytes(file.size, undefined, { maximumFractionDigits: 2 })}
         </p>
@@ -39,10 +58,12 @@ const AcceptedFile = ({ file, index }: AcceptedFileProps) => {
         <Button
           size="icon"
           onClick={() => {
-            removeAcceptedFileByIndex(index);
+            removeFile();
           }}
         >
-          <X className="size-4" />
+          <AccessibleIcon.Root label="Remove file">
+            <X className="size-4" />
+          </AccessibleIcon.Root>
         </Button>
       </div>
     </li>
@@ -60,15 +81,23 @@ const Dropzone = ({
   inputProps,
   rootProps,
 }: DropzoneProps) => {
-  const acceptedFiles = useDropzoneState((state) => state.acceptedFiles);
-  const addAcceptedFiles = useDropzoneState((state) => state.addAcceptedFiles);
+  const { acceptedFiles, addAcceptedFiles, removeAcceptedFileByIndex } =
+    useDropzoneState(
+      useShallow((state) => ({
+        acceptedFiles: state.acceptedFiles,
+        addAcceptedFiles: state.addAcceptedFiles,
+        removeAcceptedFileByIndex: state.removeAcceptedFileByIndex,
+      })),
+    );
   const {
-    getRootProps,
-    getInputProps,
+    open,
     isDragActive,
     isDragAccept,
-    open,
     fileRejections,
+    rootRef,
+    inputRef,
+    getRootProps,
+    getInputProps,
   } = useDropzone({
     noClick: true,
     noKeyboard: true,
@@ -81,24 +110,25 @@ const Dropzone = ({
 
   return (
     <div
+      ref={rootRef as RefObject<HTMLDivElement>}
       {...getRootProps({
         ...rootProps,
         className: cn(
           "flex flex-col items-center gap-6 rounded border border-dashed p-6 text-muted-foreground",
           {
-            "border-red-600 bg-red-600/10": fileRejections.length > 0,
-            "border-blue-600 bg-blue-600/10": isDragAccept,
+            "border-destructive bg-destructive/10": fileRejections.length > 0,
+            "border-accent bg-accent/10": isDragAccept,
           },
           rootProps?.className,
         ),
       })}
     >
-      <div className="inline-flex grow flex-row items-center justify-normal gap-2">
+      <div className="inline-flex grow flex-row items-center justify-normal gap-2 max-sm:text-sm">
         <AccessibleIcon.Root label="Upload file">
           <FileUp />
         </AccessibleIcon.Root>
         {isDragActive ?
-          <div>Drop a file here</div>
+          "Drop a file here"
         : <div>
             {"Drag a file here or "}
             <Link color="link" underline="hover" asChild>
@@ -113,17 +143,18 @@ const Dropzone = ({
           </div>
         }
       </div>
-      <input {...getInputProps(inputProps)} />
-      {acceptedFiles.length !== 0 && (
-        <li className="flex w-full flex-col gap-2">
+      <input ref={inputRef} {...getInputProps(inputProps)} />
+      {acceptedFiles.length > 0 && (
+        <ol className="flex w-full flex-col gap-2">
           {acceptedFiles.map((file, index) => (
             <AcceptedFile
-              key={`${file.name}-${file.lastModified}-${file.size}`}
+              // eslint-disable-next-line @eslint-react/no-array-index-key -- Using index since it is possible for the same file to uploaded more than once
+              key={index}
               file={file}
-              index={index}
+              removeFile={() => removeAcceptedFileByIndex(index)}
             />
           ))}
-        </li>
+        </ol>
       )}
     </div>
   );

@@ -10,6 +10,7 @@
 
 @theme {
   --font-sans: "Lexend", sans-serif;
+  --font-mono: "Fira Mono", monospace;
 }
 
 /* https://tailwindcss.com/docs/theme#referencing-other-variables */
@@ -39,6 +40,8 @@
     var(--color-blue-700),
     var(--color-blue-500)
   );
+
+  --color-destructive: var(--color-red-600);
 }
 
 @layer base {
