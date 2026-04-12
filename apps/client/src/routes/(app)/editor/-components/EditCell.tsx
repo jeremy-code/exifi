@@ -19,7 +19,7 @@ import { ExifEntryEditor } from "../-ExifEntryEditor";
 const EditCell = ({ row }: CellContext<ExifEntryObject, unknown>) => {
   return (
     <Dialog>
-      <form>
+      <div className="flex justify-center">
         <DialogTrigger asChild>
           <Button variant="outline" size="icon">
             <AccessibleIcon.Root label="Edit">
@@ -27,19 +27,19 @@ const EditCell = ({ row }: CellContext<ExifEntryObject, unknown>) => {
             </AccessibleIcon.Root>
           </Button>
         </DialogTrigger>
-        <DialogContent className="overflow-auto">
-          <DialogHeader>
-            <DialogTitle>Edit Exif data</DialogTitle>
-            <DialogDescription>
-              Make changes to the Exif entry here. Click save when you&apos;re
-              done.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogBody>
-            <ExifEntryEditor exifEntryObject={row.original} />
-          </DialogBody>
-        </DialogContent>
-      </form>
+      </div>
+      <DialogContent aria-description="Edit Exif data dialog" className="overflow-auto">
+        <DialogHeader>
+          <DialogTitle>Edit Exif data</DialogTitle>
+          <DialogDescription>
+            Make changes to the Exif entry here. Click save when you&apos;re
+            done.
+          </DialogDescription>
+        </DialogHeader>
+        <DialogBody>
+          <ExifEntryEditor exifEntryObject={row.original} />
+        </DialogBody>
+      </DialogContent>
     </Dialog>
   );
 };

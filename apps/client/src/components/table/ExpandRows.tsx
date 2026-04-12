@@ -20,7 +20,7 @@ const ExpandRows = <TData extends RowData>({
   return (
     <Comp
       className={cn(
-        "flex w-full flex-row items-center gap-2",
+        "flex flex-row items-center gap-2",
         { "cursor-pointer": row.getCanExpand() },
         className,
       )}

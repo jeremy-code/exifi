@@ -42,6 +42,7 @@ import {
 import { DeleteEntriesButton } from "./-components/DeleteEntriesButton";
 import { EditCell } from "./-components/EditCell";
 import { SelectCell } from "./-components/SelectCell";
+import { SelectHeader } from "./-components/SelectHeader";
 import { ValueCell } from "./-components/ValueCell";
 
 declare module "@tanstack/react-table" {
@@ -55,18 +56,19 @@ const columns = [
     id: "select",
     aggregatedCell: SelectCell,
     cell: SelectCell,
-    size: 60,
+    header: SelectHeader,
+    size: 24,
   }),
   columnHelper.accessor("ifd", {
     id: "ifd",
     cell: ({ getValue }) => exifIfdGetName(getValue()),
-    header: "Image File Directory",
-    size: 180,
+    header: "IFD",
+    size: 60,
   }),
   columnHelper.accessor("tag", {
     id: "tag",
     header: "Tag",
-    size: 260,
+    size: 130,
     cell: ({ getValue, row }) => (
       <Tooltip delayDuration={0}>
         <TooltipTrigger>
@@ -81,9 +83,13 @@ const columns = [
   columnHelper.accessor("formattedValue", {
     header: "Value",
     cell: ValueCell,
-    size: 500,
+    size: 150,
   }),
-  columnHelper.display({ id: "edit", cell: EditCell, size: 60 }),
+  columnHelper.display({
+    id: "edit",
+    cell: EditCell,
+    size: 50,
+  }),
 ];
 
 const fallbackData: ExifEntryObject[] = [];
@@ -118,20 +124,24 @@ const ExifEditorIfd = (props: ExifEditorIfdProps) => {
       grouping: ["ifd"],
       expanded: true,
     },
+    // Do NOT reorder columns when grouped
+    groupedColumnMode: false,
     meta: exifEditorStoreActions,
   });
 
-  const columnSizeVars = useMemo(() => {
-    return table
-      .getFlatHeaders()
-      .reduce<{ [key: string]: number }>((acc, header) => {
-        acc[`--header-${header.id}-size`] = header.getSize();
-        acc[`--col-${header.column.id}-size`] = header.column.getSize();
-        return acc;
-      }, {});
+  const columnSizeCssVars = useMemo(
+    () =>
+      table
+        .getFlatHeaders()
+        .reduce<Record<`--${string}`, number>>((acc, header) => {
+          acc[`--header-${header.id}-size`] = header.getSize();
+          acc[`--col-${header.column.id}-size`] = header.column.getSize();
+          return acc;
+        }, {}),
     // eslint-disable-next-line react-compiler/react-compiler -- See below
     // eslint-disable-next-line react-hooks/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
-  }, [table.getState().columnSizingInfo, table.getState().columnSizing]);
+    [table.getState().columnSizingInfo, table.getState().columnSizing],
+  );
 
   if (exifEntryObjects.length === 0) {
     return (
@@ -158,7 +168,7 @@ const ExifEditorIfd = (props: ExifEditorIfdProps) => {
         style={
           {
             "--table-width": `${table.getCenterTotalSize()}px`,
-            ...columnSizeVars,
+            ...columnSizeCssVars,
           } as CSSProperties
         }
         {...props}
@@ -189,7 +199,11 @@ const ExifEditorIfd = (props: ExifEditorIfdProps) => {
         </TableHead>
         <TableBody>
           {table.getRowModel().rows.map((row) => (
-            <TableRow className="has-focus:bg-subtle" key={row.id}>
+            <TableRow
+              className="hover:bg-subtle/50 has-focus:bg-subtle data-[selected=true]:bg-subtle"
+              data-selected={row.getIsSelected()}
+              key={row.id}
+            >
               {row.getVisibleCells().map((cell) => (
                 <TableCell
                   key={cell.id}
@@ -202,18 +216,16 @@ const ExifEditorIfd = (props: ExifEditorIfdProps) => {
                 >
                   {cell.getIsGrouped() ?
                     <ExpandRows row={row}>
-                      <span className="flex gap-2">
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                        <Badge>
-                          {formatPlural(row.subRows.length, {
-                            one: " tag",
-                            other: " tags",
-                          })}
-                        </Badge>
-                      </span>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                      <Badge>
+                        {formatPlural(row.subRows.length, {
+                          one: " tag",
+                          other: " tags",
+                        })}
+                      </Badge>
                     </ExpandRows>
                   : cell.getIsAggregated() ?
                     flexRender(

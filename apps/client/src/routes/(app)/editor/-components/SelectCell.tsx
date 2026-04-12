@@ -11,6 +11,7 @@ const SelectCell = ({ row }: CellContext<ExifEntryObject, unknown>) => {
 
   return (
     <Checkbox
+      className="mx-auto"
       checked={checked}
       onCheckedChange={(checked) => {
         if (typeof checked === "boolean") {

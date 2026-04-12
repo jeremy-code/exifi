@@ -49,7 +49,10 @@ const DeleteEntriesButton = ({ table }: { table: Table<ExifEntryObject> }) => {
           Delete
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="max-w-[min(calc(100%-2rem),--spacing(140))]">
+      <AlertDialogContent
+        aria-description="Delete Exif entries alert dialog"
+        className="max-w-[min(calc(100%-2rem),--spacing(140))]"
+      >
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure?</AlertDialogTitle>
         </AlertDialogHeader>
