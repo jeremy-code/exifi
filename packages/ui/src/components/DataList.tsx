@@ -23,20 +23,18 @@ type DataListProps = PrimitivePropsWithRef<"dl"> &
 const DataList = ({
   asChild,
   className,
-  orientation,
-  size,
-  variant,
+  orientation = "horizontal",
+  size = "md",
+  variant = "subtle",
   ...props
 }: DataListProps) => {
   const Comp = asChild ? Slot.Root : "dl";
 
   return (
     <Comp
-      data-orientation={
-        orientation ?? dataListVariants.defaultVariants.orientation
-      }
-      data-size={size ?? dataListVariants.defaultVariants.size}
-      data-variant={variant ?? dataListVariants.defaultVariants.variant}
+      data-orientation={orientation}
+      data-size={size}
+      data-variant={variant}
       className={dataListVariants({ className, orientation, size, variant })}
       {...props}
     />

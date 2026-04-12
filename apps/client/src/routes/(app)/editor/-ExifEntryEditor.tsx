@@ -14,6 +14,7 @@ import {
   type RationalObject,
   type ValidTypedArray,
 } from "libexif-wasm";
+import { ChevronDown } from "lucide-react";
 import { cn } from "tailwind-variants";
 
 import { RationalInput } from "#components/editor/RationalInput";
@@ -169,92 +170,100 @@ const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
         open={isInfoOpen}
         onOpenChange={(open) => setIsInfoOpen(open)}
       >
+        <DataList orientation="horizontal" variant="bold">
+          <DataListItem>
+            <DataListItemLabel className="min-w-50">Tag</DataListItemLabel>
+            <DataListItemValue>
+              {ExifTagInfo.getTitleInIfd(
+                exifEntryObject.tag,
+                exifEntryObject.ifd,
+              )}
+            </DataListItemValue>
+          </DataListItem>
+          <DataListItem>
+            <DataListItemLabel className="min-w-50">Value</DataListItemLabel>
+            <DataListItemValue>
+              {exifEntryObject.formattedValue}
+            </DataListItemValue>
+          </DataListItem>
+          <CollapsibleContent>
+            <DataList>
+              <DataListItem>
+                <DataListItemLabel className="min-w-50">
+                  Tag description
+                </DataListItemLabel>
+                <DataListItemValue>
+                  {ExifTagInfo.getDescriptionInIfd(
+                    exifEntryObject.tag,
+                    exifEntryObject.ifd,
+                  )}
+                </DataListItemValue>
+              </DataListItem>
+              <DataListItem>
+                <DataListItemLabel className="min-w-50">
+                  Image File Directory
+                </DataListItemLabel>
+                <DataListItemValue>
+                  {exifIfdGetName(exifEntryObject.ifd)}
+                </DataListItemValue>
+              </DataListItem>
+              <DataListItem>
+                <DataListItemLabel className="min-w-50">
+                  Support level
+                </DataListItemLabel>
+                <DataListItemValue>
+                  {
+                    supportLevelMap[
+                      ExifTagInfo.getSupportLevelInIfd(
+                        exifEntryObject.tag,
+                        exifEntryObject.ifd,
+                      )
+                    ]
+                  }
+                </DataListItemValue>
+              </DataListItem>
+              <DataListItem>
+                <DataListItemLabel className="min-w-50">
+                  Format
+                </DataListItemLabel>
+                <DataListItemValue>
+                  {exifFormatGetName(exifEntryObject.format)} (
+                  {formatPlural(exifFormatGetSize(exifEntryObject.format), {
+                    one: " byte",
+                    other: " bytes",
+                  })}
+                  )
+                </DataListItemValue>
+              </DataListItem>
+              <DataListItem>
+                <DataListItemLabel className="min-w-50">
+                  Components
+                </DataListItemLabel>
+                <DataListItemValue>
+                  {formatPlural(exifEntryObject.components, {
+                    one: " component",
+                    other: " components",
+                  })}
+                  {" ("}
+                  {formatPlural(exifEntryObject.size, {
+                    one: " byte",
+                    other: " bytes",
+                  })}
+                  {" in total)"}
+                </DataListItemValue>
+              </DataListItem>
+            </DataList>
+          </CollapsibleContent>
+        </DataList>
         <CollapsibleTrigger asChild>
-          <Button variant="outline">
-            {isInfoOpen ? "Close information" : "Open information"}
+          <Button className="mt-4" variant="muted">
+            <ChevronDown
+              className="transition-transform data-[open=true]:rotate-180"
+              data-open={isInfoOpen}
+            />
+            {isInfoOpen ? "See less" : "See more"}
           </Button>
         </CollapsibleTrigger>
-        <CollapsibleContent className="mt-4">
-          <DataList orientation="horizontal" variant="bold">
-            <DataListItem>
-              <DataListItemLabel className="min-w-50">Tag</DataListItemLabel>
-              <DataListItemValue>
-                {ExifTagInfo.getTitleInIfd(
-                  exifEntryObject.tag,
-                  exifEntryObject.ifd,
-                )}
-              </DataListItemValue>
-            </DataListItem>
-            <DataListItem>
-              <DataListItemLabel className="min-w-50">
-                Tag description
-              </DataListItemLabel>
-              <DataListItemValue>
-                {ExifTagInfo.getDescriptionInIfd(
-                  exifEntryObject.tag,
-                  exifEntryObject.ifd,
-                )}
-              </DataListItemValue>
-            </DataListItem>
-            <DataListItem>
-              <DataListItemLabel className="min-w-50">
-                Image File Directory
-              </DataListItemLabel>
-              <DataListItemValue>
-                {exifIfdGetName(exifEntryObject.ifd)}
-              </DataListItemValue>
-            </DataListItem>
-            <DataListItem>
-              <DataListItemLabel className="min-w-50">
-                Support level
-              </DataListItemLabel>
-              <DataListItemValue>
-                {
-                  supportLevelMap[
-                    ExifTagInfo.getSupportLevelInIfd(
-                      exifEntryObject.tag,
-                      exifEntryObject.ifd,
-                    )
-                  ]
-                }
-              </DataListItemValue>
-            </DataListItem>
-            <DataListItem>
-              <DataListItemLabel className="min-w-50">Format</DataListItemLabel>
-              <DataListItemValue>
-                {exifFormatGetName(exifEntryObject.format)} (
-                {formatPlural(exifFormatGetSize(exifEntryObject.format), {
-                  one: " byte",
-                  other: " bytes",
-                })}
-                )
-              </DataListItemValue>
-            </DataListItem>
-            <DataListItem>
-              <DataListItemLabel className="min-w-50">
-                Components
-              </DataListItemLabel>
-              <DataListItemValue>
-                {formatPlural(exifEntryObject.components, {
-                  one: " component",
-                  other: " components",
-                })}
-                {" ("}
-                {formatPlural(exifEntryObject.size, {
-                  one: " byte",
-                  other: " bytes",
-                })}
-                {" in total)"}
-              </DataListItemValue>
-            </DataListItem>
-            <DataListItem>
-              <DataListItemLabel className="min-w-50">Value</DataListItemLabel>
-              <DataListItemValue>
-                {exifEntryObject.formattedValue}
-              </DataListItemValue>
-            </DataListItem>
-          </DataList>
-        </CollapsibleContent>
       </Collapsible>
 
       <div className="grid grid-cols-[repeat(auto-fit,minmax(--spacing(50),1fr))]">

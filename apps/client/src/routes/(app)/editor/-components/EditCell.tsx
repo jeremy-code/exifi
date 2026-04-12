@@ -28,7 +28,10 @@ const EditCell = ({ row }: CellContext<ExifEntryObject, unknown>) => {
           </Button>
         </DialogTrigger>
       </div>
-      <DialogContent aria-description="Edit Exif data dialog" className="overflow-auto">
+      <DialogContent
+        aria-description="Edit Exif data dialog"
+        className="overflow-auto"
+      >
         <DialogHeader>
           <DialogTitle>Edit Exif data</DialogTitle>
           <DialogDescription>
