@@ -10,7 +10,6 @@ import {
   type RowData,
 } from "@tanstack/react-table";
 import { exifIfdGetName, ExifTagInfo } from "libexif-wasm";
-import { Plus } from "lucide-react";
 import { useShallow } from "zustand/react/shallow";
 
 import { ColumnResizer } from "#components/table/ColumnResizer";
@@ -22,7 +21,6 @@ import {
 import type { ExifEntryObject } from "#lib/exif/serializeExifData";
 import { formatPlural } from "#utils/formatPlural";
 import { Badge } from "@exiftools/ui/components/Badge";
-import { Button } from "@exiftools/ui/components/Button";
 import { Link } from "@exiftools/ui/components/Link";
 import {
   Table,
@@ -39,6 +37,7 @@ import {
   TooltipTrigger,
 } from "@exiftools/ui/components/Tooltip";
 
+import { AddEntryButton } from "./-components/AddEntryButton";
 import { DeleteEntriesButton } from "./-components/DeleteEntriesButton";
 import { EditCell } from "./-components/EditCell";
 import { SelectCell } from "./-components/SelectCell";
@@ -244,10 +243,7 @@ const ExifEditorIfd = (props: ExifEditorIfdProps) => {
       </Table>
       <div className="flex gap-2">
         <DeleteEntriesButton table={table} />
-        <Button>
-          <Plus size={16} />
-          Add an entry
-        </Button>
+        <AddEntryButton />
       </div>
     </>
   );
