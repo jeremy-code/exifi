@@ -10,11 +10,6 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@exiftools/ui/components/NavigationMenu";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@exiftools/ui/components/Tooltip";
 
 import { MobileNav } from "./MobileNav";
 import { NAVIGATION_ITEMS } from "./constants";
@@ -47,12 +42,7 @@ const Navbar = ({ className, ...props }: NavbarProps) => {
               ))}
             </NavigationMenuList>
           </NavigationMenu>
-          <Tooltip>
-            <TooltipTrigger>
-              <ThemeToggle size="lg" />
-            </TooltipTrigger>
-            <TooltipContent>Toggle theme</TooltipContent>
-          </Tooltip>
+          <ThemeToggle size="lg" />
           <MobileNav />
         </div>
       </div>

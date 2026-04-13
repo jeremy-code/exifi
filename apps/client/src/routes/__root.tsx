@@ -17,7 +17,15 @@ import { AppProvider } from "#components/misc/AppProvider";
 
 const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
-    <html lang="en">
+    /**
+     * @remarks
+     * `suppressHydrationWarning` is necessary since `<html>` element must be
+     * updated by `next-themes` for dark mode. The property only applies one
+     * level deep, so hydration warnings won't be blocked on children elements.
+     *
+     * @see {@link https://react.dev/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors}
+     */
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>

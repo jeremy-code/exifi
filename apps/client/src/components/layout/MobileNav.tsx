@@ -12,11 +12,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@exiftools/ui/components/Popover";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@exiftools/ui/components/Tooltip";
 
 import { NAVIGATION_ITEMS } from "./constants";
 
@@ -85,14 +80,10 @@ const MobileNav = (props: MobileNavProps) => {
   return (
     <Popover {...props}>
       <nav className="sm:hidden">
-        <Tooltip>
-          <PopoverTrigger asChild>
-            <TooltipTrigger asChild>
-              <MobileNavButton />
-            </TooltipTrigger>
-          </PopoverTrigger>
-          <TooltipContent>Navigation</TooltipContent>
-        </Tooltip>
+        <PopoverTrigger asChild>
+          <MobileNavButton />
+        </PopoverTrigger>
+
         <PopoverAnchor asChild>
           {/* Anchor is set to element that is size of <Navbar /> */}
           <div
