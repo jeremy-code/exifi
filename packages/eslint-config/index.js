@@ -1,22 +1,22 @@
-import { defineConfig } from "@eslint/config-helpers";
-import comments from "@eslint-community/eslint-plugin-eslint-comments/configs";
-import eslint from "@eslint/js";
-import globals from "globals";
+import js from "@eslint/js";
+import * as comments from "@eslint-community/eslint-plugin-eslint-comments/configs";
+import { defineConfig } from "eslint/config";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
-import pluginImportX, { createNodeResolver } from "eslint-plugin-import-x";
+import { importX, createNodeResolver } from "eslint-plugin-import-x";
 import pluginPromise from "eslint-plugin-promise";
-import turbo from "eslint-plugin-turbo";
+import * as turbo from "eslint-plugin-turbo";
+import globals from "globals";
 import tseslint from "typescript-eslint";
-import vitest from "@vitest/eslint-plugin";
 
-import disables from "./disables.js";
+import disablesConfig from "./disables.js";
+import testConfig from "./test.js";
 
-export const baseConfig = defineConfig(
-  eslint.configs.recommended,
-  tseslint.configs.recommendedTypeChecked,
+const baseConfig = defineConfig(
+  js.configs.recommended,
+  tseslint["configs"].recommendedTypeChecked,
   comments.recommended,
-  pluginImportX.flatConfigs.recommended,
-  pluginImportX.flatConfigs.typescript,
+  importX.flatConfigs.recommended,
+  importX.flatConfigs.typescript,
   pluginPromise.configs["flat/recommended"],
   turbo.configs["flat/recommended"],
   {
@@ -35,6 +35,27 @@ export const baseConfig = defineConfig(
     },
     rules: {
       /**
+       * Single extends when using declaration merging can be useful
+       *
+       * @see {@link https://typescript-eslint.io/rules/unbound-method/}
+       */
+      "@typescript-eslint/no-empty-object-type": [
+        "error",
+        { allowInterfaces: "with-single-extends" },
+      ],
+      /**
+       * @see {@link https://typescript-eslint.io/rules/unbound-method/}
+       */
+      "@typescript-eslint/unbound-method": ["error", { ignoreStatic: true }],
+      /**
+       * I intend to use TypeScript enums like "a namespaced bag of values"
+       *
+       * @see {@link https://typescript-eslint.io/rules/no-unsafe-enum-comparison/}
+       */
+      "@typescript-eslint/no-unsafe-enum-comparison": "off",
+      /**
+       * Emulates TypeScript style of exempting names starting with "_"
+       *
        * @see {@link https://typescript-eslint.io/rules/no-unused-vars/}
        */
       "@typescript-eslint/no-unused-vars": [
@@ -49,25 +70,6 @@ export const baseConfig = defineConfig(
           ignoreRestSiblings: true,
         },
       ],
-      /**
-       * Single extends when using declaration merging can be useful
-       *
-       * @see {@link https://typescript-eslint.io/rules/unbound-method/}
-       */
-      "@typescript-eslint/no-empty-object-type": [
-        "error",
-        { allowInterfaces: "with-single-extends" },
-      ],
-      /**
-       * I intend to use TS Enums like "a namespaced bag of values"
-       *
-       * @see {@link https://typescript-eslint.io/rules/no-unsafe-enum-comparison/}
-       */
-      "@typescript-eslint/no-unsafe-enum-comparison": "off",
-      /**
-       * @see {@link https://typescript-eslint.io/rules/unbound-method/}
-       */
-      "@typescript-eslint/unbound-method": ["error", { ignoreStatic: true }],
       /**
        * @see {@link https://github.com/un-ts/eslint-plugin-import-x/blob/master/docs/rules/exports-last.md}
        */
@@ -120,21 +122,8 @@ export const baseConfig = defineConfig(
       ],
     },
   },
-  {
-    files: ["**/*.test.{ts,tsx}"],
-    extends: [vitest.configs.recommended],
-    rules: {
-      /**
-       * @see {@link https://github.com/vitest-dev/eslint-plugin-vitest/blob/main/docs/rules/prefer-importing-vitest-globals.md}
-       */
-      "vitest/prefer-importing-vitest-globals": "error",
-    },
-    settings: {
-      vitest: {
-        typecheck: true,
-      },
-    },
-  },
+  testConfig,
+  disablesConfig,
 );
 
-export default baseConfig.concat(disables);
+export default baseConfig;

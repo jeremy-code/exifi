@@ -5,12 +5,13 @@
   "private": true,
   "exports": {
     ".": "./index.js",
-    "./react.js": "./react.js"
+    "./disables.js": "./disables.js",
+    "./react.js": "./react.js",
+    "./test.js": "./test.js"
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.7.1",
     "@eslint-react/eslint-plugin": "^2.13.0",
-    "@eslint/config-helpers": "^0.5.5",
     "@eslint/js": "^9.39.4",
     "@tanstack/eslint-plugin-query": "^5.99.0",
     "@tanstack/eslint-plugin-router": "^1.161.6",

@@ -6,7 +6,7 @@
     "prepare": "husky",
     "build": "turbo build",
     "dev": "turbo dev",
-    "lint": "turbo lint",
+    "lint": "eslint && turbo lint",
     "test": "turbo test",
     "format": "prettier . --write",
     "format:check": "prettier . --check"

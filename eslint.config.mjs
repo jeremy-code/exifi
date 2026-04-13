@@ -1,7 +1,12 @@
-/** @import { Linter } from "eslint" */
-import base from "@exiftools/eslint-config";
+import { globalIgnores, defineConfig } from "eslint/config";
 
-/**
- * @satisfies {Linter.Config[]}
- */
-export default [{ ignores: ["apps/*", "packages/*"], ...base }];
+import baseConfig from "@exiftools/eslint-config";
+
+export default defineConfig(
+  globalIgnores([
+    "apps/*",
+    "packages/*",
+    "!packages/eslint-config", // The ESLint configs themselves do not have a eslint.config.js
+  ]),
+  baseConfig,
+);

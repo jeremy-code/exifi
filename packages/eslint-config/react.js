@@ -1,20 +1,21 @@
-import { defineConfig, globalIgnores } from "@eslint/config-helpers";
 import eslintReact from "@eslint-react/eslint-plugin";
-import globals from "globals";
 import pluginQuery from "@tanstack/eslint-plugin-query";
+import pluginRouter from "@tanstack/eslint-plugin-router";
+import { defineConfig, globalIgnores } from "eslint/config";
 import reactCompiler from "eslint-plugin-react-compiler";
 import reactHooks from "eslint-plugin-react-hooks";
-import pluginRouter from "@tanstack/eslint-plugin-router";
+import globals from "globals";
 
-import { baseConfig } from "./index.js";
-import disables from "./disables.js";
+import disablesConfig from "./disables.js";
+import baseConfig from "./index.js";
 
-export const reactConfig = defineConfig(
-  globalIgnores(["dist"]),
+const reactConfig = defineConfig(
+  // Ignore TanStack Router filesystem route tree
+  globalIgnores(["dist", "src/routeTree.gen.ts"]),
   baseConfig,
   eslintReact.configs["recommended-type-checked"],
   pluginQuery.configs["flat/recommended"],
-  reactCompiler.configs.recommended,
+  reactCompiler["configs"].recommended,
   reactHooks.configs.flat["recommended-latest"],
   pluginRouter.configs["flat/recommended"],
   {
@@ -59,6 +60,7 @@ export const reactConfig = defineConfig(
       },
     },
   },
+  disablesConfig,
 );
 
-export default reactConfig.concat(disables);
+export default reactConfig;
