@@ -25,7 +25,8 @@ const AppProvider = ({ children }: { children: Readonly<ReactNode> }) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <TooltipProvider>
+        {/* Defaults to 700 */}
+        <TooltipProvider delayDuration={0}>
           {children}
           <Devtools />
           <Toaster />
