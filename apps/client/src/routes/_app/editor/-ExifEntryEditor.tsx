@@ -17,14 +17,14 @@ import {
 import { ChevronDown } from "lucide-react";
 import { cn } from "tailwind-variants";
 
+import { AsciiTextarea } from "#components/editor/AsciiTextarea";
+import { NumberInput } from "#components/editor/NumberInput";
 import { RationalInput } from "#components/editor/RationalInput";
 import { useExifEditorStoreContext } from "#hooks/useExifEditor";
 import { getValueFromExifEntryObject } from "#lib/exif/getValueFromExifEntryObject";
 import { newTypedArrayInFormat } from "#lib/exif/newTypedArrayInFormat";
 import { type ExifEntryObject } from "#lib/exif/serializeExifData";
 import { arrayEquals } from "#utils/arrayEquals";
-import { decodeStringFromUtf8 } from "#utils/decodeStringFromUtf8";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 import { formatPlural } from "#utils/formatPlural";
 import { Button } from "@exiftools/ui/components/Button";
 import {
@@ -38,15 +38,6 @@ import {
   DataListItemLabel,
   DataListItemValue,
 } from "@exiftools/ui/components/DataList";
-import { Input, type InputProps } from "@exiftools/ui/components/Input";
-import {
-  Textarea,
-  type TextareaProps,
-} from "@exiftools/ui/components/Textarea";
-
-type ExifEntryEditorProps = {
-  exifEntryObject: ExifEntryObject;
-};
 
 const ValidityCheck = ({
   className,
@@ -76,59 +67,15 @@ const ValidityCheck = ({
   );
 };
 
-const ExifEntryValueEditor = ({
-  value,
-  setValue,
-  ...props
-}: {
-  value: number;
-  setValue: (value: number) => void;
-} & Omit<InputProps, "value">) => {
-  return (
-    <Input
-      {...props}
-      type="number"
-      value={value}
-      onChange={(e) => {
-        if (!Number.isNaN(e.target.valueAsNumber)) {
-          setValue(e.target.valueAsNumber);
-        } else if (e.target.value === "") {
-          setValue(0);
-        }
-      }}
-    />
-  );
-};
-
-const ExifEntryAsciiValueEditor = ({
-  value,
-  setValue,
-  ...props
-}: {
-  value: ValidTypedArray;
-  setValue: (value: ValidTypedArray) => void;
-} & Omit<TextareaProps, "value">) => {
-  const asciiValue = useMemo(
-    () => decodeStringFromUtf8(Uint8Array.from(value)),
-    [value],
-  );
-
-  return (
-    <Textarea
-      {...props}
-      value={asciiValue}
-      onChange={(e) => {
-        setValue(encodeStringToUtf8(e.target.value));
-      }}
-    />
-  );
-};
-
 const supportLevelMap = {
   MANDATORY: "Mandatory",
   UNKNOWN: "Unknown",
   NOT_RECORDED: "Not recorded",
   OPTIONAL: "Optional",
+};
+
+type ExifEntryEditorProps = {
+  exifEntryObject: ExifEntryObject;
 };
 
 const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
@@ -141,21 +88,19 @@ const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
 
   const setNewValueAtIndex = useCallback((index: number) => {
     return (value: number) => {
-      setNewValue((prevNewValue) => {
-        return prevNewValue.with(index, value);
-      });
+      setNewValue((prevNewValue) => prevNewValue.with(index, value));
     };
   }, []);
 
-  const setRationalAtIndex = useCallback(
-    (index: number) => {
-      return (value: RationalObject | undefined) => {
-        setNewValueAtIndex(index * 2)(value?.numerator ?? 0);
-        setNewValueAtIndex(index * 2 + 1)(value?.denominator ?? 0);
-      };
-    },
-    [setNewValueAtIndex],
-  );
+  const setRationalAtIndex = useCallback((index: number) => {
+    return (value: RationalObject) => {
+      setNewValue((prevNewValue) => {
+        const newNewValue = prevNewValue.slice();
+        newNewValue.set([value.numerator, value.denominator], index * 2);
+        return newNewValue;
+      });
+    };
+  }, []);
 
   const isChanged = useMemo(
     () => !arrayEquals(exifEntryObject.value, Array.from(newValue)),
@@ -281,9 +226,9 @@ const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
             />
           ))
         : exifEntryObject.format === "ASCII" ?
-          <ExifEntryAsciiValueEditor value={newValue} setValue={setNewValue} />
+          <AsciiTextarea value={newValue} setValue={setNewValue} />
         : Array.from(newValue).map((value, index) => (
-            <ExifEntryValueEditor
+            <NumberInput
               key={index}
               value={value}
               setValue={setNewValueAtIndex(index)}
@@ -314,7 +259,7 @@ const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-4 grid grid-cols-[repeat(auto-fit,minmax(--spacing(30),1fr))]">
             {Array.from(newValue).map((value, index) => (
-              <ExifEntryValueEditor
+              <NumberInput
                 key={index}
                 value={value}
                 setValue={setNewValueAtIndex(index)}

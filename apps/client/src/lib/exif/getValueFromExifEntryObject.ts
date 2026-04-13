@@ -1,5 +1,6 @@
-import { ExifData, ExifEntry, ExifIfd } from "libexif-wasm";
+import { ExifData, ExifIfd } from "libexif-wasm";
 
+import { getOrInsertEntry } from "./getOrInsertEntry";
 import { newTypedArrayInFormat } from "./newTypedArrayInFormat";
 import type { ExifEntryObject } from "./serializeExifData";
 
@@ -14,10 +15,9 @@ const getValueFromExifEntryObject = (
   exifData.byteOrder = exifEntryObject.byteOrder;
   exifData.fix(); // Initialize any necessary entries
   const exifContent = exifData.ifd[ExifIfd[exifEntryObject.ifd]];
-  const exifEntry = ExifEntry.new();
-  exifEntry.tag = exifEntryObject.tag;
+  // Must be added after tag is set, but before data is set, because of byte order
+  const exifEntry = getOrInsertEntry(exifContent, exifEntryObject.tag);
   exifEntry.format = exifEntryObject.format;
-  exifContent.addEntry(exifEntry); // Must be added after tag is set, but before data is set, because of byte order
 
   exifEntry.fromTypedArray(
     newTypedArrayInFormat(exifEntryObject.value, exifEntryObject.format),
