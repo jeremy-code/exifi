@@ -101,7 +101,7 @@ const EditorGpsComponent = () => {
   );
 };
 
-const Route = createFileRoute("/(app)/editor_/gps/")({
+const Route = createFileRoute("/_app/editor_/gps/")({
   component: EditorGpsComponent,
 });
 

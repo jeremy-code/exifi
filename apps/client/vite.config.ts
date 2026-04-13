@@ -10,7 +10,12 @@ import { defineConfig } from "vite";
 const viteConfig = defineConfig({
   plugins: [
     tanstackStart({
-      spa: { enabled: true },
+      // https://github.com/TanStack/router/discussions/3394#discussioncomment-16523892
+      prerender: {
+        enabled: true,
+        crawlLinks: false,
+      },
+      pages: [{ path: "/" }, { path: "/tags" }],
     }),
     react(),
     babel({ presets: [reactCompilerPreset()] }),

@@ -1,5 +1,7 @@
+import type { FileRoutesByPath } from "@tanstack/react-router";
+
 type NavigationItem = {
-  href: `/${string}`;
+  href: FileRoutesByPath[keyof FileRoutesByPath]["path"];
   name: string;
 };
 

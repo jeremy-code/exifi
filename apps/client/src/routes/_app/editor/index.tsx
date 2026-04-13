@@ -41,7 +41,7 @@ const EditorComponent = () => {
   return null;
 };
 
-const Route = createFileRoute("/(app)/editor/")({
+const Route = createFileRoute("/_app/editor/")({
   component: EditorComponent,
 });
 
