@@ -6,7 +6,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { cn } from "tailwind-variants";
 
 import { FileInformation } from "#components/file/FileInformation";
-import { useDropzoneState } from "#hooks/useDropzoneState";
+import { useDropzoneStore } from "#hooks/useDropzoneStore";
 import { useExifData } from "#hooks/useExifData";
 import { formatPlural } from "#utils/formatPlural";
 import {
@@ -130,7 +130,7 @@ type ExifViewerProps = {
 } & ComponentPropsWithRef<"div">;
 
 const ExifViewer = ({ file, className, ...props }: ExifViewerProps) => {
-  const removeAcceptedFileByIndex = useDropzoneState(
+  const removeAcceptedFileByIndex = useDropzoneStore(
     (state) => state.removeAcceptedFileByIndex,
   );
 

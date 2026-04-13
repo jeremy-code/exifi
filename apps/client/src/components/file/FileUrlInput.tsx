@@ -2,7 +2,7 @@ import type { ComponentPropsWithRef } from "react";
 
 import { useForm, type SubmitHandler } from "react-hook-form";
 
-import { useDropzoneState } from "#hooks/useDropzoneState";
+import { useDropzoneStore } from "#hooks/useDropzoneStore";
 import { getFileFromResponse } from "#utils/getFileFromResponse";
 import { Button, type ButtonProps } from "@exiftools/ui/components/Button";
 import { Input, type InputProps } from "@exiftools/ui/components/Input";
@@ -25,7 +25,7 @@ const FileUrlInput = ({
 }: FileUrlInputProps) => {
   const { register, handleSubmit, formState } = useForm<FieldValues>();
 
-  const addAcceptedFiles = useDropzoneState((state) => state.addAcceptedFiles);
+  const addAcceptedFiles = useDropzoneStore((state) => state.addAcceptedFiles);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const response = await fetch(data.fileUrl);

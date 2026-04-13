@@ -10,7 +10,7 @@ import {
 import { cn } from "tailwind-variants";
 import { useShallow } from "zustand/react/shallow";
 
-import { useDropzoneState } from "#hooks/useDropzoneState";
+import { useDropzoneStore } from "#hooks/useDropzoneStore";
 import { formatBytes } from "#utils/formatBytes";
 import { Button } from "@exiftools/ui/components/Button";
 import { Link } from "@exiftools/ui/components/Link";
@@ -82,7 +82,7 @@ const Dropzone = ({
   rootProps,
 }: DropzoneProps) => {
   const { acceptedFiles, addAcceptedFiles, removeAcceptedFileByIndex } =
-    useDropzoneState(
+    useDropzoneStore(
       useShallow((state) => ({
         acceptedFiles: state.acceptedFiles,
         addAcceptedFiles: state.addAcceptedFiles,
