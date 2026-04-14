@@ -4,6 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { cn } from "tailwind-variants";
 
+import { useFileHash } from "#hooks/useFileHash";
 import { formatBytes } from "#utils/formatBytes";
 import { getImageDimensions } from "#utils/getImageDimensions";
 import { serializeFile } from "#utils/serializeFile";
@@ -23,13 +24,14 @@ import {
 } from "@exiftools/ui/components/DataList";
 import { Link } from "@exiftools/ui/components/Link";
 import { Skeleton } from "@exiftools/ui/components/Skeleton";
+import { toast } from "@exiftools/ui/hooks/useToast";
 
-type FileDimensionsInformationProps = { file: File } & DataListItemValueProps;
+type FileInformationValueProps = { file: File } & DataListItemValueProps;
 
 const FileDimensionsInformation = ({
   file,
   ...props
-}: FileDimensionsInformationProps) => {
+}: FileInformationValueProps) => {
   const { data: dimensions } = useSuspenseQuery({
     queryKey: ["FileDimensionsInformation", serializeFile(file), file],
     queryFn: () => getImageDimensions(file),
@@ -45,6 +47,26 @@ const FileDimensionsInformation = ({
         `${dimensions?.width}px \u00d7 ${dimensions?.height}px`
       : "Unknown"}
     </DataListItemValue>
+  );
+};
+
+const FileHashInformation = ({ file, ...props }: FileInformationValueProps) => {
+  const { fileHash, isPending, error } = useFileHash(file);
+
+  if (isPending) {
+    return <Skeleton className="h-5 w-40" />;
+  }
+
+  if (error !== null) {
+    toast({
+      title: "Generating file hash failed",
+      description: `Failed to generate hash for ${file.name}.`,
+      variant: "destructive",
+    });
+  }
+
+  return (
+    <DataListItemValue {...props}>{fileHash ?? "Unknown"}</DataListItemValue>
   );
 };
 
@@ -128,6 +150,10 @@ const FileInformation = ({
               <Suspense fallback={<Skeleton className="h-5 w-20" />}>
                 <FileDimensionsInformation file={file} />
               </Suspense>
+            </DataListItem>
+            <DataListItem>
+              <DataListItemLabel>File hash (SHA-256)</DataListItemLabel>
+              <FileHashInformation file={file} />
             </DataListItem>
           </DataList>
         </CardContent>

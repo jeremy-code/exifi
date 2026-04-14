@@ -73,6 +73,9 @@ importers:
       decimal.js:
         specifier: ^10.6.0
         version: 10.6.0
+      hash-wasm:
+        specifier: ^4.12.0
+        version: 4.12.0
       leaflet:
         specifier: ^1.9.4
         version: 1.9.4
@@ -4767,6 +4770,12 @@ packages:
         integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==,
       }
     engines: { node: ">=8" }
+
+  hash-wasm@4.12.0:
+    resolution:
+      {
+        integrity: sha512-+/2B2rYLb48I/evdOIhP+K/DD2ca2fgBjp6O+GBEnCDk2e4rpeXIK8GvIyRPjTezgmWn9gmKwkQjjx6BtqDHVQ==,
+      }
 
   hasown@2.0.2:
     resolution:
@@ -9808,6 +9817,8 @@ snapshots:
       srvx: 0.11.15
 
   has-flag@4.0.0: {}
+
+  hash-wasm@4.12.0: {}
 
   hasown@2.0.2:
     dependencies:

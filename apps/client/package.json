@@ -31,6 +31,7 @@
     "content-disposition": "^1.1.0",
     "dayjs": "^1.11.20",
     "decimal.js": "^10.6.0",
+    "hash-wasm": "^4.12.0",
     "leaflet": "^1.9.4",
     "leaflet-geosearch": "^4.4.0",
     "libexif-wasm": "^0.5.0",
