@@ -1,6 +1,6 @@
 import { createContext, use, useMemo } from "react";
 
-import { ExifIfd, type ValidTypedArray } from "libexif-wasm";
+import { ExifIfd, type ExifData, type ValidTypedArray } from "libexif-wasm";
 import { create, useStore } from "zustand";
 
 import { getOrInsertEntry } from "#lib/exif/getOrInsertEntry";
@@ -14,6 +14,24 @@ import { getImageDimensions } from "#utils/getImageDimensions";
 import { isTypedArray } from "#utils/isTypedArray";
 
 import { useExifData } from "./useExifData";
+
+const getExifEntryFromExifEntryObject = (
+  exifData: ExifData | null,
+  exifEntryObject: ExifEntryObject,
+) => {
+  if (exifData === null) {
+    throw new Error("Reference to ExifData instance not found");
+  }
+  const exifContent = exifData.ifd[ExifIfd[exifEntryObject.ifd]];
+  const exifEntry = exifContent.getEntry(exifEntryObject.tag);
+
+  if (exifEntry === null) {
+    throw new Error(
+      `Exif entry with tag ${exifEntryObject.tag} was not found.`,
+    );
+  }
+  return exifEntry;
+};
 
 type ExifEditorStoreState = {
   exifDataObject: ExifDataObject;
@@ -43,17 +61,10 @@ const useExifEditor = (file: File) => {
         exifDataObject,
         updateExifEntry: (exifEntryObject, value) => {
           set(() => {
-            if (exifData === null) {
-              throw new Error("Reference to ExifData instance not found");
-            }
-            const exifContent = exifData.ifd[ExifIfd[exifEntryObject.ifd]];
-            const exifEntry = exifContent?.getEntry(exifEntryObject.tag);
-
-            if (exifEntry === null) {
-              throw new Error("Invalid Exif Entry");
-            }
-
-            // TODO: Handle other formats than ASCII
+            const exifEntry = getExifEntryFromExifEntryObject(
+              exifData,
+              exifEntryObject,
+            );
             if (exifEntry.format === "ASCII" && typeof value === "string") {
               const utf8Array = encodeStringToUtf8(value);
               exifEntry.data = utf8Array;
@@ -70,16 +81,11 @@ const useExifEditor = (file: File) => {
         },
         removeExifEntry: (exifEntryObject) => {
           set(() => {
-            if (exifData === null) {
-              throw new Error("Reference to ExifData instance not found");
-            }
-            const exifContent = exifData.ifd[ExifIfd[exifEntryObject.ifd]];
-            const exifEntry = exifContent?.getEntry(exifEntryObject.tag);
-
-            if (exifEntry === null) {
-              throw new Error("Invalid Exif Entry");
-            }
-
+            const exifEntry = getExifEntryFromExifEntryObject(
+              exifData,
+              exifEntryObject,
+            );
+            const exifContent = exifEntry.parent!; // Never null since entry must belong to an IFD
             exifContent.removeEntry(exifEntry);
 
             return { exifDataObject: serializeExifData(exifData) };
@@ -88,15 +94,11 @@ const useExifEditor = (file: File) => {
         removeExifEntries: (exifEntryObjects) => {
           set(() => {
             exifEntryObjects.forEach((exifEntryObject) => {
-              if (exifData === null) {
-                throw new Error("Reference to ExifData instance not found");
-              }
-              const exifContent = exifData.ifd[ExifIfd[exifEntryObject.ifd]];
-              const exifEntry = exifContent?.getEntry(exifEntryObject.tag);
-
-              if (exifEntry === null) {
-                throw new Error("Invalid Exif Entry");
-              }
+              const exifEntry = getExifEntryFromExifEntryObject(
+                exifData,
+                exifEntryObject,
+              );
+              const exifContent = exifEntry.parent!; // Never null since entry must belong to an IFD
               exifContent.removeEntry(exifEntry);
             });
             return { exifDataObject: serializeExifData(exifData) };
