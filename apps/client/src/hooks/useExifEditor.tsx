@@ -32,8 +32,8 @@ type ExifEditorStoreActions = {
 
 type ExifEditorStore = ExifEditorStoreState & ExifEditorStoreActions;
 
-const useExifEditor = (file: File, fileHashPromise: Promise<string>) => {
-  const exifData = useExifData(file, fileHashPromise);
+const useExifEditor = (file: File) => {
+  const exifData = useExifData(file);
 
   const exifDataObject = useMemo(() => serializeExifData(exifData), [exifData]);
 

@@ -8,7 +8,6 @@ import { useShallow } from "zustand/react/shallow";
 import { FileInformation } from "#components/file/FileInformation";
 import { useDropzoneStore } from "#hooks/useDropzoneStore";
 import { useExifEditor, ExifEditorStoreContext } from "#hooks/useExifEditor";
-import { useFileHashPromise } from "#hooks/useFileHashPromise";
 import { saveFile } from "#utils/saveFile";
 import { Button } from "@exiftools/ui/components/Button";
 import { Skeleton } from "@exiftools/ui/components/Skeleton";
@@ -16,14 +15,8 @@ import { writeExifData } from "@exiftools/write-exif-data";
 
 import { ExifEditorIfd } from "./-ExifEditorIfd";
 
-const ExifEditorApp = ({
-  file,
-  fileHashPromise,
-}: {
-  file: File;
-  fileHashPromise: Promise<string>;
-}) => {
-  const { exifData, exifEditorStore } = useExifEditor(file, fileHashPromise);
+const ExifEditorApp = ({ file }: { file: File }) => {
+  const { exifData, exifEditorStore } = useExifEditor(file);
   const [fix, addImageDimensions] = useStore(
     exifEditorStore,
     useShallow((state) => [state.fix, state.addImageDimensions]),
@@ -84,7 +77,6 @@ const ExifEditor = ({ file, className, ...props }: ExifEditorProps) => {
   const removeAcceptedFileByIndex = useDropzoneStore(
     (state) => state.removeAcceptedFileByIndex,
   );
-  const fileHashPromise = useFileHashPromise(file);
 
   return (
     <div className={cn("flex flex-col gap-4", className)} {...props}>
@@ -96,7 +88,7 @@ const ExifEditor = ({ file, className, ...props }: ExifEditorProps) => {
       </div>
       <FileInformation file={file} />
       <Suspense fallback={<Skeleton className="h-50 w-full" />}>
-        <ExifEditorApp file={file} fileHashPromise={fileHashPromise} />
+        <ExifEditorApp file={file} />
       </Suspense>
     </div>
   );

@@ -24,14 +24,8 @@ import {
 
 import { ExifViewerGps } from "./-ExifViewerGps";
 
-const ExifViewerData = ({
-  file,
-  fileHashPromise,
-}: {
-  file: File;
-  fileHashPromise: Promise<string>;
-}) => {
-  const exifData = useExifData(file, fileHashPromise);
+const ExifViewerData = ({ file }: { file: File }) => {
+  const exifData = useExifData(file);
   return (
     <>
       <Accordion

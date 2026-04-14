@@ -3,7 +3,7 @@ import { Suspense, use, useMemo, type ComponentPropsWithRef } from "react";
 import dayjs from "dayjs";
 import { cn } from "tailwind-variants";
 
-import { useFileHashPromise } from "#hooks/useFileHashPromise";
+import { useFileHash } from "#hooks/useFileHash";
 import { formatBytes } from "#utils/formatBytes";
 import { getImageDimensions } from "#utils/getImageDimensions";
 import { Badge } from "@exiftools/ui/components/Badge";
@@ -41,10 +41,10 @@ const FileDimensionsInformation = ({
 };
 
 const FileHashInformation = ({
-  fileHashPromise,
+  file,
   ...props
-}: { fileHashPromise: Promise<string> } & DataListItemValueProps) => {
-  const fileHash = use(fileHashPromise);
+}: { file: File } & DataListItemValueProps) => {
+  const fileHash = useFileHash(file);
   return (
     <DataListItemValue {...props}>{fileHash ?? "Unknown"}</DataListItemValue>
   );
@@ -58,7 +58,6 @@ const FileInformation = ({
   ...props
 }: FileInformationProps) => {
   const objectUrl = URL.createObjectURL(file);
-  const fileHashPromise = useFileHashPromise(file);
   const fileDimensionsPromise = useMemo(() => getImageDimensions(file), [file]);
 
   return (
@@ -138,7 +137,7 @@ const FileInformation = ({
             <DataListItem>
               <DataListItemLabel>File hash (SHA-256)</DataListItemLabel>
               <Suspense fallback={<Skeleton className="h-5 w-60" />}>
-                <FileHashInformation fileHashPromise={fileHashPromise} />
+                <FileHashInformation file={file} />
               </Suspense>
             </DataListItem>
           </DataList>
