@@ -52,6 +52,17 @@ const tabsListVariants = tv({
     ],
   },
   variants: {
+    fitted: {
+      true: {
+        base: "flex",
+        trigger: "flex-1 justify-center text-center",
+      },
+    },
+    justify: {
+      start: { base: "justify-start" },
+      center: { base: "justify-center" },
+      end: { base: "justify-end" },
+    },
     variant: {
       line: {
         base: "flex data-[orientation=horizontal]:border-b data-[orientation=vertical]:border-r",
@@ -109,11 +120,21 @@ const TabsListContext = createContext<VariantProps<
 type TabsListProps = ComponentPropsWithRef<typeof TabsPrimitive.List> &
   VariantProps<typeof tabsListVariants>;
 
-const TabsList = ({ className, variant, ...props }: TabsListProps) => {
-  const { base } = tabsListVariants({ variant });
+const TabsList = ({
+  className,
+  variant,
+  fitted,
+  justify,
+  ...props
+}: TabsListProps) => {
+  const variants = { variant, fitted, justify };
+  const { base } = tabsListVariants({ ...variants });
   return (
-    <TabsListContext value={{ variant }}>
-      <TabsPrimitive.List className={base({ className, variant })} {...props} />
+    <TabsListContext value={variants}>
+      <TabsPrimitive.List
+        className={base({ className, ...variants })}
+        {...props}
+      />
     </TabsListContext>
   );
 };
