@@ -13,11 +13,13 @@ import { toast } from "@exiftools/ui/hooks/useToast";
 type FileUrlInputProps = {
   inputProps?: InputProps;
   buttonProps?: ButtonProps;
+  onSuccess?: (file: File) => void;
 } & ComponentPropsWithRef<"form">;
 
 const FileUrlInput = ({
   inputProps,
   buttonProps,
+  onSuccess,
   ...props
 }: FileUrlInputProps) => {
   const addAcceptedFiles = useDropzoneStore((state) => state.addAcceptedFiles);
@@ -32,6 +34,7 @@ const FileUrlInput = ({
     mutationKey: ["FileUrlInput"],
     onSuccess: (data) => {
       addAcceptedFiles([data]);
+      onSuccess?.(data);
     },
     onError: (error, variables) => {
       toast({

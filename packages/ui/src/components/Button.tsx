@@ -24,6 +24,8 @@ const buttonVariants = tv({
       md: "h-10 min-w-10 gap-2 px-4 text-sm/5",
       lg: "h-11 min-w-11 gap-3 px-5 text-base/6",
       icon: "h-10 min-w-10 gap-2 text-sm/5",
+      "icon-sm": "h-9 min-w-9 gap-2 text-sm/5",
+      "icon-xs": "h-8 min-w-8 gap-1 text-xs/4",
     },
   },
   compoundVariants: [
