@@ -19,6 +19,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@dnd-kit/dom": "^0.4.0",
+    "@dnd-kit/helpers": "^0.4.0",
+    "@dnd-kit/react": "^0.4.0",
     "@exiftools/ui": "workspace:*",
     "@exiftools/write-exif-data": "workspace:*",
     "@react-leaflet/core": "^3.0.0",
