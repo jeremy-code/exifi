@@ -18,22 +18,22 @@ type FileTabsProps = {
 
 const FileTabs = ({ children, ...props }: FileTabsProps) => {
   const {
-    files,
-    activeFileIndex,
-    setActiveFileIndex,
-    removeFile,
+    tabs,
+    activeTabId,
+    setActiveTabId,
+    removeTab,
     createNewTab,
-    updateFile,
-    reorderFiles,
+    updateTab,
+    reorderTabs,
   } = useFileTabsStore(
     useShallow((state) => ({
-      files: state.files,
-      activeFileIndex: state.activeFileIndex,
-      setActiveFileIndex: state.setActiveFileIndex,
-      removeFile: state.removeFile,
+      tabs: state.tabs,
+      activeTabId: state.activeTabId,
+      setActiveTabId: state.setActiveTabId,
+      removeTab: state.removeTab,
       createNewTab: state.createNewTab,
-      updateFile: state.updateFile,
-      reorderFiles: state.reorderFiles,
+      updateTab: state.updateTab,
+      reorderTabs: state.reorderTabs,
     })),
   );
   const fileTabsListRef = useRef<HTMLDivElement>(null);
@@ -41,26 +41,12 @@ const FileTabs = ({ children, ...props }: FileTabsProps) => {
   return (
     <SortableList
       containerRef={fileTabsListRef}
-      onSortEnd={({ initialIndex, index }) => {
-        reorderFiles(initialIndex, index);
-
-        // Keep the active tab correct after reorder
-        if (activeFileIndex === initialIndex) {
-          setActiveFileIndex(index);
-        } else if (
-          activeFileIndex > Math.min(initialIndex, index) &&
-          activeFileIndex <= Math.max(initialIndex, index)
-        ) {
-          setActiveFileIndex(
-            initialIndex < index ? activeFileIndex - 1 : activeFileIndex + 1,
-          );
-        }
-      }}
+      onSortEnd={({ initialIndex, index }) => reorderTabs(initialIndex, index)}
     >
       <Tabs
         {...props}
-        value={String(activeFileIndex)}
-        onValueChange={(value) => setActiveFileIndex(Number(value))}
+        value={activeTabId}
+        onValueChange={(id) => setActiveTabId(id)}
       >
         <TabsList
           ref={fileTabsListRef}
@@ -68,12 +54,13 @@ const FileTabs = ({ children, ...props }: FileTabsProps) => {
           className="items-center gap-1"
           variant="enclosed"
         >
-          {files.map((file, index) => (
+          {tabs.map((tab, index) => (
             <FileTabsTrigger
-              key={index}
+              key={tab.id}
+              id={tab.id}
               index={index}
-              file={file}
-              removeFile={() => removeFile(index)}
+              file={tab.file}
+              removeTab={() => removeTab(tab.id)}
             />
           ))}
           <Button
@@ -87,13 +74,12 @@ const FileTabs = ({ children, ...props }: FileTabsProps) => {
             </AccessibleIcon.Root>
           </Button>
         </TabsList>
-
-        {files.map((file, index) => (
+        {tabs.map((tab) => (
           <FileTabsContent
-            key={index}
-            index={index}
-            file={file}
-            updateFile={(file) => updateFile(file, index)}
+            key={tab.id}
+            id={tab.id}
+            file={tab.file}
+            updateFile={(file) => updateTab(file, tab.id)}
           >
             {children}
           </FileTabsContent>

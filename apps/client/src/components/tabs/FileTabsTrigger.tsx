@@ -9,22 +9,21 @@ import { Button } from "@exiftools/ui/components/Button";
 import { TabsTrigger } from "@exiftools/ui/components/Tabs";
 
 type FileTabsTriggerProps = {
-  removeFile: () => void;
+  id: string;
   index: number;
   file: File | null;
+  removeTab: () => void;
 } & Omit<ComponentPropsWithRef<typeof TabsTrigger>, "value">;
 
 const FileTabsTrigger = ({
   className,
+  id,
   index,
   file,
-  removeFile,
+  removeTab,
   ...props
 }: FileTabsTriggerProps) => {
-  const { ref, isDragSource } = useSortable({
-    id: String(index),
-    index,
-  });
+  const { ref, isDragSource } = useSortable({ id, index });
 
   return (
     <TabsTrigger
@@ -34,7 +33,7 @@ const FileTabsTrigger = ({
         "flex items-center pr-10! transition-colors data-[dragging=true]:opacity-50 data-[state=inactive]:hover:bg-subtle/80",
         className,
       )}
-      value={String(index)}
+      value={id}
       {...props}
     >
       <span className="line-clamp-1">
@@ -52,7 +51,7 @@ const FileTabsTrigger = ({
           e.preventDefault();
           e.stopPropagation();
         }}
-        onClick={() => removeFile()}
+        onClick={() => removeTab()}
       >
         <AccessibleIcon.Root label="Close tab">
           <X size={16} />

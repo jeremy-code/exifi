@@ -9,20 +9,20 @@ import { TabsContent } from "@exiftools/ui/components/Tabs";
 
 type FileTabsContentProps = {
   file: File | null;
-  index: number;
+  id: string;
   updateFile: (file: File) => void;
   children: ReactNode;
 } & Omit<ComponentPropsWithRef<typeof TabsContent>, "value">;
 
 const FileTabsContent = ({
   children,
+  id,
   file,
-  index,
   updateFile,
   ...props
 }: FileTabsContentProps) => {
   return (
-    <TabsContent {...props} value={String(index)}>
+    <TabsContent {...props} value={id}>
       <DropzoneStoreProvider>
         {file === null ?
           <div className="flex flex-col gap-2">
