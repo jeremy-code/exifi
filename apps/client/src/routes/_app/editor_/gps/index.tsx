@@ -9,13 +9,16 @@ import { Dropzone } from "#components/file/Dropzone";
 import { FileUrlInput } from "#components/file/FileUrlInput";
 import { GeoSearchControl } from "#components/map/GeoSearchControl";
 import { Map } from "#components/map/Map";
-import { useDropzoneStore } from "#hooks/useDropzoneStore";
+import {
+  DropzoneStoreProvider,
+  useDropzoneStore,
+} from "#hooks/useDropzoneStore";
 import { updateLatLng } from "#lib/exif/gps/updateLatLng";
 import { saveFile } from "#utils/saveFile";
 import { Button } from "@exiftools/ui/components/Button";
 import { writeExifData } from "@exiftools/write-exif-data";
 
-const EditorGpsComponent = () => {
+const EditorGpsApp = () => {
   const [map, setMap] = useState<LeafletMap | null>(null);
   const [latLng, setLatLng] = useState<LatLng | null>(null);
   const [acceptedFiles, replaceAcceptedFileByIndex] = useDropzoneStore(
@@ -98,6 +101,14 @@ const EditorGpsComponent = () => {
         Submit
       </Button>
     </div>
+  );
+};
+
+const EditorGpsComponent = () => {
+  return (
+    <DropzoneStoreProvider>
+      <EditorGpsApp />
+    </DropzoneStoreProvider>
   );
 };
 
