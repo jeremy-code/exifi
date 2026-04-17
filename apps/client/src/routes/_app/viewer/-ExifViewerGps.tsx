@@ -14,7 +14,7 @@ const ExifViewerGps = ({ exifData }: ExifViewerGpsProps) => {
   const exifDataGpsIfd = exifData.ifd[ExifIfd.GPS];
 
   if (exifDataGpsIfd.count === 0) {
-    return <p>GPS IFD is empty.</p>;
+    return null;
   }
 
   const coordinate = getLatLngFromExif(exifDataGpsIfd);
