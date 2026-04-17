@@ -85,8 +85,10 @@ const tabsListVariants = tv({
       },
       enclosed: {
         base: "min-h-[calc(var(--tabs-height)---spacing(1))] rounded-md bg-muted p-1",
-        trigger:
-          "justify-center rounded-(--tabs-trigger-radius) text-muted-foreground data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-xs",
+        trigger: [
+          "justify-center rounded-(--tabs-trigger-radius) text-muted-foreground data-[state=active]:text-foreground data-[state=active]:shadow-xs",
+          "data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700",
+        ],
       },
       outline: {
         base: [

@@ -21,7 +21,7 @@ const DialogOverlay = ({
   return (
     <DialogPrimitive.Overlay
       className={cn(
-        "fixed top-0 left-0 z-[calc(infinity)] h-dvh w-dvw bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
+        "fixed top-0 left-0 z-50 h-dvh w-dvw bg-black/10 supports-backdrop-filter:backdrop-blur-xs",
         "data-[state=closed]:animate-out data-[state=closed]:fade-out-0",
         "data-[state=open]:animate-in data-[state=open]:fade-in-0",
         className,
@@ -46,7 +46,7 @@ const DialogContent = ({
       <DialogOverlay />
       <DialogPrimitive.Content
         className={cn(
-          "fixed top-1/2 left-1/2 z-[calc(infinity)] flex max-h-[85vh] w-full -translate-x-1/2 -translate-y-1/2 flex-col rounded-md bg-surface shadow-lg",
+          "fixed top-1/2 left-1/2 z-1500 flex max-h-[85vh] w-full -translate-x-1/2 -translate-y-1/2 flex-col rounded-md bg-surface shadow-lg",
           "max-w-[min(calc(100%-2rem),--spacing(320))]",
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
           "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
