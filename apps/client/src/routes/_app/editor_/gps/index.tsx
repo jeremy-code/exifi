@@ -1,7 +1,7 @@
-import { useEffect, useEffectEvent, useState } from "react";
+import { useState } from "react";
 
 import { createFileRoute } from "@tanstack/react-router";
-import { LatLng, type LeafletEvent, type Map as LeafletMap } from "leaflet";
+import { type Map as LeafletMap } from "leaflet";
 import { ExifData, ExifIfd } from "libexif-wasm";
 import { useShallow } from "zustand/react/shallow";
 
@@ -13,6 +13,7 @@ import {
   DropzoneStoreProvider,
   useDropzoneStore,
 } from "#hooks/useDropzoneStore";
+import { useGeoSearchLocation } from "#hooks/useGeoSearchLocation";
 import { updateLatLng } from "#lib/exif/gps/updateLatLng";
 import { saveFile } from "#utils/saveFile";
 import { Button } from "@exiftools/ui/components/Button";
@@ -20,38 +21,13 @@ import { writeExifData } from "@exiftools/write-exif-data";
 
 const EditorGpsApp = () => {
   const [map, setMap] = useState<LeafletMap | null>(null);
-  const [latLng, setLatLng] = useState<LatLng | null>(null);
+  const latLng = useGeoSearchLocation(map);
   const [acceptedFiles, replaceAcceptedFileByIndex] = useDropzoneStore(
     useShallow((state) => [
       state.acceptedFiles,
       state.replaceAcceptedFileByIndex,
     ]),
   );
-
-  const setLocation = useEffectEvent((event: LeafletEvent) => {
-    if (
-      "location" in event &&
-      typeof event.location === "object" &&
-      event.location !== null
-    ) {
-      if (
-        "x" in event.location &&
-        "y" in event.location &&
-        typeof event.location.x === "number" &&
-        typeof event.location.y === "number"
-      ) {
-        setLatLng(new LatLng(event.location.y, event.location.x));
-      }
-    }
-  });
-
-  useEffect(() => {
-    map?.on("geosearch/showlocation", setLocation);
-
-    return () => {
-      map?.off("geosearch/showlocation", setLocation);
-    };
-  }, [map]);
 
   return (
     <div className="flex flex-col gap-2">
