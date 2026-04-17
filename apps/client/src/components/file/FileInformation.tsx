@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import { cn } from "tailwind-variants";
 
 import { useFileHash } from "#hooks/useFileHash";
+import { useObjectUrl } from "#hooks/useObjectUrl";
 import { formatBytes } from "#utils/formatBytes";
 import { getImageDimensions } from "#utils/getImageDimensions";
 import { Badge } from "@exiftools/ui/components/Badge";
@@ -57,7 +58,7 @@ const FileInformation = ({
   className,
   ...props
 }: FileInformationProps) => {
-  const objectUrl = URL.createObjectURL(file);
+  const objectUrl = useObjectUrl(file);
   const fileDimensionsPromise = useMemo(() => getImageDimensions(file), [file]);
 
   return (
@@ -75,13 +76,12 @@ const FileInformation = ({
       >
         <img
           className="m-auto size-full object-scale-down max-md:max-w-xs"
+          // MDN calls revoking object URL on load an anti-pattern
+          // https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Schemes/blob#memory_management
           src={objectUrl}
-          onLoad={() => {
-            URL.revokeObjectURL(objectUrl);
-          }}
         />
       </Card>
-      <Card>
+      <Card className="max-w-full min-w-0">
         <CardHeader>
           <CardTitle>File information</CardTitle>
         </CardHeader>
@@ -89,21 +89,13 @@ const FileInformation = ({
           <DataList orientation="vertical" variant="bold">
             <DataListItem>
               <DataListItemLabel>File</DataListItemLabel>
-              <DataListItemValue className="gap-2">
+              <DataListItemValue className="flex-wrap gap-2">
                 <Link
-                  className="cursor-pointer wrap-break-word break-all"
-                  asChild
+                  className="line-clamp-1 cursor-pointer wrap-break-word break-all"
                   underline
+                  href={objectUrl}
                 >
-                  <button
-                    onClick={() => {
-                      const objectUrl = URL.createObjectURL(file);
-                      window.open(objectUrl);
-                      URL.revokeObjectURL(objectUrl);
-                    }}
-                  >
-                    {file.name}
-                  </button>
+                  {file.name}
                 </Link>
                 <Badge className="select-auto">
                   {file.type !== "" ? file.type : "Unknown"}
@@ -137,7 +129,10 @@ const FileInformation = ({
             <DataListItem>
               <DataListItemLabel>File hash (SHA-256)</DataListItemLabel>
               <Suspense fallback={<Skeleton className="h-5 w-60" />}>
-                <FileHashInformation file={file} />
+                <FileHashInformation
+                  className="block overflow-hidden text-ellipsis"
+                  file={file}
+                />
               </Suspense>
             </DataListItem>
           </DataList>
