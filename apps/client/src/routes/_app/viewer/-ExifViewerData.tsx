@@ -1,4 +1,4 @@
-import { ExifTagInfo } from "libexif-wasm";
+import { exifIfdGetName, ExifTagInfo } from "libexif-wasm";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { useExifData } from "#hooks/useExifData";
@@ -51,7 +51,7 @@ const ExifViewerData = ({ file }: { file: File }) => {
             <AccordionItem key={ifdName} value={ifdName} disabled={isEmpty}>
               <AccordionTrigger>
                 <div className="flex gap-2">
-                  {ifdName}
+                  {exifIfdGetName(ifdName)}
                   <Badge>
                     {formatPlural(ifd.count, {
                       one: " tag",
