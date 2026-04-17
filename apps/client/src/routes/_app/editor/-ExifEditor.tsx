@@ -1,12 +1,11 @@
 import { Suspense, type ComponentPropsWithRef } from "react";
 
-import { ArrowLeft, Save } from "lucide-react";
+import { Save } from "lucide-react";
 import { cn } from "tailwind-variants";
 import { useStore } from "zustand";
 import { useShallow } from "zustand/react/shallow";
 
 import { FileInformation } from "#components/file/FileInformation";
-import { useDropzoneStore } from "#hooks/useDropzoneStore";
 import { useExifEditor, ExifEditorStoreContext } from "#hooks/useExifEditor";
 import { useFileStore } from "#hooks/useFileStore";
 import { saveFile } from "#utils/saveFile";
@@ -73,18 +72,8 @@ type ExifEditorProps = {
 } & ComponentPropsWithRef<"div">;
 
 const ExifEditor = ({ file, className, ...props }: ExifEditorProps) => {
-  const removeAcceptedFileByIndex = useDropzoneStore(
-    (state) => state.removeAcceptedFileByIndex,
-  );
-
   return (
     <div className={cn("flex flex-col gap-4", className)} {...props}>
-      <div>
-        <Button variant="ghost" onClick={() => removeAcceptedFileByIndex(0)}>
-          <ArrowLeft className="size-[1em]" />
-          Upload different image
-        </Button>
-      </div>
       <FileInformation file={file} />
       <Suspense fallback={<Skeleton className="h-50 w-full" />}>
         <ExifEditorApp file={file} />
