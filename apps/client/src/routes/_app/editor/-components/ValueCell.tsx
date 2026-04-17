@@ -1,5 +1,6 @@
 import type { CellContext } from "@tanstack/react-table";
 
+import { DatetimeLocalInput } from "#components/editor/DatetimeLocalInput";
 import { EXIF_TAG_VALUE_MAP } from "#lib/exif/exifTagValueMap";
 import type { ExifEntryObject } from "#lib/exif/serializeExifData";
 import { dayjs } from "#utils/date";
@@ -13,7 +14,6 @@ type ValueCellProps = CellContext<
 >;
 
 const EXIF_TIMESTAMP_FORMAT = "YYYY:MM:DD HH:mm:ss";
-const DATETIME_LOCAL_FORMAT = "YYYY-MM-DDTHH:mm:ss";
 
 // https://github.com/libexif/libexif/blob/b9b7f3c08c1b6812ad3b9d62227ad9527ab9385a/libexif/exif-entry.c#L1718
 const DATETIME_TAGS = [
@@ -42,28 +42,30 @@ const ValueCell = ({ getValue, row, table }: ValueCellProps) => {
     );
   }
 
+  if (isDateTime) {
+    return (
+      <DatetimeLocalInput
+        className="focus:border-border focus:bg-background"
+        value={dayjs(value, EXIF_TIMESTAMP_FORMAT)}
+        onValueChange={(datetimeLocal) => {
+          table.options.meta?.updateExifEntry(
+            row.original,
+            datetimeLocal.format(EXIF_TIMESTAMP_FORMAT),
+          );
+        }}
+      />
+    );
+  }
+
   // All DateTime inputs are also ASCII format, so this is fine
   if (isAscii) {
     return (
       <Input
         className="focus:border-border focus:bg-background"
-        type={isDateTime ? "datetime-local" : "text"}
-        value={
-          !isDateTime ? value : (
-            dayjs(value, EXIF_TIMESTAMP_FORMAT).format(DATETIME_LOCAL_FORMAT)
-          )
-        }
+        type="text"
+        value={value}
         onChange={(e) => {
-          if (!isDateTime) {
-            table.options.meta?.updateExifEntry(row.original, e.target.value);
-          } else {
-            if (e.target.value !== "") {
-              table.options.meta?.updateExifEntry(
-                row.original,
-                dayjs(Date.parse(e.target.value)).format(EXIF_TIMESTAMP_FORMAT),
-              );
-            }
-          }
+          table.options.meta?.updateExifEntry(row.original, e.target.value);
         }}
       />
     );
