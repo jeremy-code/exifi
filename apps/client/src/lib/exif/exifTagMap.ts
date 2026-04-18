@@ -354,6 +354,9 @@ const EXIF_TAG_MAP: Partial<Record<Tag, ExifTagInformation>> = {
     ifd: ["EXIF"],
     format: ["UNDEFINED"],
     maxNumberOfComponents: 1,
+    values: {
+      "Directly photographed": 1,
+    },
   },
 
   BITS_PER_SAMPLE: {
@@ -700,6 +703,16 @@ const EXIF_TAG_MAP: Partial<Record<Tag, ExifTagInformation>> = {
     ifd: ["EXIF"],
     format: ["UNDEFINED"],
     maxNumberOfComponents: 1,
+  },
+
+  ALTITUDE_REF: {
+    ifd: ["GPS"],
+    format: ["BYTE"],
+    maxNumberOfComponents: 1,
+    values: {
+      "Sea level": 0,
+      "Sea level reference": 1,
+    },
   },
 };
 
