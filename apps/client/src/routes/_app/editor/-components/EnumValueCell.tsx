@@ -2,6 +2,7 @@ import type { ExifEditorStoreActions } from "#hooks/useExifEditor";
 import { EXIF_TAG_MAP } from "#lib/exif/exifTagMap";
 import { newTypedArrayInFormat } from "#lib/exif/newTypedArrayInFormat";
 import type { ExifEntryObject } from "#lib/exif/serializeExifData";
+import { formatList } from "#utils/formatList";
 import {
   Select,
   SelectContent,
@@ -9,6 +10,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@exiftools/ui/components/Select";
+
+const getEnumValue = (values: Record<string, number>, value: string) => {
+  if (values === undefined) {
+    throw new Error("Invalid tag was provided, expected enum");
+  }
+
+  if (!(value in values) || values[value] === undefined) {
+    throw new Error(
+      `Invalid value was provided, received ${value}, expected one of ${formatList(
+        Object.keys(values),
+        undefined,
+        { style: "short", type: "disjunction" },
+      )}`,
+    );
+  }
+
+  return values[value];
+};
 
 const EnumValueCell = ({
   exifEntryObject,
@@ -28,24 +47,16 @@ const EnumValueCell = ({
     throw new Error("Invalid tag was provided, expected enum");
   }
 
-  if (!(value in values)) {
-    throw new Error(
-      `Invalid value was provided, received ${value}, expected one of ${Object.keys(values).join()}`,
-    );
-  }
-
   return (
     <Select
       value={value}
       onValueChange={(value) => {
-        if (!(value in values) || values[value] === undefined) {
-          throw new Error(
-            `Invalid value was provided, received ${value}, expected one of ${Object.keys(values).join()}`,
-          );
-        }
         updateExifEntry(
           exifEntryObject,
-          newTypedArrayInFormat([values[value]], exifEntryObject.format),
+          newTypedArrayInFormat(
+            [getEnumValue(values, value)],
+            exifEntryObject.format,
+          ),
         );
       }}
     >
