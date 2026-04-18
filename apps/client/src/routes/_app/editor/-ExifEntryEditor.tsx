@@ -12,7 +12,6 @@ import {
   mapRationalToObject,
   ExifTagInfo,
   type RationalObject,
-  type ValidTypedArray,
 } from "libexif-wasm";
 import { ChevronDown, Minus, Plus } from "lucide-react";
 import { cn } from "tailwind-variants";
@@ -47,11 +46,11 @@ const ValidityCheck = ({
   ...props
 }: {
   exifEntryObject: ExifEntryObject;
-  newValue: ValidTypedArray;
+  newValue: number[];
 } & ComponentPropsWithRef<"span">) => {
   const expectedValue = getValueFromExifEntryObject({
     ...exifEntryObject,
-    value: Array.from(newValue),
+    value: newValue,
   });
   const isEmptyString = expectedValue === "";
 
@@ -80,48 +79,36 @@ type ExifEntryEditorProps = {
 };
 
 const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
-  const [newValue, setNewValue] = useState(() =>
-    newTypedArrayInFormat(exifEntryObject.value, exifEntryObject.format),
+  const [newValue, setNewValue] = useState(exifEntryObject.value);
+  const updateExifEntry = useExifEditorStoreContext((s) => s.updateExifEntry);
+  const setNewValueAtIndex = useCallback(
+    (index: number) => (value: number) =>
+      setNewValue((prevNewValue) => prevNewValue.with(index, value)),
+    [],
   );
-  const updateExifEntry = useExifEditorStoreContext(
-    (state) => state.updateExifEntry,
+  const setRationalAtIndex = useCallback(
+    (index: number) => (value: RationalObject) =>
+      setNewValue((prevNewValue) =>
+        prevNewValue.toSpliced(
+          index * 2,
+          2,
+          value.numerator,
+          value.denominator,
+        ),
+      ),
+    [],
   );
-
-  const setNewValueAtIndex = useCallback((index: number) => {
-    return (value: number) => {
-      setNewValue((prevNewValue) => prevNewValue.with(index, value));
-    };
-  }, []);
-
-  const setRationalAtIndex = useCallback((index: number) => {
-    return (value: RationalObject) => {
-      setNewValue((prevNewValue) => {
-        const newNewValue = prevNewValue.slice();
-        newNewValue.set([value.numerator, value.denominator], index * 2);
-        return newNewValue;
-      });
-    };
-  }, []);
-
   const isChanged = useMemo(
     () => !arrayLikeEquals(exifEntryObject.value, newValue),
     [newValue, exifEntryObject.value],
   );
-  const [isByteEditorOpen, setIsByteEditorOpen] = useState(false);
-  const [isInfoOpen, setIsInfoOpen] = useState(false);
-
   const isRationalOrSRational =
     exifEntryObject.format === "RATIONAL" ||
     exifEntryObject.format === "SRATIONAL";
-  const maxNumberOfComponents =
-    EXIF_TAG_MAP[exifEntryObject.tag]?.maxNumberOfComponents;
 
   return (
     <div className="flex flex-col gap-8">
-      <Collapsible
-        open={isInfoOpen}
-        onOpenChange={(open) => setIsInfoOpen(open)}
-      >
+      <Collapsible>
         <DataList orientation="horizontal" variant="bold">
           <DataListItem>
             <DataListItemLabel className="min-w-50">Tag</DataListItemLabel>
@@ -179,12 +166,10 @@ const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
                   Format
                 </DataListItemLabel>
                 <DataListItemValue>
-                  {exifFormatGetName(exifEntryObject.format)} (
-                  {formatPlural(exifFormatGetSize(exifEntryObject.format), {
-                    one: " byte",
-                    other: " bytes",
-                  })}
-                  )
+                  {`${exifFormatGetName(exifEntryObject.format)} (${formatPlural(
+                    exifFormatGetSize(exifEntryObject.format),
+                    { one: " byte", other: " bytes" },
+                  )})`}
                 </DataListItemValue>
               </DataListItem>
               <DataListItem>
@@ -192,28 +177,30 @@ const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
                   Components
                 </DataListItemLabel>
                 <DataListItemValue>
-                  {formatPlural(exifEntryObject.components, {
+                  {`${formatPlural(exifEntryObject.components, {
                     one: " component",
                     other: " components",
-                  })}
-                  {" ("}
-                  {formatPlural(exifEntryObject.size, {
+                  })} (${formatPlural(exifEntryObject.size, {
                     one: " byte",
                     other: " bytes",
-                  })}
-                  {" in total)"}
+                  })} in total)`}
                 </DataListItemValue>
               </DataListItem>
             </DataList>
           </CollapsibleContent>
         </DataList>
         <CollapsibleTrigger asChild>
-          <Button className="mt-4" variant="muted">
+          <Button className="group/collapsible-trigger mt-4" variant="muted">
             <ChevronDown
+              size={16}
               className="transition-transform data-[open=true]:rotate-180"
-              data-open={isInfoOpen}
             />
-            {isInfoOpen ? "See less" : "See more"}
+            <span className="group-data-[state=closed]/collapsible-trigger:hidden">
+              See less
+            </span>
+            <span className="group-data-[state=open]/collapsible-trigger:hidden">
+              See more
+            </span>
           </Button>
         </CollapsibleTrigger>
       </Collapsible>
@@ -224,14 +211,14 @@ const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
             newTypedArrayInFormat(newValue, exifEntryObject.format),
           ).map((rationalObject, index) => (
             <RationalInput
-              key={`${rationalObject.numerator}/${rationalObject.denominator}`}
+              key={index}
               initialRational={rationalObject}
               setRational={setRationalAtIndex(index)}
             />
           ))
         : exifEntryObject.format === "ASCII" ?
           <AsciiTextarea value={newValue} setValue={setNewValue} />
-        : Array.from(newValue).map((value, index) => (
+        : newValue.map((value, index) => (
             <NumberInput
               key={index}
               value={value}
@@ -249,21 +236,21 @@ const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
           />
         : <span className="text-muted-foreground italic">no changes</span>}
       </div>
-      {(exifEntryObject.format === "ASCII" ||
-        exifEntryObject.format === "RATIONAL" ||
-        exifEntryObject.format === "SRATIONAL") && (
-        <Collapsible
-          open={isByteEditorOpen}
-          onOpenChange={(open) => setIsByteEditorOpen(open)}
-        >
+      {(exifEntryObject.format === "ASCII" || isRationalOrSRational) && (
+        <Collapsible>
           <CollapsibleTrigger asChild>
-            <Button variant="outline">
-              {isByteEditorOpen ? "Close byte editor" : "Open byte editor"}
+            <Button className="group/collapsible-trigger" variant="outline">
+              <span className="group-data-[state=closed]/collapsible-trigger:hidden">
+                Close byte editor
+              </span>
+              <span className="group-data-[state=open]/collapsible-trigger:hidden">
+                Open byte editor
+              </span>
             </Button>
           </CollapsibleTrigger>
           <CollapsibleContent className="mt-4">
             <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4">
-              {Array.from(newValue).map((value, index) => (
+              {newValue.map((value, index) => (
                 <NumberInput
                   key={index}
                   value={value}
@@ -276,34 +263,24 @@ const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
                 exifEntryObject.format !== "ASCII" && (
                   <Button
                     size="icon"
-                    onClick={() => {
+                    onClick={() =>
                       setNewValue((prev) =>
-                        newTypedArrayInFormat(
-                          Array.from(prev).slice(
-                            0,
-                            isRationalOrSRational ? -2 : -1,
-                          ),
-                          exifEntryObject.format,
-                        ),
-                      );
-                    }}
+                        prev.slice(0, isRationalOrSRational ? -2 : -1),
+                      )
+                    }
                   >
                     <Minus size={16} />
                   </Button>
                 )}
-              {(maxNumberOfComponents === undefined ||
-                exifEntryObject.components < maxNumberOfComponents) &&
+              {exifEntryObject.components <
+                (EXIF_TAG_MAP[exifEntryObject.tag]?.maxNumberOfComponents ??
+                  Infinity) &&
                 exifEntryObject.format !== "ASCII" && (
                   <Button
                     size="icon"
                     onClick={() => {
                       setNewValue((prev) =>
-                        newTypedArrayInFormat(
-                          isRationalOrSRational ?
-                            Array.from(prev).concat([0, 1])
-                          : Array.from(prev).concat([0]),
-                          exifEntryObject.format,
-                        ),
+                        prev.concat(isRationalOrSRational ? [0, 1] : [0]),
                       );
                     }}
                   >
@@ -314,12 +291,14 @@ const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
           </CollapsibleContent>
         </Collapsible>
       )}
-
       <Button
         disabled={!isChanged}
-        onClick={() => {
-          updateExifEntry(exifEntryObject, newValue);
-        }}
+        onClick={() =>
+          updateExifEntry(
+            exifEntryObject,
+            newTypedArrayInFormat(newValue, exifEntryObject.format),
+          )
+        }
       >
         {isChanged ? "Save changes" : "Saved"}
       </Button>
