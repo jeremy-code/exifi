@@ -42,10 +42,10 @@ const SelectTrigger = ({
     className={selectTriggerVariants({ variant, className })}
     {...props}
   >
-    <span className="line-clamp-1 shrink grow">{children}</span>
+    <Slot.Slottable>{children}</Slot.Slottable>
     <SelectPrimitive.Icon asChild>
       <ChevronDown
-        className="size-4 shrink-0 text-muted-foreground"
+        className="size-4 text-muted-foreground"
         aria-hidden={true}
       />
     </SelectPrimitive.Icon>

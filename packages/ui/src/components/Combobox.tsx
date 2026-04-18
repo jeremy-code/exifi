@@ -32,7 +32,7 @@ const ComboboxActionButtons = ({
     <div
       {...props}
       className={cn(
-        "absolute right-2 bottom-0 flex h-10 items-center justify-center text-solid",
+        "absolute right-2 bottom-0 flex h-10 items-center justify-center text-muted-foreground",
         className,
       )}
     >
@@ -61,7 +61,7 @@ const ComboboxInput = ({
   return (
     <ComboboxPrimitive.InputGroup
       className={cn(
-        "relative box-content h-10 w-64 rounded-md border border-muted bg-background",
+        "relative box-content flex min-h-9 w-full items-center rounded-sm border bg-surface text-sm/5 hover:border-border-hover",
         "[&>input]:pr-8",
         "has-[.combobox-clear]:[&>input]:pr-[calc(0.5rem+1.5rem*2)]",
         className,
@@ -107,7 +107,12 @@ const ComboboxPortal = ({
     <ComboboxPrimitive.Portal {...props}>
       <ComboboxPrimitive.Positioner
         {...positionerProps}
-        className={cn("outline-none")}
+        // Looks like Radix UI Dialog and Combobox portals conflict, see
+        // radix-ui/primitives#3694
+        className={cn(
+          "scroll pointer-events-auto z-[calc(infinity)] outline-none",
+          positionerProps?.className,
+        )}
       >
         {children}
       </ComboboxPrimitive.Positioner>
@@ -124,7 +129,7 @@ const ComboboxPopup = ({
     <ComboboxPrimitive.Popup
       {...props}
       className={cn(
-        "max-h-92 w-(--anchor-width) max-w-(--available-width) origin-(--transform-origin) rounded-md bg-background text-unsubtle shadow-lg outline-1 outline-muted transition-[transform,scale,opacity] duration-100",
+        "max-h-92 w-(--anchor-width) max-w-(--available-width) origin-(--transform-origin) rounded-md border bg-surface shadow-xs transition-[transform,scale,opacity] duration-100",
         "data-ending-style:scale-95 data-ending-style:opacity-0",
         "data-starting-style:scale-95 data-starting-style:opacity-0",
         "dark:shadow-none dark:-outline-offset-1",
