@@ -1,34 +1,23 @@
 import { createFileRoute, Link as RouterLink } from "@tanstack/react-router";
 
-import { Link } from "@exiftools/ui/components/Link";
+import { Button } from "@exiftools/ui/components/Button";
 
 const HomeComponent = () => {
   return (
     <>
-      <ul className="list-disc [&_ul]:list-[revert]">
-        <li>
-          <Link color="link" underline asChild>
-            <RouterLink to="/editor">Editor</RouterLink>
-          </Link>
-          <ul className="list-disc pl-3">
-            <li>
-              <Link color="link" underline asChild>
-                <RouterLink to="/editor/gps">GPS Editor</RouterLink>
-              </Link>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <Link color="link" underline asChild>
-            <RouterLink to="/viewer">Viewer</RouterLink>
-          </Link>
-        </li>
-        <li>
-          <Link color="link" underline asChild>
-            <RouterLink to="/tags">Tags</RouterLink>
-          </Link>
-        </li>
-      </ul>
+      <div className="grid max-h-dvh min-h-60 place-content-center gap-8">
+        <h1 className="mt-[1rem] text-[2rem] font-bold">
+          View and edit Exif data locally
+        </h1>
+        <div className="flex items-center justify-start gap-2 md:justify-center">
+          <Button color="accent" asChild>
+            <RouterLink to="/viewer">View</RouterLink>
+          </Button>
+          <Button variant="ghost" asChild>
+            <RouterLink to="/editor">Edit</RouterLink>
+          </Button>
+        </div>
+      </div>
     </>
   );
 };

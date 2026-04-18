@@ -11,6 +11,7 @@ const buttonVariants = tv({
   variants: {
     color: {
       default: null,
+      accent: null,
     },
     variant: {
       muted: null,
@@ -33,6 +34,11 @@ const buttonVariants = tv({
       color: "default",
       variant: "muted",
       className: "bg-muted hover:bg-border",
+    },
+    {
+      color: "accent",
+      variant: "muted",
+      className: "bg-accent text-white hover:bg-accent-hover",
     },
     {
       color: "default",
