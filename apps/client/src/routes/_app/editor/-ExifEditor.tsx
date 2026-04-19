@@ -30,21 +30,24 @@ const ExifEditorApp = ({ file }: { file: File }) => {
       <div className="flex flex-wrap gap-2">
         <Button
           disabled={isPending}
-          onClick={async () => {
-            if (exifData === null) {
-              throw new Error("Reference to ExifData instance not found");
-            }
-            const newFileInBytes = writeExifData(
-              await file.bytes(),
-              exifData.saveData(),
-            );
-            const newFile = new File(
-              [new Uint8Array(newFileInBytes)],
-              file.name,
-              { type: file.type, lastModified: new Date().getTime() },
-            );
-            startTransition(() => setFile(newFile));
-            void saveFile(newFile);
+          onClick={() => {
+            // https://react.dev/reference/react/useTransition#react-doesnt-treat-my-state-update-after-await-as-a-transition
+            startTransition(async () => {
+              if (exifData === null) {
+                throw new Error("Reference to ExifData instance not found");
+              }
+              const newFileInBytes = writeExifData(
+                await file.bytes(),
+                exifData.saveData(),
+              );
+              const newFile = new File(
+                [new Uint8Array(newFileInBytes)],
+                file.name,
+                { type: file.type, lastModified: new Date().getTime() },
+              );
+              await saveFile(newFile);
+              startTransition(() => setFile(newFile));
+            });
           }}
         >
           {isPending && <Spinner className="absolute" />}

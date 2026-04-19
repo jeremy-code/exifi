@@ -1,6 +1,7 @@
 import {
   createContext,
   use,
+  useEffect,
   useState,
   type Dispatch,
   type SetStateAction,
@@ -25,9 +26,11 @@ const FileStoreProvider = ({
 }: FileStoreProviderProps) => {
   const [file, setFile] = useState(initialFile);
 
-  if (file !== initialFile) {
-    onFileChange(file);
-  }
+  useEffect(() => {
+    if (file !== initialFile) {
+      onFileChange(file);
+    }
+  }, [onFileChange, initialFile, file]);
 
   return (
     <FileStoreContext value={{ file, setFile }}>{children}</FileStoreContext>
