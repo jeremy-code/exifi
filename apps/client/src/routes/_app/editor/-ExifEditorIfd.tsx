@@ -62,12 +62,12 @@ const columns = [
     id: "ifd",
     cell: ({ getValue }) => exifIfdGetName(getValue()),
     header: "IFD",
-    size: 60,
+    size: 30,
   }),
   columnHelper.accessor("tag", {
     id: "tag",
     header: "Tag",
-    size: 130,
+    size: 70,
     cell: ({ getValue, row }) => (
       <Tooltip>
         <TooltipTrigger className="text-left">
@@ -82,12 +82,12 @@ const columns = [
   columnHelper.accessor("formattedValue", {
     header: "Value",
     cell: ValueCell,
-    size: 150,
+    size: 90,
   }),
   columnHelper.display({
     id: "edit",
     cell: EditCell,
-    size: 50,
+    size: 35,
   }),
 ];
 

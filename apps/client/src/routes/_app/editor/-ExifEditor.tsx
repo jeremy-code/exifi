@@ -27,7 +27,7 @@ const ExifEditorApp = ({ file }: { file: File }) => {
 
   return (
     <ExifEditorStoreContext value={exifEditorStore}>
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Button
           disabled={isPending}
           onClick={async () => {
@@ -57,16 +57,6 @@ const ExifEditorApp = ({ file }: { file: File }) => {
           </span>
         </Button>
         <Button onClick={() => fix()}>Fix</Button>
-        <Button
-          onClick={() => {
-            if (exifData === null) {
-              throw new Error("Reference to ExifData instance not found");
-            }
-            exifData.dump();
-          }}
-        >
-          Dump
-        </Button>
         <Button onClick={() => addImageDimensions()}>
           Add image dimensions
         </Button>
