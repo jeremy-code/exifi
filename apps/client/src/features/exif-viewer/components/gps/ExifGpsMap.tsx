@@ -6,11 +6,11 @@ import { icon } from "#components/map/icon";
 import { formatLatLngFromExif } from "#lib/exif/gps/formatLatLngFromExif";
 import { getLatLngFromExif } from "#lib/exif/gps/getLatLngFromExif";
 
-type ExifViewerGpsProps = {
+type ExifGpsMapProps = {
   exifData: ExifData;
 };
 
-const ExifViewerGps = ({ exifData }: ExifViewerGpsProps) => {
+const ExifGpsMap = ({ exifData }: ExifGpsMapProps) => {
   const exifDataGpsIfd = exifData.ifd[ExifIfd.GPS];
 
   if (exifDataGpsIfd.count === 0) {
@@ -42,4 +42,4 @@ const ExifViewerGps = ({ exifData }: ExifViewerGpsProps) => {
   );
 };
 
-export { ExifViewerGps };
+export { ExifGpsMap, type ExifGpsMapProps };
