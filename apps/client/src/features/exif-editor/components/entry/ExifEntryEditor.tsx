@@ -19,6 +19,7 @@ import { cn } from "tailwind-variants";
 import { AsciiTextarea } from "#components/editor/AsciiTextarea";
 import { NumberInput } from "#components/editor/NumberInput";
 import { RationalInput } from "#components/editor/RationalInput";
+import { UserCommentTextarea } from "#components/editor/UserCommentTextarea";
 import { useExifEditorStoreContext } from "#hooks/useExifEditor";
 import { EXIF_TAG_MAP } from "#lib/exif/exifTagMap";
 import { getValueFromExifEntryObject } from "#lib/exif/getValueFromExifEntryObject";
@@ -218,6 +219,8 @@ const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
           ))
         : exifEntryObject.format === "ASCII" ?
           <AsciiTextarea value={newValue} setValue={setNewValue} />
+        : exifEntryObject.tag === "USER_COMMENT" ?
+          <UserCommentTextarea value={newValue} setValue={setNewValue} />
         : newValue.map((value, index) => (
             <NumberInput
               key={index}
@@ -236,7 +239,9 @@ const ExifEntryEditor = ({ exifEntryObject }: ExifEntryEditorProps) => {
           />
         : <span className="text-muted-foreground italic">no changes</span>}
       </div>
-      {(exifEntryObject.format === "ASCII" || isRationalOrSRational) && (
+      {(exifEntryObject.format === "ASCII" ||
+        isRationalOrSRational ||
+        exifEntryObject.tag === "USER_COMMENT") && (
         <Collapsible>
           <CollapsibleTrigger asChild>
             <Button className="group/collapsible-trigger" variant="outline">
