@@ -62,8 +62,8 @@ importers:
         specifier: ^1.29.0
         version: 1.29.0(@tanstack/react-start@1.167.42(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(vite@8.0.8(@types/node@25.6.0)(esbuild@0.27.7)(jiti@2.6.1)(tsx@4.21.0)(yaml@2.8.3)))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       "@tanstack/react-query":
-        specifier: ^5.99.1
-        version: 5.99.1(react@19.2.5)
+        specifier: ^5.99.2
+        version: 5.99.2(react@19.2.5)
       "@tanstack/react-router":
         specifier: ^1.168.23
         version: 1.168.23(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -92,8 +92,8 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0
       libexif-wasm:
-        specifier: ^0.5.0
-        version: 0.5.0
+        specifier: ^0.5.1
+        version: 0.5.1
       lucide-react:
         specifier: ^1.8.0
         version: 1.8.0(react@19.2.5)
@@ -150,8 +150,8 @@ importers:
         specifier: ^0.2.21
         version: 0.2.21(@types/react@19.2.14)(csstype@3.2.3)(react@19.2.5)(solid-js@1.9.11)
       "@tanstack/react-query-devtools":
-        specifier: ^5.99.1
-        version: 5.99.1(@tanstack/react-query@5.99.1(react@19.2.5))(react@19.2.5)
+        specifier: ^5.99.2
+        version: 5.99.2(@tanstack/react-query@5.99.2(react@19.2.5))(react@19.2.5)
       "@tanstack/react-router-devtools":
         specifier: ^1.166.13
         version: 1.166.13(@tanstack/react-router@1.168.23(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@tanstack/router-core@1.168.15)(csstype@3.2.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -216,8 +216,8 @@ importers:
         specifier: ^9.39.4
         version: 9.39.4
       "@tanstack/eslint-plugin-query":
-        specifier: ^5.99.1
-        version: 5.99.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+        specifier: ^5.99.2
+        version: 5.99.2(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
       "@tanstack/eslint-plugin-router":
         specifier: ^1.161.6
         version: 1.161.6(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
@@ -2890,10 +2890,10 @@ packages:
     peerDependencies:
       solid-js: ">=1.9.7"
 
-  "@tanstack/eslint-plugin-query@5.99.1":
+  "@tanstack/eslint-plugin-query@5.99.2":
     resolution:
       {
-        integrity: sha512-mEneRusnS7rZLvx7MV/JHQ2cOVYhk8IXVf8Es9l1JTD+EdP94nq22dZY1ubSJSdO8p10inO6ygyvp4Ok1XfMig==,
+        integrity: sha512-xiazL4CWOHJRDDgs5ZkfW98qlEAisakFDKh1Djc3BIk84tsvt3ow52AC2EiWSMY1q13IB4UI4jSo7yXlC3NL6g==,
       }
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0 || ^10.0.0
@@ -2938,16 +2938,16 @@ packages:
       }
     engines: { node: ">=18" }
 
-  "@tanstack/query-core@5.99.1":
+  "@tanstack/query-core@5.99.2":
     resolution:
       {
-        integrity: sha512-5E8xwxyWvr22yt7zvzP3KOZ5TUElOdVA45NP3/Ao1m9mvc9i18NLTDe9m3M00BH2DR5J20cv7xckMPlhKNs+vQ==,
+        integrity: sha512-1HunU0bXVsR1ZJMZbcOPE6VtaBJxsW809RE9xPe4Gz7MlB0GWwQvuTPhMoEmQ/hIzFKJ/DWAuttIe7BOaWx0tA==,
       }
 
-  "@tanstack/query-devtools@5.99.1":
+  "@tanstack/query-devtools@5.99.2":
     resolution:
       {
-        integrity: sha512-6BcpadvDYgJ578xWdqoxORcGd2wgRdEll/EkCjCb4Mge04kGUVqpES+wh04s/VgBVFuGSe4ab+AwmnfDWBmNZg==,
+        integrity: sha512-TEF1d+RYO9l8oeCwgzmOHIgKwAzXQmw2s/ny2bW8qeg2OMkkLjALfVEivgCMR3OL/jVdMmeTPX56WrV+uvYJFg==,
       }
 
   "@tanstack/react-devtools@0.10.2":
@@ -2982,19 +2982,19 @@ packages:
       "@tanstack/react-start":
         optional: true
 
-  "@tanstack/react-query-devtools@5.99.1":
+  "@tanstack/react-query-devtools@5.99.2":
     resolution:
       {
-        integrity: sha512-9HuN9qWAn8kseiFZNpGYKik0ozff5yBv2t6D6wZvKV6qncH7BAtf0N2myxioZXpOVfCVmpOtgRfNvMHH22CHgQ==,
+        integrity: sha512-8txkK9A9XBNTB8RoxVgfp6W3qwBr25tNP10L4yu3KuyhAdEvccECfIRzesSwMVk/wpVVioAr+hbMtUkMMF+WVw==,
       }
     peerDependencies:
-      "@tanstack/react-query": ^5.99.1
+      "@tanstack/react-query": ^5.99.2
       react: ^18 || ^19
 
-  "@tanstack/react-query@5.99.1":
+  "@tanstack/react-query@5.99.2":
     resolution:
       {
-        integrity: sha512-akg5GdwW70lvJvCqVHZ7tizGyc+TATjUzKX9RuF1xknhEe/1leofXk7YLYbrbRsuhNbHJBAayaQUMvvOFZ5L5g==,
+        integrity: sha512-vM91UEe45QUS9ED6OklsVL15i8qKcRqNwpWzPTVWvRPRSEgDudDgHpvyTjcdlwHcrKNa80T+xXYcchT2noPnZA==,
       }
     peerDependencies:
       react: ^18 || ^19
@@ -5229,10 +5229,10 @@ packages:
       }
     engines: { node: ">= 0.8.0" }
 
-  libexif-wasm@0.5.0:
+  libexif-wasm@0.5.1:
     resolution:
       {
-        integrity: sha512-6KVH7RCxa2P6hvOZY3ArhFilrYGia4Jdoo4iIZ/cvmHxaQA82SUmGiobNAM0zukdILojPgTRPohhbwkY9KFAOg==,
+        integrity: sha512-dyruGnmbsRtyjGOn0iu+JnKVoltw/nv1Iy8cxEzX7Iyg37TZS3pcQst1AiWqhvX6BE1iNop/w7iZsaavgiOPdw==,
       }
     engines: { node: ">=16.0.0" }
 
@@ -8617,7 +8617,7 @@ snapshots:
       - csstype
       - utf-8-validate
 
-  "@tanstack/eslint-plugin-query@5.99.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)":
+  "@tanstack/eslint-plugin-query@5.99.2(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)":
     dependencies:
       "@typescript-eslint/utils": 8.58.2(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
       eslint: 9.39.4(jiti@2.6.1)
@@ -8660,9 +8660,9 @@ snapshots:
 
   "@tanstack/pacer-lite@0.1.1": {}
 
-  "@tanstack/query-core@5.99.1": {}
+  "@tanstack/query-core@5.99.2": {}
 
-  "@tanstack/query-devtools@5.99.1": {}
+  "@tanstack/query-devtools@5.99.2": {}
 
   "@tanstack/react-devtools@0.10.2(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(csstype@3.2.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(solid-js@1.9.11)":
     dependencies:
@@ -8699,15 +8699,15 @@ snapshots:
     transitivePeerDependencies:
       - react-dom
 
-  "@tanstack/react-query-devtools@5.99.1(@tanstack/react-query@5.99.1(react@19.2.5))(react@19.2.5)":
+  "@tanstack/react-query-devtools@5.99.2(@tanstack/react-query@5.99.2(react@19.2.5))(react@19.2.5)":
     dependencies:
-      "@tanstack/query-devtools": 5.99.1
-      "@tanstack/react-query": 5.99.1(react@19.2.5)
+      "@tanstack/query-devtools": 5.99.2
+      "@tanstack/react-query": 5.99.2(react@19.2.5)
       react: 19.2.5
 
-  "@tanstack/react-query@5.99.1(react@19.2.5)":
+  "@tanstack/react-query@5.99.2(react@19.2.5)":
     dependencies:
-      "@tanstack/query-core": 5.99.1
+      "@tanstack/query-core": 5.99.2
       react: 19.2.5
 
   "@tanstack/react-router-devtools@1.166.13(@tanstack/react-router@1.168.23(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@tanstack/router-core@1.168.15)(csstype@3.2.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)":
@@ -10306,7 +10306,7 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  libexif-wasm@0.5.0: {}
+  libexif-wasm@0.5.1: {}
 
   lightningcss-android-arm64@1.32.0:
     optional: true
