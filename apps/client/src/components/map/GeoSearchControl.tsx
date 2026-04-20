@@ -18,10 +18,10 @@ const createGeoSearchControl = (props: GeoSearchControlProps) => {
   return createGeoSearchControlInstance({
     provider: osmProvider,
     style: "bar",
-    marker: { icon },
     autoComplete: true,
     autoCompleteDelay: DEFAULT_AUTOCOMPLETE_DELAY,
     ...props,
+    marker: { icon, ...props.marker },
   });
 };
 

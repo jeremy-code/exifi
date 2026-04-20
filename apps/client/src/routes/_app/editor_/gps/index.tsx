@@ -49,7 +49,7 @@ const EditorGpsApp = ({
     : null;
   const osmProvider = getOsmProvider(currentPositionLatLng);
   const [map, setMap] = useState<LeafletMap | null>(null);
-  const latLng = useGeoSearchLocation(map);
+  const { latLng } = useGeoSearchLocation(map);
   const { file, setFile } = useFileStore();
 
   return (

@@ -8,13 +8,17 @@ type GeoSearchLocationEvent = LeafletEvent & {
     x: number; // lon
     y: number; // lat
     label: string;
-    bounds: [[number, number], [number, number]];
+    bounds: [
+      [lat: number, lng: number], // s, w
+      [lat: number, lng: number], // n, e
+    ];
     raw: unknown; // raw provider result
   };
 };
 
 const useGeoSearchLocation = (map: LeafletMap | null) => {
   const [latLng, setLatLng] = useState<LatLng | null>(null);
+  const [label, setLabel] = useState<string | null>(null);
 
   const setLocation = useEffectEvent((event: GeoSearchLocationEvent) => {
     if (
@@ -30,6 +34,12 @@ const useGeoSearchLocation = (map: LeafletMap | null) => {
       ) {
         setLatLng(new LatLng(event.location.y, event.location.x));
       }
+      if (
+        "label" in event.location &&
+        typeof event.location.label === "string"
+      ) {
+        setLabel(event.location.label);
+      }
     }
   });
 
@@ -41,7 +51,10 @@ const useGeoSearchLocation = (map: LeafletMap | null) => {
     };
   }, [map]);
 
-  return latLng;
+  return {
+    latLng,
+    label,
+  };
 };
 
 export { useGeoSearchLocation };
