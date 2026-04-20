@@ -14,4 +14,6 @@ type DMS = {
   direction: Direction;
 };
 
-export { type Direction, isDirection, type DMS };
+type Axis = "lat" | "lng";
+
+export { type Direction, isDirection, type DMS, type Axis };

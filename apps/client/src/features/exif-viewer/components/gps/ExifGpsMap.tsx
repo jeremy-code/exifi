@@ -3,8 +3,9 @@ import { Marker, Popup } from "react-leaflet";
 
 import { Map } from "#components/map/Map";
 import { icon } from "#components/map/icon";
-import { formatLatLngFromExif } from "#lib/exif/gps/formatLatLngFromExif";
 import { getLatLngFromExif } from "#lib/exif/gps/getLatLngFromExif";
+import { formatLatLng } from "#lib/leaflet/formatLatLng";
+import { formatLatLngAsGeoUri } from "#lib/leaflet/formatLatLngAsGeoUri";
 
 type ExifGpsMapProps = {
   exifData: ExifData;
@@ -23,17 +24,14 @@ const ExifGpsMap = ({ exifData }: ExifGpsMapProps) => {
     <Map className="h-120 rounded" center={coordinate}>
       <Marker icon={icon} position={coordinate}>
         <Popup>
-          {formatLatLngFromExif(exifDataGpsIfd)}{" "}
+          {`${formatLatLng(coordinate)} `}
           <a
             href={`https://www.openstreetmap.org/#map=18/${coordinate.lat}/${coordinate.lng}`}
             target="_blank"
           >
             (OSM)
           </a>{" "}
-          <a
-            href={`geo:${coordinate.lat},${coordinate.lng}${coordinate.alt !== undefined ? `,${coordinate.alt}` : ""}`}
-            target="_blank"
-          >
+          <a href={formatLatLngAsGeoUri(coordinate)} target="_blank">
             (geo)
           </a>
         </Popup>
