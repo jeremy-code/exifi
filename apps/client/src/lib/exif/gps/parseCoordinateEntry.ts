@@ -1,14 +1,16 @@
-import { mapRationalToObject, type ExifEntry } from "libexif-wasm";
+import type { ExifEntry } from "libexif-wasm";
 
 import { isDirection, type DMS } from "#lib/leaflet/interfaces";
+
+import { mapRationalArray } from "../mapRationalArray";
 
 const parseCoordinateEntry = (
   coordinateEntry: ExifEntry,
   coordinateRefEntry: ExifEntry,
 ): DMS => {
-  const [degrees, minutes, seconds] = mapRationalToObject(
+  const [degrees, minutes, seconds] = mapRationalArray(
     coordinateEntry.toTypedArray(),
-  ).map((rational) => rational.numerator / rational.denominator);
+  );
   const coordinateRef = coordinateRefEntry.toString();
 
   if (degrees === undefined || minutes === undefined || seconds === undefined) {

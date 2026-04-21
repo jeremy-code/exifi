@@ -6,6 +6,7 @@ import type { Tag } from "libexif-wasm";
 import { useShallow } from "zustand/react/shallow";
 
 import { useExifEditorStoreContext } from "#hooks/useExifEditor";
+import { mapRationalArray } from "#lib/exif/mapRationalArray";
 import type { ExifEntryObject } from "#lib/exif/serializeExifData";
 import { dmsToDecimalDegrees } from "#lib/leaflet/dmsToDecimalDegrees";
 import { isDirection } from "#lib/leaflet/interfaces";
@@ -25,23 +26,11 @@ type FieldValues = {
   altitude: number | undefined;
 };
 
-function* toDecimal(arr: number[]): Generator<number, void> {
-  for (let i = 0; i < arr.length; i += 2) {
-    const numerator = arr[i];
-    const denominator = arr[i + 1];
-
-    if (numerator === undefined || denominator === undefined) {
-      throw new Error();
-    }
-    yield numerator / denominator;
-  }
-}
-
 const toDecimalDegrees = (
   coordinate: ExifEntryObject,
   coordinateRef: ExifEntryObject,
 ) => {
-  const [degrees, minutes, seconds] = Array.from(toDecimal(coordinate.value));
+  const [degrees, minutes, seconds] = mapRationalArray(coordinate.value);
   if (
     degrees === undefined ||
     minutes === undefined ||
@@ -97,7 +86,7 @@ const getInitialFieldValues = (
     return { longitude, latitude, altitude: undefined };
   }
 
-  const [absoluteAltitude] = Array.from(toDecimal(gpsEntries.ALTITUDE.value));
+  const [absoluteAltitude] = mapRationalArray(gpsEntries.ALTITUDE.value);
 
   if (absoluteAltitude === undefined) {
     return { longitude, latitude, altitude: undefined };
