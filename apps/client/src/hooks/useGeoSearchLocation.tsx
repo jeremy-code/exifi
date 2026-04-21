@@ -1,6 +1,6 @@
 import { useEffect, useEffectEvent, useState } from "react";
 
-import { LatLng, type LeafletEvent, type Map as LeafletMap } from "leaflet";
+import { LatLng, LatLngBounds, type LeafletEvent, type Map } from "leaflet";
 
 // https://github.com/smeijer/leaflet-geosearch#results
 type GeoSearchLocationEvent = LeafletEvent & {
@@ -16,9 +16,10 @@ type GeoSearchLocationEvent = LeafletEvent & {
   };
 };
 
-const useGeoSearchLocation = (map: LeafletMap | null) => {
+const useGeoSearchLocation = (map: Map | null) => {
   const [latLng, setLatLng] = useState<LatLng | null>(null);
   const [label, setLabel] = useState<string | null>(null);
+  const [bounds, setBounds] = useState<LatLngBounds | null>(null);
 
   const setLocation = useEffectEvent((event: GeoSearchLocationEvent) => {
     if (
@@ -26,19 +27,17 @@ const useGeoSearchLocation = (map: LeafletMap | null) => {
       typeof event.location === "object" &&
       event.location !== null
     ) {
-      if (
-        "x" in event.location &&
-        "y" in event.location &&
-        typeof event.location.x === "number" &&
-        typeof event.location.y === "number"
-      ) {
-        setLatLng(new LatLng(event.location.y, event.location.x));
+      const newLatLng = new LatLng(event.location.y, event.location.x);
+      if (latLng === null || !latLng.equals(newLatLng)) {
+        setLatLng(newLatLng);
       }
-      if (
-        "label" in event.location &&
-        typeof event.location.label === "string"
-      ) {
-        setLabel(event.location.label);
+      setLabel(event.location.label);
+      const newBounds = new LatLngBounds(
+        new LatLng(event.location.bounds[0][0], event.location.bounds[0][1]),
+        new LatLng(event.location.bounds[1][0], event.location.bounds[1][1]),
+      );
+      if (bounds === null || !bounds.equals(newBounds)) {
+        setBounds(newBounds);
       }
     }
   });
@@ -51,10 +50,7 @@ const useGeoSearchLocation = (map: LeafletMap | null) => {
     };
   }, [map]);
 
-  return {
-    latLng,
-    label,
-  };
+  return { latLng, label, bounds };
 };
 
 export { useGeoSearchLocation };
