@@ -10,6 +10,9 @@ import { defineConfig } from "vite";
 const viteConfig = defineConfig({
   plugins: [
     tanstackStart({
+      router: {
+        generatedRouteTree: "generated/routeTree.gen.ts",
+      },
       // https://github.com/TanStack/router/discussions/3394#discussioncomment-16523892
       prerender: {
         enabled: true,

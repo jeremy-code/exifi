@@ -8,13 +8,13 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as AppRouteRouteImport } from './routes/_app/route'
-import { Route as staticIndexRouteImport } from './routes/(static)/index'
-import { Route as AppViewerIndexRouteImport } from './routes/_app/viewer/index'
-import { Route as AppEditorIndexRouteImport } from './routes/_app/editor/index'
-import { Route as staticTagsIndexRouteImport } from './routes/(static)/tags/index'
-import { Route as AppEditorGpsIndexRouteImport } from './routes/_app/editor_/gps/index'
+import { Route as rootRouteImport } from './../routes/__root'
+import { Route as AppRouteRouteImport } from './../routes/_app/route'
+import { Route as staticIndexRouteImport } from './../routes/(static)/index'
+import { Route as AppViewerIndexRouteImport } from './../routes/_app/viewer/index'
+import { Route as AppEditorIndexRouteImport } from './../routes/_app/editor/index'
+import { Route as staticTagsIndexRouteImport } from './../routes/(static)/tags/index'
+import { Route as AppEditorGpsIndexRouteImport } from './../routes/_app/editor_/gps/index'
 
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/_app',
@@ -162,7 +162,7 @@ export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
 
-import type { getRouter } from './router.tsx'
+import type { getRouter } from '../router.tsx'
 import type { createStart } from '@tanstack/react-start'
 declare module '@tanstack/react-start' {
   interface Register {
