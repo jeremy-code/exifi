@@ -1,4 +1,4 @@
-import { useMemo, type ComponentPropsWithRef } from "react";
+import { useCallback, useMemo, type ComponentPropsWithRef } from "react";
 
 import { useForm } from "@tanstack/react-form";
 import { LatLng } from "leaflet";
@@ -20,31 +20,16 @@ import { ExifGpsMap } from "../gps/ExifGpsMap";
 
 type ExifEntryAddGpsFormProps = ComponentPropsWithRef<"div">;
 
-type FieldValues = {
-  latitude: number | undefined;
-  longitude: number | undefined;
-  altitude: number | undefined;
-};
-
 const toDecimalDegrees = (
   coordinate: ExifEntryObject,
   coordinateRef: ExifEntryObject,
 ) => {
   const [degrees, minutes, seconds] = mapRationalArray(coordinate.value);
-  if (
-    degrees === undefined ||
-    minutes === undefined ||
-    seconds === undefined ||
-    !isDirection(coordinateRef.formattedValue)
-  ) {
+  const direction = coordinateRef.formattedValue;
+  if (!degrees || !minutes || !seconds || !isDirection(direction)) {
     return null;
   }
-  return dmsToDecimalDegrees({
-    degrees,
-    minutes,
-    seconds,
-    direction: coordinateRef.formattedValue,
-  });
+  return dmsToDecimalDegrees({ degrees, minutes, seconds, direction });
 };
 
 const getInitialFieldValues = (
@@ -58,10 +43,10 @@ const getInitialFieldValues = (
   }, {});
 
   if (
-    gpsEntries["LONGITUDE"] === undefined ||
-    gpsEntries["LATITUDE"] === undefined ||
-    gpsEntries["LATITUDE_REF"] === undefined ||
-    gpsEntries["LONGITUDE_REF"] === undefined
+    gpsEntries.LONGITUDE === undefined ||
+    gpsEntries.LATITUDE === undefined ||
+    gpsEntries.LONGITUDE_REF === undefined ||
+    gpsEntries.LATITUDE_REF === undefined
   ) {
     return { longitude: undefined, latitude: undefined, altitude: undefined };
   }
@@ -101,6 +86,12 @@ const getInitialFieldValues = (
   };
 };
 
+type FieldValues = {
+  latitude: number | undefined;
+  longitude: number | undefined;
+  altitude: number | undefined;
+};
+
 const ExifEntryAddGpsForm = (props: ExifEntryAddGpsFormProps) => {
   const { updateLatLng, exifDataObject } = useExifEditorStoreContext(
     useShallow((state) => ({
@@ -123,17 +114,27 @@ const ExifEntryAddGpsForm = (props: ExifEntryAddGpsFormProps) => {
     },
   });
 
+  const setGpsForm = useCallback(
+    (latLng: LatLng) => {
+      form.setFieldValue("latitude", latLng.lat);
+      form.setFieldValue("longitude", latLng.lng);
+      form.setFieldValue("altitude", latLng.alt);
+    },
+    [form],
+  );
+
   return (
     <div {...props}>
       <Button
         type="button"
         onClick={async () => {
           const currentPosition = await getCurrentPosition();
-          form.setFieldValue("latitude", currentPosition.coords.latitude);
-          form.setFieldValue("longitude", currentPosition.coords.longitude);
-          form.setFieldValue(
-            "altitude",
-            currentPosition.coords.altitude ?? undefined,
+          setGpsForm(
+            new LatLng(
+              currentPosition.coords.latitude,
+              currentPosition.coords.longitude,
+              currentPosition.coords.altitude ?? undefined,
+            ),
           );
         }}
       >
@@ -156,7 +157,13 @@ const ExifEntryAddGpsForm = (props: ExifEntryAddGpsFormProps) => {
                   type="number"
                   value={field.state.value}
                   onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.valueAsNumber)}
+                  onChange={(e) => {
+                    if (e.target.value === "") {
+                      field.handleChange(undefined);
+                    } else if (!Number.isNaN(e.target.valueAsNumber)) {
+                      field.handleChange(e.target.valueAsNumber);
+                    }
+                  }}
                 />
               </>
             )}
@@ -170,7 +177,13 @@ const ExifEntryAddGpsForm = (props: ExifEntryAddGpsFormProps) => {
                   type="number"
                   value={field.state.value}
                   onBlur={field.handleBlur}
-                  onChange={(e) => field.handleChange(e.target.valueAsNumber)}
+                  onChange={(e) => {
+                    if (e.target.value === "") {
+                      field.handleChange(undefined);
+                    } else if (!Number.isNaN(e.target.valueAsNumber)) {
+                      field.handleChange(e.target.valueAsNumber);
+                    }
+                  }}
                 />
               </>
             )}
@@ -195,21 +208,12 @@ const ExifEntryAddGpsForm = (props: ExifEntryAddGpsFormProps) => {
               </>
             )}
           />
-
           <form.Subscribe
             selector={(state) => state.values}
             children={(values) => (
-              <ExifGpsMap
-                {...values}
-                setCoordinate={(coordinate) => {
-                  form.setFieldValue("latitude", coordinate.lat);
-                  form.setFieldValue("longitude", coordinate.lng);
-                  form.setFieldValue("altitude", coordinate.alt);
-                }}
-              />
+              <ExifGpsMap {...values} setCoordinate={setGpsForm} />
             )}
           />
-
           <form.Subscribe
             selector={(state) => state.isSubmitting}
             children={(isSubmitting) => (
