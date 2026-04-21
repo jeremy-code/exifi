@@ -42,7 +42,6 @@ const toDecimalDegrees = (
   coordinateRef: ExifEntryObject,
 ) => {
   const [degrees, minutes, seconds] = Array.from(toDecimal(coordinate.value));
-  console.log(degrees, minutes, seconds);
   if (
     degrees === undefined ||
     minutes === undefined ||
