@@ -24,9 +24,9 @@
       "persistent": true
     },
     "codegen": {
-      "outputs": ["src/generated/**/*"],
       "dependsOn": ["^codegen"],
-      "cache": false
+      "outputs": ["src/generated/**/*"],
+      "inputs": ["redocly.yaml"]
     },
     "@exiftools/client#lint": {
       "dependsOn": ["@exiftools/client#codegen"]
