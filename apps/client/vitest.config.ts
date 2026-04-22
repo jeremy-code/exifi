@@ -1,12 +1,17 @@
 import { playwright } from "@vitest/browser-playwright";
 import { mergeConfig } from "vite";
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 
 import viteConfig from "./vite.config";
 
 const vitestConfig = defineConfig({
   test: {
+    exclude: [...configDefaults.exclude, "./src/generated/**"],
+    name: "@exiftools/ui",
     clearMocks: true,
+    typecheck: {
+      enabled: true,
+    },
     browser: {
       enabled: true,
       instances: [{ browser: "chromium" }],
