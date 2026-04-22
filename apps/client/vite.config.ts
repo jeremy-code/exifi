@@ -34,6 +34,7 @@ const viteConfig = defineConfig({
   },
   build: {
     cssMinify: "lightningcss",
+    license: true,
   },
   /**
    * Otherwise, Vite errors `[commonjs--resolver] Module format "iife"
