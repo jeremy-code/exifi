@@ -66,7 +66,7 @@ const Route = createRootRoute({
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
     ],
     links: [
-      { rel: "shortcut icon", type: "image/svg", href: "/favicon.svg" },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "stylesheet", href: uiCss },
       {
         rel: "apple-touch-icon",
@@ -74,6 +74,7 @@ const Route = createRootRoute({
         sizes: "180x180",
         href: "/apple-touch-icon.png",
       },
+      { rel: "icon", href: "/favicon.ico" },
     ],
   }),
   component: RootComponent,
