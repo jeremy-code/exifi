@@ -15,10 +15,12 @@ import { Footer } from "#components/layout/Footer";
 import { Navbar } from "#components/layout/Navbar";
 import { AppProvider } from "#components/misc/AppProvider";
 import { getBaseUrl } from "#utils/getBaseUrl";
+import { seo } from "#utils/seo";
 import uiCss from "@exiftools/ui/globals.css?url";
 
 const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
   const pathname = useLocation({ select: (location) => location.pathname });
+  const canonicalUrl = new URL(pathname, getBaseUrl()).toString();
 
   return (
     /**
@@ -31,10 +33,9 @@ const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
      */
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link
-          rel="canonical"
-          href={new URL(pathname, getBaseUrl()).toString()}
-        />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="twitter:url" content={canonicalUrl} />
         <HeadContent />
       </head>
       <body>
@@ -64,10 +65,15 @@ const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+      ...seo({
+        title: "Exiftools",
+        description: "Local Exif viewer and editor",
+        keywords: ["exif", "local", "image", "metadata", "editor", "viewer"],
+      }),
     ],
     links: [
-      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       { rel: "stylesheet", href: uiCss },
+      { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       {
         rel: "apple-touch-icon",
         type: "image/png",
