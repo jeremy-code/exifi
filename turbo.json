@@ -21,6 +21,14 @@
       "cache": false,
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "persistent": true
+    },
+    "codegen": {
+      "outputs": ["src/generated/**/*"],
+      "dependsOn": ["^codegen"],
+      "cache": false
+    },
+    "@exiftools/client#lint": {
+      "dependsOn": ["@exiftools/client#codegen"]
     }
   }
 }
