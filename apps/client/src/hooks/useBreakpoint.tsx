@@ -1,4 +1,4 @@
-import { useEffect, useEffectEvent, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 type Breakpoint = "sm" | "md" | "lg" | "xl" | "2xl";
 
@@ -10,23 +10,19 @@ const useBreakpoint = (breakpoint: BreakpointWithUtility) => {
     .getPropertyValue(
       `--breakpoint-${breakpoint.startsWith("max-") ? breakpoint.slice("max-".length) : breakpoint}`,
     );
-  const [matches, setMatches] = useState(false);
-  const handleChange = useEffectEvent((event: MediaQueryListEvent) =>
-    setMatches(event.matches),
+  const mediaQueryList =
+    breakpoint.startsWith("max-") ?
+      window.matchMedia(`(width < ${breakpointValue})`)
+    : window.matchMedia(`(width >= ${breakpointValue})`);
+
+  const matches = useSyncExternalStore(
+    (onStoreChange) => {
+      mediaQueryList.addEventListener("change", onStoreChange);
+
+      return () => mediaQueryList.removeEventListener("change", onStoreChange);
+    },
+    () => mediaQueryList.matches,
   );
-
-  useEffect(() => {
-    const mediaQueryList =
-      breakpoint.startsWith("max-") ?
-        window.matchMedia(`(width < ${breakpointValue})`)
-      : window.matchMedia(`(width >= ${breakpointValue})`);
-
-    mediaQueryList.addEventListener("change", handleChange);
-
-    return () => {
-      mediaQueryList.removeEventListener("change", handleChange);
-    };
-  });
 
   return matches;
 };
