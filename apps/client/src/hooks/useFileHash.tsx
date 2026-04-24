@@ -9,7 +9,9 @@ const fileHashPromiseCache = new WeakMap<File, Promise<string>>();
 const getFileHashPromise = (file: File) => {
   let fileHashPromise = fileHashPromiseCache.get(file);
   if (fileHashPromise === undefined) {
-    fileHashPromise = file.bytes().then((fileInBytes) => sha256(fileInBytes));
+    fileHashPromise = file
+      .arrayBuffer()
+      .then((arrayBuffer) => sha256(new Uint8Array(arrayBuffer)));
     fileHashPromiseCache.set(file, fileHashPromise);
   }
   return fileHashPromise;

@@ -69,7 +69,7 @@ const EditorGpsApp = ({
             return;
           }
 
-          const fileInBytes = await file.bytes();
+          const fileInBytes = new Uint8Array(await file.arrayBuffer());
 
           const exifData = ExifData.from(fileInBytes.buffer);
           updateLatLng(exifData.ifd[ExifIfd.GPS], latLng);

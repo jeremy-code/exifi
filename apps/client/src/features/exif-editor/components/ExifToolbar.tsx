@@ -25,7 +25,7 @@ const ExifToolbar = () => {
         onClick={() => {
           const generateFile = async () => {
             const newFileInBytes = writeExifData(
-              await file.bytes(),
+              new Uint8Array(await file.arrayBuffer()),
               exifData.saveData(),
             );
 
