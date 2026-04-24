@@ -1,10 +1,19 @@
-import dayjs, { extend } from "dayjs";
-import dayjsCustomParseFormat from "dayjs/plugin/customParseFormat";
+import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 
-// import dayjsDevHelper from "dayjs/plugin/devHelper";
+dayjs.extend(advancedFormat);
+dayjs.extend(customParseFormat);
+dayjs.extend(timezone);
+dayjs.extend(utc);
 
-extend(dayjsCustomParseFormat);
 // https://github.com/iamkun/dayjs/issues/2760
-// extend(dayjsDevHelper);
+if (import.meta.env.DEV) {
+  void import("dayjs/plugin/devHelper").then((dayjsDevHelper) =>
+    dayjs.extend(dayjsDevHelper.default),
+  );
+}
 
 export { dayjs };
