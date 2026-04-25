@@ -14,7 +14,7 @@ import {
   DialogTrigger,
 } from "@exifi/ui/components/Dialog";
 
-import { ExifEntryAddForm } from "../entry/ExifEntryAddForm";
+import { ExifEntryAddForm } from "../entries/add/ExifEntryAddForm";
 
 type AddEntryDialogProps = ComponentPropsWithRef<typeof Dialog>;
 

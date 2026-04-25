@@ -14,7 +14,7 @@ import {
   DialogTrigger,
 } from "@exifi/ui/components/Dialog";
 
-import { ExifEntryAddGpsForm } from "../entry/ExifEntryAddGpsForm";
+import { ExifEntryAddGpsForm } from "../entries/add/ExifEntryAddGpsForm";
 
 type AddGpsEntriesDialogProps = ComponentPropsWithRef<typeof Dialog>;
 

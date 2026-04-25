@@ -13,7 +13,7 @@ import {
   DialogTrigger,
 } from "@exifi/ui/components/Dialog";
 
-import { ExifEntryEditor } from "../entry/ExifEntryEditor";
+import { ExifEntryInspector } from "../entries/edit/ExifEntryInspector";
 import type { ExifTableRow } from "../table/columns";
 
 type EditEntryDialogProps = CellContext<ExifTableRow, unknown>;
@@ -46,7 +46,7 @@ const EditEntryDialog = ({ row }: EditEntryDialogProps) => {
           </DialogDescription>
         </DialogHeader>
         <DialogBody>
-          <ExifEntryEditor exifEntryObject={row.original} />
+          <ExifEntryInspector exifEntryObject={row.original} />
         </DialogBody>
       </DialogContent>
     </Dialog>

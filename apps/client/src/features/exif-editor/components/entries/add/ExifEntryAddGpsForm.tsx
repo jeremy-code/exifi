@@ -18,7 +18,7 @@ import { Input } from "@exifi/ui/components/Input";
 import { Label } from "@exifi/ui/components/Label";
 import { Spinner } from "@exifi/ui/components/Spinner";
 
-import { ExifGpsMap } from "../gps/ExifGpsMap";
+import { ExifGpsMap } from "../../gps/ExifGpsMap";
 
 type ExifEntryAddGpsFormProps = ComponentPropsWithRef<"div">;
 
