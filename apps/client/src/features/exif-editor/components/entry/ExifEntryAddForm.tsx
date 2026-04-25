@@ -12,7 +12,7 @@ import { IFD_NAMES } from "libexif-wasm/constants";
 
 import { useExifEditorStoreContext } from "#hooks/useExifEditor";
 import { EXIF_TAG_MAP } from "#lib/exif/exifTagMap";
-import { Button } from "@exiftools/ui/components/Button";
+import { Button } from "@exifi/ui/components/Button";
 import {
   Combobox,
   ComboboxItem,
@@ -21,17 +21,17 @@ import {
   ComboboxEmpty,
   ComboboxPortal,
   ComboboxList,
-} from "@exiftools/ui/components/Combobox";
-import { Input } from "@exiftools/ui/components/Input";
-import { Label } from "@exiftools/ui/components/Label";
+} from "@exifi/ui/components/Combobox";
+import { Input } from "@exifi/ui/components/Input";
+import { Label } from "@exifi/ui/components/Label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@exiftools/ui/components/Select";
-import { Spinner } from "@exiftools/ui/components/Spinner";
+} from "@exifi/ui/components/Select";
+import { Spinner } from "@exifi/ui/components/Spinner";
 
 type FieldValues = {
   ifd: Ifd;

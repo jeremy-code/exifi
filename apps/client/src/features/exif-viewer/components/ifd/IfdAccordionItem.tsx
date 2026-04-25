@@ -5,19 +5,19 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "@exiftools/ui/components/Accordion";
-import { Badge } from "@exiftools/ui/components/Badge";
+} from "@exifi/ui/components/Accordion";
+import { Badge } from "@exifi/ui/components/Badge";
 import {
   DataList,
   DataListItem,
   DataListItemLabel,
   DataListItemValue,
-} from "@exiftools/ui/components/DataList";
+} from "@exifi/ui/components/DataList";
 import {
   TooltipTrigger,
   TooltipContent,
   Tooltip,
-} from "@exiftools/ui/components/Tooltip";
+} from "@exifi/ui/components/Tooltip";
 
 const IfdAccordionItem = ({ exifContent }: { exifContent: ExifContent }) => {
   const ifdName = exifContent.ifd;

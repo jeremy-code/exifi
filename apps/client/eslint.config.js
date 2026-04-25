@@ -1,1 +1,1 @@
-export { default } from "@exiftools/eslint-config/react.js";
+export { default } from "@exifi/eslint-config/react.js";

@@ -4,7 +4,7 @@ import { Decimal } from "decimal.js";
 import type { RationalObject } from "libexif-wasm";
 
 import { approximateRational } from "#lib/math/approximateRational";
-import { Input, type InputProps } from "@exiftools/ui/components/Input";
+import { Input, type InputProps } from "@exifi/ui/components/Input";
 
 type RationalInputProps = {
   initialRational?: RationalObject | undefined;

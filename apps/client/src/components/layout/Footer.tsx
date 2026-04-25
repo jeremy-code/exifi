@@ -3,8 +3,8 @@ import type { ComponentPropsWithRef } from "react";
 import { Code } from "lucide-react";
 import { cn } from "tailwind-variants";
 
-import { Button } from "@exiftools/ui/components/Button";
-import { Link } from "@exiftools/ui/components/Link";
+import { Button } from "@exifi/ui/components/Button";
+import { Link } from "@exifi/ui/components/Link";
 
 export const Footer = ({
   className,
@@ -25,7 +25,7 @@ export const Footer = ({
           </Link>
         </span>
         <Button asChild>
-          <Link href="https://github.com/jeremy-code/exiftools">
+          <Link href="https://github.com/jeremy-code/exifi">
             <Code />
             Source code
           </Link>

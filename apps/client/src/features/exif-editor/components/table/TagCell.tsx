@@ -5,7 +5,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@exiftools/ui/components/Tooltip";
+} from "@exifi/ui/components/Tooltip";
 
 import type { ExifTableRow } from "./columns";
 

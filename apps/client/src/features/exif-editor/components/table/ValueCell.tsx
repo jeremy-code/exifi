@@ -10,7 +10,7 @@ import { NumberInput } from "#components/editor/NumberInput";
 import { classifyExifEntry } from "#features/exif-editor/utils/classifyExifEntry";
 import type { ExifEntryObject } from "#lib/exif/serializeExifData";
 import { assertNever } from "#utils/assertNever";
-import { Input } from "@exiftools/ui/components/Input";
+import { Input } from "@exifi/ui/components/Input";
 
 import type { ExifTableRow } from "./columns";
 

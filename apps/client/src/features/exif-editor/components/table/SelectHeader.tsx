@@ -1,6 +1,6 @@
 import type { HeaderContext } from "@tanstack/react-table";
 
-import { Checkbox } from "@exiftools/ui/components/Checkbox";
+import { Checkbox } from "@exifi/ui/components/Checkbox";
 
 import type { ExifTableRow } from "./columns";
 

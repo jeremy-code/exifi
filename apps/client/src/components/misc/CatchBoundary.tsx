@@ -9,14 +9,14 @@ import {
 } from "@tanstack/react-router";
 import { ChevronLeft, TriangleAlert } from "lucide-react";
 
-import { Button } from "@exiftools/ui/components/Button";
+import { Button } from "@exifi/ui/components/Button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from "@exiftools/ui/components/Card";
-import { Heading } from "@exiftools/ui/components/Heading";
+} from "@exifi/ui/components/Card";
+import { Heading } from "@exifi/ui/components/Heading";
 
 const CatchBoundary = ({ error, reset }: ErrorComponentProps) => {
   const isRoot = useMatch({

@@ -18,8 +18,8 @@ import {
 } from "#hooks/useExifEditor";
 import type { ExifEntryObject } from "#lib/exif/serializeExifData";
 import { formatPlural } from "#utils/formatPlural";
-import { Badge } from "@exiftools/ui/components/Badge";
-import { Link } from "@exiftools/ui/components/Link";
+import { Badge } from "@exifi/ui/components/Badge";
+import { Link } from "@exifi/ui/components/Link";
 import {
   Table,
   TableHead,
@@ -28,7 +28,7 @@ import {
   TableCell,
   TableBody,
   type TableProps,
-} from "@exiftools/ui/components/Table";
+} from "@exifi/ui/components/Table";
 
 import { AddEntryDialog } from "./dialogs/AddEntryDialog";
 import { AddGpsEntriesDialog } from "./dialogs/AddGpsEntriesDialog";

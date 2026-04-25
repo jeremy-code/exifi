@@ -20,7 +20,7 @@ const baseConfig = defineConfig(
   pluginPromise.configs["flat/recommended"],
   turbo.configs["flat/recommended"],
   {
-    name: "@exiftools/eslint-config/index.js",
+    name: "@exifi/eslint-config/index.js",
     languageOptions: {
       parserOptions: {
         /**
@@ -112,7 +112,7 @@ const baseConfig = defineConfig(
       /**
        * @see {@link https://github.com/un-ts/eslint-plugin-import-x#import-xinternal-regex}
        */
-      "import-x/internal-regex": "^@exiftools/",
+      "import-x/internal-regex": "^@exifi/",
       /**
        * @see {@link https://github.com/un-ts/eslint-plugin-import-x#resolvers}
        */

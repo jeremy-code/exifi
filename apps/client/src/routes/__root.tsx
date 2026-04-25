@@ -16,7 +16,7 @@ import { Navbar } from "#components/layout/Navbar";
 import { AppProvider } from "#components/misc/AppProvider";
 import { getBaseUrl } from "#utils/getBaseUrl";
 import { seo } from "#utils/seo";
-import uiCss from "@exiftools/ui/globals.css?url";
+import uiCss from "@exifi/ui/globals.css?url";
 
 const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
   const pathname = useLocation({ select: (location) => location.pathname });
@@ -66,7 +66,7 @@ const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       ...seo({
-        title: "Exiftools",
+        title: "exifi",
         description: "Local Exif viewer and editor",
         keywords: ["exif", "local", "image", "metadata", "editor", "viewer"],
       }),

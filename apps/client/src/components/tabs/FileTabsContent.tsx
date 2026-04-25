@@ -4,8 +4,8 @@ import { Dropzone } from "#components/file/Dropzone";
 import { FileUrlInput } from "#components/file/FileUrlInput";
 import { DropzoneStoreProvider } from "#hooks/useDropzoneStore";
 import { FileStoreProvider } from "#hooks/useFileStore";
-import { Heading } from "@exiftools/ui/components/Heading";
-import { TabsContent } from "@exiftools/ui/components/Tabs";
+import { Heading } from "@exifi/ui/components/Heading";
+import { TabsContent } from "@exifi/ui/components/Tabs";
 
 type FileTabsContentProps = {
   file: File | null;

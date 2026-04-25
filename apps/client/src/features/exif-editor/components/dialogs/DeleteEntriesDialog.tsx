@@ -15,8 +15,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@exiftools/ui/components/AlertDialog";
-import { Button } from "@exiftools/ui/components/Button";
+} from "@exifi/ui/components/AlertDialog";
+import { Button } from "@exifi/ui/components/Button";
 
 import type { ExifTableRow } from "../table/columns";
 

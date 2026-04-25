@@ -27,18 +27,18 @@ import { newTypedArrayInFormat } from "#lib/exif/newTypedArrayInFormat";
 import { type ExifEntryObject } from "#lib/exif/serializeExifData";
 import { arrayLikeEquals } from "#utils/arrayLikeEquals";
 import { formatPlural } from "#utils/formatPlural";
-import { Button } from "@exiftools/ui/components/Button";
+import { Button } from "@exifi/ui/components/Button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@exiftools/ui/components/Collapsible";
+} from "@exifi/ui/components/Collapsible";
 import {
   DataList,
   DataListItem,
   DataListItemLabel,
   DataListItemValue,
-} from "@exiftools/ui/components/DataList";
+} from "@exifi/ui/components/DataList";
 
 const ValidityCheck = ({
   className,

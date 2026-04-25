@@ -1,11 +1,11 @@
 {
-  "name": "@exiftools/client",
+  "name": "@exifi/client",
   "version": "0.0.0",
   "private": true,
   "type": "module",
   "imports": {
     "#*": {
-      "@exiftools/development": "./src/*.js",
+      "@exifi/development": "./src/*.js",
       "default": "./src/*"
     }
   },
@@ -23,8 +23,8 @@
     "@dnd-kit/dom": "^0.4.0",
     "@dnd-kit/helpers": "^0.4.0",
     "@dnd-kit/react": "^0.4.0",
-    "@exiftools/ui": "workspace:*",
-    "@exiftools/exif-utils": "workspace:*",
+    "@exifi/ui": "workspace:*",
+    "@exifi/exif-utils": "workspace:*",
     "@react-leaflet/core": "^3.0.0",
     "@std/path": "npm:@jsr/std__path@^1.1.4",
     "@tanstack/react-form": "^1.29.1",
@@ -55,8 +55,8 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
-    "@exiftools/eslint-config": "workspace:*",
-    "@exiftools/tsconfig": "workspace:*",
+    "@exifi/eslint-config": "workspace:*",
+    "@exifi/tsconfig": "workspace:*",
     "@rolldown/plugin-babel": "^0.2.3",
     "@tailwindcss/vite": "^4.2.4",
     "@tanstack/devtools-vite": "^0.6.0",

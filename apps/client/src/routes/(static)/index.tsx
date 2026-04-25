@@ -4,10 +4,10 @@ import { createFileRoute, Link as RouterLink } from "@tanstack/react-router";
 import { ClipboardCheck, Lock, Wrench } from "lucide-react";
 import { Slot } from "radix-ui";
 
-import { Button } from "@exiftools/ui/components/Button";
-import { Card } from "@exiftools/ui/components/Card";
-import { Heading } from "@exiftools/ui/components/Heading";
-import { Link } from "@exiftools/ui/components/Link";
+import { Button } from "@exifi/ui/components/Button";
+import { Card } from "@exifi/ui/components/Card";
+import { Heading } from "@exifi/ui/components/Heading";
+import { Link } from "@exifi/ui/components/Link";
 
 type FeatureCardProps = {
   icon: ReactNode;

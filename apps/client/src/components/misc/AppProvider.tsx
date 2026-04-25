@@ -6,8 +6,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "next-themes";
 
 import { useDisposeQueryCache } from "#hooks/useDisposeQueryCache";
-import { Toaster } from "@exiftools/ui/components/Toaster";
-import { TooltipProvider } from "@exiftools/ui/components/Tooltip";
+import { Toaster } from "@exifi/ui/components/Toaster";
+import { TooltipProvider } from "@exifi/ui/components/Tooltip";
 
 const Devtools =
   import.meta.env.DEV ?

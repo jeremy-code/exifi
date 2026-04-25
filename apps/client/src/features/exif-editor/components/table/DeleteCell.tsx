@@ -3,7 +3,7 @@ import { Trash2 } from "lucide-react";
 import { AccessibleIcon } from "radix-ui";
 
 import type { ExifEntryObject } from "#lib/exif/serializeExifData";
-import { Button } from "@exiftools/ui/components/Button";
+import { Button } from "@exifi/ui/components/Button";
 
 type DeleteCellProps = CellContext<ExifEntryObject, unknown>;
 

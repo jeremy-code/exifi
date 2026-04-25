@@ -3,7 +3,7 @@ import { useMemo, type ComponentPropsWithRef } from "react";
 import { cn } from "tailwind-variants";
 
 import { decodeStringFromUtf8 } from "#utils/decodeStringFromUtf8";
-import { Input, type InputProps } from "@exiftools/ui/components/Input";
+import { Input, type InputProps } from "@exifi/ui/components/Input";
 
 const textEncoder = new TextEncoder();
 

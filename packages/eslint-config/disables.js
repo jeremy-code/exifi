@@ -9,7 +9,7 @@ const JAVASCRIPT_GLOB_PATTERNS = ["**/*.{js,cjs,jsx,mjs}"];
  * are given their ESLint config, so it can be re-used
  */
 const disablesConfig = defineConfig({
-  name: "@exiftools/eslint-config/disables.js",
+  name: "@exifi/eslint-config/disables.js",
   files: JAVASCRIPT_GLOB_PATTERNS,
   extends: [
     tseslint["configs"].disableTypeChecked,

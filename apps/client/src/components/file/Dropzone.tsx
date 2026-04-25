@@ -12,8 +12,8 @@ import { useShallow } from "zustand/react/shallow";
 
 import { useDropzoneStore } from "#hooks/useDropzoneStore";
 import { formatBytes } from "#utils/formatBytes";
-import { Button } from "@exiftools/ui/components/Button";
-import { Link } from "@exiftools/ui/components/Link";
+import { Button } from "@exifi/ui/components/Button";
+import { Link } from "@exifi/ui/components/Link";
 
 type AcceptedFileProps = {
   file: File;

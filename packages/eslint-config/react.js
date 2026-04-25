@@ -19,7 +19,7 @@ const reactConfig = defineConfig(
   reactHooks.configs.flat["recommended-latest"],
   pluginRouter.configs["flat/recommended"],
   {
-    name: "@exiftools/eslint-config/react.js",
+    name: "@exifi/eslint-config/react.js",
     rules: {
       /**
        * Server actions must be async functions and may be passed to `action`

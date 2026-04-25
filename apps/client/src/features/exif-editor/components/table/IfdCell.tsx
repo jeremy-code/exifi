@@ -3,7 +3,7 @@ import { exifIfdGetName, type Ifd } from "libexif-wasm";
 
 import { ExpandRows } from "#components/table/ExpandRows";
 import { formatPlural } from "#utils/formatPlural";
-import { Badge } from "@exiftools/ui/components/Badge";
+import { Badge } from "@exifi/ui/components/Badge";
 
 import type { ExifTableRow } from "./columns";
 

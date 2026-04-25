@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import type { Dayjs } from "dayjs";
 
 import { dayjs } from "#utils/date";
-import { Input, type InputProps } from "@exiftools/ui/components/Input";
+import { Input, type InputProps } from "@exifi/ui/components/Input";
 
 // https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Date_and_time_formats#local_date_and_time_strings
 const formatDayjsAsDatetimeLocal = (dayjs: Dayjs) => {

@@ -1,5 +1,5 @@
 {
-  "extends": "@exiftools/tsconfig/tsconfig-base",
+  "extends": "@exifi/tsconfig/tsconfig-base",
   "compilerOptions": {
     "types": ["node"]
   },

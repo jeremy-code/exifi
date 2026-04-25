@@ -1,6 +1,6 @@
 import { globalIgnores, defineConfig } from "eslint/config";
 
-import baseConfig from "@exiftools/eslint-config";
+import baseConfig from "@exifi/eslint-config";
 
 export default defineConfig(
   globalIgnores([

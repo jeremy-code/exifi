@@ -3,7 +3,7 @@ import type { ComponentPropsWithRef } from "react";
 import { Fragment } from "react/jsx-runtime";
 
 import { useBreakpoint } from "#hooks/useBreakpoint";
-import { Input, type InputProps } from "@exiftools/ui/components/Input";
+import { Input, type InputProps } from "@exifi/ui/components/Input";
 
 type GpsTagVersionInputProps = {
   value: number[];

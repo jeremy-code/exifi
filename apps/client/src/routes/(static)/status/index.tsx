@@ -6,8 +6,8 @@ import {
   DataListItem,
   DataListItemLabel,
   DataListItemValue,
-} from "@exiftools/ui/components/DataList";
-import { Link } from "@exiftools/ui/components/Link";
+} from "@exifi/ui/components/DataList";
+import { Link } from "@exifi/ui/components/Link";
 
 const StatusComponent = () => {
   return (
@@ -31,7 +31,7 @@ const StatusComponent = () => {
             {import.meta.env.COMMIT_REF !== undefined ?
               <Link
                 isExternal
-                href={`https://www.github.com/jeremy-code/exiftools/commit/${import.meta.env.COMMIT_REF}`}
+                href={`https://www.github.com/jeremy-code/exifi/commit/${import.meta.env.COMMIT_REF}`}
               >
                 {import.meta.env.COMMIT_REF}
               </Link>

@@ -5,7 +5,7 @@ import { defineConfig } from "eslint/config";
 const TEST_GLOB_PATTERNS = ["**/*.{test,spec}.?(c|m)[jt]s?(x)"];
 
 const testConfig = defineConfig({
-  name: "@exiftools/eslint-config/test.js",
+  name: "@exifi/eslint-config/test.js",
   extends: [vitest.configs.recommended],
   files: TEST_GLOB_PATTERNS,
   rules: {

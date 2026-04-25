@@ -9,7 +9,7 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "@exiftools/ui/components/NavigationMenu";
+} from "@exifi/ui/components/NavigationMenu";
 
 import { MobileNav } from "./MobileNav";
 import { NAVIGATION_ITEMS } from "./constants";
@@ -28,7 +28,7 @@ const Navbar = ({ className, ...props }: NavbarProps) => {
       <div className="container flex items-center justify-between py-4">
         <RouterLink className="flex items-center gap-2 font-semibold" to="/">
           <img width="24" height="24" src="/favicon.svg" />
-          exiftools
+          exifi
         </RouterLink>
         <div className="flex items-center gap-2">
           <NavigationMenu className="grow max-sm:hidden">

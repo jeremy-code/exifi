@@ -3,7 +3,7 @@ import { Suspense, type ComponentPropsWithRef } from "react";
 import { cn } from "tailwind-variants";
 
 import { FileInformation } from "#components/file/FileInformation";
-import { Skeleton } from "@exiftools/ui/components/Skeleton";
+import { Skeleton } from "@exifi/ui/components/Skeleton";
 
 import { ExifViewerContent } from "./components/ExifViewerContent";
 

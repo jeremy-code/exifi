@@ -3,7 +3,7 @@ import type { ComponentPropsWithRef } from "react";
 import { MapPin } from "lucide-react";
 import { AccessibleIcon } from "radix-ui";
 
-import { Button } from "@exiftools/ui/components/Button";
+import { Button } from "@exifi/ui/components/Button";
 import {
   Dialog,
   DialogBody,
@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@exiftools/ui/components/Dialog";
+} from "@exifi/ui/components/Dialog";
 
 import { ExifEntryAddGpsForm } from "../entry/ExifEntryAddGpsForm";
 

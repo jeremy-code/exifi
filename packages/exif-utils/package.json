@@ -1,14 +1,14 @@
 {
-  "name": "@exiftools/exif-utils",
+  "name": "@exifi/exif-utils",
   "version": "0.0.0",
   "private": false,
   "exports": {
     ".": {
-      "@exiftools/development": "./src/index.js",
+      "@exifi/development": "./src/index.js",
       "default": "./src/index"
     },
     "./*": {
-      "@exiftools/development": "./src/*.js",
+      "@exifi/development": "./src/*.js",
       "default": "./src/*"
     }
   },
@@ -18,8 +18,8 @@
     "test:watch": "vitest"
   },
   "devDependencies": {
-    "@exiftools/eslint-config": "workspace:*",
-    "@exiftools/tsconfig": "workspace:*",
+    "@exifi/eslint-config": "workspace:*",
+    "@exifi/tsconfig": "workspace:*",
     "vitest": "^4.1.5"
   }
 }

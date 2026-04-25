@@ -4,14 +4,14 @@ import { Link as RouterLink } from "@tanstack/react-router";
 import { VisuallyHidden } from "radix-ui";
 import { cn } from "tailwind-variants";
 
-import { Button, type ButtonProps } from "@exiftools/ui/components/Button";
-import { navigationMenuTriggerVariants } from "@exiftools/ui/components/NavigationMenu";
+import { Button, type ButtonProps } from "@exifi/ui/components/Button";
+import { navigationMenuTriggerVariants } from "@exifi/ui/components/NavigationMenu";
 import {
   Popover,
   PopoverAnchor,
   PopoverContent,
   PopoverTrigger,
-} from "@exiftools/ui/components/Popover";
+} from "@exifi/ui/components/Popover";
 
 import { NAVIGATION_ITEMS } from "./constants";
 

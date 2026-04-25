@@ -9,7 +9,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@exiftools/ui/components/Select";
+} from "@exifi/ui/components/Select";
 
 const getEnumValue = (values: Record<string, number>, value: string) => {
   if (values === undefined) {

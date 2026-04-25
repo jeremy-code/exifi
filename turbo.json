@@ -28,8 +28,8 @@
       "outputs": ["src/generated/**/*"],
       "inputs": ["redocly.yaml"]
     },
-    "@exiftools/client#lint": {
-      "dependsOn": ["@exiftools/client#codegen"]
+    "@exifi/client#lint": {
+      "dependsOn": ["@exifi/client#codegen"]
     }
   }
 }

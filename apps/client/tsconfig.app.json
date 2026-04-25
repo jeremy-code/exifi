@@ -1,5 +1,5 @@
 {
-  "extends": "@exiftools/tsconfig/tsconfig-react",
+  "extends": "@exifi/tsconfig/tsconfig-react",
   "compilerOptions": {
     "types": ["vite/client", "wicg-file-system-access"]
   },

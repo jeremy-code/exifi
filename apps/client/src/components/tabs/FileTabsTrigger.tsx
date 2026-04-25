@@ -5,8 +5,8 @@ import { X } from "lucide-react";
 import { AccessibleIcon } from "radix-ui";
 import { cn } from "tailwind-variants";
 
-import { Button } from "@exiftools/ui/components/Button";
-import { TabsTrigger } from "@exiftools/ui/components/Tabs";
+import { Button } from "@exifi/ui/components/Button";
+import { TabsTrigger } from "@exifi/ui/components/Tabs";
 
 type FileTabsTriggerProps = {
   id: string;

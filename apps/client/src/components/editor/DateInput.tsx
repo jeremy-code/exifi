@@ -1,7 +1,7 @@
 import { Dayjs } from "dayjs";
 
 import { dayjs } from "#utils/date";
-import { Input, type InputProps } from "@exiftools/ui/components/Input";
+import { Input, type InputProps } from "@exifi/ui/components/Input";
 
 type DateInputProps = {
   value: Dayjs;

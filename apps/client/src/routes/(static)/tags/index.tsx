@@ -20,8 +20,8 @@ import { ExpandRows } from "#components/table/ExpandRows";
 import { SortingHandlerToggle } from "#components/table/SortingHandlerToggle";
 import { formatPlural } from "#utils/formatPlural";
 import { titlecase } from "#utils/titlecase";
-import { Badge } from "@exiftools/ui/components/Badge";
-import { Heading } from "@exiftools/ui/components/Heading";
+import { Badge } from "@exifi/ui/components/Badge";
+import { Heading } from "@exifi/ui/components/Heading";
 import {
   Table,
   TableHead,
@@ -29,7 +29,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
-} from "@exiftools/ui/components/Table";
+} from "@exifi/ui/components/Table";
 
 const exifTagTable = getExifTagTable();
 

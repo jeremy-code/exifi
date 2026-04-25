@@ -1,1 +1,1 @@
-export { default } from "@exiftools/eslint-config";
+export { default } from "@exifi/eslint-config";

@@ -1,10 +1,7 @@
 import { useMemo } from "react";
 
 import { parseUserComment } from "#lib/exif/parseUserComment";
-import {
-  Textarea,
-  type TextareaProps,
-} from "@exiftools/ui/components/Textarea";
+import { Textarea, type TextareaProps } from "@exifi/ui/components/Textarea";
 
 type UserCommentTextareaProps = {
   value: number[];

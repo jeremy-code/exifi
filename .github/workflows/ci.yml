@@ -42,7 +42,7 @@ jobs:
         run: pnpm run format:check
 
       - name: Install Playwright browsers
-        run: pnpm --filter @exiftools/client exec playwright install --with-deps chromium
+        run: pnpm --filter @exifi/client exec playwright install --with-deps chromium
 
       - name: Test
         run: pnpm run test

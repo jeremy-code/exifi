@@ -13,10 +13,10 @@ import { dmsToDecimalDegrees } from "#lib/leaflet/dmsToDecimalDegrees";
 import { isDirection } from "#lib/leaflet/interfaces";
 import { Latitude, Longitude } from "#schemas/common";
 import { getCurrentPosition } from "#utils/getCurrentPosition";
-import { Button } from "@exiftools/ui/components/Button";
-import { Input } from "@exiftools/ui/components/Input";
-import { Label } from "@exiftools/ui/components/Label";
-import { Spinner } from "@exiftools/ui/components/Spinner";
+import { Button } from "@exifi/ui/components/Button";
+import { Input } from "@exifi/ui/components/Input";
+import { Label } from "@exifi/ui/components/Label";
+import { Spinner } from "@exifi/ui/components/Spinner";
 
 import { ExifGpsMap } from "../gps/ExifGpsMap";
 

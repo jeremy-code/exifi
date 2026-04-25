@@ -13,9 +13,9 @@ import { updateLatLng } from "#lib/exif/gps/updateLatLng";
 import { createViewbox } from "#utils/createViewbox";
 import { getCurrentPosition } from "#utils/getCurrentPosition";
 import { saveFile } from "#utils/saveFile";
-import { writeExifData } from "@exiftools/exif-utils";
-import { Button } from "@exiftools/ui/components/Button";
-import { Skeleton } from "@exiftools/ui/components/Skeleton";
+import { writeExifData } from "@exifi/exif-utils";
+import { Button } from "@exifi/ui/components/Button";
+import { Skeleton } from "@exifi/ui/components/Skeleton";
 
 const defaultOsmProvider = new OpenStreetMapProvider();
 

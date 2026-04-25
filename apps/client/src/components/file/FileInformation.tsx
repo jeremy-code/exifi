@@ -7,22 +7,22 @@ import { useFileHash } from "#hooks/useFileHash";
 import { useObjectUrl } from "#hooks/useObjectUrl";
 import { formatBytes } from "#utils/formatBytes";
 import { getImageDimensions } from "#utils/getImageDimensions";
-import { Badge } from "@exiftools/ui/components/Badge";
+import { Badge } from "@exifi/ui/components/Badge";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@exiftools/ui/components/Card";
+} from "@exifi/ui/components/Card";
 import {
   DataList,
   DataListItem,
   DataListItemLabel,
   DataListItemValue,
   type DataListItemValueProps,
-} from "@exiftools/ui/components/DataList";
-import { Link } from "@exiftools/ui/components/Link";
-import { Skeleton } from "@exiftools/ui/components/Skeleton";
+} from "@exifi/ui/components/DataList";
+import { Link } from "@exifi/ui/components/Link";
+import { Skeleton } from "@exifi/ui/components/Skeleton";
 
 const FileDimensionsInformation = ({
   fileDimensionsPromise,

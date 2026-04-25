@@ -10,7 +10,7 @@ import {
   SwitchRoot,
   SwitchThumb,
   type SwitchRootProps,
-} from "@exiftools/ui/components/Switch";
+} from "@exifi/ui/components/Switch";
 
 type ThemeToggleProps = SwitchRootProps;
 

@@ -4,8 +4,8 @@ import { useShallow } from "zustand/react/shallow";
 import { useExifEditorStoreContext } from "#hooks/useExifEditor";
 import { useFileStore } from "#hooks/useFileStore";
 import { saveFile } from "#utils/saveFile";
-import { writeExifData } from "@exiftools/exif-utils";
-import { Button } from "@exiftools/ui/components/Button";
+import { writeExifData } from "@exifi/exif-utils";
+import { Button } from "@exifi/ui/components/Button";
 
 import { useExifEditorContext } from "../ExifEditorProvider";
 
@@ -44,7 +44,7 @@ const ExifToolbar = () => {
           // For an unfathomable reason, Mobile iOS specifically seems to have
           // issues with saveFile(), returning a NotReadableError "The I/O read
           // operation failed." afterwards. For more information, see
-          // jeremy-code/exiftools#7.
+          // jeremy-code/exifi#7.
           if (isMobileWebKit()) {
             // Safari seemingly blocks asynchronous calls to window.open:
             // https://stackoverflow.com/a/39387533/18551960

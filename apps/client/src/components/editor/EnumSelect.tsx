@@ -6,7 +6,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@exiftools/ui/components/Select";
+} from "@exifi/ui/components/Select";
 
 type EnumSelectProps = {
   value: string;

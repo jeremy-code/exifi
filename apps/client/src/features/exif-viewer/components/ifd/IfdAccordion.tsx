@@ -1,6 +1,6 @@
 import type { ExifData } from "libexif-wasm";
 
-import { Accordion } from "@exiftools/ui/components/Accordion";
+import { Accordion } from "@exifi/ui/components/Accordion";
 
 import { IfdAccordionItem } from "./IfdAccordionItem";
 

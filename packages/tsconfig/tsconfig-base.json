@@ -29,7 +29,7 @@
      * @see {@link https://webpack.js.org/configuration/resolve/#resolveextensions}
      * @see {@link https://colinhacks.com/essays/live-types-typescript-monorepo}
      */
-    "customConditions": ["@exiftools/development"],
+    "customConditions": ["@exifi/development"],
     "resolveJsonModule": true,
 
     /* Interop Constraints */

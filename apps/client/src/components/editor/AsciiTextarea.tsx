@@ -2,10 +2,7 @@ import { useMemo } from "react";
 
 import { decodeStringFromUtf8 } from "#utils/decodeStringFromUtf8";
 import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
-import {
-  Textarea,
-  type TextareaProps,
-} from "@exiftools/ui/components/Textarea";
+import { Textarea, type TextareaProps } from "@exifi/ui/components/Textarea";
 
 type AsciiTextareaProps = {
   value: number[];

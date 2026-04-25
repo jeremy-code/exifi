@@ -6,9 +6,9 @@ import { useShallow } from "zustand/react/shallow";
 
 import { SortableList } from "#components/dnd/SortableList";
 import { useFileTabsStore } from "#hooks/useFileTabsStore";
-import { Button } from "@exiftools/ui/components/Button";
-import { ScrollArea } from "@exiftools/ui/components/ScrollArea";
-import { Tabs, TabsList, type TabsProps } from "@exiftools/ui/components/Tabs";
+import { Button } from "@exifi/ui/components/Button";
+import { ScrollArea } from "@exifi/ui/components/ScrollArea";
+import { Tabs, TabsList, type TabsProps } from "@exifi/ui/components/Tabs";
 
 import { FileTabsContent } from "./FileTabsContent";
 import { FileTabsTrigger } from "./FileTabsTrigger";

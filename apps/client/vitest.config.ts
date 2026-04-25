@@ -7,7 +7,7 @@ import viteConfig from "./vite.config";
 const vitestConfig = defineConfig({
   test: {
     exclude: [...configDefaults.exclude, "./src/generated/**"],
-    name: "@exiftools/ui",
+    name: "@exifi/ui",
     clearMocks: true,
     typecheck: {
       enabled: true,

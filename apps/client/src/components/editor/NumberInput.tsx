@@ -1,4 +1,4 @@
-import { Input, type InputProps } from "@exiftools/ui/components/Input";
+import { Input, type InputProps } from "@exifi/ui/components/Input";
 
 type NumberInputProps = {
   value: number;
