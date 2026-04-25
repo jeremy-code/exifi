@@ -2,11 +2,12 @@ packages:
   - apps/*
   - packages/*
 
-# Other Settings (https://pnpm.io/settings#other-settings)
-shellEmulator: true
-
 # Build settings (https://pnpm.io/settings#build-settings)
+verifyDepsBeforeRun: install
+strictDepBuilds: true
 allowBuilds:
   esbuild: true
   unrs-resolver: true
-verifyDepsBeforeRun: install
+
+# Other Settings (https://pnpm.io/settings#other-settings)
+shellEmulator: true
