@@ -37,6 +37,7 @@ const ValueCell = ({ row, getValue, table }: ValueCellProps) => {
 
   switch (classification.kind) {
     case "enum":
+    case "enumAscii":
       return (
         <EnumSelect
           placeholder={`Select a value for ${ExifTagInfo.getTitleInIfd(originalRow.tag, originalRow.ifd)}`}

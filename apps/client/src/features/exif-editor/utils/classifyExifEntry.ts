@@ -5,6 +5,7 @@ import { EXIF_TAG_MAP } from "#lib/exif/exifTagMap";
 import { newTypedArrayInFormat } from "#lib/exif/newTypedArrayInFormat";
 import type { ExifEntryObject } from "#lib/exif/serializeExifData";
 import { dayjs } from "#utils/date";
+import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 
 type BaseCtx<T> = {
   exifEntryObject: ExifEntryObject;
@@ -17,6 +18,7 @@ const EXIF_DATESTAMP_FORMAT = "YYYY:MM:DD";
 
 type ExifInputKind =
   | { kind: "enum"; ctx: BaseCtx<string> & { values: string[] } }
+  | { kind: "enumAscii"; ctx: BaseCtx<string> & { values: string[] } }
   | { kind: "dateStamp"; ctx: BaseCtx<Dayjs> }
   | { kind: "versionId"; ctx: BaseCtx<number[]> }
   | { kind: "datetime"; ctx: BaseCtx<Dayjs> }
@@ -64,6 +66,37 @@ export const classifyExifEntry = (
           }
         },
         values: Object.keys(mappedTag.values),
+      },
+    };
+  }
+
+  if (
+    mappedTag !== undefined &&
+    exifEntryObject.components === 2 &&
+    mappedTag.asciiValues !== undefined &&
+    exifEntryObject.formattedValue != null &&
+    Object.values(mappedTag.asciiValues).some(
+      (value) => value === exifEntryObject.formattedValue,
+    )
+  ) {
+    return {
+      kind: "enum",
+      ctx: {
+        exifEntryObject,
+        value:
+          Object.entries(mappedTag.asciiValues)
+            .find(([, value]) => value === exifEntryObject.formattedValue)
+            ?.at(0) ?? "",
+        onValueChange: (value) => {
+          if (
+            mappedTag.asciiValues !== undefined &&
+            value in mappedTag.asciiValues &&
+            mappedTag.asciiValues[value] !== undefined
+          ) {
+            onValueChange(encodeStringToUtf8(mappedTag.asciiValues[value]));
+          }
+        },
+        values: Object.keys(mappedTag.asciiValues),
       },
     };
   }

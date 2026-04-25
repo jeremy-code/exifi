@@ -5,6 +5,7 @@ type ExifTagInformation = {
   format: Format[];
   maxNumberOfComponents?: number;
   values?: Record<string, number>;
+  asciiValues?: Record<string, string>;
 };
 
 /**
@@ -712,6 +713,52 @@ const EXIF_TAG_MAP: Partial<Record<Tag, ExifTagInformation>> = {
     values: {
       "Sea level": 0,
       "Sea level reference": 1,
+    },
+  },
+  LATITUDE_REF: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+    maxNumberOfComponents: 2,
+    asciiValues: {
+      North: "N",
+      South: "S",
+    },
+  },
+  LONGITUDE_REF: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+    maxNumberOfComponents: 2,
+    asciiValues: {
+      East: "E",
+      West: "W",
+    },
+  },
+  SPEED_REF: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+    maxNumberOfComponents: 2,
+    asciiValues: {
+      "km/hr": "K",
+      "miles/hr": "M",
+      knots: "N",
+    },
+  },
+  IMG_DIRECTION_REF: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+    maxNumberOfComponents: 2,
+    asciiValues: {
+      "True direction": "T",
+      "Magnetic direction": "M",
+    },
+  },
+  DEST_BEARING_REF: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+    maxNumberOfComponents: 2,
+    asciiValues: {
+      "True direction": "T",
+      "Magnetic direction": "M",
     },
   },
 };
