@@ -27,7 +27,7 @@ const ExifGpsMap = ({ exifDataGps }: ExifGpsMapProps) => {
     },
   });
   const displayName = useMemo(() => {
-    const feature = data.features.at(0);
+    const feature = data.features?.at(0);
 
     return (
         feature !== undefined &&

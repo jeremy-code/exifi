@@ -7,9 +7,39 @@ import { cn } from "tailwind-variants";
 import { DraggableMarker } from "#components/map/DraggableMarker";
 import { GeoSearchControl } from "#components/map/GeoSearchControl";
 import { Map, type MapProps } from "#components/map/Map";
+import { useDebouncedValue } from "#hooks/useDebouncedValue";
 import { useGeoSearchLocation } from "#hooks/useGeoSearchLocation";
 import { formatLatLng } from "#lib/leaflet/formatLatLng";
 import { formatLatLngAsGeoUri } from "#lib/leaflet/formatLatLngAsGeoUri";
+import { $api } from "#lib/nominatim/api";
+
+const ExifGpsMapLabel = ({ coordinate }: { coordinate: LatLng }) => {
+  const debouncedCoordinate = useDebouncedValue(coordinate);
+
+  const { data } = $api.useSuspenseQuery("get", "/reverse", {
+    params: {
+      query: {
+        lat: debouncedCoordinate.lat,
+        lon: debouncedCoordinate.lng,
+        format: "geojson",
+      },
+    },
+  });
+  const displayName = useMemo(() => {
+    const feature = data.features?.at(0);
+
+    return (
+        feature !== undefined &&
+          feature.properties !== undefined &&
+          "display_name" in feature.properties &&
+          typeof feature.properties.display_name === "string"
+      ) ?
+        feature.properties.display_name
+      : null;
+  }, [data]);
+
+  return displayName;
+};
 
 type ExifGpsMapProps = {
   latitude: number | undefined;
@@ -34,12 +64,15 @@ const ExifGpsMap = ({
     [latitude, longitude, altitude],
   );
   const [map, setMap] = useState<LeafletMap | null>(null);
-  const { label } = useGeoSearchLocation(map, ({ location }) => {
-    const newLatLng = new LatLng(location.y, location.x, coordinate?.alt);
-    if (coordinate === undefined || !coordinate.equals(newLatLng)) {
-      setCoordinate(newLatLng);
-    }
-  });
+  const { label, latLng: geoSearchLocationLatLng } = useGeoSearchLocation(
+    map,
+    ({ location }) => {
+      const newLatLng = new LatLng(location.y, location.x, coordinate?.alt);
+      if (coordinate === undefined || !coordinate.equals(newLatLng)) {
+        setCoordinate(newLatLng);
+      }
+    },
+  );
 
   // Leaflet Map isn't controlled by map, so center={coordinate} does not update
   // as expected. Hence, using useEffect to pan whenenvr the coordinate changes
@@ -68,7 +101,10 @@ const ExifGpsMap = ({
           }}
         >
           <Popup>
-            {!!label && `${label}\n`}
+            {label !== null && geoSearchLocationLatLng?.equals(coordinate) ?
+              label
+            : <ExifGpsMapLabel coordinate={coordinate} />}
+            {`\n`}
             {`${formatLatLng(coordinate)} `}
             <a
               href={`https://www.openstreetmap.org/#map=18/${coordinate.lat}/${coordinate.lng}`}
