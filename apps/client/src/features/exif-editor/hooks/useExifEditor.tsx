@@ -5,6 +5,7 @@ import { ExifIfd, type ExifData, type ValidTypedArray } from "libexif-wasm";
 import { create, useStore } from "zustand";
 
 import { getOrInsertEntry } from "#lib/exif/getOrInsertEntry";
+import { setGpsExifFromGeolocationPosition } from "#lib/exif/gps/setGpsExifFromGeolocationPosition";
 import { updateLatLng } from "#lib/exif/gps/updateLatLng";
 import {
   serializeExifData,
@@ -52,6 +53,9 @@ type ExifEditorStoreActions = {
   fix: () => void;
   addImageDimensions: (file: File) => Promise<void>;
   updateLatLng: (latLng: LatLng) => void;
+  setGpsExifFromGeolocationPosition: (
+    geoLocationPosition: GeolocationPosition,
+  ) => void;
 };
 
 type ExifEditorStore = ExifEditorStoreState & ExifEditorStoreActions;
@@ -178,6 +182,15 @@ const useExifEditor = (exifData: ExifData) => {
           set(() => {
             updateLatLng(exifData.ifd[ExifIfd.GPS], latLng);
 
+            return { exifDataObject: serializeExifData(exifData) };
+          });
+        },
+        setGpsExifFromGeolocationPosition: (geoLocationPosition) => {
+          set(() => {
+            setGpsExifFromGeolocationPosition(
+              exifData.ifd[ExifIfd.GPS],
+              geoLocationPosition,
+            );
             return { exifDataObject: serializeExifData(exifData) };
           });
         },

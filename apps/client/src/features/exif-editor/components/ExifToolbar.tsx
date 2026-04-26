@@ -3,6 +3,7 @@ import { useShallow } from "zustand/react/shallow";
 
 import { useExifEditorStoreContext } from "#features/exif-editor/hooks/useExifEditor";
 import { useFileStore } from "#hooks/useFileStore";
+import { getCurrentPosition } from "#utils/getCurrentPosition";
 import { saveFile } from "#utils/saveFile";
 import { writeExifData } from "@exifi/exif-utils";
 import { Button } from "@exifi/ui/components/Button";
@@ -15,9 +16,14 @@ const isMobileWebKit = () => "ongesturechange" in window;
 const ExifToolbar = () => {
   const { file, setFile } = useFileStore();
   const exifData = useExifEditorContext();
-  const [fix, addImageDimensions] = useExifEditorStoreContext(
-    useShallow((state) => [state.fix, state.addImageDimensions]),
-  );
+  const [fix, addImageDimensions, setGpsExifFromGeolocationPosition] =
+    useExifEditorStoreContext(
+      useShallow((state) => [
+        state.fix,
+        state.addImageDimensions,
+        state.setGpsExifFromGeolocationPosition,
+      ]),
+    );
 
   return (
     <div className="flex flex-wrap gap-2">
@@ -69,6 +75,14 @@ const ExifToolbar = () => {
       <Button onClick={() => fix()}>Fix</Button>
       <Button onClick={() => addImageDimensions(file)}>
         Add image dimensions
+      </Button>
+      <Button
+        onClick={async () => {
+          const currentPosition = await getCurrentPosition();
+          setGpsExifFromGeolocationPosition(currentPosition);
+        }}
+      >
+        Set Exif to current GPS position
       </Button>
     </div>
   );
