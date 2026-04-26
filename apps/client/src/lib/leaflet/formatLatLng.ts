@@ -10,7 +10,7 @@ const formatCoordinate = (decimal: number, axis: Axis): string => {
   );
 
   // Per https://en.wikipedia.org/wiki/Decimal_degrees#Precision, at 6 decimal
-  // places individual humans can be unambiguously recognized
+  // places, individual humans can be unambiguously recognized
   return `${degrees}°${minutes}\u2032${seconds.toFixed(4)}″ ${direction}`;
 };
 

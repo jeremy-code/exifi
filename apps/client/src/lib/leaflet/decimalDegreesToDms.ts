@@ -1,37 +1,49 @@
-import type { DMS, Direction } from "./interfaces";
+import { Decimal } from "decimal.js";
+
+import { assertNever } from "#utils/assertNever";
+
+import type { DMS, Direction, Axis } from "./interfaces";
 
 const MINUTES_IN_DEGREE = 60;
-
-type Axis = "lat" | "lng";
+const SECONDS_IN_MINUTE = 60;
 
 /**
  * Converts decimal degrees to DMS (Degrees, Minutes, Seconds)
  *
  * @param decimal - decimal degree value (e.g. -118.2437)
- * @param axis - whether this is latitude ("lat") or longitude ("lon")
+ * @param axis - whether this is latitude ("lat") or longitude ("lng")
  */
-const decimalDegreesToDms = (decimal: number, axis: Axis): DMS => {
-  const absolute = Math.abs(decimal);
+const decimalDegreesToDms = (decimalDegrees: number, axis: Axis): DMS => {
+  const absoluteDecimalDegrees = new Decimal(decimalDegrees).absoluteValue();
+  const degrees = absoluteDecimalDegrees.truncated();
 
-  const degrees = Math.floor(absolute);
+  const minutesFull = absoluteDecimalDegrees
+    .minus(degrees)
+    .mul(MINUTES_IN_DEGREE);
+  const minutes = minutesFull.truncated();
 
-  const minutesFull = (absolute - degrees) * MINUTES_IN_DEGREE;
-  const minutes = Math.floor(minutesFull);
+  const seconds = minutesFull
+    .minus(minutes)
+    .mul(SECONDS_IN_MINUTE)
+    // Per https://en.wikipedia.org/wiki/Decimal_degrees#Precision, at 8 decimal
+    // palaces, specializing surveying can be done, which is probably overkill
+    .toDecimalPlaces(6);
 
-  const seconds = (minutesFull - minutes) * MINUTES_IN_DEGREE;
-
-  let direction: Direction;
-
-  if (axis === "lat") {
-    direction = decimal < 0 ? "S" : "N";
-  } else {
-    direction = decimal < 0 ? "W" : "E";
-  }
+  const direction: Direction =
+    axis === "lat" ?
+      decimalDegrees < 0 ?
+        "S"
+      : "N"
+    : axis === "lng" ?
+      decimalDegrees < 0 ?
+        "W"
+      : "E"
+    : assertNever(axis);
 
   return {
-    degrees,
-    minutes,
-    seconds,
+    degrees: degrees.toNumber(),
+    minutes: minutes.toNumber(),
+    seconds: seconds.toNumber(),
     direction,
   };
 };
