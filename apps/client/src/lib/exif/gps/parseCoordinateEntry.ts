@@ -1,30 +1,45 @@
-import type { ExifEntry } from "libexif-wasm";
-
-import { isDirection, type DMS } from "#lib/leaflet/interfaces";
+import { dmsToDecimalDegrees } from "#lib/leaflet/dmsToDecimalDegrees";
+import { isDirection } from "#lib/leaflet/interfaces";
 
 import { mapRationalArray } from "../mapRationalArray";
 
 const parseCoordinateEntry = (
-  coordinateEntry: ExifEntry,
-  coordinateRefEntry: ExifEntry,
-): DMS => {
-  const [degrees, minutes, seconds] = mapRationalArray(
-    coordinateEntry.toTypedArray(),
-  );
-  const coordinateRef = coordinateRefEntry.toString();
+  // Any iterable of numbers of format [numerator1, denominator1, numerator2, denominator2, ...]
+  coordinateArray: ArrayLike<number>,
+  // W or S or E or N
+  coordinateRef: string,
+): number | null => {
+  if (coordinateArray.length === 6) {
+    const [degrees, minutes, seconds] = mapRationalArray(coordinateArray);
 
-  if (degrees === undefined || minutes === undefined || seconds === undefined) {
-    throw new Error(
-      `Exif entry "${coordinateEntry.tag}" has a corrupted value: ${coordinateEntry.toString()}.`,
-    );
-  }
-  if (!isDirection(coordinateRef)) {
-    throw new Error(
-      `Exif entry "${coordinateRefEntry.tag}" has an invalid value: ${coordinateRefEntry.toString()}.`,
-    );
+    if (
+      degrees === undefined ||
+      minutes === undefined ||
+      seconds === undefined ||
+      !isDirection(coordinateRef)
+    ) {
+      return null;
+    }
+
+    return dmsToDecimalDegrees({
+      degrees,
+      minutes,
+      seconds,
+      direction: coordinateRef,
+    });
+  } else if (coordinateArray.length === 2) {
+    const [altitude] = mapRationalArray(coordinateArray);
+    if (
+      altitude === undefined ||
+      (coordinateRef !== "Sea level" && coordinateRef !== "Sea level reference")
+    ) {
+      return null;
+    }
+
+    return coordinateRef === "Sea level" ? altitude : -altitude;
   }
 
-  return { degrees, minutes, seconds, direction: coordinateRef };
+  return null;
 };
 
 export { parseCoordinateEntry };

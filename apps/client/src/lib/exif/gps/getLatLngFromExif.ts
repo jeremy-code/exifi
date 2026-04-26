@@ -1,40 +1,33 @@
 import { LatLng } from "leaflet";
-import { mapRationalToObject, type ExifContent } from "libexif-wasm";
-
-import { dmsToDecimalDegrees } from "#lib/leaflet/dmsToDecimalDegrees";
+import { type ExifContent } from "libexif-wasm";
 
 import { parseCoordinateEntry } from "./parseCoordinateEntry";
 import { getRequiredEntry } from "../getRequiredEntry";
 
 const getLatLngFromExif = (exifDataGpsIfd: ExifContent): LatLng => {
-  const latitude = dmsToDecimalDegrees(
-    parseCoordinateEntry(
-      getRequiredEntry(exifDataGpsIfd, "LATITUDE"),
-      getRequiredEntry(exifDataGpsIfd, "LATITUDE_REF"),
-    ),
+  const latitude = parseCoordinateEntry(
+    getRequiredEntry(exifDataGpsIfd, "LATITUDE").toTypedArray(),
+    getRequiredEntry(exifDataGpsIfd, "LATITUDE_REF").toString(),
   );
-  const longitude = dmsToDecimalDegrees(
-    parseCoordinateEntry(
-      getRequiredEntry(exifDataGpsIfd, "LONGITUDE"),
-      getRequiredEntry(exifDataGpsIfd, "LONGITUDE_REF"),
-    ),
+  const longitude = parseCoordinateEntry(
+    getRequiredEntry(exifDataGpsIfd, "LONGITUDE").toTypedArray(),
+    getRequiredEntry(exifDataGpsIfd, "LONGITUDE_REF").toString(),
   );
+
+  if (latitude === null || longitude === null) {
+    throw new Error(`An invalid latitude or longitude was given`);
+  }
 
   const altitudeEntry = exifDataGpsIfd.getEntry("ALTITUDE");
   const altitudeRefEntry = exifDataGpsIfd.getEntry("ALTITUDE_REF");
 
   if (altitudeEntry !== null && altitudeRefEntry !== null) {
-    const absoluteAltitude = mapRationalToObject(
+    const altitude = parseCoordinateEntry(
       altitudeEntry.toTypedArray(),
-    )[0];
-    if (absoluteAltitude !== undefined) {
-      const isSeaLevel = altitudeRefEntry.toTypedArray()[0] === 0;
-      const altitude =
-        isSeaLevel ?
-          absoluteAltitude.numerator / absoluteAltitude.denominator
-        : -(absoluteAltitude.numerator / absoluteAltitude.denominator);
-      return new LatLng(latitude, longitude, altitude);
-    }
+      altitudeRefEntry.toString(),
+    );
+
+    return new LatLng(latitude, longitude, altitude ?? undefined);
   }
 
   return new LatLng(latitude, longitude);
