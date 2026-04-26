@@ -1,44 +1,23 @@
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 
 import { LatLng, type Map as LeafletMap } from "leaflet";
+import { Link, LocateFixed, MapPin } from "lucide-react";
 import { Popup } from "react-leaflet";
 import { cn } from "tailwind-variants";
 
 import { DraggableMarker } from "#components/map/DraggableMarker";
 import { GeoSearchControl } from "#components/map/GeoSearchControl";
 import { Map, type MapProps } from "#components/map/Map";
-import { useDebouncedValue } from "#hooks/useDebouncedValue";
 import { useGeoSearchLocation } from "#hooks/useGeoSearchLocation";
+import { useNominatimApiReverse } from "#hooks/useNominatimApiReverse";
 import { formatLatLng } from "#lib/leaflet/formatLatLng";
 import { formatLatLngAsGeoUri } from "#lib/leaflet/formatLatLngAsGeoUri";
-import { $api } from "#lib/nominatim/api";
+import { Skeleton } from "@exifi/ui/components/Skeleton";
 
 const ExifGpsMapLabel = ({ coordinate }: { coordinate: LatLng }) => {
-  const debouncedCoordinate = useDebouncedValue(coordinate);
+  const feature = useNominatimApiReverse(coordinate);
 
-  const { data } = $api.useSuspenseQuery("get", "/reverse", {
-    params: {
-      query: {
-        lat: debouncedCoordinate.lat,
-        lon: debouncedCoordinate.lng,
-        format: "geojson",
-      },
-    },
-  });
-  const displayName = useMemo(() => {
-    const feature = data.features?.at(0);
-
-    return (
-        feature !== undefined &&
-          feature.properties !== undefined &&
-          "display_name" in feature.properties &&
-          typeof feature.properties.display_name === "string"
-      ) ?
-        feature.properties.display_name
-      : null;
-  }, [data]);
-
-  return displayName;
+  return feature?.properties?.display_name ?? null;
 };
 
 type ExifGpsMapProps = {
@@ -101,20 +80,51 @@ const ExifGpsMap = ({
           }}
         >
           <Popup>
-            {label !== null && geoSearchLocationLatLng?.equals(coordinate) ?
-              label
-            : <ExifGpsMapLabel coordinate={coordinate} />}
-            {`\n`}
-            {`${formatLatLng(coordinate)} `}
-            <a
-              href={`https://www.openstreetmap.org/#map=18/${coordinate.lat}/${coordinate.lng}`}
-              target="_blank"
-            >
-              (OSM)
-            </a>{" "}
-            <a href={formatLatLngAsGeoUri(coordinate)} target="_blank">
-              (geo)
-            </a>
+            <div className="flex flex-col gap-1">
+              <div>
+                <div className="flex gap-2">
+                  <div className="shrink-0 p-px">
+                    <MapPin className="size-4" />
+                  </div>
+                  {(
+                    label !== null &&
+                    geoSearchLocationLatLng?.equals(coordinate)
+                  ) ?
+                    label
+                  : <Suspense
+                      fallback={<Skeleton className="h-[1em] w-full" />}
+                    >
+                      <ExifGpsMapLabel coordinate={coordinate} />
+                    </Suspense>
+                  }
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <div className="shrink-0 p-px">
+                  <LocateFixed className="size-4" />
+                </div>
+                <div>{`${formatLatLng(coordinate)} `}</div>
+              </div>
+              <div className="flex gap-2">
+                <div className="shrink-0 p-px">
+                  <Link className="size-4" />
+                </div>
+                <div>
+                  <div className="flex gap-0.5">
+                    <a
+                      href={`https://www.openstreetmap.org/#map=18/${coordinate.lat}/${coordinate.lng}`}
+                      target="_blank"
+                    >
+                      OpenStreetMap
+                    </a>
+                    {"•"}
+                    <a href={formatLatLngAsGeoUri(coordinate)} target="_blank">
+                      geo URI
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </Popup>
         </DraggableMarker>
       )}
