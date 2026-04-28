@@ -4,6 +4,7 @@ type ExifTagInformation = {
   ifd: Ifd[];
   format: Format[];
   maxNumberOfComponents?: number;
+  numberOfComponents?: number;
   values?: Record<string, number>;
   asciiValues?: Record<string, string>;
 };
@@ -758,11 +759,143 @@ const EXIF_TAG_MAP: Partial<Record<Tag, ExifTagInformation>> = {
   DEST_BEARING_REF: {
     ifd: ["GPS"],
     format: ["ASCII"],
-    maxNumberOfComponents: 2,
+    numberOfComponents: 2,
     asciiValues: {
       "True direction": "T",
       "Magnetic direction": "M",
     },
+  },
+  VERSION_ID: {
+    ifd: ["GPS"],
+    format: ["BYTE"],
+    numberOfComponents: 4,
+    values: {
+      default: 0x02020000,
+    },
+  },
+  LATITUDE: {
+    ifd: ["GPS"],
+    format: ["RATIONAL"],
+    numberOfComponents: 3,
+  },
+  LONGITUDE: {
+    ifd: ["GPS"],
+    format: ["RATIONAL"],
+    numberOfComponents: 3,
+  },
+  ALTITUDE: {
+    ifd: ["GPS"],
+    format: ["RATIONAL"],
+    numberOfComponents: 1,
+  },
+  TIME_STAMP: {
+    ifd: ["GPS"],
+    format: ["RATIONAL"],
+    numberOfComponents: 3,
+  },
+  SATELLITES: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+  },
+  STATUS: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+  },
+  MEASURE_MODE: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+  },
+  DOP: {
+    ifd: ["GPS"],
+    format: ["RATIONAL"],
+    numberOfComponents: 1,
+  },
+  SPEED: {
+    ifd: ["GPS"],
+    format: ["RATIONAL"],
+    numberOfComponents: 1,
+  },
+  TRACK_REF: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+    numberOfComponents: 2,
+    asciiValues: {
+      default: "T",
+    },
+  },
+  TRACK: {
+    ifd: ["GPS"],
+    format: ["RATIONAL"],
+    numberOfComponents: 1,
+  },
+  IMG_DIRECTION: {
+    ifd: ["GPS"],
+    format: ["RATIONAL"],
+    numberOfComponents: 1,
+  },
+  MAP_DATUM: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+  },
+  DEST_LATITUDE_REF: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+  },
+  DEST_LATITUDE: {
+    ifd: ["GPS"],
+    format: ["RATIONAL"],
+    numberOfComponents: 3,
+  },
+  DEST_LONGITUDE_REF: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+  },
+  DEST_LONGITUDE: {
+    ifd: ["GPS"],
+    format: ["RATIONAL"],
+    numberOfComponents: 3,
+  },
+  DEST_BEARING: {
+    ifd: ["GPS"],
+    format: ["RATIONAL"],
+    numberOfComponents: 1,
+  },
+  DEST_DISTANCE_REF: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+    numberOfComponents: 2,
+    asciiValues: {
+      km: "K",
+      miles: "M",
+      knots: "N",
+    },
+  },
+  DEST_DISTANCE: {
+    ifd: ["GPS"],
+    format: ["RATIONAL"],
+    numberOfComponents: 1,
+  },
+  PROCESSING_METHOD: {
+    ifd: ["GPS"],
+    format: ["UNDEFINED"],
+  },
+  AREA_INFORMATION: {
+    ifd: ["GPS"],
+    format: ["UNDEFINED"],
+  },
+  DATE_STAMP: {
+    ifd: ["GPS"],
+    format: ["ASCII"],
+  },
+  DIFFERENTIAL: {
+    ifd: ["GPS"],
+    format: ["SHORT"],
+    numberOfComponents: 1,
+  },
+  H_POSITIONING_ERROR: {
+    ifd: ["GPS"],
+    format: ["RATIONAL"],
+    numberOfComponents: 1,
   },
 };
 
