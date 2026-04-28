@@ -1,6 +1,7 @@
 import { ExifIfd } from "libexif-wasm";
 import { ErrorBoundary } from "react-error-boundary";
 
+import { ExifInformation } from "#components/file/ExifInformation";
 import { useExifData } from "#hooks/useExifData";
 
 import { ExifGpsMap } from "./gps/ExifGpsMap";
@@ -13,6 +14,7 @@ const ExifViewerContent = ({ file }: { file: File }) => {
 
   return (
     <>
+      <ExifInformation exifData={exifData} />
       <IfdAccordion exifData={exifData} />
       {exifDataGps.count !== 0 && (
         <ErrorBoundary

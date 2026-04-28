@@ -6,6 +6,7 @@ import { FileInformation } from "#components/file/FileInformation";
 import { Skeleton } from "@exifi/ui/components/Skeleton";
 
 import { ExifEditorProvider } from "./ExifEditorProvider";
+import { ExifInspector } from "./components/ExifInspector";
 import { ExifTable } from "./components/ExifTable";
 import { ExifToolbar } from "./components/ExifToolbar";
 
@@ -19,6 +20,7 @@ const ExifEditor = ({ file, className, ...props }: ExifEditorProps) => {
       <FileInformation file={file} />
       <Suspense fallback={<Skeleton className="h-50 w-full" />}>
         <ExifEditorProvider>
+          <ExifInspector />
           <ExifToolbar />
           <ExifTable />
         </ExifEditorProvider>
