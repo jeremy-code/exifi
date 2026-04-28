@@ -1,4 +1,4 @@
-import { Suspense, type ComponentPropsWithRef } from "react";
+import { Suspense, useMemo, type ComponentPropsWithRef } from "react";
 
 import type { DataType, ExifData } from "libexif-wasm";
 
@@ -32,8 +32,15 @@ const dataTypeMap: Record<DataType, string> = {
 };
 
 const ExifThumbnailInformation = ({ thumbnail }: { thumbnail: Uint8Array }) => {
-  const blob = new Blob([new Uint8Array(thumbnail)]);
+  const blob = useMemo(
+    () => new Blob([new Uint8Array(thumbnail)]),
+    [thumbnail],
+  );
   const blobUrl = useObjectUrl(blob);
+  const imageDimensionsPromise = useMemo(
+    () => getImageDimensions(blob),
+    [blob],
+  );
 
   return (
     <>
@@ -41,7 +48,7 @@ const ExifThumbnailInformation = ({ thumbnail }: { thumbnail: Uint8Array }) => {
         Exists
       </Link>
       <Suspense fallback={<Skeleton className="h-[1em] w-[50px]" />}>
-        (<ImageDimensions imageDimensionsPromise={getImageDimensions(blob)} />)
+        (<ImageDimensions imageDimensionsPromise={imageDimensionsPromise} />)
       </Suspense>
     </>
   );
@@ -65,7 +72,7 @@ const ExifInformation = ({
         <DataList
           orientation="vertical"
           variant="bold"
-          className="grid max-w-250 grid-cols-[repeat(auto-fit,minmax(--spacing(35),1fr))]"
+          className="grid grid-cols-[repeat(auto-fit,minmax(--spacing(35),1fr))] md:max-w-250"
         >
           <DataListItem>
             <DataListItemLabel className="min-w-unset!">
