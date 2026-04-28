@@ -7,6 +7,10 @@ import { Popup } from "react-leaflet";
 import { useNominatimApiReverse } from "#hooks/useNominatimApiReverse";
 import { formatLatLng } from "#lib/leaflet/formatLatLng";
 import { formatLatLngAsGeoUri } from "#lib/leaflet/formatLatLngAsGeoUri";
+import {
+  HorizontalList,
+  HorizontalListItem,
+} from "@exifi/ui/components/HorizontalList";
 import { Skeleton } from "@exifi/ui/components/Skeleton";
 
 const GpsPopupLabel = ({ coordinate }: { coordinate: LatLng }) => {
@@ -48,18 +52,21 @@ const GpsPopup = ({ coordinate, label, ...props }: GpsPopupProps) => {
             <Link className="size-4" />
           </div>
           <div>
-            <div className="flex gap-0.5">
-              <a
-                href={`https://www.openstreetmap.org/#map=18/${coordinate.lat}/${coordinate.lng}`}
-                target="_blank"
-              >
-                OpenStreetMap
-              </a>
-              {"•"}
-              <a href={formatLatLngAsGeoUri(coordinate)} target="_blank">
-                geo URI
-              </a>
-            </div>
+            <HorizontalList>
+              <HorizontalListItem>
+                <a
+                  href={`https://www.openstreetmap.org/#map=18/${coordinate.lat}/${coordinate.lng}`}
+                  target="_blank"
+                >
+                  OpenStreetMap
+                </a>
+              </HorizontalListItem>
+              <HorizontalListItem>
+                <a href={formatLatLngAsGeoUri(coordinate)} target="_blank">
+                  geo URI
+                </a>
+              </HorizontalListItem>
+            </HorizontalList>
           </div>
         </div>
       </div>
