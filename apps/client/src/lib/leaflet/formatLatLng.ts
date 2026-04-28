@@ -19,7 +19,8 @@ const formatLatLng = (latLng: LatLng) => {
 
   return latLng.alt === undefined ?
       formattedLatLng
-    : `${formattedLatLng} ${latLng.alt}m`;
+      // Altitude to 3 decimal points to match libexif behavior
+    : `${formattedLatLng} ${latLng.alt.toFixed(3)}m`;
 };
 
 export { formatLatLng };
