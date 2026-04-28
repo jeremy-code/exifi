@@ -94,7 +94,7 @@ const MobileNav = (props: MobileNavProps) => {
         <PopoverContent
           hideWhenDetached={true} // If window size changes, hide content
           onInteractOutside={(e) => e.preventDefault()}
-          className="z-40 w-(--radix-popover-content-available-width) rounded-t-none bg-background"
+          className="w-(--radix-popover-content-available-width) rounded-t-none bg-background"
         >
           <ul className="space-y-0.5">
             {NAVIGATION_ITEMS.map((item) => (
