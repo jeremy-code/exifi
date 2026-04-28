@@ -160,10 +160,16 @@ const useExifEditor = (exifData: ExifData) => {
             if (exifData === null) {
               throw new Error("Reference to ExifData instance not found");
             }
-            const exifIfd = exifData.ifd[ExifIfd.IFD_0];
+            const exifIfd = exifData.ifd[ExifIfd.EXIF];
 
-            const imageWidthEntry = getOrInsertEntry(exifIfd, "IMAGE_WIDTH");
-            const imageHeightEntry = getOrInsertEntry(exifIfd, "IMAGE_LENGTH");
+            const imageWidthEntry = getOrInsertEntry(
+              exifIfd,
+              "PIXEL_X_DIMENSION",
+            );
+            const imageHeightEntry = getOrInsertEntry(
+              exifIfd,
+              "PIXEL_Y_DIMENSION",
+            );
 
             imageWidthEntry.format = "SHORT";
             imageHeightEntry.format = "SHORT";
