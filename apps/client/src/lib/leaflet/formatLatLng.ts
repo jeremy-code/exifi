@@ -11,7 +11,7 @@ const formatCoordinate = (decimal: number, axis: Axis): string => {
 
   // Per https://en.wikipedia.org/wiki/Decimal_degrees#Precision, at 6 decimal
   // places, individual humans can be unambiguously recognized
-  return `${degrees}°${minutes}\u2032${seconds.toFixed(4)}″ ${direction}`;
+  return `${degrees}°${minutes}\u2032${parseFloat(seconds.toFixed(4))}″ ${direction}`;
 };
 
 const formatLatLng = (latLng: LatLng) => {
@@ -20,7 +20,7 @@ const formatLatLng = (latLng: LatLng) => {
   return latLng.alt === undefined ?
       formattedLatLng
       // Altitude to 3 decimal points to match libexif behavior
-    : `${formattedLatLng} ${latLng.alt.toFixed(3)}m`;
+    : `${formattedLatLng} ${parseFloat(latLng.alt.toFixed(3))}m`;
 };
 
 export { formatLatLng };
