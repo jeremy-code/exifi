@@ -16,9 +16,13 @@ const viteConfig = defineConfig({
       // https://github.com/TanStack/router/discussions/3394#discussioncomment-16523892
       prerender: {
         enabled: true,
-        crawlLinks: false,
+        crawlLinks: true,
       },
-      pages: [{ path: "/" }, { path: "/tags" }],
+      sitemap: {
+        enabled: true,
+        host:
+          process.env.URL !== undefined ? process.env.URL : "http://localhost/",
+      },
     }),
     react(),
     babel({ presets: [reactCompilerPreset()] }),
