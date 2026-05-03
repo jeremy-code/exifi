@@ -13,6 +13,7 @@ import { updateLatLng } from "#lib/exif/gps/updateLatLng";
 import { createViewbox } from "#utils/createViewbox";
 import { getCurrentPosition } from "#utils/getCurrentPosition";
 import { saveFile } from "#utils/saveFile";
+import { seo } from "#utils/seo";
 import { writeExifData } from "@exifi/exif-utils";
 import { Button } from "@exifi/ui/components/Button";
 import { Skeleton } from "@exifi/ui/components/Skeleton";
@@ -105,6 +106,12 @@ const EditorGpsComponent = () => {
 };
 
 const Route = createFileRoute("/_app/editor_/gps/")({
+  head: () => ({
+    meta: seo({
+      title: "GPS Editor | exifi",
+      description: "Local-only GPS Exif editor for JPG images",
+    }),
+  }),
   component: EditorGpsComponent,
 });
 

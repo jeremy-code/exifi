@@ -19,6 +19,7 @@ import { ColumnResizer } from "#components/table/ColumnResizer";
 import { ExpandRows } from "#components/table/ExpandRows";
 import { SortingHandlerToggle } from "#components/table/SortingHandlerToggle";
 import { formatPlural } from "#utils/formatPlural";
+import { seo } from "#utils/seo";
 import { titlecase } from "#utils/titlecase";
 import { Badge } from "@exifi/ui/components/Badge";
 import { Heading } from "@exifi/ui/components/Heading";
@@ -244,6 +245,12 @@ const TagsComponent = () => {
 };
 
 const Route = createFileRoute("/(static)/tags/")({
+  head: () => ({
+    meta: seo({
+      title: "Tags | exifi",
+      description: "Exif tags used in libexif and their support level",
+    }),
+  }),
   component: TagsComponent,
 });
 

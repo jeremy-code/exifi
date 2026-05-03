@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { dayjs } from "#utils/date";
+import { seo } from "#utils/seo";
 import {
   DataList,
   DataListItem,
@@ -44,6 +45,12 @@ const StatusComponent = () => {
 };
 
 const Route = createFileRoute("/(static)/status/")({
+  head: () => ({
+    meta: seo({
+      title: "Status | exifi",
+      description: "Exifi status page",
+    }),
+  }),
   component: StatusComponent,
 });
 
