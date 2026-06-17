@@ -3,14 +3,8 @@
   "version": "0.0.0",
   "private": false,
   "exports": {
-    ".": {
-      "@exifi/development": "./src/index.js",
-      "default": "./src/index"
-    },
-    "./*": {
-      "@exifi/development": "./src/*.js",
-      "default": "./src/*"
-    }
+    ".": "./src/index.js",
+    "./*": "./src/*.js"
   },
   "scripts": {
     "lint": "eslint .",
