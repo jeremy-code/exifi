@@ -1,6 +1,8 @@
+import { fileURLToPath } from "node:url";
+
 import js from "@eslint/js";
 import * as comments from "@eslint-community/eslint-plugin-eslint-comments/configs";
-import { defineConfig } from "eslint/config";
+import { defineConfig, includeIgnoreFile } from "eslint/config";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
 import { importX, createNodeResolver } from "eslint-plugin-import-x";
 import pluginPromise from "eslint-plugin-promise";
@@ -11,7 +13,12 @@ import tseslint from "typescript-eslint";
 import disablesConfig from "@exifi/eslint-config/disables";
 import testConfig from "@exifi/eslint-config/test";
 
+const gitignorePath = fileURLToPath(
+  new URL("../../../.gitignore", import.meta.url),
+);
+
 const baseConfig = defineConfig(
+  includeIgnoreFile(gitignorePath, { gitignoreResolution: true }),
   js.configs.recommended,
   tseslint["configs"].recommendedTypeChecked,
   comments.recommended,
