@@ -11,7 +11,7 @@
     "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
     "@eslint-react/eslint-plugin": "^5.17.3",
     "@eslint/js": "^10.0.1",
-    "@tanstack/eslint-plugin-query": "^5.101.3",
+    "@tanstack/eslint-plugin-query": "^5.101.4",
     "@tanstack/eslint-plugin-router": "^1.162.0",
     "@vitest/eslint-plugin": "^1.6.23",
     "eslint-import-resolver-typescript": "^4.4.5",
