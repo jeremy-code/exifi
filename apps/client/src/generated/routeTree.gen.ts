@@ -11,10 +11,10 @@
 import { Route as rootRouteImport } from './../routes/__root'
 import { Route as AppRouteRouteImport } from './../routes/_app/route'
 import { Route as staticIndexRouteImport } from './../routes/(static)/index'
-import { Route as AppViewerIndexRouteImport } from './../routes/_app/viewer/index'
-import { Route as AppEditorIndexRouteImport } from './../routes/_app/editor/index'
-import { Route as staticTagsIndexRouteImport } from './../routes/(static)/tags/index'
 import { Route as staticStatusIndexRouteImport } from './../routes/(static)/status/index'
+import { Route as staticTagsIndexRouteImport } from './../routes/(static)/tags/index'
+import { Route as AppEditorIndexRouteImport } from './../routes/_app/editor/index'
+import { Route as AppViewerIndexRouteImport } from './../routes/_app/viewer/index'
 import { Route as AppEditorGpsIndexRouteImport } from './../routes/_app/editor_/gps/index'
 
 const AppRouteRoute = AppRouteRouteImport.update({
@@ -26,25 +26,25 @@ const staticIndexRoute = staticIndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppViewerIndexRoute = AppViewerIndexRouteImport.update({
-  id: '/viewer/',
-  path: '/viewer/',
-  getParentRoute: () => AppRouteRoute,
-} as any)
-const AppEditorIndexRoute = AppEditorIndexRouteImport.update({
-  id: '/editor/',
-  path: '/editor/',
-  getParentRoute: () => AppRouteRoute,
+const staticStatusIndexRoute = staticStatusIndexRouteImport.update({
+  id: '/(static)/status/',
+  path: '/status/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const staticTagsIndexRoute = staticTagsIndexRouteImport.update({
   id: '/(static)/tags/',
   path: '/tags/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const staticStatusIndexRoute = staticStatusIndexRouteImport.update({
-  id: '/(static)/status/',
-  path: '/status/',
-  getParentRoute: () => rootRouteImport,
+const AppEditorIndexRoute = AppEditorIndexRouteImport.update({
+  id: '/editor/',
+  path: '/editor/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppViewerIndexRoute = AppViewerIndexRouteImport.update({
+  id: '/viewer/',
+  path: '/viewer/',
+  getParentRoute: () => AppRouteRoute,
 } as any)
 const AppEditorGpsIndexRoute = AppEditorGpsIndexRouteImport.update({
   id: '/editor_/gps/',
@@ -81,12 +81,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/status/'
-    | '/tags/'
-    | '/editor/'
-    | '/viewer/'
-    | '/editor/gps/'
+    '/' | '/status/' | '/tags/' | '/editor/' | '/viewer/' | '/editor/gps/'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/status' | '/tags' | '/editor' | '/viewer' | '/editor/gps'
   id:
@@ -123,19 +118,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof staticIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/viewer/': {
-      id: '/_app/viewer/'
-      path: '/viewer'
-      fullPath: '/viewer/'
-      preLoaderRoute: typeof AppViewerIndexRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
-    '/_app/editor/': {
-      id: '/_app/editor/'
-      path: '/editor'
-      fullPath: '/editor/'
-      preLoaderRoute: typeof AppEditorIndexRouteImport
-      parentRoute: typeof AppRouteRoute
+    '/(static)/status/': {
+      id: '/(static)/status/'
+      path: '/status'
+      fullPath: '/status/'
+      preLoaderRoute: typeof staticStatusIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/(static)/tags/': {
       id: '/(static)/tags/'
@@ -144,12 +132,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof staticTagsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(static)/status/': {
-      id: '/(static)/status/'
-      path: '/status'
-      fullPath: '/status/'
-      preLoaderRoute: typeof staticStatusIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_app/editor/': {
+      id: '/_app/editor/'
+      path: '/editor'
+      fullPath: '/editor/'
+      preLoaderRoute: typeof AppEditorIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/viewer/': {
+      id: '/_app/viewer/'
+      path: '/viewer'
+      fullPath: '/viewer/'
+      preLoaderRoute: typeof AppViewerIndexRouteImport
+      parentRoute: typeof AppRouteRoute
     }
     '/_app/editor_/gps/': {
       id: '/_app/editor_/gps/'

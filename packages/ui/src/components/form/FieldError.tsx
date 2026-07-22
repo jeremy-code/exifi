@@ -7,8 +7,7 @@ import {
 import { composeTailwindRenderProps } from "../../utils/composeTailwindRenderProps";
 
 type FieldErrorMessage =
-  | string
-  | ((validation: FieldErrorRenderProps) => string);
+  string | ((validation: FieldErrorRenderProps) => string);
 
 const FieldError = ({ className, ...props }: FieldErrorProps) => {
   return (

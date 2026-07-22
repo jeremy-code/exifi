@@ -1,24 +1,20 @@
 import "@internationalized/date";
 
 declare module "@internationalized/date" {
-  type Formattable = Intl.Formattable;
-
-  interface DateRangeFormatPart extends Intl.DateTimeFormatPart {
-    source: "startRange" | "endRange" | "shared";
-  }
+  type FormattableTemporalObject = Intl.FormattableTemporalObject;
 
   interface DateFormatter {
-    format(value?: Formattable | number): string;
-    formatToParts(value?: Formattable | number): Intl.DateTimeFormatPart[];
-    formatRange<T extends Formattable>(start: T, end: T): string;
-    formatRange(start: Date | number, end: Date | number): string;
-    formatRangeToParts<T extends Formattable>(
-      start: T,
-      end: T,
-    ): DateRangeFormatPart[];
+    format(value?: FormattableTemporalObject | Date | number): string;
+    formatToParts(
+      value?: FormattableTemporalObject | Date | number,
+    ): Intl.DateTimeFormatPart[];
+    formatRange(
+      start: FormattableTemporalObject | Date | number,
+      end: FormattableTemporalObject | Date | number,
+    ): string;
     formatRangeToParts(
-      start: Date | number,
-      end: Date | number,
-    ): DateRangeFormatPart[];
+      start: FormattableTemporalObject | Date | number,
+      end: FormattableTemporalObject | Date | number,
+    ): Intl.DateTimeRangeFormatPart[];
   }
 }

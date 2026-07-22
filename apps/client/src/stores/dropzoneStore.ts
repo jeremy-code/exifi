@@ -1,12 +1,11 @@
-import type { FileWithPath } from "react-dropzone";
 import { create } from "zustand";
 
 type DropzoneStoreState = {
-  acceptedFiles: FileWithPath[];
+  acceptedFiles: File[];
 };
 
 type DropzoneStoreActions = {
-  addAcceptedFiles: (acceptedFiles: FileWithPath[]) => void;
+  addAcceptedFiles: (acceptedFiles: File[]) => void;
   removeAcceptedFileByIndex: (index: number) => void;
   replaceAcceptedFileByIndex: (index: number, acceptedFile: File) => void;
   resetAcceptedFiles: () => void;
