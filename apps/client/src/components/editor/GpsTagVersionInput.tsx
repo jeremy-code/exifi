@@ -40,6 +40,7 @@ const GpsTagVersionInput = ({
   return (
     <Group className="flex items-baseline gap-1" {...props}>
       {gpsTagVersion.map((byte, index) => (
+        // eslint-disable-next-line @eslint-react/no-array-index-key -- Index is only reasonable key
         <Fragment key={index}>
           <NumberField
             size="xs"

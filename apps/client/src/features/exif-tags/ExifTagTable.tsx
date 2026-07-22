@@ -30,6 +30,7 @@ const exifTagTable = getExifTagTable();
 
 const ExifTagTable = () => {
   const { locale } = useLocale();
+  // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Table does not have any alternative API
   const table = useReactTable({
     columns,
     columnResizeMode: "onChange",

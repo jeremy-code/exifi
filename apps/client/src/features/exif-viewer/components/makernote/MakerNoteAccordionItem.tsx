@@ -48,7 +48,8 @@ const MakerNoteAccordionItem = ({
           {mnoteData.data.map((mnoteDatum, index) => (
             <DataListItem
               className="flex-col! md:flex-row!"
-              key={index} // id is not unique
+              // eslint-disable-next-line @eslint-react/no-array-index-key -- ID is not unique
+              key={index}
             >
               <DataListItemLabel className="md:w-1/3">
                 {mnoteDatum.description !== null &&

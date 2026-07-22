@@ -107,6 +107,7 @@ const ExifEntryAddEditorFields = ({
           />
           {exifAddEditor.values.slice(1).map((value, index) => (
             <RationalInput
+              // eslint-disable-next-line @eslint-react/no-array-index-key -- Index is only reasonable key
               key={index}
               aria-label={`${label} ${index + 1}`}
               initialRational={value}
@@ -130,6 +131,7 @@ const ExifEntryAddEditorFields = ({
           {exifAddEditor.values.slice(1).map((value, index) => (
             <NumberField
               aria-label={`${label} ${index + 1}`}
+              // eslint-disable-next-line @eslint-react/no-array-index-key -- Index is only reasonable key
               key={index}
               value={value}
               onChange={(value) =>

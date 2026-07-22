@@ -24,6 +24,7 @@ const ExifEntryEditor = () => {
     case "rational":
       return exifAdvancedEditor.values.map((value, index) => (
         <RationalInput
+          // eslint-disable-next-line @eslint-react/no-array-index-key -- Index is only reasonable key
           key={index}
           aria-label={`${label} ${index + 1}`}
           initialRational={value}
@@ -45,6 +46,7 @@ const ExifEntryEditor = () => {
       return exifAdvancedEditor.values.map((value, index) => (
         <NumberField
           aria-label={`${label} ${index + 1}`}
+          // eslint-disable-next-line @eslint-react/no-array-index-key -- Index is only reasonable key
           key={index}
           value={value}
           onChange={(value) => exifAdvancedEditor.onValueChange(value, index)}
