@@ -6,8 +6,8 @@ import reactCompiler from "eslint-plugin-react-compiler";
 import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 
-import disablesConfig from "./disables.js";
-import baseConfig from "./index.js";
+import baseConfig from "@exifi/eslint-config";
+import disablesConfig from "@exifi/eslint-config/disables";
 
 const reactConfig = defineConfig(
   // Ignore generated files including TanStack Router filesystem route tree

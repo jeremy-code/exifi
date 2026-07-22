@@ -8,8 +8,8 @@ import * as turbo from "eslint-plugin-turbo";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-import disablesConfig from "./disables.js";
-import testConfig from "./test.js";
+import disablesConfig from "@exifi/eslint-config/disables";
+import testConfig from "@exifi/eslint-config/test";
 
 const baseConfig = defineConfig(
   js.configs.recommended,

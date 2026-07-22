@@ -4,10 +4,8 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    ".": "./index.js",
-    "./disables.js": "./disables.js",
-    "./react.js": "./react.js",
-    "./test.js": "./test.js"
+    ".": "./src/index.js",
+    "./*": "./src/*.js"
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.7.2",
