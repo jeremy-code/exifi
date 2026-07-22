@@ -46,7 +46,7 @@ const CatchBoundary = ({ error, reset }: ErrorComponentProps) => {
           <Button variant="surface" onPress={() => reset()}>
             Try Again
           </Button>
-          {isRoot ?
+          {isRoot ? (
             <Link
               render={(props, renderProps) => (
                 // @ts-expect-error -- TODO: I believe React Aria's types are wrong since they omit elementType prop
@@ -62,11 +62,12 @@ const CatchBoundary = ({ error, reset }: ErrorComponentProps) => {
             >
               Home
             </Link>
-          : <Button variant="ghost" onPress={() => window.history.back()}>
+          ) : (
+            <Button variant="ghost" onPress={() => window.history.back()}>
               <ChevronLeft size={16} />
               Go Back
             </Button>
-          }
+          )}
         </CardFooter>
       </Card>
     </div>

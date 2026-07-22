@@ -33,11 +33,11 @@ const SortingHandlerToggle = <TData extends RowData, TValue>({
       {composeRenderProps(children, (children) => (
         <>
           {children}
-          {column.getIsSorted() === "asc" ?
+          {column.getIsSorted() === "asc" ? (
             <ArrowDownWideNarrow size={16} />
-          : column.getIsSorted() === "desc" ?
+          ) : column.getIsSorted() === "desc" ? (
             <ArrowUpNarrowWide size={16} />
-          : null}
+          ) : null}
         </>
       ))}
     </AriaButton>

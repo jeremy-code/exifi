@@ -40,13 +40,13 @@ const EditorGpsApp = ({
 }) => {
   const currentPosition = use(currentPositionPromise);
   const currentPositionLatLng =
-    currentPosition !== null ?
-      new LatLng(
-        currentPosition.coords.latitude,
-        currentPosition.coords.longitude,
-        currentPosition.coords.altitude ?? undefined,
-      )
-    : null;
+    currentPosition !== null
+      ? new LatLng(
+          currentPosition.coords.latitude,
+          currentPosition.coords.longitude,
+          currentPosition.coords.altitude ?? undefined,
+        )
+      : null;
   const osmProvider = getOsmProvider(currentPositionLatLng);
   const [map, setMap] = useState<LeafletMap | null>(null);
   useGeoSearchLocation(map);

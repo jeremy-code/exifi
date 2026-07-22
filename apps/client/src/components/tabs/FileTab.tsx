@@ -36,11 +36,11 @@ const FileTab = ({
       {...props}
     >
       <span className="line-clamp-1">
-        {file !== null ?
-          file.name !== "" ?
-            file.name
-          : "Unnamed File"
-        : "New Tab"}
+        {file !== null
+          ? file.name !== ""
+            ? file.name
+            : "Unnamed File"
+          : "New Tab"}
       </span>
       <Button
         className="absolute right-1 group-not-selected/tabs-trigger:hover:bg-border"

@@ -38,11 +38,13 @@ const ExifEntryInspector = ({
         </div>
         <div>
           {"Expected change: "}
-          {isChanged ?
+          {isChanged ? (
             <ExifEntryValidity
               exifEntryObject={{ ...exifEntryObject, value: draft }}
             />
-          : <span className="text-fg-muted italic">no changes</span>}
+          ) : (
+            <span className="text-fg-muted italic">no changes</span>
+          )}
         </div>
         <ExifEntryByteEditor />
         <Button isDisabled={!isChanged} onPress={() => save()}>

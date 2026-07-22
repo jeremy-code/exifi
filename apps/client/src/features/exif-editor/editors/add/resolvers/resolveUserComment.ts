@@ -12,12 +12,12 @@ const resolveUserComment: AddEditorResolver = (
       kind: "userComment",
       exifEntryObject,
       value:
-        exifEntryObject.value.length !== 0 ?
-          parseUserComment(exifEntryObject.value)
-        : {
-            encoding: "ASCII",
-            value: "",
-          },
+        exifEntryObject.value.length !== 0
+          ? parseUserComment(exifEntryObject.value)
+          : {
+              encoding: "ASCII",
+              value: "",
+            },
       onValueChange: (value) =>
         onValueChange(Array.from(formatUserComment(value))),
     };

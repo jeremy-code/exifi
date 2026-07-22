@@ -27,9 +27,9 @@ const ExifGpsMap = ({
   // Use label from the store if the coordinate is the same, otherwise undefined
   // (uses Nominatim API to get the label)
   const label = useGeoSearchLocationStore((state) =>
-    coordinate !== undefined && state.location?.latLng.equals(coordinate) ?
-      state.location.label
-    : undefined,
+    coordinate !== undefined && state.location?.latLng.equals(coordinate)
+      ? state.location.label
+      : undefined,
   );
   const [map, setMap] = useState<LeafletMap | null>(null);
   useGeoSearchLocation(map);

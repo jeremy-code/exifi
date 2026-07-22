@@ -20,11 +20,11 @@ const resolveEnum: AddEditorResolver = (entry, onValueChange) => {
   const values = mappedTag.values;
 
   const value =
-    entry.value.length === 0 ?
-      undefined
-    : Object.entries(values).find(
-        ([_, index]) => index === entry.value[0],
-      )?.[0];
+    entry.value.length === 0
+      ? undefined
+      : Object.entries(values).find(
+          ([_, index]) => index === entry.value[0],
+        )?.[0];
 
   if (value === undefined && entry.value.length === 1) {
     return null;

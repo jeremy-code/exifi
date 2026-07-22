@@ -15,16 +15,16 @@ const resolveDateTime: AddEditorResolver = (exifEntryObject, onValueChange) => {
       kind: "datetime",
       exifEntryObject,
       value:
-        exifEntryObject.value.length !== 0 ?
-          parseExifDateTime(
-            decodeStringFromUtf8(new Uint8Array(exifEntryObject.value)),
-          )
-        : undefined,
+        exifEntryObject.value.length !== 0
+          ? parseExifDateTime(
+              decodeStringFromUtf8(new Uint8Array(exifEntryObject.value)),
+            )
+          : undefined,
       onValueChange: (value) =>
         onValueChange(
-          value !== undefined ?
-            Array.from(encodeStringToUtf8(formatExifDateTime(value)))
-          : [],
+          value !== undefined
+            ? Array.from(encodeStringToUtf8(formatExifDateTime(value)))
+            : [],
         ),
     };
   }

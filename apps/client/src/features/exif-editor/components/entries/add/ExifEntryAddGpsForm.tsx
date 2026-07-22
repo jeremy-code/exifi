@@ -92,9 +92,9 @@ const ExifEntryAddGpsForm = ({
         {(values) => (
           <ExifGpsMap
             coordinate={
-              values.latitude !== undefined && values.longitude !== undefined ?
-                new LatLng(values.latitude, values.longitude, values.altitude)
-              : undefined
+              values.latitude !== undefined && values.longitude !== undefined
+                ? new LatLng(values.latitude, values.longitude, values.altitude)
+                : undefined
             }
             setCoordinate={setGpsForm}
           />
@@ -128,13 +128,13 @@ const ExifEntryAddGpsForm = ({
                 }}
                 isInvalid={!field.state.meta.isValid}
                 errorMessage={
-                  field.state.meta.errors.length > 0 ?
-                    listFormatter.format(
-                      field.state.meta.errors
-                        .filter((issue) => issue !== undefined)
-                        .map((issue) => issue.message),
-                    )
-                  : undefined
+                  field.state.meta.errors.length > 0
+                    ? listFormatter.format(
+                        field.state.meta.errors
+                          .filter((issue) => issue !== undefined)
+                          .map((issue) => issue.message),
+                      )
+                    : undefined
                 }
               />
             )}
@@ -159,13 +159,13 @@ const ExifEntryAddGpsForm = ({
                 }}
                 isInvalid={!field.state.meta.isValid}
                 errorMessage={
-                  field.state.meta.errors.length > 0 ?
-                    listFormatter.format(
-                      field.state.meta.errors
-                        .filter((issue) => issue !== undefined)
-                        .map((issue) => issue.message),
-                    )
-                  : undefined
+                  field.state.meta.errors.length > 0
+                    ? listFormatter.format(
+                        field.state.meta.errors
+                          .filter((issue) => issue !== undefined)
+                          .map((issue) => issue.message),
+                      )
+                    : undefined
                 }
               />
             )}
@@ -182,13 +182,13 @@ const ExifEntryAddGpsForm = ({
                 formatOptions={{ style: "unit", unit: "meter" }}
                 isInvalid={!field.state.meta.isValid}
                 errorMessage={
-                  field.state.meta.errors.length > 0 ?
-                    listFormatter.format(
-                      field.state.meta.errors
-                        .filter((issue) => issue !== undefined)
-                        .map((issue) => issue.message),
-                    )
-                  : undefined
+                  field.state.meta.errors.length > 0
+                    ? listFormatter.format(
+                        field.state.meta.errors
+                          .filter((issue) => issue !== undefined)
+                          .map((issue) => issue.message),
+                      )
+                    : undefined
                 }
               />
             )}

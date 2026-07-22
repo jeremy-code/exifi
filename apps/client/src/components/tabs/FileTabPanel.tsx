@@ -27,7 +27,7 @@ const FileTabPanel = ({
 
   return (
     <TabPanel {...props} id={id}>
-      {file === null ?
+      {file === null ? (
         <div className="flex flex-col gap-2">
           <Heading level={1} size="2xl" className="mb-4">
             Upload file to view Exif metadata
@@ -67,7 +67,9 @@ const FileTabPanel = ({
             }}
           />
         </div>
-      : <FileProvider initialFile={file}>{children}</FileProvider>}
+      ) : (
+        <FileProvider initialFile={file}>{children}</FileProvider>
+      )}
     </TabPanel>
   );
 };

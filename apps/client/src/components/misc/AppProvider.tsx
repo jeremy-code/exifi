@@ -6,9 +6,8 @@ import { ThemeProvider } from "next-themes";
 import { useDisposeQueryCache } from "#hooks/useDisposeQueryCache";
 import { ToastRegion } from "@exifi/ui/components/Toast";
 
-const Devtools =
-  import.meta.env.DEV ?
-    await import("./Devtools").then((mod) => mod.Devtools)
+const Devtools = import.meta.env.DEV
+  ? await import("./Devtools").then((mod) => mod.Devtools)
   : () => null;
 
 const queryClient = new QueryClient({

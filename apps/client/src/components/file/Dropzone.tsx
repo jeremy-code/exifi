@@ -28,11 +28,13 @@ const AcceptedFile = ({
   ...props
 }: AcceptedFileProps) => {
   const { locale } = useLocale();
-  const AcceptedFileIcon =
-    file.type.startsWith("image/") ? Image
-    : file.type.startsWith("video/") ? Clapperboard
-    : file.type.startsWith("audio/") ? Music
-    : File;
+  const AcceptedFileIcon = file.type.startsWith("image/")
+    ? Image
+    : file.type.startsWith("video/")
+      ? Clapperboard
+      : file.type.startsWith("audio/")
+        ? Music
+        : File;
 
   return (
     <li
@@ -124,9 +126,10 @@ const Dropzone = ({
     >
       <div className="inline-flex grow flex-row items-center justify-normal gap-2 max-sm:text-sm">
         <FileUp aria-label="Upload file" />
-        {isDragActive ?
+        {isDragActive ? (
           "Drop a file here"
-        : <div>
+        ) : (
+          <div>
             {"Drag a file here or "}
             <AriaButton
               type="button"
@@ -143,7 +146,7 @@ const Dropzone = ({
               upload a file
             </AriaButton>
           </div>
-        }
+        )}
       </div>
       <input ref={inputRef} {...getInputProps(inputProps)} />
       {acceptedFiles.length > 0 && (

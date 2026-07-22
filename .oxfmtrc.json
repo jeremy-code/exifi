@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 80,
+  "tabWidth": 2,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "sortPackageJson": true,
+  "sortTailwindcss": {
+    "stylesheet": "./packages/ui/src/globals.css",
+    "functions": ["cx", "cn", "cnMerge", "tv", "twMerge"]
+  },
+  "ignorePatterns": [
+    "**/src/generated",
+    "pnpm-lock.yaml" // When using lint-staged, oxfmt will attempt to format pnpm-lock.yaml
+  ]
+}

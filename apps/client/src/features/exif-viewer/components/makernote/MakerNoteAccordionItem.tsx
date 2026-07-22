@@ -51,20 +51,19 @@ const MakerNoteAccordionItem = ({
               key={index} // id is not unique
             >
               <DataListItemLabel className="md:w-1/3">
-                {(
-                  mnoteDatum.description !== null &&
-                  mnoteDatum.description !== ""
-                ) ?
+                {mnoteDatum.description !== null &&
+                mnoteDatum.description !== "" ? (
                   <TooltipTrigger>
                     <TooltipTarget>
                       <span role="button">{mnoteDatum.title}</span>
                     </TooltipTarget>
                     <Tooltip>{mnoteDatum.description}</Tooltip>
                   </TooltipTrigger>
-                : (mnoteDatum.title ??
+                ) : (
+                  (mnoteDatum.title ??
                   mnoteDatum.name ??
                   `ID ${mnoteDatum.id} (${index})`)
-                }
+                )}
               </DataListItemLabel>
               <DataListItemValue className="relative before:relative before:left-0 before:pr-1.5 before:text-fg-muted before:content-['=']">
                 {mnoteDatum.value}

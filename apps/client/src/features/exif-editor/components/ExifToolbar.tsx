@@ -80,11 +80,7 @@ const ExifToolbar = (props: ExifToolbarProps) => {
         }}
       >
         <Save size={16} />
-        {!isDirty ?
-          "Saved"
-        : isPending ?
-          "Saving..."
-        : "Save"}
+        {!isDirty ? "Saved" : isPending ? "Saving..." : "Save"}
       </Button>
       <DiffDialog />
       <AddEntryDialog />

@@ -98,13 +98,13 @@ const FileUrlInput = ({
               onChange={field.handleChange}
               isInvalid={!field.state.meta.isValid}
               errorMessage={
-                field.state.meta.errors.length > 0 ?
-                  listFormatter.format(
-                    field.state.meta.errors
-                      .filter((issue) => issue !== undefined)
-                      .map((issue) => issue.message),
-                  )
-                : undefined
+                field.state.meta.errors.length > 0
+                  ? listFormatter.format(
+                      field.state.meta.errors
+                        .filter((issue) => issue !== undefined)
+                        .map((issue) => issue.message),
+                    )
+                  : undefined
               }
             />
           )}

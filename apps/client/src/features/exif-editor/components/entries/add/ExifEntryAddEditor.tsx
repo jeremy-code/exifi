@@ -26,9 +26,9 @@ const ExifEntryAddEditor = ({
         placeholder="Enter a value"
         label="Value"
         value={
-          exifEntryObject.value !== undefined ?
-            decodeStringFromUtf8(new Uint8Array(exifEntryObject.value))
-          : ""
+          exifEntryObject.value !== undefined
+            ? decodeStringFromUtf8(new Uint8Array(exifEntryObject.value))
+            : ""
         }
         onChange={(value) => {
           onValueChange(Array.from(encodeStringToUtf8(value)));

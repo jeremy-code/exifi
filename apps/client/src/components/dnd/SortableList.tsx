@@ -34,9 +34,9 @@ const SortableList = ({
     <DragDropProvider
       modifiers={(defaults) => [
         ...defaults,
-        ...(containerRef ?
-          [RestrictToElement.configure({ element: containerRef.current })]
-        : []),
+        ...(containerRef
+          ? [RestrictToElement.configure({ element: containerRef.current })]
+          : []),
       ]}
       onDragEnd={handleDragEnd}
     >

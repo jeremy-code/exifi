@@ -54,12 +54,12 @@ const useFileTabsStore = create<FileTabsStore>()((set) => ({
 
       const newTabs = state.tabs.toSpliced(tabIndex, 1);
       const newActiveTabId =
-        state.activeTabId === id ?
-          // Active tab was the last tab, removing and setting to previous
-          tabIndex === state.tabs.length - 1 ?
-            newTabs[newTabs.length - 1]?.id
-          : newTabs[tabIndex]?.id // Set active tab to whichever tab is next
-        : state.activeTabId;
+        state.activeTabId === id
+          ? // Active tab was the last tab, removing and setting to previous
+            tabIndex === state.tabs.length - 1
+            ? newTabs[newTabs.length - 1]?.id
+            : newTabs[tabIndex]?.id // Set active tab to whichever tab is next
+          : state.activeTabId;
 
       // This should never happen
       if (newActiveTabId === undefined) {

@@ -35,9 +35,9 @@ describe("formatUserComment", () => {
       expect(
         formatUserComment(userComment).subarray(HEADER_LENGTH),
       ).toStrictEqual(
-        userComment.encoding === "JIS" ?
-          new Uint8Array(encode(userComment.value, "eucjp"))
-        : textEncoder.encode(userComment.value),
+        userComment.encoding === "JIS"
+          ? new Uint8Array(encode(userComment.value, "eucjp"))
+          : textEncoder.encode(userComment.value),
       );
     });
     test("is parsed correctly by parseUserComment", () => {

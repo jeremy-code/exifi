@@ -36,17 +36,17 @@ export const formatBytes = (
 ): string => {
   const exponent =
     // 0 becomes -Infinity, nonfinite numbers cannot index `UNITS`
-    bytes !== 0 && Number.isFinite(bytes) ?
-      // Set to max unit (petabyte) if exponent exceeds largest unit
-      Math.min(Math.floor(Math.log10(bytes) / 3), UNITS.length - 1)
-    : 0; // Defaults to unit "byte"
+    bytes !== 0 && Number.isFinite(bytes)
+      ? // Set to max unit (petabyte) if exponent exceeds largest unit
+        Math.min(Math.floor(Math.log10(bytes) / 3), UNITS.length - 1)
+      : 0; // Defaults to unit "byte"
 
   const value = bytes / 1000 ** exponent;
 
   return new NumberFormatter(
-    locale === undefined ?
-      Intl.NumberFormat().resolvedOptions().locale
-    : locale,
+    locale === undefined
+      ? Intl.NumberFormat().resolvedOptions().locale
+      : locale,
     {
       style: "unit",
       unit: UNITS[exponent],

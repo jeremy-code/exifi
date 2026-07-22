@@ -36,7 +36,8 @@ describe("isTypedArray", () => {
     document.body.appendChild(iframe);
 
     const contentWindow = iframe.contentWindow as
-      (Window & typeof globalThis) | null;
+      | (Window & typeof globalThis)
+      | null;
     expect(contentWindow).not.toBeNull();
 
     const crossRealmTypedArray = new contentWindow!.Uint8Array();

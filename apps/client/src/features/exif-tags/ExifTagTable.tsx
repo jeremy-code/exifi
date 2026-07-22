@@ -80,24 +80,25 @@ const ExifTagTable = () => {
                     } as CSSProperties
                   }
                 >
-                  {!header.isPlaceholder ?
+                  {!header.isPlaceholder ? (
                     <div className="flex items-center justify-between gap-1">
                       <div>
-                        {header.column.getCanSort() ?
+                        {header.column.getCanSort() ? (
                           <SortingHandlerToggle column={header.column}>
                             {flexRender(
                               header.column.columnDef.header,
                               header.getContext(),
                             )}
                           </SortingHandlerToggle>
-                        : flexRender(
+                        ) : (
+                          flexRender(
                             header.column.columnDef.header,
                             header.getContext(),
                           )
-                        }
+                        )}
                       </div>
                     </div>
-                  : null}
+                  ) : null}
                   <ColumnResizer header={header} />
                 </TableHeader>
               ))}
@@ -117,7 +118,7 @@ const ExifTagTable = () => {
                     } as CSSProperties
                   }
                 >
-                  {cell.getIsGrouped() ?
+                  {cell.getIsGrouped() ? (
                     <ExpandRows row={row}>
                       <span className="flex gap-2">
                         {flexRender(
@@ -136,15 +137,15 @@ const ExifTagTable = () => {
                         </Badge>
                       </span>
                     </ExpandRows>
-                  : cell.getIsAggregated() ?
+                  ) : cell.getIsAggregated() ? (
                     flexRender(
                       cell.column.columnDef.aggregatedCell ??
                         cell.column.columnDef.cell,
                       cell.getContext(),
                     )
-                  : !cell.getIsPlaceholder() ?
+                  ) : !cell.getIsPlaceholder() ? (
                     flexRender(cell.column.columnDef.cell, cell.getContext())
-                  : null}
+                  ) : null}
                 </TableCell>
               ))}
             </TableRow>

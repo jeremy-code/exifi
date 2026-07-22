@@ -20,8 +20,8 @@ const createUncurried = <T>(stateCreator: StateCreator<T>) => {
 };
 
 const create = <T>(stateCreator: StateCreator<T>) => {
-  return typeof stateCreator === "function" ?
-      createUncurried(stateCreator)
+  return typeof stateCreator === "function"
+    ? createUncurried(stateCreator)
     : (createUncurried as UseBoundStore<StoreApi<T>>);
 };
 
@@ -35,8 +35,8 @@ const createStoreUncurried = <T>(stateCreator: StateCreator<T>) => {
 };
 
 const createStore = <T>(stateCreator: StateCreator<T>) => {
-  return typeof stateCreator === "function" ?
-      createStoreUncurried(stateCreator)
+  return typeof stateCreator === "function"
+    ? createStoreUncurried(stateCreator)
     : (createStoreUncurried as UseBoundStore<StoreApi<T>>);
 };
 

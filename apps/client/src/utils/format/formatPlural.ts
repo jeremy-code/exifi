@@ -18,8 +18,8 @@ const formatPlural = (
   const suffix =
     pluralRules[pluralRulesInstance.select(num)] ?? pluralRules.other ?? "";
 
-  return isRTL(resolvedLocale) ?
-      `${suffix}${numberFormatter.format(num)}`
+  return isRTL(resolvedLocale)
+    ? `${suffix}${numberFormatter.format(num)}`
     : `${numberFormatter.format(num)}${suffix}`;
 };
 

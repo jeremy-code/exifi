@@ -67,12 +67,14 @@ const Link = ({
       )}
     >
       {composeRenderProps(props.children, (children) =>
-        isExternal ?
+        isExternal ? (
           <>
             {children}
             <ExternalLink className="size-[1em] flex-none" />
           </>
-        : children,
+        ) : (
+          children
+        ),
       )}
     </AriaLink>
   );

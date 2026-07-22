@@ -172,7 +172,7 @@ const ExifTable = (props: ExifTableProps) => {
                     } as CSSProperties
                   }
                 >
-                  {cell.getIsGrouped() ?
+                  {cell.getIsGrouped() ? (
                     <ExpandRows row={row}>
                       {flexRender(
                         cell.column.columnDef.cell,
@@ -189,15 +189,15 @@ const ExifTable = (props: ExifTableProps) => {
                         )}
                       </Badge>
                     </ExpandRows>
-                  : cell.getIsAggregated() ?
+                  ) : cell.getIsAggregated() ? (
                     flexRender(
                       cell.column.columnDef.aggregatedCell ??
                         cell.column.columnDef.cell,
                       cell.getContext(),
                     )
-                  : !cell.getIsPlaceholder() ?
+                  ) : !cell.getIsPlaceholder() ? (
                     flexRender(cell.column.columnDef.cell, cell.getContext())
-                  : null}
+                  ) : null}
                 </TableCell>
               ))}
             </TableRow>

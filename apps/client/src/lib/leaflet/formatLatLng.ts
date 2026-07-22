@@ -17,10 +17,10 @@ const formatCoordinate = (decimal: number, axis: Axis): string => {
 const formatLatLng = (latLng: LatLng) => {
   const formattedLatLng = `${formatCoordinate(latLng.lat, "lat")} ${formatCoordinate(latLng.lng, "lng")}`;
 
-  return latLng.alt === undefined ?
-      formattedLatLng
-      // Altitude to 3 decimal points to match libexif behavior
-    : `${formattedLatLng} ${parseFloat(latLng.alt.toFixed(3))}m`;
+  return latLng.alt === undefined
+    ? formattedLatLng
+    : // Altitude to 3 decimal points to match libexif behavior
+      `${formattedLatLng} ${parseFloat(latLng.alt.toFixed(3))}m`;
 };
 
 export { formatLatLng };

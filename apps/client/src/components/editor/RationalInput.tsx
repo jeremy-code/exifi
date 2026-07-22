@@ -42,9 +42,9 @@ const RationalInput = ({
 
   const decimal = useMemo(
     () =>
-      numerator !== undefined && denominator !== undefined ?
-        new Decimal(numerator).div(denominator).toNumber()
-      : undefined,
+      numerator !== undefined && denominator !== undefined
+        ? new Decimal(numerator).div(denominator).toNumber()
+        : undefined,
     [numerator, denominator],
   );
 
@@ -54,14 +54,14 @@ const RationalInput = ({
         {...sharedProps}
         {...numeratorInputProps}
         placeholder={
-          placeholderRational !== undefined ?
-            numberFormatter.format(placeholderRational.numerator)
-          : numeratorInputProps?.placeholder
+          placeholderRational !== undefined
+            ? numberFormatter.format(placeholderRational.numerator)
+            : numeratorInputProps?.placeholder
         }
         aria-label={
-          sharedProps["aria-label"] !== undefined ?
-            sharedProps["aria-label"] + " Numerator"
-          : " Numerator"
+          sharedProps["aria-label"] !== undefined
+            ? sharedProps["aria-label"] + " Numerator"
+            : " Numerator"
         }
         value={numerator}
         onChange={(value) => {
@@ -76,14 +76,14 @@ const RationalInput = ({
         {...sharedProps}
         {...denominatorInputProps}
         aria-label={
-          sharedProps["aria-label"] !== undefined ?
-            sharedProps["aria-label"] + " Denominator"
-          : "Denominator"
+          sharedProps["aria-label"] !== undefined
+            ? sharedProps["aria-label"] + " Denominator"
+            : "Denominator"
         }
         placeholder={
-          placeholderRational !== undefined ?
-            numberFormatter.format(placeholderRational.denominator)
-          : numeratorInputProps?.placeholder
+          placeholderRational !== undefined
+            ? numberFormatter.format(placeholderRational.denominator)
+            : numeratorInputProps?.placeholder
         }
         value={denominator}
         onChange={(value) => {
@@ -101,16 +101,16 @@ const RationalInput = ({
         {...sharedProps}
         {...decimalInputProps}
         placeholder={
-          placeholderRational !== undefined ?
-            numberFormatter.format(
-              placeholderRational.numerator / placeholderRational.denominator,
-            )
-          : numeratorInputProps?.placeholder
+          placeholderRational !== undefined
+            ? numberFormatter.format(
+                placeholderRational.numerator / placeholderRational.denominator,
+              )
+            : numeratorInputProps?.placeholder
         }
         aria-label={
-          sharedProps["aria-label"] !== undefined ?
-            sharedProps["aria-label"] + " Decimal"
-          : "Decimal"
+          sharedProps["aria-label"] !== undefined
+            ? sharedProps["aria-label"] + " Decimal"
+            : "Decimal"
         }
         value={decimal}
         onChange={(value) => {

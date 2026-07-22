@@ -32,9 +32,9 @@ const ExifVersionInput = ({
       <NumberField
         {...inputProps}
         aria-label={
-          inputProps?.["aria-label"] !== undefined ?
-            inputProps["aria-label"] + " Major"
-          : "Major"
+          inputProps?.["aria-label"] !== undefined
+            ? inputProps["aria-label"] + " Major"
+            : "Major"
         }
         size="xs"
         minValue={1}
@@ -65,9 +65,9 @@ const ExifVersionInput = ({
       <NumberField
         {...inputProps}
         aria-label={
-          inputProps?.["aria-label"] !== undefined ?
-            inputProps["aria-label"] + " Minor"
-          : "Minor"
+          inputProps?.["aria-label"] !== undefined
+            ? inputProps["aria-label"] + " Minor"
+            : "Minor"
         }
         minValue={0}
         size="xs"

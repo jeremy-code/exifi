@@ -24,9 +24,9 @@ const ThemeToggle = ({
   const { setTheme, resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
-  const [ThemeIcon, themeIconLabel] =
-    isMounted ?
-      isDark ? [Moon, "Switch to light theme"]
+  const [ThemeIcon, themeIconLabel] = isMounted
+    ? isDark
+      ? [Moon, "Switch to light theme"]
       : [Sun, "Switch to dark theme"]
     : [RefreshCw, "Loading"];
 

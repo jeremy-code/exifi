@@ -26,11 +26,11 @@ describe("parseUserComment", () => {
     },
   ] as const)("parses $encoding user comment", ({ encoding, value }) => {
     const userCommentBytes =
-      encoding === "JIS" ?
-        new Uint8Array(
-          encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`, "eucjp"),
-        )
-      : textEncoder.encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`);
+      encoding === "JIS"
+        ? new Uint8Array(
+            encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`, "eucjp"),
+          )
+        : textEncoder.encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`);
 
     expect(parseUserComment(userCommentBytes)).toStrictEqual({
       encoding,
@@ -71,9 +71,9 @@ describe("parseUserComment", () => {
     "parses header-only %s comment as empty string",
     ([encoding]) => {
       const bytes =
-        encoding === "JIS" ?
-          new Uint8Array(encode(ENCODING_TO_HEADER_MAP.JIS, "eucjp"))
-        : textEncoder.encode(ENCODING_TO_HEADER_MAP[encoding]);
+        encoding === "JIS"
+          ? new Uint8Array(encode(ENCODING_TO_HEADER_MAP.JIS, "eucjp"))
+          : textEncoder.encode(ENCODING_TO_HEADER_MAP[encoding]);
 
       expect(parseUserComment(bytes)).toStrictEqual({
         encoding,

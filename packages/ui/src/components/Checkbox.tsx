@@ -92,9 +92,9 @@ const Checkbox = ({ size, ...props }: CheckboxProps) => {
           <>
             <div
               {...props.boxProps}
-              {...(isSelected || isIndeterminate ?
-                { "data-selected": "true" }
-              : {})}
+              {...(isSelected || isIndeterminate
+                ? { "data-selected": "true" }
+                : {})}
               className={boxVariants({
                 ...renderProps,
                 isSelected: isSelected || isIndeterminate,
@@ -102,11 +102,11 @@ const Checkbox = ({ size, ...props }: CheckboxProps) => {
                 className: props.boxProps?.className,
               })}
             >
-              {isIndeterminate ?
+              {isIndeterminate ? (
                 <Minus aria-hidden className={iconVariants()} />
-              : isSelected ?
+              ) : isSelected ? (
                 <Check aria-hidden className={iconVariants()} />
-              : null}
+              ) : null}
             </div>
             {children}
           </>

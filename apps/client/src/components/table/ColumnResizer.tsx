@@ -37,12 +37,10 @@ const ColumnResizer = <TData extends RowData, TValue>({
       style={
         {
           "--resizer-offset":
-            (
-              table.options.columnResizeMode === "onEnd" &&
-              header.column.getIsResizing()
-            ) ?
-              `${table.getState().columnSizingInfo.deltaOffset ?? 0}px`
-            : "0px",
+            table.options.columnResizeMode === "onEnd" &&
+            header.column.getIsResizing()
+              ? `${table.getState().columnSizingInfo.deltaOffset ?? 0}px`
+              : "0px",
         } as CSSProperties
       }
       {...props}

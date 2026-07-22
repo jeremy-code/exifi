@@ -30,15 +30,15 @@ const decimalDegreesToDms = (decimalDegrees: number, axis: Axis): DMS => {
     .toDecimalPlaces(6);
 
   const direction: Direction =
-    axis === "lat" ?
-      decimalDegrees < 0 ?
-        "S"
-      : "N"
-    : axis === "lng" ?
-      decimalDegrees < 0 ?
-        "W"
-      : "E"
-    : assertNever(axis);
+    axis === "lat"
+      ? decimalDegrees < 0
+        ? "S"
+        : "N"
+      : axis === "lng"
+        ? decimalDegrees < 0
+          ? "W"
+          : "E"
+        : assertNever(axis);
 
   return {
     degrees: degrees.toNumber(),

@@ -14,16 +14,16 @@ const resolveDateStamp: AddEditorResolver = (
       kind: "dateStamp",
       exifEntryObject,
       value:
-        exifEntryObject.value.length !== 0 ?
-          parseExifDateStamp(
-            decodeStringFromUtf8(new Uint8Array(exifEntryObject.value)),
-          )
-        : undefined,
+        exifEntryObject.value.length !== 0
+          ? parseExifDateStamp(
+              decodeStringFromUtf8(new Uint8Array(exifEntryObject.value)),
+            )
+          : undefined,
       onValueChange: (value) =>
         onValueChange(
-          value !== undefined ?
-            Array.from(encodeStringToUtf8(formatExifDateStamp(value)))
-          : [],
+          value !== undefined
+            ? Array.from(encodeStringToUtf8(formatExifDateStamp(value)))
+            : [],
         ),
     };
   }

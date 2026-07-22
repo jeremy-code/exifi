@@ -51,9 +51,9 @@ const parseDateTimeEntries = (
     minute: dateTimeDate.minute,
     second: dateTimeDate.second,
     millisecond:
-      subSecTime !== undefined && !Number.isNaN(Number(subSecTimeValue)) ?
-        Number(subSecTimeValue)
-      : 0,
+      subSecTime !== undefined && !Number.isNaN(Number(subSecTimeValue))
+        ? Number(subSecTimeValue)
+        : 0,
     timeZone: offsetTimeValue ?? "UTC",
   });
 };

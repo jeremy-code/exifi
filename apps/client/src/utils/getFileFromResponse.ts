@@ -44,23 +44,21 @@ const getFileFromResponse = async (response: Response): Promise<File> => {
    */
   const contentDispositionHeader = response.headers.get("Content-Disposition");
   const contentDisposition =
-    contentDispositionHeader !== null ?
-      contentDispositionParse(contentDispositionHeader)
-    : null;
+    contentDispositionHeader !== null
+      ? contentDispositionParse(contentDispositionHeader)
+      : null;
 
   const fileName =
     // If "Content-Disposition" header exists with "filename" parameter, use it
-    (
-      contentDisposition?.type === "attachment" &&
-      "filename" in contentDisposition.parameters
-    ) ?
-      contentDisposition.parameters.filename
-      /**
-       * Otherwise, defaults to basename of Response. Not using original
-       * requestUrl since redirects may occur. Using `.pathname`, so query
-       * parameters are not included
-       */
-    : basename(new URL(response.url).pathname);
+    contentDisposition?.type === "attachment" &&
+    "filename" in contentDisposition.parameters
+      ? contentDisposition.parameters.filename
+      : /**
+         * Otherwise, defaults to basename of Response. Not using original
+         * requestUrl since redirects may occur. Using `.pathname`, so query
+         * parameters are not included
+         */
+        basename(new URL(response.url).pathname);
   const contentType = response.headers.get("Content-Type") ?? lookup(fileName);
 
   const file = new File([await response.arrayBuffer()], fileName, {

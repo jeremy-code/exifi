@@ -16,9 +16,9 @@ const seo = ({
   const tags = [
     { title },
     { name: "description", content: description },
-    ...(keywords !== undefined ?
-      [{ name: "keywords", content: keywords.join(",") }]
-    : []),
+    ...(keywords !== undefined
+      ? [{ name: "keywords", content: keywords.join(",") }]
+      : []),
     { name: "twitter:title", content: title },
     { name: "twitter:description", content: description },
     { property: "og:type", content: "website" },

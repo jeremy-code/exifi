@@ -63,9 +63,11 @@ const createExifEditorStore = (exifData: ExifData) =>
             exifEntryObject,
           );
           const typedArray =
-            typeof value === "string" ? encodeStringToUtf8(value)
-            : isTypedArray(value) ? value
-            : typedArrayInFormat(value, exifEntryObject.format);
+            typeof value === "string"
+              ? encodeStringToUtf8(value)
+              : isTypedArray(value)
+                ? value
+                : typedArrayInFormat(value, exifEntryObject.format);
 
           exifEntry.fromTypedArray(typedArray);
 
@@ -105,9 +107,11 @@ const createExifEditorStore = (exifData: ExifData) =>
           const exifEntry = getOrInsertEntry(exifContent, exifEntryObject.tag);
           exifEntry.format = exifEntryObject.format;
           const typedArray =
-            typeof value === "string" ? encodeStringToUtf8(value)
-            : isTypedArray(value) ? value
-            : typedArrayInFormat(value, exifEntryObject.format);
+            typeof value === "string"
+              ? encodeStringToUtf8(value)
+              : isTypedArray(value)
+                ? value
+                : typedArrayInFormat(value, exifEntryObject.format);
           exifEntry.fromTypedArray(typedArray);
 
           const exifDataObject = serializeExifData(state.exifData);

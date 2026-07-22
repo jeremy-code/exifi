@@ -48,14 +48,12 @@ const useGeoSearchLocationStore = create<GeoSearchLocationStore>((set) => ({
       return {
         location: {
           // Only update reference if necessary
-          latLng:
-            prevLocation.latLng.equals(nextLocation.latLng) ?
-              prevLocation.latLng
+          latLng: prevLocation.latLng.equals(nextLocation.latLng)
+            ? prevLocation.latLng
             : nextLocation.latLng,
           label: nextLocation.label,
-          bounds:
-            prevLocation.bounds.equals(nextLocation.bounds) ?
-              prevLocation.bounds
+          bounds: prevLocation.bounds.equals(nextLocation.bounds)
+            ? prevLocation.bounds
             : nextLocation.bounds,
         },
       };

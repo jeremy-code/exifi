@@ -17,9 +17,9 @@ const getFileHashPromise = (file: File) => {
        * from @noble/hashes
        */
       const hash =
-        "subtle" in crypto && "digest" in crypto.subtle ?
-          new Uint8Array(await crypto.subtle.digest("SHA-256", arrayBuffer))
-        : sha256(new Uint8Array(arrayBuffer));
+        "subtle" in crypto && "digest" in crypto.subtle
+          ? new Uint8Array(await crypto.subtle.digest("SHA-256", arrayBuffer))
+          : sha256(new Uint8Array(arrayBuffer));
 
       return bytesToHex(hash); // bytesToHex uses Uint8Array.toHex if avaliable
     });

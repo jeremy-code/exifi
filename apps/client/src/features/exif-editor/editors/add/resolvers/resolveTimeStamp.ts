@@ -15,9 +15,9 @@ const resolveTimeStamp: AddEditorResolver = (
       kind: "timeStamp",
       exifEntryObject,
       value:
-        exifEntryObject.value.length === 0 ?
-          undefined
-        : parseExifTimeStamp(exifEntryObject.value),
+        exifEntryObject.value.length === 0
+          ? undefined
+          : parseExifTimeStamp(exifEntryObject.value),
       onValueChange: (value) =>
         onValueChange(value === undefined ? [] : formatExifTimeStamp(value)),
     };

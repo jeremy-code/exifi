@@ -12,8 +12,8 @@ const dmsToDecimalDegrees = ({
   const absoluteDecimalDegrees =
     degrees + minutes / MINUTES_IN_DEGREE + seconds / SECONDS_IN_DEGREE;
 
-  return direction === "S" || direction === "W" ?
-      -absoluteDecimalDegrees
+  return direction === "S" || direction === "W"
+    ? -absoluteDecimalDegrees
     : absoluteDecimalDegrees;
 };
 

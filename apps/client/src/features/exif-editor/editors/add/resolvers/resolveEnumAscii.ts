@@ -21,16 +21,16 @@ const resolveEnumAscii: AddEditorResolver = (
   const asciiValues = mappedTag.asciiValues;
 
   const valueAsString =
-    exifEntryObject.value.length === 0 ?
-      undefined
-    : decodeStringFromUtf8(new Uint8Array(exifEntryObject.value));
+    exifEntryObject.value.length === 0
+      ? undefined
+      : decodeStringFromUtf8(new Uint8Array(exifEntryObject.value));
 
   const asciiValue =
-    valueAsString !== undefined ?
-      Object.entries(asciiValues).find(
-        ([, value]) => value === valueAsString,
-      )?.[0]
-    : undefined;
+    valueAsString !== undefined
+      ? Object.entries(asciiValues).find(
+          ([, value]) => value === valueAsString,
+        )?.[0]
+      : undefined;
 
   if (asciiValue === undefined && exifEntryObject.value.length === 2) {
     return null;

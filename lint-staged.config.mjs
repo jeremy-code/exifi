@@ -10,6 +10,6 @@ export default {
    *
    * @see {@link https://turborepo.dev/docs/reference/run}
    */
-  "*.{js,mjs,cjs,ts,tsx,mts,cts}": ["turbo run lint --", "prettier --check"],
-  "*.{json,md,yaml,yml}": "prettier --check",
+  "*.{js,mjs,cjs,ts,tsx,mts,cts}": ["turbo run lint --", "oxfmt --check"],
+  "*.{json,md,yaml,yml}": "oxfmt --check",
 };

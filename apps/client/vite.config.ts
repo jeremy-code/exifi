@@ -41,13 +41,13 @@ const viteConfig = defineConfig({
       // safer-buffer imports the package
       include: ["buffer"],
     }),
-    ...(isAnalyzerEnabled ?
-      [
-        analyzer({
-          analyzerPort: "auto",
-        }),
-      ]
-    : []),
+    ...(isAnalyzerEnabled
+      ? [
+          analyzer({
+            analyzerPort: "auto",
+          }),
+        ]
+      : []),
   ],
   define: {
     __BUILD_TIMESTAMP__: JSON.stringify(new Date().getTime()),

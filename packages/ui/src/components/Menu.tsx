@@ -54,20 +54,22 @@ const MenuItem = (props: MenuItemProps) => {
         props.children,
         (children, { selectionMode, isSelected, hasSubmenu }) => (
           <>
-            {isSelected && selectionMode === "multiple" ?
+            {isSelected && selectionMode === "multiple" ? (
               <Check aria-hidden className="size-4" />
-            : null}
-            {isSelected && selectionMode === "single" ?
+            ) : null}
+            {isSelected && selectionMode === "single" ? (
               <Dot aria-hidden className="size-4" />
-            : null}
-            {typeof children === "string" ?
+            ) : null}
+            {typeof children === "string" ? (
               <Text
                 slot="label"
                 className="flex flex-1 items-center gap-2 truncate font-normal group-selected/list-box-item:font-semibold"
               >
                 {children}
               </Text>
-            : children}
+            ) : (
+              children
+            )}
             {hasSubmenu && (
               <ChevronRight aria-hidden className="absolute right-2 size-4" />
             )}

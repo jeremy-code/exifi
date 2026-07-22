@@ -76,11 +76,11 @@ const ExifInformation = ({
               Byte order
             </DataListItemLabel>
             <DataListItemValue>
-              {exifData.byteOrder === "MOTOROLA" ?
-                "Big-endian"
-              : exifData.byteOrder === "INTEL" ?
-                "Little-endian"
-              : assertNever(exifData.byteOrder)}
+              {exifData.byteOrder === "MOTOROLA"
+                ? "Big-endian"
+                : exifData.byteOrder === "INTEL"
+                  ? "Little-endian"
+                  : assertNever(exifData.byteOrder)}
             </DataListItemValue>
           </DataListItem>
           <DataListItem>
@@ -96,18 +96,18 @@ const ExifInformation = ({
               Makernote
             </DataListItemLabel>
             <DataListItemValue>
-              {exifData.mnoteData !== null ?
-                formatPlural(
-                  exifData.mnoteData.dataCount,
-                  {
-                    one: " entry",
-                    other: " entries",
-                  },
-                  locale,
-                )
-              : exifData.getEntry("MAKER_NOTE") !== null ?
-                "Unable to parse"
-              : "Does not exist"}
+              {exifData.mnoteData !== null
+                ? formatPlural(
+                    exifData.mnoteData.dataCount,
+                    {
+                      one: " entry",
+                      other: " entries",
+                    },
+                    locale,
+                  )
+                : exifData.getEntry("MAKER_NOTE") !== null
+                  ? "Unable to parse"
+                  : "Does not exist"}
             </DataListItemValue>
           </DataListItem>
           <DataListItem>
@@ -115,9 +115,11 @@ const ExifInformation = ({
               Thumbnail
             </DataListItemLabel>
             <DataListItemValue className="inline">
-              {exifData.data.length !== 0 ?
+              {exifData.data.length !== 0 ? (
                 <ExifThumbnailInformation thumbnail={exifData.data} />
-              : "Does not exist"}
+              ) : (
+                "Does not exist"
+              )}
             </DataListItemValue>
           </DataListItem>
           <DataListItem>

@@ -134,9 +134,9 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
                         }
                       >
                         {`${exifIfdGetName(ifdName)}${
-                          esl === undefined ? "" : (
-                            ` (${SUPPORT_LEVEL_MAP[esl[ifdName]]})`
-                          )
+                          esl === undefined
+                            ? ""
+                            : ` (${SUPPORT_LEVEL_MAP[esl[ifdName]]})`
                         }`}
                       </SelectItem>
                     )}

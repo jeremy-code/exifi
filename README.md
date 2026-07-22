@@ -25,7 +25,7 @@ pnpm install
 # Run the development server locally
 pnpm dev
 
-# Lint and format code with ESLint and Prettier
+# Lint and format code with ESLint and Oxfmt
 pnpm lint
 pnpm format
 

@@ -9,9 +9,9 @@ const resolveAscii: AddEditorResolver = (exifEntryObject, onValueChange) => {
       kind: "ascii",
       exifEntryObject,
       value:
-        exifEntryObject.value.length === 0 ?
-          undefined
-        : decodeStringFromUtf8(new Uint8Array(exifEntryObject.value)),
+        exifEntryObject.value.length === 0
+          ? undefined
+          : decodeStringFromUtf8(new Uint8Array(exifEntryObject.value)),
       onValueChange: (value) => {
         if (value === "") {
           onValueChange([]);
