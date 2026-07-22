@@ -1,10 +1,23 @@
 {
   "name": "exifi",
   "version": "0.0.0",
-  "description": "",
-  "keywords": [],
+  "description": "Local-only Exif viewer and editor",
+  "keywords": [
+    "editor",
+    "exif",
+    "exif-editor",
+    "exif-viewer",
+    "metadata",
+    "vieweer"
+  ],
+  "homepage": "https://github.com/jeremy-code/exifi#readme",
+  "bugs": "https://github.com/jeremy-code/exifi/issues",
   "license": "MIT",
-  "author": "Jeremy Nguyen <nguyen.jeremyt@gmail.com> (https://jeremy.ng)",
+  "author": "Jeremy Nguyen <hi@jeremy.ng> (https://jeremy.ng)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremy-code/exifi.git"
+  },
   "scripts": {
     "prepare": "husky",
     "build": "turbo build",
