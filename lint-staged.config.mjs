@@ -3,7 +3,7 @@
 /**
  * @satisfies {Configuration}
  */
-export default {
+const lintStagedConfig = {
   /**
    * Prevents turbo from seeing the filenames as tasks and instead passes them
    * as arguments.
@@ -13,3 +13,5 @@ export default {
   "*.{js,mjs,cjs,ts,tsx,mts,cts}": ["turbo run lint --", "oxfmt --check"],
   "*.{json,md,yaml,yml}": "oxfmt --check",
 };
+
+export default lintStagedConfig;
