@@ -9,8 +9,5 @@
     "stylesheet": "./packages/ui/src/globals.css",
     "functions": ["cx", "cn", "cnMerge", "tv", "twMerge"]
   },
-  "ignorePatterns": [
-    "**/src/generated",
-    "pnpm-lock.yaml" // When using lint-staged, oxfmt will attempt to format pnpm-lock.yaml
-  ]
+  "ignorePatterns": ["**/src/generated"]
 }
