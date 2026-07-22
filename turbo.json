@@ -1,34 +1,42 @@
 {
-  "$schema": "https://turbo.build/schema.json",
+  "$schema": "./node_modules/turbo/schema.json",
   "globalEnv": ["NODE_ENV"],
   "ui": "tui",
   "tasks": {
     "build": {
-      "env": ["ANALYZE", "DEV", "URL", "BASE_URL", "COMMIT_REF"],
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "outputs": ["dist/**"]
+    },
+    "@exifi/client#build": {
+      "env": ["ANALYZE", "DEV", "URL", "BASE_URL", "COMMIT_REF"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
     },
     "lint": {
       "dependsOn": ["^lint"]
     },
+    "@exifi/client#lint": {
+      "dependsOn": ["@exifi/client#codegen"]
+    },
     "dev": {
-      "env": ["PORT", "URL", "BASE_URL", "COMMIT_REF"],
+      "dependsOn": ["^dev"],
       "cache": false,
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "persistent": true
+    },
+    "@exifi/client#dev": {
+      "env": ["PORT", "URL", "BASE_URL", "COMMIT_REF"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
     },
     "test": {
       "cache": false,
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "persistent": true
     },
+    "@exifi/client#test": {
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
+    },
+
     "@exifi/client#codegen": {
       "outputs": ["src/generated/**/*"],
       "inputs": ["redocly.yaml"]
-    },
-    "@exifi/client#lint": {
-      "dependsOn": ["@exifi/client#codegen"]
     }
   }
 }
