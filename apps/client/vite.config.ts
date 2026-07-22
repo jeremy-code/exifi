@@ -8,6 +8,11 @@ import { Features } from "lightningcss";
 import { defineConfig } from "vite";
 import { analyzer } from "vite-bundle-analyzer";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
+import { z } from "zod";
+
+const isAnalyzerEnabled =
+  process.env.ANALYZE !== undefined &&
+  z.stringbool().parse(process.env.ANALYZE);
 
 const viteConfig = defineConfig({
   plugins: [
@@ -36,9 +41,13 @@ const viteConfig = defineConfig({
       // safer-buffer imports the package
       include: ["buffer"],
     }),
-    analyzer({
-      analyzerPort: "auto",
-    }),
+    ...(isAnalyzerEnabled ?
+      [
+        analyzer({
+          analyzerPort: "auto",
+        }),
+      ]
+    : []),
   ],
   define: {
     __BUILD_TIMESTAMP__: JSON.stringify(new Date().getTime()),

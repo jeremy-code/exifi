@@ -4,7 +4,7 @@
   "ui": "tui",
   "tasks": {
     "build": {
-      "env": ["DEV", "URL", "BASE_URL", "COMMIT_REF"],
+      "env": ["ANALYZE", "DEV", "URL", "BASE_URL", "COMMIT_REF"],
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"],
       "outputs": ["dist/**"]
