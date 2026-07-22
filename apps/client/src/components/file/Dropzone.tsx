@@ -148,7 +148,16 @@ const Dropzone = ({
           </div>
         )}
       </div>
-      <input ref={inputRef} {...getInputProps(inputProps)} />
+      <input
+        ref={inputRef}
+        {...getInputProps({
+          ...inputProps,
+          // react-dropzone@19.0.1 added fix for
+          // react-dropzone/react-dropzone#1481 that no longer clips the input,
+          // leading to the input taking up space in the div
+          className: cn("sr-only", inputProps?.className),
+        })}
+      />
       {acceptedFiles.length > 0 && (
         <ol className="flex w-full flex-col gap-2">
           {acceptedFiles.map((file, index) => (

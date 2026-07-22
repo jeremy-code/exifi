@@ -147,8 +147,8 @@ importers:
         specifier: ^19.2.7
         version: 19.2.7(react@19.2.7)
       react-dropzone:
-        specifier: ^18.3.0
-        version: 18.3.0(@types/react@19.2.17)(react@19.2.7)
+        specifier: ^19.1.1
+        version: 19.1.1(@types/react@19.2.17)(react@19.2.7)
       react-error-boundary:
         specifier: ^6.1.2
         version: 6.1.2(react@19.2.7)
@@ -4043,8 +4043,8 @@ packages:
     peerDependencies:
       react: ^19.2.7
 
-  react-dropzone@18.3.0:
-    resolution: {integrity: sha512-fViAc2xA+Xn/27is4tgAC12ZVOuA1zJtMjxUPnCoLMzoSE9TuCNgTC5donp2IrAwJbQww6EHbKLl2p3w/yMwBg==}
+  react-dropzone@19.1.1:
+    resolution: {integrity: sha512-zxuTwbyvP+FSdesiHafT/0UMTX/Ne1ri8XPTn7KM97ZinHKFy3N6KiKEGRiG28ibYV+nG6sHxoJlkVoDxIMHxQ==}
     engines: {node: '>= 20'}
     peerDependencies:
       '@types/react': '*'
@@ -8663,7 +8663,7 @@ snapshots:
       react: 19.2.7
       scheduler: 0.27.0
 
-  react-dropzone@18.3.0(@types/react@19.2.17)(react@19.2.7):
+  react-dropzone@19.1.1(@types/react@19.2.17)(react@19.2.7):
     dependencies:
       attr-accept: 2.2.5
       file-selector: 4.0.2

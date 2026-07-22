@@ -52,7 +52,7 @@
     "react-compiler-runtime": "^1.0.0",
     "react-diff-viewer-continued": "^4.4.0",
     "react-dom": "^19.2.7",
-    "react-dropzone": "^18.3.0",
+    "react-dropzone": "^19.1.1",
     "react-error-boundary": "^6.1.2",
     "react-leaflet": "^5.0.0",
     "tailwind-variants": "^3.2.2",
