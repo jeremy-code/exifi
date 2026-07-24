@@ -5,7 +5,7 @@
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Language and Environment */
-    "lib": ["ES2024", "DOM", "DOM.Iterable", "ESNext.Disposable"],
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "lib": ["ES2024", "DOM", "DOM.Iterable", "ESNext.Disposable"]
   }
 }
