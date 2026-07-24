@@ -35,9 +35,9 @@
     "@exifi/tsconfig": "workspace:*",
     "eslint": "^10.7.0",
     "husky": "^9.1.7",
-    "lint-staged": "^17.1.0",
+    "lint-staged": "^17.1.1",
     "oxfmt": "^0.60.0",
-    "turbo": "^2.10.5",
+    "turbo": "^2.10.6",
     "typescript": "^5.9.3"
   },
   "packageManager": "pnpm@11.16.0+sha512.b767e9a98fc87aec0f42daefcd0e84941c2cdb45d73c4e1e68860fb2bdfdbe032ab592105479e5e05c237f740c8a5ffdbbb52385797ddc2296745a1bbb883e8d"
