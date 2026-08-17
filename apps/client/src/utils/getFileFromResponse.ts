@@ -61,8 +61,13 @@ const getFileFromResponse = async (response: Response): Promise<File> => {
         basename(new URL(response.url).pathname);
   const contentType = response.headers.get("Content-Type") ?? lookup(fileName);
 
-  const file = new File([await response.arrayBuffer()], fileName, {
-    type: contentType,
+  // A File is a superset of a Blob, but the conversion is not straightforward.
+  // At least on Node.js, using the File constructor with an already existing
+  // Blob does not result in excessive memory usage. Hence, avoiding arrayBuffer
+  const blob = await response.blob();
+
+  const file = new File([blob], fileName, {
+    type: contentType ?? blob.type,
     lastModified: getLastModifiedFromResponse(response),
   });
 
