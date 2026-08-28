@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-import { Outlet, createFileRoute } from "@tanstack/react-router";
+import { Outlet, createFileRoute, useNavigate } from "@tanstack/react-router";
 import * as z from "zod";
 import { useShallow } from "zustand/react/shallow";
 
@@ -13,7 +13,9 @@ const appLayoutSearchSchema = z.object({
 });
 
 const AppLayoutComponent = () => {
+  const isTabUpdatedRef = useRef(false);
   const { url } = Route.useSearch();
+  const navigate = useNavigate();
   const { activeTabId, updateTab } = useFileTabsStore(
     useShallow((state) => ({
       activeTabId: state.activeTabId,
@@ -22,16 +24,24 @@ const AppLayoutComponent = () => {
   );
 
   useEffect(() => {
-    if (url !== undefined) {
+    if (url !== undefined && isTabUpdatedRef.current === false) {
       const abortController = new AbortController();
 
       void fetch(url, { signal: abortController.signal })
         .then((response) => getFileFromResponse(response))
-        .then((file) => updateTab({ id: activeTabId, file }));
+        .then((file) => updateTab({ id: activeTabId, file }))
+        .then(() =>
+          // This way, opening a new tab when URL is set doesn't immediately get
+          // overwritten
+          navigate({
+            to: ".",
+            search: ({ url, ...prev }) => prev,
+          }),
+        );
 
       return () => abortController.abort();
     }
-  }, [activeTabId, updateTab, url]);
+  }, [activeTabId, navigate, updateTab, url]);
 
   return (
     <FileTabs>
