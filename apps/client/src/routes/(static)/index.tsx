@@ -130,26 +130,42 @@ const HomeComponent = () => {
         </Heading>
         <div className="flex items-center justify-start gap-2 md:justify-center">
           <Link
-            render={(props, renderProps) => (
-              // @ts-expect-error -- TODO: I believe React Aria's types are wrong since they omit elementType prop
-              <RouterLink
-                {...props}
-                to="/viewer"
-                className={buttonVariants({ color: "accent", ...renderProps })}
-              />
-            )}
+            href=""
+            render={(props, renderProps) => {
+              if (!("href" in props)) {
+                throw new Error("Not an anchor element!");
+              }
+              return (
+                <RouterLink
+                  {...props}
+                  to="/viewer"
+                  className={buttonVariants({
+                    color: "accent",
+                    ...renderProps,
+                  })}
+                />
+              );
+            }}
           >
             View
           </Link>
           <Link
-            render={(props, renderProps) => (
-              // @ts-expect-error -- TODO: I believe React Aria's types are wrong since they omit elementType prop
-              <RouterLink
-                {...props}
-                to="/editor"
-                className={buttonVariants({ variant: "ghost", ...renderProps })}
-              />
-            )}
+            href=""
+            render={(props, renderProps) => {
+              if (!("href" in props)) {
+                throw new Error("Not an anchor element!");
+              }
+              return (
+                <RouterLink
+                  {...props}
+                  to="/editor"
+                  className={buttonVariants({
+                    variant: "ghost",
+                    ...renderProps,
+                  })}
+                />
+              );
+            }}
           >
             Edit
           </Link>

@@ -48,17 +48,22 @@ const CatchBoundary = ({ error, reset }: ErrorComponentProps) => {
           </Button>
           {isRoot ? (
             <Link
-              render={(props, renderProps) => (
-                // @ts-expect-error -- TODO: I believe React Aria's types are wrong since they omit elementType prop
-                <RouterLink
-                  {...props}
-                  to="/"
-                  className={buttonVariants({
-                    variant: "ghost",
-                    ...renderProps,
-                  })}
-                />
-              )}
+              href=""
+              render={(props, renderProps) => {
+                if (!("href" in props)) {
+                  throw new Error("Not an anchor element!");
+                }
+                return (
+                  <RouterLink
+                    {...props}
+                    to="/"
+                    className={buttonVariants({
+                      variant: "ghost",
+                      ...renderProps,
+                    })}
+                  />
+                );
+              }}
             >
               Home
             </Link>
