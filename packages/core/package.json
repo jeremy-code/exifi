@@ -1,0 +1,22 @@
+{
+  "name": "@exifi/core",
+  "version": "0.0.0",
+  "private": false,
+  "exports": {
+    ".": "./src/index.js",
+    "./*": "./src/*.js"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "vitest --run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "libexif-wasm": "^0.5.3"
+  },
+  "devDependencies": {
+    "@exifi/eslint-config": "workspace:*",
+    "@exifi/tsconfig": "workspace:*",
+    "vitest": "^4.1.11"
+  }
+}
