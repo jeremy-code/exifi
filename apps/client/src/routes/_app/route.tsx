@@ -7,6 +7,7 @@ import { useShallow } from "zustand/react/shallow";
 import { FileTabs } from "#components/tabs/FileTabs";
 import { useFileTabsStore } from "#stores/fileTabsStore";
 import { getFileFromResponse } from "#utils/getFileFromResponse";
+import { toastQueue } from "@exifi/ui/components/Toast";
 
 const appLayoutSearchSchema = z.object({
   url: z.url().optional().catch(undefined),
@@ -30,7 +31,20 @@ const AppLayoutComponent = () => {
       void fetch(url, { signal: abortController.signal })
         .then((response) => getFileFromResponse(response))
         .then((file) => updateTab({ id: activeTabId, file }))
-        .then(() =>
+        .catch((reason) => {
+          if (
+            !(reason instanceof DOMException && reason.name === "AbortError")
+          ) {
+            toastQueue.add({
+              title: "Fetching from URL failed",
+              description: `Fetching ${url} failed with error ${reason instanceof Error ? reason.message : reason}.`,
+              toastProps: {
+                color: "destructive",
+              },
+            });
+          }
+        })
+        .finally(() =>
           // This way, opening a new tab when URL is set doesn't immediately get
           // overwritten
           navigate({
