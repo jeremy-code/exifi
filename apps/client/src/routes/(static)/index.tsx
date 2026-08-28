@@ -91,6 +91,34 @@ const FAQS = [
     answer:
       "Only the Exif standard 2.1 and most of 2.2 are supported. Other metadata that may be stored, such as XMP, are not supported.",
   },
+  {
+    question: "How do I read Exif data from a link?",
+    answer: (
+      <span>
+        {"You can open a link with a url search parameter like this: "}
+        <Link
+          href=""
+          render={(props) => {
+            if (!("href" in props)) {
+              throw new Error("Not an anchor element!");
+            }
+            return (
+              <RouterLink
+                to="/viewer"
+                search={{
+                  url: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg",
+                }}
+                {...props}
+              >
+                http://exifi.io/viewer?url=https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg
+              </RouterLink>
+            );
+          }}
+        />
+        {"."}
+      </span>
+    ),
+  },
 ];
 
 const HomeComponent = () => {
