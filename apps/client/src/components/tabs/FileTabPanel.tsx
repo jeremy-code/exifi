@@ -1,10 +1,13 @@
 import type { ComponentPropsWithRef, ReactNode } from "react";
 
+import { Link as RouterLink } from "@tanstack/react-router";
+
 import { Dropzone } from "#components/file/Dropzone";
 import { FileUrlInput } from "#components/file/FileUrlInput";
 import { FileProvider } from "#contexts/FileContext";
 import { useDropzoneStore } from "#stores/dropzoneStore";
 import { Heading } from "@exifi/ui/components/Heading";
+import { Link } from "@exifi/ui/components/Link";
 import { TabPanel } from "@exifi/ui/components/Tabs";
 
 type FileTabPanelProps = {
@@ -29,9 +32,34 @@ const FileTabPanel = ({
     <TabPanel {...props} id={id}>
       {file === null ? (
         <div className="flex flex-col gap-2">
-          <Heading level={1} size="2xl" className="mb-4">
+          <Heading level={1} size="2xl" className="mb-1">
             Upload file to view Exif metadata
           </Heading>
+          <p className="mb-4">
+            {"For a quick demo, "}
+            <Link
+              href=""
+              color="link"
+              render={(props) => {
+                if (!("href" in props)) {
+                  throw new Error("Link is not an anchor element");
+                }
+
+                return (
+                  <RouterLink
+                    to="."
+                    search={{
+                      url: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg",
+                    }}
+                    {...props}
+                  >
+                    click here
+                  </RouterLink>
+                );
+              }}
+            ></Link>
+            {"."}
+          </p>
 
           <Dropzone
             dropzoneOptions={{
