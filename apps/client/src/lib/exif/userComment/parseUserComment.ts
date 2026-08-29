@@ -1,4 +1,4 @@
-import { arrayLikeEquals } from "#utils/arrayLikeEquals";
+import { arrayLikeEquals } from "@exifi/utils/arrayLikeEquals";
 
 import { ENCODING_TO_HEADER_MAP } from "./constants";
 import type { UserComment } from "./interfaces";

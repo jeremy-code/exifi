@@ -6,13 +6,13 @@ import { UserCommentSelect } from "#components/editor/UserCommentSelect";
 import { UserCommentTextarea } from "#components/editor/UserCommentTextarea";
 import type { AddEditor } from "#features/exif-editor/editors/add/types";
 import { getEntryObjectLabel } from "#lib/exif/utils/getEntryObjectLabel";
-import { assertNever } from "#utils/assertNever";
 import { DateField } from "@exifi/ui/components/DateField";
 import { DatePicker } from "@exifi/ui/components/DatePicker";
 import { NumberField } from "@exifi/ui/components/NumberField";
 import { TextAreaField } from "@exifi/ui/components/TextAreaField";
 import { TimeField } from "@exifi/ui/components/TimeField";
 import { Label } from "@exifi/ui/components/form/Label";
+import { assertNever } from "@exifi/utils/assertNever";
 
 type ExifEntryAddEditorFieldsProps = {
   exifAddEditor: AddEditor;

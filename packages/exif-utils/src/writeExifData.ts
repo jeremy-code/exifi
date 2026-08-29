@@ -1,11 +1,12 @@
+import { arrayLikeEquals } from "@exifi/utils/arrayLikeEquals";
+import { concatUint8Arrays } from "@exifi/utils/concatUint8Arrays";
+
 import { MARKER_FIRST_BYTE, JpegMarker } from "./constants";
 import { isValidExif } from "./exif/isValidExif";
 import { assertEndsWithEOI } from "./jpeg/assertEndsWithEOI";
 import { assertMarker } from "./jpeg/assertMarker";
 import { createSegment } from "./jpeg/createSegment";
 import { splitJpegIntoSegments } from "./jpeg/splitJpegIntoSegments";
-import { arrayLikeEquals } from "./utils/arrayLikeEquals";
-import { concatUint8Arrays } from "./utils/concatUint8Arrays";
 
 type SegmentIndexes = {
   exif?: number;

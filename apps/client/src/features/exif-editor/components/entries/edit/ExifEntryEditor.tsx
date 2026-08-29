@@ -4,9 +4,9 @@ import { UserCommentTextarea } from "#components/editor/UserCommentTextarea";
 import { useExifEntryDraftContext } from "#features/exif-editor/contexts/ExifEntryDraftContext";
 import { getExifAdvancedEditor } from "#features/exif-editor/editors/advanced/getExifAdvancedEditor";
 import { getEntryObjectLabel } from "#lib/exif/utils/getEntryObjectLabel";
-import { assertNever } from "#utils/assertNever";
 import { NumberField } from "@exifi/ui/components/NumberField";
 import { TextAreaField } from "@exifi/ui/components/TextAreaField";
+import { assertNever } from "@exifi/utils/assertNever";
 
 const ExifEntryEditor = () => {
   const { exifEntryObject, draft, setDraft } = useExifEntryDraftContext();

@@ -1,6 +1,6 @@
 import { Decimal } from "decimal.js";
 
-import { assertNever } from "#utils/assertNever";
+import { assertNever } from "@exifi/utils/assertNever";
 
 import type { DMS, Direction, Axis } from "./interfaces";
 

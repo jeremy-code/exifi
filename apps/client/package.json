@@ -24,6 +24,7 @@
     "@exifi/core": "workspace:*",
     "@exifi/exif-utils": "workspace:*",
     "@exifi/ui": "workspace:*",
+    "@exifi/utils": "workspace:*",
     "@internationalized/date": "^3.12.3",
     "@internationalized/number": "^3.6.7",
     "@noble/hashes": "^2.3.0",

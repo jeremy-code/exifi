@@ -6,12 +6,12 @@ import { getEntryFromEntryObject } from "#lib/exif/utils/getEntryFromEntryObject
 import { getOrInsertEntry } from "#lib/exif/utils/getOrInsertEntry";
 import { typedArrayInFormat } from "#lib/exif/utils/typedArrayInFormat";
 import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
-import { isTypedArray } from "#utils/isTypedArray";
 import type {
   ExifDataObject,
   ExifEntryObject,
 } from "@exifi/core/exif/interfaces";
 import { serializeExifData } from "@exifi/core/exif/utils";
+import { isTypedArray } from "@exifi/utils/isTypedArray";
 
 type ExifEditorStoreState = {
   exifData: ExifData;

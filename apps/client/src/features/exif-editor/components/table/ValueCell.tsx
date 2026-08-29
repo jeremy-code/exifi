@@ -4,13 +4,13 @@ import { ExifTagInfo } from "libexif-wasm";
 import { EnumSelect } from "#components/editor/EnumSelect";
 import { ExifVersionInput } from "#components/editor/ExifVersionInput";
 import { GpsTagVersionInput } from "#components/editor/GpsTagVersionInput";
-import { assertNever } from "#utils/assertNever";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { DateField } from "@exifi/ui/components/DateField";
 import { DatePicker } from "@exifi/ui/components/DatePicker";
 import { NumberField } from "@exifi/ui/components/NumberField";
 import { TextField } from "@exifi/ui/components/TextField";
 import { TimeField } from "@exifi/ui/components/TimeField";
+import { assertNever } from "@exifi/utils/assertNever";
 
 import type { ExifTableRow } from "./columns";
 import { getExifQuickEditor } from "../../editors/quick/getExifQuickEditor";

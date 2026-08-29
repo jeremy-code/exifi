@@ -1,8 +1,9 @@
 import { describe, test, expect } from "vitest";
 
+import { concatUint8Arrays } from "@exifi/utils/concatUint8Arrays";
+
 import { EXIF_HEADER, JpegMarker, MARKER_FIRST_BYTE } from "./constants";
 import { createSegment } from "./jpeg/createSegment";
-import { concatUint8Arrays } from "./utils/concatUint8Arrays";
 import { writeExifData } from "./writeExifData";
 
 const SOI = new Uint8Array([MARKER_FIRST_BYTE, JpegMarker.SOI]);

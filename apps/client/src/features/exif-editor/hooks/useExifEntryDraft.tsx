@@ -1,8 +1,8 @@
 import { useCallback, useMemo, useState } from "react";
 
 import { typedArrayInFormat } from "#lib/exif/utils/typedArrayInFormat";
-import { arrayLikeEquals } from "#utils/arrayLikeEquals";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
+import { arrayLikeEquals } from "@exifi/utils/arrayLikeEquals";
 
 import { useExifEditor } from "../contexts/ExifEditorContext";
 
