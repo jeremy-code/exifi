@@ -1,6 +1,6 @@
 import { ExifTagInfo } from "libexif-wasm";
 
-import type { ExifEntryObject } from "../interfaces";
+import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 
 const getEntryObjectLabel = (exifEntryObject: Partial<ExifEntryObject>) => {
   if (exifEntryObject.tag === undefined) {

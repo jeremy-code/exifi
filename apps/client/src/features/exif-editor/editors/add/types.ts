@@ -5,8 +5,9 @@ import type {
 } from "@internationalized/date";
 import type { RationalObject } from "libexif-wasm";
 
-import type { ExifEntryObject, ExifVersion } from "#lib/exif/interfaces";
+import type { ExifVersion } from "#lib/exif/interfaces";
 import type { UserComment } from "#lib/exif/userComment/interfaces";
+import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 
 type AddEditorResolver = (
   entry: Partial<ExifEntryObject> & Pick<ExifEntryObject, "value">,

@@ -4,7 +4,7 @@ import type {
   ExifDataObject,
   ExifEntryObject,
   ExifIfdObject,
-} from "./interfaces";
+} from "../interfaces";
 
 const EMPTY_EXIF_IFD_OBJECT: ExifIfdObject = {
   IFD_0: [],

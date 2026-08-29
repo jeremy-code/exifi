@@ -2,10 +2,13 @@ import { formOptions } from "@tanstack/react-form";
 import type { Tag } from "libexif-wasm";
 import { z } from "zod";
 
-import { MAX_UINT32_VALUE } from "#lib/exif/constants";
 import { parseCoordinateEntry } from "#lib/exif/gps/parseCoordinateEntry";
-import type { ExifDataObject, ExifEntryObject } from "#lib/exif/interfaces";
 import { Latitude, Longitude } from "#schemas/common";
+import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
+import type {
+  ExifDataObject,
+  ExifEntryObject,
+} from "@exifi/core/exif/interfaces";
 
 const gpsFormSchema = z.strictObject({
   latitude: Latitude,

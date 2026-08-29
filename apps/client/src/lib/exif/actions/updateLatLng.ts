@@ -4,8 +4,8 @@ import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 import { decimalDegreesToDms } from "#lib/leaflet/decimalDegreesToDms";
 import { approximateRational } from "#lib/math/approximateRational";
 import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
+import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
 
-import { MAX_UINT32_VALUE } from "../constants";
 import { getOrInsertEntry } from "../utils/getOrInsertEntry";
 
 const updateLatLng = (exifData: ExifData, latLng: LatLng) => {

@@ -10,9 +10,12 @@ import {
   addFormSchema,
   type AddFieldValues,
 } from "#features/exif-editor/forms/addEntryForm";
-import { GEOLOCATION_TAGS, SUPPORT_LEVEL_MAP } from "#lib/exif/constants";
 import { EXIF_TAG_MAP } from "#lib/exif/exifTagMap";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
+import {
+  GEOLOCATION_TAGS,
+  SUPPORT_LEVEL_MAP,
+} from "@exifi/core/exif/constants";
 import { Button } from "@exifi/ui/components/Button";
 import { Callout, CalloutText } from "@exifi/ui/components/Callout";
 import { ComboBox, ComboBoxItem } from "@exifi/ui/components/ComboBox";

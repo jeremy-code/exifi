@@ -4,9 +4,9 @@ import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 
 import { approximateRational } from "#lib/math/approximateRational";
 import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
+import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
 
 import { updateLatLng } from "./updateLatLng";
-import { MAX_UINT32_VALUE } from "../constants";
 import { formatExifDateStamp } from "../date/dateStamp/formatExifDateStamp";
 import { formatExifTimeStamp } from "../date/timeStamp/formatExifTimeStamp";
 import { getOrInsertEntry } from "../utils/getOrInsertEntry";

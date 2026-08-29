@@ -2,6 +2,7 @@
   "name": "@exifi/core",
   "version": "0.0.0",
   "private": false,
+  "sideEffects": false,
   "exports": {
     ".": "./src/index.js",
     "./*": "./src/*.js"

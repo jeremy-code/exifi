@@ -5,9 +5,9 @@ import { type ExifData } from "libexif-wasm";
 import { useLocale } from "react-aria/I18nProvider";
 
 import { useObjectUrl } from "#hooks/useObjectUrl";
-import { DATA_TYPE_MAP } from "#lib/exif/constants";
 import { assertNever } from "#utils/assertNever";
 import { formatPlural } from "#utils/format/formatPlural";
+import { DATA_TYPE_MAP } from "@exifi/core/exif/constants";
 import {
   Card,
   CardContent,

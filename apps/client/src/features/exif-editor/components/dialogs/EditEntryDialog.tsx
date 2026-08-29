@@ -3,7 +3,7 @@ import { lazy, Suspense } from "react";
 import { Pencil } from "lucide-react";
 
 import { useDialogState } from "#hooks/useDialogState";
-import type { ExifEntryObject } from "#lib/exif/interfaces";
+import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { Button } from "@exifi/ui/components/Button";
 import {
   Dialog,

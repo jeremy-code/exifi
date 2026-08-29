@@ -2,16 +2,16 @@ import { dequal } from "dequal";
 import { ExifIfd, type ExifData, type ValidTypedArray } from "libexif-wasm";
 import { create } from "zustand";
 
-import {
-  type ExifDataObject,
-  type ExifEntryObject,
-} from "#lib/exif/interfaces";
-import { serializeExifData } from "#lib/exif/serializeExifData";
 import { getEntryFromEntryObject } from "#lib/exif/utils/getEntryFromEntryObject";
 import { getOrInsertEntry } from "#lib/exif/utils/getOrInsertEntry";
 import { typedArrayInFormat } from "#lib/exif/utils/typedArrayInFormat";
 import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 import { isTypedArray } from "#utils/isTypedArray";
+import type {
+  ExifDataObject,
+  ExifEntryObject,
+} from "@exifi/core/exif/interfaces";
+import { serializeExifData } from "@exifi/core/exif/utils";
 
 type ExifEditorStoreState = {
   exifData: ExifData;

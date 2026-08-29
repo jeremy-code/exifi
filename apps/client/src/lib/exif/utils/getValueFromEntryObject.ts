@@ -1,7 +1,8 @@
 import { ExifData, ExifIfd } from "libexif-wasm";
 
+import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
+
 import { getOrInsertEntry } from "./getOrInsertEntry";
-import type { ExifEntryObject } from "../interfaces";
 import { typedArrayInFormat } from "./typedArrayInFormat";
 
 const getValueFromEntryObject = (
