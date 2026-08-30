@@ -1,4 +1,4 @@
-import { ExifIfd, type ExifData } from "libexif-wasm";
+import { ExifIfd, mapRationalToObject, type ExifData } from "libexif-wasm";
 
 import { parseExifDateStamp } from "./date/dateStamp/parseExifDateStamp";
 import { parseExifTimeStamp } from "./date/timeStamp/parseExifTimeStamp";
@@ -14,7 +14,9 @@ const parseGpsDateTimeEntries = (exifData: ExifData) => {
   }
 
   const gpsDate = parseExifDateStamp(gpsDateValue.toString());
-  const gpsTime = parseExifTimeStamp(gpsTimeValue.toTypedArray());
+  const gpsTime = parseExifTimeStamp(
+    mapRationalToObject(gpsTimeValue.toTypedArray()),
+  );
 
   return Temporal.ZonedDateTime.from({
     year: gpsDate.year,

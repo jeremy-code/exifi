@@ -1,5 +1,11 @@
 import { dequal } from "dequal";
-import { ExifIfd, type ExifData, type ValidTypedArray } from "libexif-wasm";
+import {
+  ExifIfd,
+  mapRationalFromObject,
+  type ExifData,
+  type RationalObject,
+  type ValidTypedArray,
+} from "libexif-wasm";
 import { create } from "zustand";
 
 import { getEntryFromEntryObject } from "#lib/exif/utils/getEntryFromEntryObject";
@@ -24,13 +30,13 @@ type ExifEditorStoreActions = {
   updateExifDataObject: () => void;
   updateExifEntry: (
     exifEntryObject: ExifEntryObject,
-    value: string | ValidTypedArray,
+    value: string | ValidTypedArray | number[] | RationalObject[],
   ) => void;
   removeExifEntries: (exifEntryObjects: ExifEntryObject[]) => void;
   addExifEntry: (
     exifEntryObject: Partial<ExifEntryObject> &
       Pick<ExifEntryObject, "ifd" | "tag" | "format">,
-    value: string | ValidTypedArray | number[],
+    value: string | ValidTypedArray | number[] | RationalObject[],
   ) => void;
 };
 
@@ -67,7 +73,16 @@ const createExifEditorStore = (exifData: ExifData) =>
               ? encodeStringToUtf8(value)
               : isTypedArray(value)
                 ? value
-                : typedArrayInFormat(value, exifEntryObject.format);
+                : exifEntryObject.format === "RATIONAL" ||
+                    exifEntryObject.format === "SRATIONAL"
+                  ? mapRationalFromObject(
+                      value as RationalObject[],
+                      exifEntryObject.format,
+                    )
+                  : typedArrayInFormat(
+                      value as number[],
+                      exifEntryObject.format,
+                    );
 
           exifEntry.fromTypedArray(typedArray);
 
@@ -106,12 +121,27 @@ const createExifEditorStore = (exifData: ExifData) =>
           }
           const exifEntry = getOrInsertEntry(exifContent, exifEntryObject.tag);
           exifEntry.format = exifEntryObject.format;
-          const typedArray =
-            typeof value === "string"
-              ? encodeStringToUtf8(value)
-              : isTypedArray(value)
-                ? value
-                : typedArrayInFormat(value, exifEntryObject.format);
+          let typedArray: ValidTypedArray = new Uint8Array(1);
+          try {
+            typedArray =
+              typeof value === "string"
+                ? encodeStringToUtf8(value)
+                : isTypedArray(value)
+                  ? value
+                  : exifEntryObject.format === "RATIONAL" ||
+                      exifEntryObject.format === "SRATIONAL"
+                    ? mapRationalFromObject(
+                        value as RationalObject[],
+                        exifEntryObject.format,
+                      )
+                    : typedArrayInFormat(
+                        value as number[],
+                        exifEntryObject.format,
+                      );
+          } catch (e) {
+            console.error("An error occurred", e);
+          }
+
           exifEntry.fromTypedArray(typedArray);
 
           const exifDataObject = serializeExifData(state.exifData);

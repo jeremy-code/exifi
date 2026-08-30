@@ -6,6 +6,7 @@ const resolveVersionId: AddEditorResolver = (
 ) => {
   if (
     exifEntryObject.tag === "VERSION_ID" &&
+    exifEntryObject.format === "BYTE" &&
     exifEntryObject.value.length <= 4
   ) {
     return {

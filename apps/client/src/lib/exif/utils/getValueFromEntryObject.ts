@@ -1,5 +1,6 @@
-import { ExifData, ExifIfd } from "libexif-wasm";
+import { ExifData, ExifIfd, mapRationalFromObject } from "libexif-wasm";
 
+import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 
 import { getOrInsertEntry } from "./getOrInsertEntry";
@@ -20,9 +21,18 @@ const getValueFromEntryObject = (
   const exifEntry = getOrInsertEntry(exifContent, exifEntryObject.tag);
   exifEntry.format = exifEntryObject.format;
 
-  exifEntry.fromTypedArray(
-    typedArrayInFormat(exifEntryObject.value, exifEntryObject.format),
-  );
+  const typedArray =
+    exifEntryObject.format === "ASCII"
+      ? encodeStringToUtf8(exifEntryObject.value)
+      : exifEntryObject.format === "RATIONAL" ||
+          exifEntryObject.format === "SRATIONAL"
+        ? mapRationalFromObject(exifEntryObject.value, exifEntryObject.format)
+        : typedArrayInFormat(
+            exifEntryObject.value as number[],
+            exifEntryObject.format,
+          );
+
+  exifEntry.fromTypedArray(typedArray);
   const formattedValue = exifEntry.toString();
 
   exifData.free();

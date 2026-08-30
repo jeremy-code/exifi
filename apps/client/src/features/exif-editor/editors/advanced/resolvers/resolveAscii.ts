@@ -1,6 +1,3 @@
-import { decodeStringFromUtf8 } from "#utils/decodeStringFromUtf8";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
-
 import type { AdvancedEditorResolver } from "../types";
 
 const resolveAscii: AdvancedEditorResolver = (
@@ -11,10 +8,8 @@ const resolveAscii: AdvancedEditorResolver = (
     return {
       kind: "ascii",
       exifEntryObject,
-      value: decodeStringFromUtf8(new Uint8Array(exifEntryObject.value)),
-      onValueChange: (value) => {
-        onValueChange(Array.from(encodeStringToUtf8(value)));
-      },
+      value: exifEntryObject.value,
+      onValueChange: (value) => onValueChange(value),
     };
   }
 

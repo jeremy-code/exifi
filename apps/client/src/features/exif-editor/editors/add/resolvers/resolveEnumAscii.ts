@@ -1,6 +1,4 @@
 import { EXIF_TAG_MAP } from "#lib/exif/exifTagMap";
-import { decodeStringFromUtf8 } from "#utils/decodeStringFromUtf8";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 
 import type { AddEditorResolver } from "../types";
 
@@ -21,9 +19,7 @@ const resolveEnumAscii: AddEditorResolver = (
   const asciiValues = mappedTag.asciiValues;
 
   const valueAsString =
-    exifEntryObject.value.length === 0
-      ? undefined
-      : decodeStringFromUtf8(new Uint8Array(exifEntryObject.value));
+    exifEntryObject.value.length === 0 ? undefined : exifEntryObject.value;
 
   const asciiValue =
     valueAsString !== undefined
@@ -43,10 +39,10 @@ const resolveEnumAscii: AddEditorResolver = (
     values: Object.keys(asciiValues),
     onValueChange: (value) => {
       if (value === "") {
-        onValueChange([]);
+        onValueChange(value);
       }
       if (value in asciiValues && asciiValues[value] !== undefined) {
-        onValueChange(Array.from(encodeStringToUtf8(asciiValues[value])));
+        onValueChange(asciiValues[value]);
       }
     },
   };

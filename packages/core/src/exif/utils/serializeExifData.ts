@@ -1,4 +1,8 @@
-import type { ExifData, ExifEntry } from "libexif-wasm";
+import {
+  mapRationalToObject,
+  type ExifData,
+  type ExifEntry,
+} from "libexif-wasm";
 
 import type {
   ExifDataObject,
@@ -21,17 +25,40 @@ const serializeExifEntry = (entry: ExifEntry): ExifEntryObject | null => {
     return null;
   }
 
-  return {
+  const baseExifEntry = {
     ifd,
     tag: entry.tag,
     format: entry.format,
     components: entry.components,
     data: Array.from(entry.data),
+    dataAsTypedArray: Array.from(entry.toTypedArray()),
     size: entry.size,
-    value: Array.from(entry.toTypedArray()),
     formattedValue: entry.toString(),
     byteOrder: entry.byteOrder,
   };
+
+  if (baseExifEntry.format === "ASCII") {
+    return {
+      ...baseExifEntry,
+      format: baseExifEntry.format,
+      value: entry.toString(),
+    };
+  } else if (
+    baseExifEntry.format === "RATIONAL" ||
+    baseExifEntry.format === "SRATIONAL"
+  ) {
+    return {
+      ...baseExifEntry,
+      format: baseExifEntry.format,
+      value: mapRationalToObject(entry.toTypedArray()),
+    };
+  } else {
+    return {
+      ...baseExifEntry,
+      format: baseExifEntry.format,
+      value: baseExifEntry.dataAsTypedArray,
+    };
+  }
 };
 
 /**
@@ -44,9 +71,16 @@ const serializeExifData = (exifData: ExifData): ExifDataObject => {
     (acc, exifContent) => {
       const ifdName = exifContent.ifd;
       if (ifdName !== null && exifContent.count !== 0) {
-        acc[ifdName] = exifContent.entries
-          .map(serializeExifEntry)
-          .filter((entry) => entry !== null);
+        acc[ifdName] = exifContent.entries.reduce<ExifEntryObject[]>(
+          (acc, currExifEntry) => {
+            const exifEntryObject = serializeExifEntry(currExifEntry);
+            if (exifEntryObject !== null) {
+              acc.push(exifEntryObject);
+            }
+            return acc;
+          },
+          [],
+        );
       }
       return acc;
     },

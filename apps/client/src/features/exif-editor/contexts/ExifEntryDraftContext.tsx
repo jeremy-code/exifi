@@ -1,11 +1,13 @@
 import { createContext, use, type Dispatch, type SetStateAction } from "react";
 
+import type { RationalObject } from "libexif-wasm";
+
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 
 type ExifEntryDraft = {
   exifEntryObject: ExifEntryObject;
-  draft: number[];
-  setDraft: Dispatch<SetStateAction<number[]>>;
+  draft: RationalObject[] | string | number[];
+  setDraft: Dispatch<SetStateAction<RationalObject[] | string | number[]>>;
 };
 const ExifEntryDraftContext = createContext<ExifEntryDraft | null>(null);
 

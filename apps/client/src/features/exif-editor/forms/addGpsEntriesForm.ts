@@ -27,19 +27,21 @@ const getInitialGpsFieldValues = (
     acc[prevValue.tag] = prevValue;
     return acc;
   }, {});
+
+  // TODO: Update this to use .value instead of .dataAsTypedArray
   const longitude =
     parseCoordinateEntry(
-      gpsEntries.LONGITUDE?.value ?? [],
+      gpsEntries.LONGITUDE?.dataAsTypedArray ?? [],
       gpsEntries.LONGITUDE_REF?.formattedValue ?? "",
     ) ?? undefined;
   const latitude =
     parseCoordinateEntry(
-      gpsEntries.LATITUDE?.value ?? [],
+      gpsEntries.LATITUDE?.dataAsTypedArray ?? [],
       gpsEntries.LATITUDE_REF?.formattedValue ?? "",
     ) ?? undefined;
   const altitude =
     parseCoordinateEntry(
-      gpsEntries.ALTITUDE?.value ?? [],
+      gpsEntries.ALTITUDE?.dataAsTypedArray ?? [],
       gpsEntries.ALTITUDE_REF?.formattedValue ?? "",
     ) ?? undefined;
 

@@ -6,6 +6,7 @@ const resolveVersionId: QuickEditorResolver = (
 ) => {
   if (
     exifEntryObject.tag === "VERSION_ID" &&
+    exifEntryObject.format === "BYTE" &&
     exifEntryObject.size === 4 &&
     exifEntryObject.components === 4
   ) {

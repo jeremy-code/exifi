@@ -11,7 +11,7 @@ import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 
 type AddEditorResolver = (
   entry: Partial<ExifEntryObject> & Pick<ExifEntryObject, "value">,
-  onValueChange: (value: number[]) => void,
+  onValueChange: (value: ExifEntryObject["value"]) => void,
 ) => AddEditor | null;
 
 type ResolvedAddEditor<T> = {

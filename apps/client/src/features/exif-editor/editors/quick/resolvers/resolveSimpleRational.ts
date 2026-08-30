@@ -16,7 +16,7 @@ const resolveSimpleRational: QuickEditorResolver = (
     return {
       kind: "simpleNumeric",
       exifEntryObject,
-      value: exifEntryObject.value[0],
+      value: exifEntryObject.value[0].numerator,
       onValueChange: (value) =>
         onValueChange(
           mapRationalFromObject([{ numerator: value, denominator: 1 }]),

@@ -9,6 +9,7 @@ const resolveTimeStamp: AddEditorResolver = (
 ) => {
   if (
     exifEntryObject.tag === "TIME_STAMP" &&
+    exifEntryObject.format === "RATIONAL" &&
     (exifEntryObject.value.length === 0 || exifEntryObject.value.length === 6)
   ) {
     return {

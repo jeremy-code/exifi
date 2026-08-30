@@ -7,7 +7,10 @@ const resolveExifVersion: AddEditorResolver = (
   exifEntryObject,
   onValueChange,
 ) => {
-  if (exifEntryObject.tag === "EXIF_VERSION") {
+  if (
+    exifEntryObject.tag === "EXIF_VERSION" &&
+    exifEntryObject.format === "UNDEFINED"
+  ) {
     const isEmpty = exifEntryObject.value.length === 0;
 
     const exifVersionString = isEmpty

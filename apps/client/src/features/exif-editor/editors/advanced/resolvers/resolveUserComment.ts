@@ -7,7 +7,10 @@ const resolveUserComment: AdvancedEditorResolver = (
   exifEntryObject,
   onValueChange,
 ) => {
-  if (exifEntryObject.tag === "USER_COMMENT") {
+  if (
+    exifEntryObject.tag === "USER_COMMENT" &&
+    exifEntryObject.format === "UNDEFINED"
+  ) {
     return {
       kind: "userComment",
       exifEntryObject,

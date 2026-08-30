@@ -1,12 +1,16 @@
 import { Time } from "@internationalized/date";
 import { Decimal } from "decimal.js";
+import type { RationalObject } from "libexif-wasm";
 
-import { mapRationalArray } from "#lib/exif/utils/mapRationalArray";
+import { Rational } from "#lib/math/Rational";
 
 const MILLISECONDS_IN_SECOND = 1000;
 
-const parseExifTimeStamp = (value: ArrayLike<number>) => {
-  const timeStampValue = mapRationalArray(value);
+const parseExifTimeStamp = (value: RationalObject[]) => {
+  const timeStampValue = value.map(
+    (rationalObject) =>
+      new Rational(rationalObject.numerator, rationalObject.denominator),
+  );
 
   if (timeStampValue.length !== 3) {
     throw new Error(

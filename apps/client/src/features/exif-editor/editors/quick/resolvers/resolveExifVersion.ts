@@ -9,6 +9,7 @@ const resolveExifVersion: QuickEditorResolver = (
 ) => {
   if (
     exifEntryObject.tag === "EXIF_VERSION" &&
+    exifEntryObject.format === "UNDEFINED" &&
     exifEntryObject.size === 4 &&
     exifEntryObject.components === 4
   ) {

@@ -5,7 +5,7 @@ import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 
 type AdvancedEditorResolver = (
   entry: ExifEntryObject,
-  onValueChange: (value: number[]) => void,
+  onValueChange: (value: string | number[] | RationalObject[]) => void,
 ) => AdvancedEditor | null;
 
 type ResolvedAdvancedEditor<T> = {
