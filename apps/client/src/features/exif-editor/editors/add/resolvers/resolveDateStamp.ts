@@ -1,5 +1,7 @@
-import { formatExifDateStamp } from "#lib/exif/date/dateStamp/formatExifDateStamp";
-import { parseExifDateStamp } from "#lib/exif/date/dateStamp/parseExifDateStamp";
+import {
+  formatDateStamp,
+  parseDateStamp,
+} from "@exifi/core/exif/date/dateStamp";
 
 import type { AddEditorResolver } from "../types";
 
@@ -16,10 +18,10 @@ const resolveDateStamp: AddEditorResolver = (
       exifEntryObject,
       value:
         exifEntryObject.value.length !== 0
-          ? parseExifDateStamp(exifEntryObject.value)
+          ? parseDateStamp(exifEntryObject.value)
           : undefined,
       onValueChange: (value) =>
-        onValueChange(value !== undefined ? formatExifDateStamp(value) : ""),
+        onValueChange(value !== undefined ? formatDateStamp(value) : ""),
     };
   }
 

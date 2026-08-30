@@ -1,7 +1,7 @@
 import { ExifIfd, type ExifData, type Tag } from "libexif-wasm";
 
-import { EXIF_DATETIME_REGEX } from "./date/constants";
-import { parseExifDateTime } from "./date/dateTime/parseExifDateTime";
+import { EXIF_DATETIME_REGEX } from "@exifi/core/exif/date/constants";
+import { parseDateTime } from "@exifi/core/exif/date/dateTime";
 
 const DATE_TIME_ENTRIES_MAP = {
   DATE_TIME: {
@@ -41,7 +41,7 @@ const parseDateTimeEntries = (
     return null;
   }
 
-  const dateTimeDate = parseExifDateTime(dateTimeValue);
+  const dateTimeDate = parseDateTime(dateTimeValue);
 
   return Temporal.ZonedDateTime.from({
     year: dateTimeDate.year,

@@ -1,6 +1,8 @@
-import { DATETIME_TAGS, EXIF_DATETIME_REGEX } from "#lib/exif/date/constants";
-import { formatExifDateTime } from "#lib/exif/date/dateTime/formatExifDateTime";
-import { parseExifDateTime } from "#lib/exif/date/dateTime/parseExifDateTime";
+import {
+  DATETIME_TAGS,
+  EXIF_DATETIME_REGEX,
+} from "@exifi/core/exif/date/constants";
+import { formatDateTime, parseDateTime } from "@exifi/core/exif/date/dateTime";
 
 import type { QuickEditorResolver } from "../types";
 
@@ -15,8 +17,8 @@ const resolveDateTime: QuickEditorResolver = (
     return {
       kind: "datetime",
       exifEntryObject,
-      value: parseExifDateTime(exifEntryObject.formattedValue ?? ""),
-      onValueChange: (value) => onValueChange(formatExifDateTime(value)),
+      value: parseDateTime(exifEntryObject.formattedValue ?? ""),
+      onValueChange: (value) => onValueChange(formatDateTime(value)),
     };
   }
 

@@ -1,6 +1,5 @@
-import { DATETIME_TAGS } from "#lib/exif/date/constants";
-import { formatExifDateTime } from "#lib/exif/date/dateTime/formatExifDateTime";
-import { parseExifDateTime } from "#lib/exif/date/dateTime/parseExifDateTime";
+import { DATETIME_TAGS } from "@exifi/core/exif/date/constants";
+import { formatDateTime, parseDateTime } from "@exifi/core/exif/date/dateTime";
 
 import type { AddEditorResolver } from "../types";
 
@@ -15,10 +14,10 @@ const resolveDateTime: AddEditorResolver = (exifEntryObject, onValueChange) => {
       exifEntryObject,
       value:
         exifEntryObject.value.length !== 0
-          ? parseExifDateTime(exifEntryObject.value)
+          ? parseDateTime(exifEntryObject.value)
           : undefined,
       onValueChange: (value) =>
-        onValueChange(value !== undefined ? formatExifDateTime(value) : ""),
+        onValueChange(value !== undefined ? formatDateTime(value) : ""),
     };
   }
 

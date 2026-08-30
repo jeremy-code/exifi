@@ -6,8 +6,8 @@ import {
 import { ExifIfd, type ExifData } from "libexif-wasm";
 
 import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
+import { formatDateTime } from "@exifi/core/exif/date/dateTime";
 
-import { formatExifDateTime } from "../date/dateTime/formatExifDateTime";
 import { getOrInsertEntry } from "../utils/getOrInsertEntry";
 
 const updateDateAndTimeDigitized = (exifData: ExifData) => {
@@ -22,7 +22,7 @@ const updateDateAndTimeDigitized = (exifData: ExifData) => {
   );
   dateTimeDigitizedEntry.format = "ASCII";
   dateTimeDigitizedEntry.fromTypedArray(
-    encodeStringToUtf8(formatExifDateTime(toCalendarDateTime(currentDate))),
+    encodeStringToUtf8(formatDateTime(toCalendarDateTime(currentDate))),
   );
   const subSecTimeDigitizedEntry = getOrInsertEntry(
     exifDataExifIfd,

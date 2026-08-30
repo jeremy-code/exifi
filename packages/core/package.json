@@ -13,6 +13,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@internationalized/date": "^3.12.3",
+    "decimal.js": "^10.6.0",
     "libexif-wasm": "^0.5.3"
   },
   "devDependencies": {

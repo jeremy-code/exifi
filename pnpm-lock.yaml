@@ -264,6 +264,12 @@ importers:
 
   packages/core:
     dependencies:
+      '@internationalized/date':
+        specifier: ^3.12.3
+        version: 3.12.3
+      decimal.js:
+        specifier: ^10.6.0
+        version: 10.6.0
       libexif-wasm:
         specifier: ^0.5.3
         version: 0.5.3

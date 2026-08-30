@@ -5,10 +5,10 @@ import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 import { approximateRational } from "#lib/math/approximateRational";
 import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
+import { formatDateStamp } from "@exifi/core/exif/date/dateStamp";
+import { formatTimeStamp } from "@exifi/core/exif/date/timeStamp";
 
 import { updateLatLng } from "./updateLatLng";
-import { formatExifDateStamp } from "../date/dateStamp/formatExifDateStamp";
-import { formatExifTimeStamp } from "../date/timeStamp/formatExifTimeStamp";
 import { getOrInsertEntry } from "../utils/getOrInsertEntry";
 
 const SECONDS_IN_HOUR = 3600;
@@ -25,12 +25,12 @@ const updateGeolocationPosition = (
   const dateStampEntry = getOrInsertEntry(exifDataGpsIfd, "DATE_STAMP");
   dateStampEntry.format = "ASCII";
   dateStampEntry.fromTypedArray(
-    encodeStringToUtf8(formatExifDateStamp(toCalendarDate(zonedDateTime))),
+    encodeStringToUtf8(formatDateStamp(toCalendarDate(zonedDateTime))),
   );
   const timeStampEntry = getOrInsertEntry(exifDataGpsIfd, "TIME_STAMP");
   timeStampEntry.format = "RATIONAL";
   timeStampEntry.fromTypedArray(
-    new Uint32Array(formatExifTimeStamp(toTime(zonedDateTime))),
+    new Uint32Array(formatTimeStamp(toTime(zonedDateTime))),
   );
 
   updateLatLng(
