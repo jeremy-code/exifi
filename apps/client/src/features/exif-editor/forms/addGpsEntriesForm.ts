@@ -28,21 +28,31 @@ const getInitialGpsFieldValues = (
     return acc;
   }, {});
 
-  // TODO: Update this to use .value instead of .dataAsTypedArray
+  if (
+    gpsEntries.LONGITUDE?.format !== "RATIONAL" ||
+    gpsEntries.LONGITUDE_REF?.format !== "ASCII" ||
+    gpsEntries.LATITUDE?.format !== "RATIONAL" ||
+    gpsEntries.LATITUDE_REF?.format !== "ASCII" ||
+    gpsEntries.ALTITUDE?.format !== "RATIONAL" ||
+    gpsEntries.ALTITUDE_REF?.format !== "BYTE"
+  ) {
+    throw new Error("fdasdf");
+  }
+
   const longitude =
     parseCoordinateEntry(
-      gpsEntries.LONGITUDE?.dataAsTypedArray ?? [],
-      gpsEntries.LONGITUDE_REF?.formattedValue ?? "",
+      gpsEntries.LONGITUDE.value,
+      gpsEntries.LONGITUDE_REF.value,
     ) ?? undefined;
   const latitude =
     parseCoordinateEntry(
-      gpsEntries.LATITUDE?.dataAsTypedArray ?? [],
-      gpsEntries.LATITUDE_REF?.formattedValue ?? "",
+      gpsEntries.LATITUDE.value,
+      gpsEntries.LATITUDE_REF.value,
     ) ?? undefined;
   const altitude =
     parseCoordinateEntry(
-      gpsEntries.ALTITUDE?.dataAsTypedArray ?? [],
-      gpsEntries.ALTITUDE_REF?.formattedValue ?? "",
+      gpsEntries.ALTITUDE.value,
+      gpsEntries.ALTITUDE_REF.formattedValue ?? "",
     ) ?? undefined;
 
   return { longitude, latitude, altitude };

@@ -1,11 +1,11 @@
+import { Decimal } from "decimal.js";
+import type { RationalObject } from "libexif-wasm";
+
 import { dmsToDecimalDegrees } from "#lib/leaflet/dmsToDecimalDegrees";
 import { isDirection } from "#lib/leaflet/interfaces";
 
-import { mapRationalArray } from "../utils/mapRationalArray";
-
 const parseCoordinateEntry = (
-  // Any iterable of numbers of format [numerator1, denominator1, numerator2, denominator2, ...]
-  coordinateArray: ArrayLike<number>,
+  coordinateArray: RationalObject[],
   // W, S, E, N, Sea level, or Sea level reference
   coordinateRef: string,
 ): number | null => {
@@ -13,8 +13,8 @@ const parseCoordinateEntry = (
     return null;
   }
 
-  const mappedCoordinateArray = mapRationalArray(coordinateArray).map(
-    (rational) => rational.valueOf(),
+  const mappedCoordinateArray = coordinateArray.map((rational) =>
+    new Decimal(rational.numerator).div(rational.denominator).toNumber(),
   );
   if (coordinateArray.length === 6) {
     const [degrees, minutes, seconds] = mappedCoordinateArray;
