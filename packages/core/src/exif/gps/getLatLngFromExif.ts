@@ -1,7 +1,7 @@
-import { LatLng } from "leaflet";
 import { mapRationalToObject, type ExifContent } from "libexif-wasm";
 
 import { parseCoordinateEntry } from "./parseCoordinateEntry";
+import type { LatLng } from "../../geo/interfaces";
 import { getRequiredEntry } from "../utils/getRequiredEntry";
 
 const getLatLngFromExif = (exifDataGpsIfd: ExifContent): LatLng => {
@@ -31,10 +31,10 @@ const getLatLngFromExif = (exifDataGpsIfd: ExifContent): LatLng => {
       altitudeRefEntry.toString(),
     );
 
-    return new LatLng(latitude, longitude, altitude ?? undefined);
+    return { lat: latitude, lng: longitude, alt: altitude ?? undefined };
   }
 
-  return new LatLng(latitude, longitude);
+  return { lat: latitude, lng: longitude };
 };
 
 export { getLatLngFromExif };

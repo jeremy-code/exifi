@@ -1,5 +1,5 @@
-import { formatUserComment } from "#lib/exif/userComment/formatUserComment";
-import { parseUserComment } from "#lib/exif/userComment/parseUserComment";
+import { formatUserComment } from "@exifi/core/exif/userComment/formatUserComment";
+import { parseUserComment } from "@exifi/core/exif/userComment/parseUserComment";
 
 import type { AdvancedEditorResolver } from "../types";
 

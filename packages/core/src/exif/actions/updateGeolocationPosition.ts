@@ -1,14 +1,12 @@
 import { fromAbsolute, toCalendarDate, toTime } from "@internationalized/date";
-import { LatLng } from "leaflet";
 import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 
-import { approximateRational } from "#lib/math/approximateRational";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
 import { formatDateStamp } from "@exifi/core/exif/date/dateStamp";
 import { formatTimeStamp } from "@exifi/core/exif/date/timeStamp";
 
 import { updateLatLng } from "./updateLatLng";
+import { approximateRational } from "../../math/approximateRational";
 import { getOrInsertEntry } from "../utils/getOrInsertEntry";
 
 const SECONDS_IN_HOUR = 3600;
@@ -25,7 +23,9 @@ const updateGeolocationPosition = (
   const dateStampEntry = getOrInsertEntry(exifDataGpsIfd, "DATE_STAMP");
   dateStampEntry.format = "ASCII";
   dateStampEntry.fromTypedArray(
-    encodeStringToUtf8(formatDateStamp(toCalendarDate(zonedDateTime))),
+    new TextEncoder().encode(
+      formatDateStamp(toCalendarDate(zonedDateTime)) + "\u0000",
+    ),
   );
   const timeStampEntry = getOrInsertEntry(exifDataGpsIfd, "TIME_STAMP");
   timeStampEntry.format = "RATIONAL";
@@ -33,10 +33,11 @@ const updateGeolocationPosition = (
     new Uint32Array(formatTimeStamp(toTime(zonedDateTime))),
   );
 
-  updateLatLng(
-    exifData,
-    new LatLng(coords.latitude, coords.longitude, coords.altitude ?? undefined),
-  );
+  updateLatLng(exifData, {
+    lat: coords.latitude,
+    lng: coords.longitude,
+    alt: coords.altitude ?? undefined,
+  });
 
   const hPositioningErrorEntry = getOrInsertEntry(
     exifDataGpsIfd,
@@ -66,7 +67,7 @@ const updateGeolocationPosition = (
     );
     const speedRefEntry = getOrInsertEntry(exifDataGpsIfd, "SPEED_REF");
     speedRefEntry.format = "ASCII";
-    speedRefEntry.fromTypedArray(encodeStringToUtf8("K"));
+    speedRefEntry.fromTypedArray(new TextEncoder().encode("K\u0000"));
   }
 
   if (coords.heading !== null) {
@@ -84,7 +85,7 @@ const updateGeolocationPosition = (
     );
     imgDirectionRefEntry.format = "ASCII";
     // 0 degrees is true north
-    imgDirectionRefEntry.fromTypedArray(encodeStringToUtf8("T"));
+    imgDirectionRefEntry.fromTypedArray(new TextEncoder().encode("T\u0000"));
   }
 };
 

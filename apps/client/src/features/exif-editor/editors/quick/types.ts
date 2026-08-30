@@ -5,8 +5,12 @@ import type {
 } from "@internationalized/date";
 import type { ValidTypedArray } from "libexif-wasm";
 
-import type { ExifVersion } from "#lib/exif/interfaces";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
+
+type ExifVersion = {
+  major: number;
+  minor: number;
+};
 
 type QuickEditorResolver = (
   entry: ExifEntryObject,

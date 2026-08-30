@@ -1,5 +1,5 @@
-import { EXIF_TAG_MAP } from "#lib/exif/exifTagMap";
 import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
+import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
 
 import type { QuickEditorResolver } from "../types";
 

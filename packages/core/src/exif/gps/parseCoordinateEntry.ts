@@ -1,22 +1,18 @@
 import { Decimal } from "decimal.js";
 import type { RationalObject } from "libexif-wasm";
 
-import { dmsToDecimalDegrees } from "#lib/leaflet/dmsToDecimalDegrees";
-import { isDirection } from "#lib/leaflet/interfaces";
+import { dmsToDecimalDegrees } from "../../geo/dmsToDecimalDegrees";
+import { isDirection } from "../../geo/interfaces";
 
 const parseCoordinateEntry = (
   coordinateArray: RationalObject[],
   // W, S, E, N, Sea level, or Sea level reference
   coordinateRef: string,
 ): number | null => {
-  if (coordinateArray.length % 2 !== 0) {
-    return null;
-  }
-
   const mappedCoordinateArray = coordinateArray.map((rational) =>
     new Decimal(rational.numerator).div(rational.denominator).toNumber(),
   );
-  if (coordinateArray.length === 6) {
+  if (coordinateArray.length === 3) {
     const [degrees, minutes, seconds] = mappedCoordinateArray;
 
     if (
@@ -34,7 +30,7 @@ const parseCoordinateEntry = (
       seconds,
       direction: coordinateRef,
     });
-  } else if (coordinateArray.length === 2) {
+  } else if (coordinateArray.length === 1) {
     const [altitude] = mappedCoordinateArray;
     if (
       altitude === undefined ||

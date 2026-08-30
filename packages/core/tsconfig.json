@@ -2,7 +2,8 @@
   "extends": "@exifi/tsconfig/tsconfig-base",
   "compilerOptions": {
     // https://github.com/microsoft/TypeScript/issues/31535
-    "lib": ["ES2024", "DOM", "ESNext.Disposable"]
+    "lib": ["ES2024", "DOM", "ESNext.Disposable"],
+    "types": ["temporal-spec/global"]
   },
   "include": ["src"]
 }

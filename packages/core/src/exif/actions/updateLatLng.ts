@@ -1,11 +1,10 @@
-import type { LatLng } from "leaflet";
 import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 
-import { decimalDegreesToDms } from "#lib/leaflet/decimalDegreesToDms";
-import { approximateRational } from "#lib/math/approximateRational";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
 
+import { decimalDegreesToDms } from "../../geo/decimalDegreesToDms";
+import type { LatLng } from "../../geo/interfaces";
+import { approximateRational } from "../../math/approximateRational";
 import { getOrInsertEntry } from "../utils/getOrInsertEntry";
 
 const updateLatLng = (exifData: ExifData, latLng: LatLng) => {
@@ -34,8 +33,12 @@ const updateLatLng = (exifData: ExifData, latLng: LatLng) => {
   longitudeEntry.format = "RATIONAL";
   longitudeRefEntry.format = "ASCII";
 
-  latitudeRefEntry.fromTypedArray(encodeStringToUtf8(latitude.direction));
-  longitudeRefEntry.fromTypedArray(encodeStringToUtf8(longitude.direction));
+  latitudeRefEntry.fromTypedArray(
+    new TextEncoder().encode(latitude.direction + "\u0000"),
+  );
+  longitudeRefEntry.fromTypedArray(
+    new TextEncoder().encode(longitude.direction),
+  );
   latitudeEntry.fromTypedArray(
     mapRationalFromObject(
       [latitude.degrees, latitude.minutes, latitude.seconds].map((value) =>

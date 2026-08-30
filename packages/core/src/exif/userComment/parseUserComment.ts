@@ -3,7 +3,8 @@ import { arrayLikeEquals } from "@exifi/utils/arrayLikeEquals";
 import { ENCODING_TO_HEADER_MAP } from "./constants";
 import type { UserComment } from "./interfaces";
 
-const textDecoder = new TextDecoder();
+const textDecoderUtf8 = new TextDecoder();
+const textDecoderAscii = new TextDecoder("ascii");
 const textDecoderJis = new TextDecoder("euc-jp");
 
 const textEncoder = new TextEncoder();
@@ -12,17 +13,17 @@ const DECODERS = [
   {
     encoding: "ASCII",
     header: textEncoder.encode(ENCODING_TO_HEADER_MAP.ASCII),
-    decoder: textDecoder,
+    decoder: textDecoderAscii,
   },
   {
     encoding: "UNICODE",
     header: textEncoder.encode(ENCODING_TO_HEADER_MAP.UNICODE),
-    decoder: textDecoder,
+    decoder: textDecoderUtf8,
   },
   {
     encoding: "EMPTY",
     header: textEncoder.encode(ENCODING_TO_HEADER_MAP.EMPTY),
-    decoder: textDecoder,
+    decoder: textDecoderAscii,
   },
   {
     encoding: "JIS",
@@ -49,7 +50,7 @@ const parseUserComment = (data: Iterable<number>): UserComment => {
 
   return {
     encoding: "UNICODE",
-    value: textDecoder.decode(value),
+    value: textDecoderUtf8.decode(value),
   };
 };
 

@@ -16,8 +16,6 @@ import {
   addFormSchema,
   type AddFieldValues,
 } from "#features/exif-editor/forms/addEntryForm";
-import { EXIF_TAG_MAP } from "#lib/exif/exifTagMap";
-import { typedArrayInFormat } from "#lib/exif/utils/typedArrayInFormat";
 import { FormatSchema } from "#schemas/exif";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
 import { decodeStringFromUtf8 } from "#utils/decodeStringFromUtf8";
@@ -26,6 +24,8 @@ import {
   GEOLOCATION_TAGS,
   SUPPORT_LEVEL_MAP,
 } from "@exifi/core/exif/constants";
+import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
+import { typedArrayInFormat } from "@exifi/core/exif/utils/typedArrayInFormat";
 import { Button } from "@exifi/ui/components/Button";
 import { Callout, CalloutText } from "@exifi/ui/components/Callout";
 import { ComboBox, ComboBoxItem } from "@exifi/ui/components/ComboBox";

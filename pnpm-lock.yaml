@@ -264,15 +264,27 @@ importers:
 
   packages/core:
     dependencies:
+      '@exifi/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@internationalized/date':
         specifier: ^3.12.3
         version: 3.12.3
       decimal.js:
         specifier: ^10.6.0
         version: 10.6.0
+      iconv-lite:
+        specifier: ^0.7.3
+        version: 0.7.3
+      image-dimensions:
+        specifier: ^2.5.1
+        version: 2.5.1
       libexif-wasm:
         specifier: ^0.5.3
         version: 0.5.3
+      uuid:
+        specifier: ^14.0.2
+        version: 14.0.2
     devDependencies:
       '@exifi/eslint-config':
         specifier: workspace:*
@@ -280,6 +292,9 @@ importers:
       '@exifi/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
+      temporal-spec:
+        specifier: ^1.0.1
+        version: 1.0.1
       vitest:
         specifier: ^4.1.11
         version: 4.1.11(@types/node@25.9.1)(@vitest/browser-playwright@4.1.11)(vite@8.2.2(@types/node@25.9.1)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0))

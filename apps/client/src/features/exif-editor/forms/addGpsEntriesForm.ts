@@ -1,10 +1,10 @@
 import { formOptions } from "@tanstack/react-form";
-import type { Tag } from "libexif-wasm";
+import { type Tag } from "libexif-wasm";
 import { z } from "zod";
 
-import { parseCoordinateEntry } from "#lib/exif/gps/parseCoordinateEntry";
 import { Latitude, Longitude } from "#schemas/common";
 import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
+import { parseCoordinateEntry } from "@exifi/core/exif/gps/parseCoordinateEntry";
 import type {
   ExifDataObject,
   ExifEntryObject,
@@ -32,11 +32,9 @@ const getInitialGpsFieldValues = (
     gpsEntries.LONGITUDE?.format !== "RATIONAL" ||
     gpsEntries.LONGITUDE_REF?.format !== "ASCII" ||
     gpsEntries.LATITUDE?.format !== "RATIONAL" ||
-    gpsEntries.LATITUDE_REF?.format !== "ASCII" ||
-    gpsEntries.ALTITUDE?.format !== "RATIONAL" ||
-    gpsEntries.ALTITUDE_REF?.format !== "BYTE"
+    gpsEntries.LATITUDE_REF?.format !== "ASCII"
   ) {
-    throw new Error("fdasdf");
+    throw new Error("Longitude or Latitude is in an invalid format");
   }
 
   const longitude =
@@ -49,13 +47,24 @@ const getInitialGpsFieldValues = (
       gpsEntries.LATITUDE.value,
       gpsEntries.LATITUDE_REF.value,
     ) ?? undefined;
-  const altitude =
-    parseCoordinateEntry(
-      gpsEntries.ALTITUDE.value,
-      gpsEntries.ALTITUDE_REF.formattedValue ?? "",
-    ) ?? undefined;
 
-  return { longitude, latitude, altitude };
+  if (gpsEntries.LATITUDE !== undefined) {
+    if (
+      gpsEntries.ALTITUDE?.format !== "RATIONAL" ||
+      gpsEntries.ALTITUDE_REF?.format !== "BYTE"
+    ) {
+      throw new Error("Altitude is in an invalid format");
+    }
+    const altitude =
+      parseCoordinateEntry(
+        gpsEntries.ALTITUDE.value,
+        gpsEntries.ALTITUDE_REF.formattedValue ?? "",
+      ) ?? undefined;
+
+    return { longitude, latitude, altitude };
+  }
+
+  return { longitude, latitude, altitude: undefined };
 };
 
 const addGpsEntriesFormOptions = (exifDataObject: ExifDataObject) => {

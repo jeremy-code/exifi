@@ -1,6 +1,6 @@
 import { Suspense, type ComponentPropsWithRef } from "react";
 
-import { type LatLng } from "leaflet";
+import type { LatLng } from "leaflet";
 import { Link, LocateFixed, MapPin } from "lucide-react";
 import { Popup } from "react-leaflet";
 

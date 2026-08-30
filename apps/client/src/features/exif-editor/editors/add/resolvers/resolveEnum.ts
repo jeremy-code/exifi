@@ -1,4 +1,4 @@
-import { EXIF_TAG_MAP } from "#lib/exif/exifTagMap";
+import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
 
 import type { AddEditorResolver } from "../types";
 

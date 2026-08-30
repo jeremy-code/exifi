@@ -5,7 +5,7 @@ import { RationalInput } from "#components/editor/RationalInput";
 import { UserCommentSelect } from "#components/editor/UserCommentSelect";
 import { UserCommentTextarea } from "#components/editor/UserCommentTextarea";
 import type { AddEditor } from "#features/exif-editor/editors/add/types";
-import { getEntryObjectLabel } from "#lib/exif/utils/getEntryObjectLabel";
+import { getEntryObjectLabel } from "@exifi/core/exif/utils/getEntryObjectLabel";
 import { DateField } from "@exifi/ui/components/DateField";
 import { DatePicker } from "@exifi/ui/components/DatePicker";
 import { NumberField } from "@exifi/ui/components/NumberField";

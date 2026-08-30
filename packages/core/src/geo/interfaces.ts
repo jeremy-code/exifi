@@ -1,3 +1,9 @@
+type LatLng = {
+  lat: number;
+  lng: number;
+  alt?: number;
+};
+
 type Direction = "N" | "E" | "S" | "W";
 
 const isDirection = (value: unknown): value is Direction => {
@@ -16,4 +22,4 @@ type DMS = {
 
 type Axis = "lat" | "lng";
 
-export { type Direction, isDirection, type DMS, type Axis };
+export { type LatLng, type Direction, isDirection, type DMS, type Axis };
