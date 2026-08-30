@@ -13,10 +13,12 @@ import type {
   ExifDataObject,
   ExifEntryObject,
 } from "@exifi/core/exif/interfaces";
-import { serializeExifData } from "@exifi/core/exif/utils";
-import { getEntryFromEntryObject } from "@exifi/core/exif/utils/getEntryFromEntryObject";
-import { getOrInsertEntry } from "@exifi/core/exif/utils/getOrInsertEntry";
-import { typedArrayInFormat } from "@exifi/core/exif/utils/typedArrayInFormat";
+import {
+  serializeExifData,
+  getEntryFromEntryObject,
+  getOrInsertEntry,
+  typedArrayInFormat,
+} from "@exifi/core/exif/utils";
 import { isTypedArray } from "@exifi/utils/isTypedArray";
 
 type ExifEditorStoreState = {

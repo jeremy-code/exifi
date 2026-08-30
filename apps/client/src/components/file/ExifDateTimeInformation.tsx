@@ -1,8 +1,8 @@
 import { type ExifData } from "libexif-wasm";
 import { useDateFormatter } from "react-aria/useDateFormatter";
 
-import { parseDateTimeEntries } from "@exifi/core/exif/utils/parseDateTimeEntries";
-import { parseGpsDateTimeEntries } from "@exifi/core/exif/utils/parseGpsDateTimeEntries";
+import { parseDateTimeEntries } from "#lib/exif/parseDateTimeEntries";
+import { parseGpsDateTimeEntries } from "#lib/exif/parseGpsDateTimeEntries";
 import {
   DataListItem,
   DataListItemLabel,
