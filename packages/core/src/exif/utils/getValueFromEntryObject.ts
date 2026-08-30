@@ -1,6 +1,7 @@
 import { ExifData, ExifIfd, mapRationalFromObject } from "libexif-wasm";
 
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import { getOrInsertEntry } from "./getOrInsertEntry";
 import { typedArrayInFormat } from "./typedArrayInFormat";
@@ -22,7 +23,7 @@ const getValueFromEntryObject = (
 
   const typedArray =
     exifEntryObject.format === "ASCII"
-      ? new TextEncoder().encode(exifEntryObject.value + "\u0000")
+      ? encodeStringToUtf8(exifEntryObject.value)
       : exifEntryObject.format === "RATIONAL" ||
           exifEntryObject.format === "SRATIONAL"
         ? mapRationalFromObject(exifEntryObject.value, exifEntryObject.format)

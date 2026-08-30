@@ -1,6 +1,7 @@
 import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 
 import { getOrInsertEntry } from "#exif/utils/getOrInsertEntry";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 /**
  * Initializes GPS entries (latitude, longitude) with the correct format,
@@ -50,11 +51,11 @@ const initializeGpsEntries = (exifData: ExifData) => {
   }
 
   if (latitudeRefEntry.size === 0) {
-    latitudeRefEntry.fromTypedArray(new TextEncoder().encode("N\u0000"));
+    latitudeRefEntry.fromTypedArray(encodeStringToUtf8("N"));
   }
 
   if (longitudeRefEntry.size === 0) {
-    longitudeRefEntry.fromTypedArray(new TextEncoder().encode("W\u0000"));
+    longitudeRefEntry.fromTypedArray(encodeStringToUtf8("W"));
   }
 };
 

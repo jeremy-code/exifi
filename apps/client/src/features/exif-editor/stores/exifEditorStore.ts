@@ -8,7 +8,6 @@ import {
 } from "libexif-wasm";
 import { create } from "zustand";
 
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 import type {
   ExifDataObject,
   ExifEntryObject,
@@ -19,6 +18,7 @@ import {
   getOrInsertEntry,
   typedArrayInFormat,
 } from "@exifi/core/exif/utils";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 import { isTypedArray } from "@exifi/utils/isTypedArray";
 
 type ExifEditorStoreState = {

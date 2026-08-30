@@ -18,8 +18,6 @@ import {
 } from "#features/exif-editor/forms/addEntryForm";
 import { FormatSchema } from "#schemas/exif";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
-import { decodeStringFromUtf8 } from "#utils/decodeStringFromUtf8";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 import {
   GEOLOCATION_TAGS,
   SUPPORT_LEVEL_MAP,
@@ -31,6 +29,8 @@ import { Callout, CalloutText } from "@exifi/ui/components/Callout";
 import { ComboBox, ComboBoxItem } from "@exifi/ui/components/ComboBox";
 import { Select, SelectItem } from "@exifi/ui/components/Select";
 import { Spinner } from "@exifi/ui/components/Spinner";
+import { decodeStringFromUtf8 } from "@exifi/utils/decodeStringFromUtf8";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import { ExifEntryAddEditor } from "./ExifEntryAddEditor";
 

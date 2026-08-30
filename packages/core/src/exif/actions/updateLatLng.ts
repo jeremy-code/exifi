@@ -1,6 +1,7 @@
 import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 
 import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import { decimalDegreesToDms } from "../../geo/decimalDegreesToDms";
 import type { LatLng } from "../../geo/interfaces";
@@ -33,12 +34,8 @@ const updateLatLng = (exifData: ExifData, latLng: LatLng) => {
   longitudeEntry.format = "RATIONAL";
   longitudeRefEntry.format = "ASCII";
 
-  latitudeRefEntry.fromTypedArray(
-    new TextEncoder().encode(latitude.direction + "\u0000"),
-  );
-  longitudeRefEntry.fromTypedArray(
-    new TextEncoder().encode(longitude.direction),
-  );
+  latitudeRefEntry.fromTypedArray(encodeStringToUtf8(latitude.direction));
+  longitudeRefEntry.fromTypedArray(encodeStringToUtf8(longitude.direction));
   latitudeEntry.fromTypedArray(
     mapRationalFromObject(
       [latitude.degrees, latitude.minutes, latitude.seconds].map((value) =>

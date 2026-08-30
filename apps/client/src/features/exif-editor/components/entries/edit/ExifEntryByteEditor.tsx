@@ -12,12 +12,12 @@ import {
 } from "react-aria-components/Disclosure";
 
 import { useExifEntryDraftContext } from "#features/exif-editor/contexts/ExifEntryDraftContext";
-import { decodeStringFromUtf8 } from "#utils/decodeStringFromUtf8";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
 import { XP_TAGS } from "@exifi/core/exif/xp/constants";
 import { Button } from "@exifi/ui/components/Button";
 import { NumberField } from "@exifi/ui/components/NumberField";
+import { decodeStringFromUtf8 } from "@exifi/utils/decodeStringFromUtf8";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 type ExifEntryEditorProps = DisclosureProps;
 

@@ -6,6 +6,7 @@ import {
 import { ExifIfd, type ExifData } from "libexif-wasm";
 
 import { formatDateTime } from "@exifi/core/exif/date/dateTime";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import { getOrInsertEntry } from "../utils/getOrInsertEntry";
 
@@ -21,9 +22,7 @@ const updateDateAndTimeDigitized = (exifData: ExifData) => {
   );
   dateTimeDigitizedEntry.format = "ASCII";
   dateTimeDigitizedEntry.fromTypedArray(
-    new TextEncoder().encode(
-      formatDateTime(toCalendarDateTime(currentDate)) + "\u0000",
-    ),
+    encodeStringToUtf8(formatDateTime(toCalendarDateTime(currentDate))),
   );
   const subSecTimeDigitizedEntry = getOrInsertEntry(
     exifDataExifIfd,
@@ -31,18 +30,14 @@ const updateDateAndTimeDigitized = (exifData: ExifData) => {
   );
   subSecTimeDigitizedEntry.format = "ASCII";
   subSecTimeDigitizedEntry.fromTypedArray(
-    new TextEncoder().encode(
-      currentDate.millisecond.toString().padStart(3, "0") + "\u0000",
-    ),
+    encodeStringToUtf8(currentDate.millisecond.toString().padStart(3, "0")),
   );
   const offsetTimeDigitizedEntry = getOrInsertEntry(
     exifDataExifIfd,
     "OFFSET_TIME_DIGITIZED",
   );
   offsetTimeDigitizedEntry.format = "ASCII";
-  offsetTimeDigitizedEntry.fromTypedArray(
-    new TextEncoder().encode(timezoneOffset + "\u0000"),
-  );
+  offsetTimeDigitizedEntry.fromTypedArray(encodeStringToUtf8(timezoneOffset));
 };
 
 export { updateDateAndTimeDigitized };

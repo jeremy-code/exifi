@@ -4,6 +4,7 @@ import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
 import { formatDateStamp } from "@exifi/core/exif/date/dateStamp";
 import { formatTimeStamp } from "@exifi/core/exif/date/timeStamp";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import { updateLatLng } from "./updateLatLng";
 import { approximateRational } from "../../math/approximateRational";
@@ -23,9 +24,7 @@ const updateGeolocationPosition = (
   const dateStampEntry = getOrInsertEntry(exifDataGpsIfd, "DATE_STAMP");
   dateStampEntry.format = "ASCII";
   dateStampEntry.fromTypedArray(
-    new TextEncoder().encode(
-      formatDateStamp(toCalendarDate(zonedDateTime)) + "\u0000",
-    ),
+    encodeStringToUtf8(formatDateStamp(toCalendarDate(zonedDateTime))),
   );
   const timeStampEntry = getOrInsertEntry(exifDataGpsIfd, "TIME_STAMP");
   timeStampEntry.format = "RATIONAL";
@@ -67,7 +66,7 @@ const updateGeolocationPosition = (
     );
     const speedRefEntry = getOrInsertEntry(exifDataGpsIfd, "SPEED_REF");
     speedRefEntry.format = "ASCII";
-    speedRefEntry.fromTypedArray(new TextEncoder().encode("K\u0000"));
+    speedRefEntry.fromTypedArray(encodeStringToUtf8("K"));
   }
 
   if (coords.heading !== null) {
@@ -85,7 +84,7 @@ const updateGeolocationPosition = (
     );
     imgDirectionRefEntry.format = "ASCII";
     // 0 degrees is true north
-    imgDirectionRefEntry.fromTypedArray(new TextEncoder().encode("T\u0000"));
+    imgDirectionRefEntry.fromTypedArray(encodeStringToUtf8("T"));
   }
 };
 

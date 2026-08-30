@@ -1,9 +1,6 @@
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
+
 import type { ExifDataObject } from "../exif/interfaces";
-
-const textEncoder = new TextEncoder();
-
-const toAscii = (input: string) =>
-  Array.from(textEncoder.encode(input)).concat(0);
 
 const EXIF_DATA_OBJECT = {
   byteOrder: "MOTOROLA",
@@ -79,8 +76,8 @@ const EXIF_DATA_OBJECT = {
         tag: "DATE_TIME_ORIGINAL",
         format: "ASCII",
         components: 20,
-        data: toAscii("1970:01:01 12:00:00"),
-        dataAsTypedArray: toAscii("1970:01:01 12:00:00"),
+        data: Array.from(encodeStringToUtf8("1970:01:01 12:00:00")),
+        dataAsTypedArray: Array.from(encodeStringToUtf8("1970:01:01 12:00:00")),
         size: 20,
         value: "1970:01:01 12:00:00",
         formattedValue: "1970:01:01 12:00:00",

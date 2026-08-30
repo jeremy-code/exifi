@@ -1,6 +1,8 @@
 import { ExifIfd, type ExifData } from "libexif-wasm";
 import { v4 as uuidv4 } from "uuid";
 
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
+
 import { getOrInsertEntry } from "../utils/getOrInsertEntry";
 
 const addImageUniqueId = (exifData: ExifData) => {
@@ -20,9 +22,7 @@ const addImageUniqueId = (exifData: ExifData) => {
   }
 
   imageUniqueIdEntry.format = "ASCII";
-  imageUniqueIdEntry.fromTypedArray(
-    new TextEncoder().encode(imageUniqueId + "\u0000"),
-  );
+  imageUniqueIdEntry.fromTypedArray(encodeStringToUtf8(imageUniqueId));
 };
 
 export { addImageUniqueId };
