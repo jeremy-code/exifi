@@ -1,0 +1,20 @@
+{
+  "name": "@exifi/test-utils",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "libexif-wasm": "0.5.2"
+  },
+  "devDependencies": {
+    "@exifi/image-utils": "workspace:",
+    "vitest": "^4.1.11"
+  }
+}

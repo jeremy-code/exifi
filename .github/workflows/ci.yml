@@ -36,8 +36,17 @@ jobs:
           node-version-file: .node-version
           cache: pnpm
 
+      - name: Setup emsdk
+        uses: emscripten-core/setup-emsdk@v16
+        with:
+          version: 6.0.9
+          actions-cache-folder: "emsdk-cache"
+
       - name: Install dependencies
         run: pnpm install
+
+      - name: Build WebAssembly binaries
+        run: pnpm --filter @exifi/image-utils build
 
       - name: Lint code with ESLint
         run: pnpm run lint

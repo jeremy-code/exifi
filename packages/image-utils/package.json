@@ -1,0 +1,21 @@
+{
+  "name": "@exifi/image-utils",
+  "version": "0.0.0",
+  "private": false,
+  "exports": {
+    ".": {
+      "types": "./dist/imageUtils.d.ts",
+      "default": "./dist/imageUtils.js"
+    },
+    "./imageUtils.wasm": "./dist/imageUtils.wasm"
+  },
+  "scripts": {
+    "build": "./scripts/build.sh",
+    "format": "find src -name \"*.cpp\" -o -name \"*.h\" | xargs clang-format -i",
+    "test": "vitest --run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "libexif-wasm": "^0.5.3"
+  }
+}
