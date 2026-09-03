@@ -1,18 +1,14 @@
 {
-  "name": "@exifi/exif-utils",
+  "name": "@exifi/utils",
   "version": "0.0.0",
   "private": false,
   "exports": {
-    ".": "./src/index.js",
     "./*": "./src/*.js"
   },
   "scripts": {
     "lint": "eslint .",
     "test": "vitest --run",
     "test:watch": "vitest"
-  },
-  "dependencies": {
-    "@exifi/utils": "workspace:*"
   },
   "devDependencies": {
     "@exifi/eslint-config": "workspace:*",

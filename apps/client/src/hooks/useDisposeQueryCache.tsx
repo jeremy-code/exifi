@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import type { QueryClient } from "@tanstack/react-query";
 
-import { isDisposable } from "#utils/isDisposable";
+import { isDisposable } from "@exifi/utils/isDisposable";
 
 const hashedDisposables = new Map<string, Disposable>();
 

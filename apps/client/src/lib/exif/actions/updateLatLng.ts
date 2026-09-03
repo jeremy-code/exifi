@@ -3,7 +3,7 @@ import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 
 import { decimalDegreesToDms } from "#lib/leaflet/decimalDegreesToDms";
 import { approximateRational } from "#lib/math/approximateRational";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import { MAX_UINT32_VALUE } from "../constants";
 import { getOrInsertEntry } from "../utils/getOrInsertEntry";

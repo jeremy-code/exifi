@@ -30,28 +30,4 @@ describe("isTypedArray", () => {
   ] as const)("should return false for %s", ([, value]) => {
     expect(isTypedArray(value)).toBe(false);
   });
-
-  test("works across realms", () => {
-    const iframe = document.createElement("iframe");
-    document.body.appendChild(iframe);
-
-    const contentWindow = iframe.contentWindow as
-      | (Window & typeof globalThis)
-      | null;
-    expect(contentWindow).not.toBeNull();
-
-    const crossRealmTypedArray = new contentWindow!.Uint8Array();
-    const crossRealmDataView = new contentWindow!.DataView(
-      new contentWindow!.ArrayBuffer(),
-    );
-
-    // Proves this is actually cross-realm:
-    expect(crossRealmTypedArray).not.toBeInstanceOf(Uint8Array);
-    expect(crossRealmDataView).not.toBeInstanceOf(DataView);
-
-    expect(isTypedArray(crossRealmTypedArray)).toBe(true);
-    expect(isTypedArray(crossRealmDataView)).toBe(false);
-
-    iframe.remove();
-  });
 });

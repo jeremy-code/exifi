@@ -1,7 +1,7 @@
 import { formatExifDateStamp } from "#lib/exif/date/dateStamp/formatExifDateStamp";
 import { parseExifDateStamp } from "#lib/exif/date/dateStamp/parseExifDateStamp";
-import { decodeStringFromUtf8 } from "#utils/decodeStringFromUtf8";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
+import { decodeStringFromUtf8 } from "@exifi/utils/decodeStringFromUtf8";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import type { AddEditorResolver } from "../types";
 

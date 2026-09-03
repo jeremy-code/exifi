@@ -3,7 +3,7 @@ import { LatLng } from "leaflet";
 import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 
 import { approximateRational } from "#lib/math/approximateRational";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import { updateLatLng } from "./updateLatLng";
 import { MAX_UINT32_VALUE } from "../constants";

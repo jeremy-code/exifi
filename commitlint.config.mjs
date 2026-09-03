@@ -29,7 +29,7 @@ const commitlintConfig = {
     "scope-enum": [
       RuleConfigSeverity.Error,
       "always",
-      ["client", "eslint-config", "exif-utils", "tsconfig", "ui"],
+      ["client", "eslint-config", "exif-utils", "tsconfig", "ui", "utils"],
     ],
   },
 };

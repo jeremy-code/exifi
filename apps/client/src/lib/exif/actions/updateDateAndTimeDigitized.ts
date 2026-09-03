@@ -5,7 +5,7 @@ import {
 } from "@internationalized/date";
 import { ExifIfd, type ExifData } from "libexif-wasm";
 
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import { formatExifDateTime } from "../date/dateTime/formatExifDateTime";
 import { getOrInsertEntry } from "../utils/getOrInsertEntry";

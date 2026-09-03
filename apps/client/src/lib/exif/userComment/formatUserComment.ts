@@ -1,6 +1,6 @@
 import { encode } from "iconv-lite";
 
-import { assertNever } from "#utils/assertNever";
+import { assertNever } from "@exifi/utils/assertNever";
 
 import { ENCODING_TO_HEADER_MAP } from "./constants";
 import type { UserComment } from "./interfaces";

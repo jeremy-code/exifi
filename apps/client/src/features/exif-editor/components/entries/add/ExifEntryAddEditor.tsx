@@ -1,8 +1,8 @@
 import { getExifAddEditor } from "#features/exif-editor/editors/add/getExifAddEditor";
 import type { ExifEntryObject } from "#lib/exif/interfaces";
-import { decodeStringFromUtf8 } from "#utils/decodeStringFromUtf8";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
 import { TextAreaField } from "@exifi/ui/components/TextAreaField";
+import { decodeStringFromUtf8 } from "@exifi/utils/decodeStringFromUtf8";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import { ExifEntryAddEditorControls } from "./ExifEntryAddEditorControls";
 import { ExifEntryAddEditorFields } from "./ExifEntryAddEditorFields";

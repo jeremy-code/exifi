@@ -1,5 +1,5 @@
 import type { ExifDataObject } from "#lib/exif/interfaces";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 const EXIF_DATA_OBJECT = {
   byteOrder: "MOTOROLA",

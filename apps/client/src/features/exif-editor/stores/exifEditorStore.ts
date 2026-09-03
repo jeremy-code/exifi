@@ -10,8 +10,8 @@ import { serializeExifData } from "#lib/exif/serializeExifData";
 import { getEntryFromEntryObject } from "#lib/exif/utils/getEntryFromEntryObject";
 import { getOrInsertEntry } from "#lib/exif/utils/getOrInsertEntry";
 import { typedArrayInFormat } from "#lib/exif/utils/typedArrayInFormat";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
-import { isTypedArray } from "#utils/isTypedArray";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
+import { isTypedArray } from "@exifi/utils/isTypedArray";
 
 type ExifEditorStoreState = {
   exifData: ExifData;

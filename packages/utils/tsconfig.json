@@ -1,0 +1,7 @@
+{
+  "extends": "@exifi/tsconfig/tsconfig-base",
+  "include": ["src"],
+  "compilerOptions": {
+    "lib": ["ES2024", "DOM", "ESNext.Disposable"]
+  }
+}

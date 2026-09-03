@@ -1,6 +1,6 @@
 import { EXIF_TAG_MAP } from "#lib/exif/exifTagMap";
-import { decodeStringFromUtf8 } from "#utils/decodeStringFromUtf8";
-import { encodeStringToUtf8 } from "#utils/encodeStringToUtf8";
+import { decodeStringFromUtf8 } from "@exifi/utils/decodeStringFromUtf8";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import type { AddEditorResolver } from "../types";
 
