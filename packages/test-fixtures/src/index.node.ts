@@ -1,11 +1,7 @@
 import { glob, readFile } from "node:fs/promises";
 import { extname, join } from "node:path";
 
-type Fixture = {
-  image: Uint8Array<ArrayBuffer>;
-  json: Record<PropertyKey, unknown> | undefined;
-  exifBytes: Uint8Array<ArrayBuffer> | undefined;
-};
+import type { Fixture } from "./interfaces";
 
 const getFixture = async (fixtureName: string): Promise<Fixture> => {
   let imagePath: string | undefined;
@@ -13,7 +9,13 @@ const getFixture = async (fixtureName: string): Promise<Fixture> => {
   let exifPath: string | undefined;
 
   for await (const fixturePath of glob(
-    join(import.meta.dirname, "..", "fixtures", `${fixtureName}.*`),
+    join(
+      import.meta.dirname,
+      "..",
+      "fixtures",
+      fixtureName,
+      `${fixtureName}.*`,
+    ),
   )) {
     const extension = extname(fixturePath);
     if (extension === ".json") {

@@ -3,7 +3,11 @@
   "version": "0.0.0",
   "private": false,
   "exports": {
-    ".": "./src/index.js"
+    ".": {
+      "node": "./src/index.node.js",
+      "browser": "./src/index.browser.js",
+      "default": "./src/index.node.js"
+    }
   },
   "scripts": {
     "lint": "eslint ."
@@ -11,6 +15,8 @@
   "devDependencies": {
     "@exifi/eslint-config": "workspace:*",
     "@exifi/tsconfig": "workspace:*",
-    "@types/node": "^24.13.3"
+    "@types/node": "^24.13.3",
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
   }
 }
