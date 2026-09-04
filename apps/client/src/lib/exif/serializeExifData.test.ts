@@ -1,15 +1,19 @@
 import { ExifData } from "libexif-wasm";
-import { describe, test, expect } from "vitest";
+import { describe, test as baseTest, expect } from "vitest";
+
+import { getFixture } from "@exifi/test-fixtures";
 
 import { serializeExifData } from "./serializeExifData";
-import { EXIF_DATA_OBJECT } from "../../__fixtures__/exifDataObject";
-import { JPEG_EXIF_IMAGE_1 } from "../../__fixtures__/image";
+
+const test = baseTest.extend("plainJpgWithExif", () =>
+  getFixture("plain-jpg-with-exif"),
+);
 
 describe("serializeExifData", () => {
-  test("serializes ExifData into ExifDataObject", () => {
-    const exifData = ExifData.from(JPEG_EXIF_IMAGE_1.buffer);
+  test("serializes ExifData into ExifDataObject", ({ plainJpgWithExif }) => {
+    const exifData = ExifData.newFromData(plainJpgWithExif.image);
     const exifDataObject = serializeExifData(exifData);
-    expect(exifDataObject).toStrictEqual(EXIF_DATA_OBJECT);
+    expect(exifDataObject).toStrictEqual(plainJpgWithExif.json);
     exifData.free();
   });
 });

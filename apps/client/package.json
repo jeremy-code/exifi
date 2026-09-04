@@ -64,6 +64,7 @@
   },
   "devDependencies": {
     "@exifi/eslint-config": "workspace:*",
+    "@exifi/test-fixtures": "workspace:*",
     "@exifi/tsconfig": "workspace:*",
     "@rolldown/plugin-babel": "^0.2.3",
     "@tailwindcss/vite": "^4.3.3",

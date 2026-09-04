@@ -177,6 +177,9 @@ importers:
       '@exifi/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
+      '@exifi/test-fixtures':
+        specifier: workspace:*
+        version: link:../../packages/test-fixtures
       '@exifi/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
