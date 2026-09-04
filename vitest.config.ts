@@ -2,8 +2,7 @@ import { defineConfig } from "vitest/config";
 
 const vitestConfig = defineConfig({
   test: {
-    name: "@exifi/exif-utils",
-    clearMocks: true,
+    projects: ["apps/*", "packages/*"],
   },
 });
 
