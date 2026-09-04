@@ -3,6 +3,11 @@ packages:
   - packages/*
 
 # Dependency Resolution (https://pnpm.io/settings#dependency-resolution)
+overrides:
+  # https://github.com/openapi-ts/openapi-typescript/issues/2723
+  # https://github.com/openapi-ts/openapi-typescript/pull/2774
+  # https://github.com/openapi-ts/openapi-typescript/pull/2818
+  "openapi-typescript>typescript": "^5.x || ^6.x"
 minimumReleaseAge: 1440 # 1 day in minutes
 minimumReleaseAgeStrict: true
 trustPolicy: no-downgrade
