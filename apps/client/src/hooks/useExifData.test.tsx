@@ -76,7 +76,6 @@ describe("useExifData", () => {
       "plain-jpg-with-exif.jpg",
     );
 
-    console.log(exifDataFile);
     const { result } = await renderUseExifData(exifDataFile);
     await expect.poll(() => result.current).not.toBeNull();
 

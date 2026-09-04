@@ -1,67 +1,58 @@
-import { server } from "vitest/browser";
-
 import type { Fixture } from "./interfaces";
 
-const { readFile } = server.commands;
-
-// The keys are the resolved globs and the values are strings beginning with
-// `/@fs/` followed by the absolute URL of the files on the system
+// The keys are the resolved globs and the values are promises that resolve to
+// strings beginning with `/@fs/` followed by the absolute URL of the files on
+// the system
 const FIXTURES = import.meta.glob(["../fixtures/*/*"], {
-  eager: true,
   import: "default",
   query: "?url",
 });
 
+const fetchFile = (fileUrl: string) =>
+  fetch(new URL(fileUrl, new URL(import.meta.url).origin));
+
 const getFixture = async (fixtureName: string): Promise<Fixture> => {
-  const fixturePaths = Object.keys(FIXTURES).flatMap((fixturePath) =>
-    fixturePath.startsWith(`../fixtures/${fixtureName}`)
-      ? /**
-         * `readFile` in Vitest resolves to the "project root", which is not at
-         * the monorepo root but at each package's vitest.config.ts location, even
-         * when using projects configuration
-         *
-         * @see {@link https://vitest.dev/api/browser/commands.html#files-handling}
-         */
-        [`../../packages/test-fixtures/${fixturePath.slice("..".length)}`]
-      : [],
+  const fixtureUrls = await Promise.all(
+    Object.entries(FIXTURES).flatMap(([fixturePath, fixtureUrlCb]) =>
+      fixturePath.startsWith(`../fixtures/${fixtureName}`)
+        ? [fixtureUrlCb()]
+        : [],
+    ),
   );
-
-  let imagePath: string | undefined;
-  let jsonPath: string | undefined;
-  let exifPath: string | undefined;
-
-  fixturePaths.forEach((fixturePath) => {
-    if (fixturePath.endsWith(".json")) {
-      jsonPath = fixturePath;
-    } else if (fixturePath.endsWith(".exif")) {
-      exifPath = fixturePath;
+  const {
+    image: imageUrl,
+    exifBytes: exifUrl,
+    json: jsonUrl,
+  } = fixtureUrls.reduce<{
+    [Property in keyof Fixture]?: string;
+  }>((acc, fixtureUrl) => {
+    if (fixtureUrl.endsWith(".json")) {
+      acc["json"] = fixtureUrl;
+    } else if (fixtureUrl.endsWith(".exif")) {
+      acc["exifBytes"] = fixtureUrl;
     } else {
-      imagePath = fixturePath;
+      acc["image"] = fixtureUrl;
     }
-  });
+    return acc;
+  }, {});
 
-  if (imagePath === undefined) {
+  if (imageUrl === undefined) {
     throw new Error(`${fixtureName} is not a valid fixture`);
   }
 
   const [image, json, exifBytes] = await Promise.all([
-    readFile(imagePath, { encoding: "base64" }),
-    jsonPath !== undefined
-      ? readFile(jsonPath, { encoding: "utf-8" }).then(
-          (file) => JSON.parse(file) as Record<PropertyKey, unknown>,
+    fetchFile(imageUrl).then((res) => res.bytes()),
+    jsonUrl !== undefined
+      ? fetchFile(jsonUrl).then(
+          (res) => res.json() as Promise<Record<PropertyKey, unknown>>,
         )
       : undefined,
-    exifPath !== undefined
-      ? readFile(exifPath, { encoding: "base64" })
+    exifUrl !== undefined
+      ? fetchFile(exifUrl).then((res) => res.bytes())
       : undefined,
   ]);
 
-  return {
-    image: Uint8Array.fromBase64(image),
-    json,
-    exifBytes:
-      exifBytes !== undefined ? Uint8Array.fromBase64(exifBytes) : undefined,
-  };
+  return { image, json, exifBytes };
 };
 
 export { getFixture };
