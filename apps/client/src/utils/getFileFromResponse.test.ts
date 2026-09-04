@@ -1,6 +1,10 @@
-import { describe, test, expect, vi } from "vitest";
+import { describe, test as baseTest, expect, vi } from "vitest";
+
+import { getFixture } from "@exifi/test-fixtures";
 
 import { getFileFromResponse } from "./getFileFromResponse";
+
+const test = baseTest.extend("plainJpg", () => getFixture("plain-jpg"));
 
 /**
  * Convenience function that sets Response.url since it is readonly
@@ -125,6 +129,17 @@ describe("getFileFromResponse", () => {
         }),
       );
       expect(file.type).toBe("");
+    });
+
+    test("infers MIME type from bytes alone when all else is absent", async ({
+      plainJpg,
+    }) => {
+      const file = await getFileFromResponse(
+        getResponse(plainJpg.image, {
+          url: "https://example.com/file",
+        }),
+      );
+      expect(file.type).toBe("image/jpeg");
     });
   });
 

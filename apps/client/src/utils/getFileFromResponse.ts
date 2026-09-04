@@ -1,5 +1,6 @@
 import { basename } from "@std/path/posix/basename";
 import { parse as contentDispositionParse } from "content-disposition";
+import { fileTypeFromBlob } from "file-type";
 import { lookup } from "mrmime";
 
 /**
@@ -59,15 +60,18 @@ const getFileFromResponse = async (response: Response): Promise<File> => {
          * parameters are not included
          */
         basename(new URL(response.url).pathname);
-  const contentType = response.headers.get("Content-Type") ?? lookup(fileName);
 
   // A File is a superset of a Blob, but the conversion is not straightforward.
   // At least on Node.js, using the File constructor with an already existing
   // Blob does not result in excessive memory usage. Hence, avoiding arrayBuffer
   const blob = await response.blob();
 
+  const contentType: string | undefined =
+    response.headers.get("Content-Type") ?? lookup(fileName) ?? blob.type;
+
   const file = new File([blob], fileName, {
-    type: contentType ?? blob.type,
+    type:
+      contentType !== "" ? contentType : (await fileTypeFromBlob(blob))?.mime,
     lastModified: getLastModifiedFromResponse(response),
   });
 
