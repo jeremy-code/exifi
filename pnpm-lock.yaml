@@ -310,6 +310,9 @@ importers:
       '@exifi/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@exifi/test-fixtures':
+        specifier: workspace:*
+        version: link:../test-fixtures
       '@exifi/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig

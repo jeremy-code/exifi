@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@exifi/eslint-config": "workspace:*",
+    "@exifi/test-fixtures": "workspace:*",
     "@exifi/tsconfig": "workspace:*",
     "vitest": "^4.1.11"
   }

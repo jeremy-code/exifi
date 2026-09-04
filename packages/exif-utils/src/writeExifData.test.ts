@@ -1,5 +1,6 @@
-import { describe, test, expect } from "vitest";
+import { describe, test as baseTest, expect } from "vitest";
 
+import { getFixture } from "@exifi/test-fixtures";
 import { concatUint8Arrays } from "@exifi/utils/concatUint8Arrays";
 
 import { EXIF_HEADER, JpegMarker, MARKER_FIRST_BYTE } from "./constants";
@@ -8,19 +9,21 @@ import { writeExifData } from "./writeExifData";
 
 const SOI = new Uint8Array([MARKER_FIRST_BYTE, JpegMarker.SOI]);
 const EOI = new Uint8Array([MARKER_FIRST_BYTE, JpegMarker.EOI]);
-const VALID_EXIF = concatUint8Arrays([
-  EXIF_HEADER,
-  new Uint8Array([
-    0x4d, 0x4d, 0x00, 0x2a, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00,
-  ]),
-]);
+
+const test = baseTest
+  .extend("plainJpg", () => getFixture("plain-jpg"))
+  .extend("plainJpgWithExif", () => getFixture("plain-jpg-with-exif"));
 
 describe("writeExifData()", () => {
-  test("throws if image does not start with SOI", () => {
+  test("throws if image does not start with SOI", ({ plainJpgWithExif }) => {
     const image = new Uint8Array([0, 0, 0]);
 
-    expect(() => writeExifData(image, VALID_EXIF)).toThrow();
+    expect(() =>
+      writeExifData(
+        image,
+        concatUint8Arrays([EXIF_HEADER, plainJpgWithExif.exifBytes!]),
+      ),
+    ).toThrow();
   });
 
   test("throws if exif header is invalid", () => {
@@ -30,28 +33,37 @@ describe("writeExifData()", () => {
     expect(() => writeExifData(image, invalidExif)).toThrow();
   });
 
-  test("inserts EXIF after APP0", () => {
+  test("inserts EXIF after APP0", ({ plainJpgWithExif }) => {
     const app0 = createSegment(JpegMarker.APP0, new Uint8Array([1, 2]));
     const image = concatUint8Arrays([SOI, app0, EOI]);
-    const result = writeExifData(image, VALID_EXIF);
+    const exifData = concatUint8Arrays([
+      EXIF_HEADER,
+      plainJpgWithExif.exifBytes!,
+    ]);
+
+    const result = writeExifData(image, exifData);
 
     expect(result).toStrictEqual(
       concatUint8Arrays([
         SOI,
         app0,
-        createSegment(JpegMarker.APP1, VALID_EXIF),
+        createSegment(JpegMarker.APP1, exifData),
         EOI,
       ]),
     );
   });
 
-  test("replaces existing EXIF segment", () => {
+  test("replaces existing EXIF segment", ({ plainJpgWithExif }) => {
+    const exifData = concatUint8Arrays([
+      EXIF_HEADER,
+      plainJpgWithExif.exifBytes!,
+    ]);
     const image = concatUint8Arrays([
       SOI,
-      createSegment(JpegMarker.APP1, VALID_EXIF),
+      createSegment(JpegMarker.APP1, exifData),
       EOI,
     ]);
-    const newExifSegment = new Uint8Array([...VALID_EXIF, 9, 9]);
+    const newExifSegment = new Uint8Array([...exifData, 9, 9]);
     const result = writeExifData(image, newExifSegment);
 
     expect(result).toStrictEqual(
@@ -63,27 +75,49 @@ describe("writeExifData()", () => {
     );
   });
 
-  test("inserts after last APP1 if APP1 exists but not EXIF", () => {
+  test("inserts after last APP1 if APP1 exists but not EXIF", ({
+    plainJpgWithExif,
+  }) => {
+    const exifData = concatUint8Arrays([
+      EXIF_HEADER,
+      plainJpgWithExif.exifBytes!,
+    ]);
     const app1 = createSegment(JpegMarker.APP1, new Uint8Array([9, 9, 9]));
     const image = concatUint8Arrays([SOI, app1, EOI]);
-    const result = writeExifData(image, VALID_EXIF);
+    const result = writeExifData(image, exifData);
 
     expect(result).toStrictEqual(
       concatUint8Arrays([
         SOI,
         app1,
-        createSegment(JpegMarker.APP1, VALID_EXIF),
+        createSegment(JpegMarker.APP1, exifData),
         EOI,
       ]),
     );
   });
 
-  test("inserts after SOI if no APP segments exist", () => {
+  test("inserts after SOI if no APP segments exist", ({ plainJpgWithExif }) => {
+    const exifData = concatUint8Arrays([
+      EXIF_HEADER,
+      plainJpgWithExif.exifBytes!,
+    ]);
     const image = concatUint8Arrays([SOI, EOI]);
-    const result = writeExifData(image, VALID_EXIF);
+    const result = writeExifData(image, exifData);
 
     expect(result).toStrictEqual(
-      concatUint8Arrays([SOI, createSegment(JpegMarker.APP1, VALID_EXIF), EOI]),
+      concatUint8Arrays([SOI, createSegment(JpegMarker.APP1, exifData), EOI]),
     );
+  });
+
+  test("correctly adds exif data to plain-jpg.jpg", ({
+    plainJpg,
+    plainJpgWithExif,
+  }) => {
+    expect(
+      writeExifData(
+        plainJpg.image,
+        concatUint8Arrays([EXIF_HEADER, plainJpgWithExif.exifBytes!]),
+      ),
+    ).toStrictEqual(plainJpgWithExif.image);
   });
 });
