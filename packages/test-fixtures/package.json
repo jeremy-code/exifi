@@ -1,0 +1,16 @@
+{
+  "name": "@exifi/test-fixtures",
+  "version": "0.0.0",
+  "private": false,
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@exifi/eslint-config": "workspace:*",
+    "@exifi/tsconfig": "workspace:*",
+    "@types/node": "^24.13.3"
+  }
+}

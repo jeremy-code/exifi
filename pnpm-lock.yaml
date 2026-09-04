@@ -317,6 +317,18 @@ importers:
         specifier: ^4.1.11
         version: 4.1.11(@types/node@25.9.1)(@vitest/browser-playwright@4.1.11)(vite@8.2.2(@types/node@25.9.1)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0))
 
+  packages/test-fixtures:
+    devDependencies:
+      '@exifi/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@exifi/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: ^24.13.3
+        version: 24.13.3
+
   packages/tsconfig: {}
 
   packages/ui:
