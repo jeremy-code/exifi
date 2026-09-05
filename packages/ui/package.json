@@ -2,6 +2,7 @@
   "name": "@exifi/ui",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "exports": {
     "./globals.css": "./src/globals.css",
     "./*": "./src/*.js"
