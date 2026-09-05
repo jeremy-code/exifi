@@ -1,4 +1,5 @@
-import { mapRationalArray } from "../../../../../../../../packages/core/src/exif/utils/mapRationalArray";
+import { mapRationalToObject } from "libexif-wasm";
+
 import type { AddEditorResolver } from "../types";
 
 const resolveRational: AddEditorResolver = (exifEntryObject, onValueChange) => {
@@ -10,10 +11,11 @@ const resolveRational: AddEditorResolver = (exifEntryObject, onValueChange) => {
       kind: "rational",
       exifEntryObject,
       hasIndeterminateSize: true,
-      values: mapRationalArray(exifEntryObject.value).map((rational) => ({
-        numerator: rational.numerator,
-        denominator: rational.denominator,
-      })),
+      values: mapRationalToObject(
+        exifEntryObject.format === "RATIONAL"
+          ? new Uint32Array(exifEntryObject.value)
+          : new Int32Array(exifEntryObject.value),
+      ),
       onValueChange: (rationalObject, index) => {
         if (exifEntryObject.value.length === 0 && index === 0) {
           onValueChange([rationalObject.numerator, rationalObject.denominator]);

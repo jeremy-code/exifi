@@ -7,6 +7,9 @@ settings:
 overrides:
   openapi-typescript>typescript: ^5.x || ^6.x
 
+patchedDependencies:
+  decimal.js: e14b269f5e50ee392b817f53afd5fbf309e08b8e1cbd082b9ebbc9c4b0bddbf9
+
 importers:
 
   .:
@@ -109,7 +112,7 @@ importers:
         version: 3.0.0
       decimal.js:
         specifier: ^10.6.0
-        version: 10.6.0
+        version: 10.6.0(patch_hash=e14b269f5e50ee392b817f53afd5fbf309e08b8e1cbd082b9ebbc9c4b0bddbf9)
       dequal:
         specifier: ^2.0.3
         version: 2.0.3
@@ -281,7 +284,7 @@ importers:
         version: 3.12.4
       decimal.js:
         specifier: ^10.6.0
-        version: 10.6.0
+        version: 10.6.0(patch_hash=e14b269f5e50ee392b817f53afd5fbf309e08b8e1cbd082b9ebbc9c4b0bddbf9)
       iconv-lite:
         specifier: ^0.7.3
         version: 0.7.3
@@ -6634,7 +6637,7 @@ snapshots:
     optionalDependencies:
       supports-color: 10.2.2
 
-  decimal.js@10.6.0: {}
+  decimal.js@10.6.0(patch_hash=e14b269f5e50ee392b817f53afd5fbf309e08b8e1cbd082b9ebbc9c4b0bddbf9): {}
 
   decode-named-character-reference@1.3.0:
     dependencies:

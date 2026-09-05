@@ -1,12 +1,11 @@
 import { Time } from "@internationalized/date";
 import { Decimal } from "decimal.js";
-
-import { mapRationalArray } from "../../utils/mapRationalArray";
+import { mapRationalToObject } from "libexif-wasm";
 
 const MILLISECONDS_IN_SECOND = 1000;
 
 const parseExifTimeStamp = (value: ArrayLike<number>) => {
-  const timeStampValue = mapRationalArray(value);
+  const timeStampValue = mapRationalToObject(new Uint32Array(value));
 
   if (timeStampValue.length !== 3) {
     throw new Error(
@@ -26,9 +25,9 @@ const parseExifTimeStamp = (value: ArrayLike<number>) => {
     .toNumber();
 
   return new Time(
-    hour.valueOf(),
-    minute.valueOf(),
-    Math.floor(second.valueOf()),
+    new Decimal(hour.numerator).div(hour.denominator).toNumber(),
+    new Decimal(minute.numerator).div(minute.denominator).toNumber(),
+    new Decimal(second.numerator).div(second.denominator).floor().toNumber(),
     millisecond,
   );
 };

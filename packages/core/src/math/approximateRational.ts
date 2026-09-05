@@ -7,12 +7,6 @@ const approximateRational = (
 ): RationalObject => {
   const [numerator, denominator] = new Decimal(value).toFraction(maxNumerator);
 
-  if (numerator === undefined || denominator === undefined) {
-    throw new Error(
-      `Numerator was ${numerator?.toString() ?? "undefined"} and denominator was ${denominator?.toString() ?? "undefined"}  when attempting to approximate ${value.toString()} as a rational`,
-    );
-  }
-
   return {
     numerator: numerator.toNumber(),
     denominator: denominator.toNumber(),
