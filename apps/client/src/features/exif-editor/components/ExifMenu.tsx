@@ -5,11 +5,11 @@ import { useShallow } from "zustand/react/shallow";
 
 import { useFile } from "#contexts/FileContext";
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
-import { addImageUniqueId } from "#lib/exif/actions/addImageUniqueId";
-import { updateDateAndTimeDigitized } from "#lib/exif/actions/updateDateAndTimeDigitized";
-import { updateGeolocationPosition } from "#lib/exif/actions/updateGeolocationPosition";
-import { updatePixelDimensions } from "#lib/exif/actions/updatePixelDimensions";
 import { getCurrentPosition } from "#utils/getCurrentPosition";
+import { addImageUniqueId } from "@exifi/core/exif/actions/addImageUniqueId";
+import { updateDateAndTimeDigitized } from "@exifi/core/exif/actions/updateDateAndTimeDigitized";
+import { updateGeolocationPosition } from "@exifi/core/exif/actions/updateGeolocationPosition";
+import { updatePixelDimensions } from "@exifi/core/exif/actions/updatePixelDimensions";
 import { Button } from "@exifi/ui/components/Button";
 import { Menu, MenuItem, MenuTrigger } from "@exifi/ui/components/Menu";
 

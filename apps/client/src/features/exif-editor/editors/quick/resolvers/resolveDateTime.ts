@@ -1,6 +1,9 @@
-import { DATETIME_TAGS, EXIF_DATETIME_REGEX } from "#lib/exif/date/constants";
-import { formatExifDateTime } from "#lib/exif/date/dateTime/formatExifDateTime";
-import { parseExifDateTime } from "#lib/exif/date/dateTime/parseExifDateTime";
+import {
+  DATETIME_TAGS,
+  EXIF_DATETIME_REGEX,
+} from "@exifi/core/exif/date/constants";
+import { formatExifDateTime } from "@exifi/core/exif/date/dateTime/formatExifDateTime";
+import { parseExifDateTime } from "@exifi/core/exif/date/dateTime/parseExifDateTime";
 
 import type { QuickEditorResolver } from "../types";
 

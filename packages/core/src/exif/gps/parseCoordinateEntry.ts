@@ -1,5 +1,5 @@
-import { dmsToDecimalDegrees } from "#lib/leaflet/dmsToDecimalDegrees";
-import { isDirection } from "#lib/leaflet/interfaces";
+import { dmsToDecimalDegrees } from "@exifi/core/leaflet/dmsToDecimalDegrees";
+import { isDirection } from "@exifi/core/leaflet/interfaces";
 
 import { mapRationalArray } from "../utils/mapRationalArray";
 

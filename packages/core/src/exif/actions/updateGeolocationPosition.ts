@@ -2,7 +2,7 @@ import { fromAbsolute, toCalendarDate, toTime } from "@internationalized/date";
 import { LatLng } from "leaflet";
 import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 
-import { approximateRational } from "#lib/math/approximateRational";
+import { approximateRational } from "@exifi/core/math/approximateRational";
 import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import { MAX_UINT32_VALUE } from "../constants";

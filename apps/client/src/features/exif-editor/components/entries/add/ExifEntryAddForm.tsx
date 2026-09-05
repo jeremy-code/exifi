@@ -10,15 +10,18 @@ import {
   addFormSchema,
   type AddFieldValues,
 } from "#features/exif-editor/forms/addEntryForm";
-import { GEOLOCATION_TAGS, SUPPORT_LEVEL_MAP } from "#lib/exif/constants";
-import { EXIF_TAG_MAP } from "#lib/exif/exifTagMap";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
+import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
 import { Button } from "@exifi/ui/components/Button";
 import { Callout, CalloutText } from "@exifi/ui/components/Callout";
 import { ComboBox, ComboBoxItem } from "@exifi/ui/components/ComboBox";
 import { Select, SelectItem } from "@exifi/ui/components/Select";
 import { Spinner } from "@exifi/ui/components/Spinner";
 
+import {
+  GEOLOCATION_TAGS,
+  SUPPORT_LEVEL_MAP,
+} from "../../../../../../../../packages/core/src/exif/constants";
 import { ExifEntryAddEditor } from "./ExifEntryAddEditor";
 
 const EXIF_TAG_TABLE = getExifTagTable();

@@ -1,4 +1,4 @@
-import { Rational } from "#lib/math/Rational";
+import { Rational } from "@exifi/core/math/Rational";
 
 const mapRationalArray = (numberArray: ArrayLike<number>) => {
   if (numberArray.length % 2 !== 0) {

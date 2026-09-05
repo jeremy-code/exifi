@@ -1,8 +1,8 @@
 import type { LatLng } from "leaflet";
 import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 
-import { decimalDegreesToDms } from "#lib/leaflet/decimalDegreesToDms";
-import { approximateRational } from "#lib/math/approximateRational";
+import { decimalDegreesToDms } from "@exifi/core/leaflet/decimalDegreesToDms";
+import { approximateRational } from "@exifi/core/math/approximateRational";
 import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import { MAX_UINT32_VALUE } from "../constants";

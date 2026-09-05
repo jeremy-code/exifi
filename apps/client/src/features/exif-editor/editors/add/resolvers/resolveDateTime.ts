@@ -1,6 +1,6 @@
-import { DATETIME_TAGS } from "#lib/exif/date/constants";
-import { formatExifDateTime } from "#lib/exif/date/dateTime/formatExifDateTime";
-import { parseExifDateTime } from "#lib/exif/date/dateTime/parseExifDateTime";
+import { DATETIME_TAGS } from "@exifi/core/exif/date/constants";
+import { formatExifDateTime } from "@exifi/core/exif/date/dateTime/formatExifDateTime";
+import { parseExifDateTime } from "@exifi/core/exif/date/dateTime/parseExifDateTime";
 import { decodeStringFromUtf8 } from "@exifi/utils/decodeStringFromUtf8";
 import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 

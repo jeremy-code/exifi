@@ -1,8 +1,9 @@
 import type { CellContext } from "@tanstack/react-table";
 import type { SupportLevel, TagEntry } from "libexif-wasm";
 
-import { SUPPORT_LEVEL_MAP } from "#lib/exif/constants";
 import { Badge } from "@exifi/ui/components/Badge";
+
+import { SUPPORT_LEVEL_MAP } from "../../../../../../../packages/core/src/exif/constants";
 
 const SupportLevelCell = ({
   getValue,

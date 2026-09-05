@@ -2,8 +2,12 @@ import { formOptions } from "@tanstack/react-form";
 import { exifTagTableCount } from "libexif-wasm";
 import { z } from "zod";
 
-import { MAX_INT32_VALUE, MAX_UINT32_VALUE } from "#lib/exif/constants";
 import { FormatSchema, IfdSchema, TagEntrySchema } from "#schemas/exif";
+
+import {
+  MAX_INT32_VALUE,
+  MAX_UINT32_VALUE,
+} from "../../../../../../packages/core/src/exif/constants";
 
 const addFormSchema = z.strictObject({
   ifd: IfdSchema,

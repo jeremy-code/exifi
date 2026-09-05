@@ -1,4 +1,7 @@
-import type { UserComment, Encoding } from "#lib/exif/userComment/interfaces";
+import type {
+  UserComment,
+  Encoding,
+} from "@exifi/core/exif/userComment/interfaces";
 
 import { EnumSelect, type EnumSelectProps } from "./EnumSelect";
 

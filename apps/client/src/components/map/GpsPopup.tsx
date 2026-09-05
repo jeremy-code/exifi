@@ -5,9 +5,9 @@ import { Link, LocateFixed, MapPin } from "lucide-react";
 import { Popup } from "react-leaflet";
 
 import { useNominatimApiReverse } from "#hooks/useNominatimApiReverse";
-import { formatLatLng } from "#lib/leaflet/formatLatLng";
-import { formatLatLngAsGeoUri } from "#lib/leaflet/formatLatLngAsGeoUri";
-import { formatLatLngAsOsmUrl } from "#lib/leaflet/formatLatLngAsOsmUrl";
+import { formatLatLng } from "@exifi/core/leaflet/formatLatLng";
+import { formatLatLngAsGeoUri } from "@exifi/core/leaflet/formatLatLngAsGeoUri";
+import { formatLatLngAsOsmUrl } from "@exifi/core/leaflet/formatLatLngAsOsmUrl";
 import {
   HorizontalList,
   HorizontalListItem,

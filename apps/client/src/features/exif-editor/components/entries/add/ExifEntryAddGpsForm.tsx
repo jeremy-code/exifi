@@ -8,9 +8,9 @@ import { useShallow } from "zustand/react/shallow";
 
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
 import { addGpsEntriesFormOptions } from "#features/exif-editor/forms/addGpsEntriesForm";
-import { updateLatLng } from "#lib/exif/actions/updateLatLng";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
 import { getCurrentPosition } from "#utils/getCurrentPosition";
+import { updateLatLng } from "@exifi/core/exif/actions/updateLatLng";
 import { Button } from "@exifi/ui/components/Button";
 import { NumberField } from "@exifi/ui/components/NumberField";
 import { Spinner } from "@exifi/ui/components/Spinner";

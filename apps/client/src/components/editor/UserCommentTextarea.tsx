@@ -1,4 +1,4 @@
-import type { UserComment } from "#lib/exif/userComment/interfaces";
+import type { UserComment } from "@exifi/core/exif/userComment/interfaces";
 import {
   TextAreaField,
   type TextAreaFieldProps,

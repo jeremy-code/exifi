@@ -6,7 +6,6 @@ import { useLocale } from "react-aria/I18nProvider";
 import { cn } from "tailwind-variants";
 
 import { useObjectUrl } from "#hooks/useObjectUrl";
-import { DATA_TYPE_MAP } from "#lib/exif/constants";
 import { formatPlural } from "#utils/format/formatPlural";
 import {
   Card,
@@ -24,6 +23,7 @@ import { Link } from "@exifi/ui/components/Link";
 import { Skeleton } from "@exifi/ui/components/Skeleton";
 import { assertNever } from "@exifi/utils/assertNever";
 
+import { DATA_TYPE_MAP } from "../../../../../packages/core/src/exif/constants";
 import { ExifDateTimeInformation } from "./ExifDateTimeInformation";
 import { ImageDimensions } from "./ImageDimensions";
 

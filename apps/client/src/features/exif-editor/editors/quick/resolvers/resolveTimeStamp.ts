@@ -1,7 +1,7 @@
 import { exifFormatGetSize } from "libexif-wasm";
 
-import { formatExifTimeStamp } from "#lib/exif/date/timeStamp/formatExifTimeStamp";
-import { parseExifTimeStamp } from "#lib/exif/date/timeStamp/parseExifTimeStamp";
+import { formatExifTimeStamp } from "@exifi/core/exif/date/timeStamp/formatExifTimeStamp";
+import { parseExifTimeStamp } from "@exifi/core/exif/date/timeStamp/parseExifTimeStamp";
 
 import type { QuickEditorResolver } from "../types";
 

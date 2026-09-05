@@ -1,7 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import type { Ifd } from "libexif-wasm";
 
-import type { ExifEntryObject } from "#lib/exif/interfaces";
+import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 
 import { EditCell } from "./EditCell";
 import { IfdCell } from "./IfdCell";

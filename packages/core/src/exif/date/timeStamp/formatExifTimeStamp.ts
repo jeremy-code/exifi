@@ -1,8 +1,9 @@
 import type { Time } from "@internationalized/date";
 import { Decimal } from "decimal.js";
 
-import { MAX_UINT32_VALUE } from "#lib/exif/constants";
-import { approximateRational } from "#lib/math/approximateRational";
+import { approximateRational } from "@exifi/core/math/approximateRational";
+
+import { MAX_UINT32_VALUE } from "../../constants";
 
 const MILLISECONDS_IN_SECOND = 1000;
 

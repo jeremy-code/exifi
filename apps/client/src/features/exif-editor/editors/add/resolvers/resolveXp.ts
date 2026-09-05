@@ -1,6 +1,6 @@
-import { XP_TAGS } from "#lib/exif/xp/constants";
-import { formatXp } from "#lib/exif/xp/formatXp";
-import { parseXp } from "#lib/exif/xp/parseXp";
+import { XP_TAGS } from "@exifi/core/exif/xp/constants";
+import { formatXp } from "@exifi/core/exif/xp/formatXp";
+import { parseXp } from "@exifi/core/exif/xp/parseXp";
 
 import type { AddEditorResolver } from "../types";
 

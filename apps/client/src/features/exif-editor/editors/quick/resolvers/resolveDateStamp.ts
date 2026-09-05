@@ -1,6 +1,6 @@
-import { EXIF_DATESTAMP_REGEX } from "#lib/exif/date/constants";
-import { formatExifDateStamp } from "#lib/exif/date/dateStamp/formatExifDateStamp";
-import { parseExifDateStamp } from "#lib/exif/date/dateStamp/parseExifDateStamp";
+import { EXIF_DATESTAMP_REGEX } from "@exifi/core/exif/date/constants";
+import { formatExifDateStamp } from "@exifi/core/exif/date/dateStamp/formatExifDateStamp";
+import { parseExifDateStamp } from "@exifi/core/exif/date/dateStamp/parseExifDateStamp";
 
 import type { QuickEditorResolver } from "../types";
 
