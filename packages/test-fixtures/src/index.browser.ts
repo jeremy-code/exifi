@@ -1,15 +1,37 @@
 import type { Fixture } from "./interfaces";
 
 // The keys are the resolved globs and the values are promises that resolve to
-// strings beginning with `/@fs/` followed by the absolute URL of the files on
-// the system
-const FIXTURES = import.meta.glob(["../fixtures/*/*"], {
+// strings beginning with `/@fs/` and followed by the absolute URL of the files
+// on the system
+const FIXTURES = import.meta.glob("../fixtures/*/*", {
   import: "default",
   query: "?url",
 });
 
-const fetchFile = (fileUrl: string) =>
-  fetch(new URL(fileUrl, new URL(import.meta.url).origin));
+const fetchFile = async (fileUrl: string): Promise<string> => {
+  console.log(new URL(import.meta.url).origin);
+  const response = await fetch(
+    new URL(
+      fileUrl,
+      // http://localhost:63315 (Vitest browser dev server)
+      new URL(import.meta.url).origin,
+    ),
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `An error occurred while attempting to fetch file: ${fileUrl}`,
+      { cause: new Error(response.statusText) },
+    );
+  }
+
+  return fileUrl.endsWith(".json")
+    ? response.text()
+    : // Response.bytes() by default is `Uint8Array<ArrayBufferLike>`. By
+      // converting it to Base64, the output is always `string` and we are
+      // guaranteed to receive a `Uint8Array<ArrayBuffer>`
+      (await response.bytes()).toBase64();
+};
 
 const getFixture = async (fixtureName: string): Promise<Fixture> => {
   const fixtureUrls = await Promise.all(
@@ -42,18 +64,14 @@ const getFixture = async (fixtureName: string): Promise<Fixture> => {
   }
 
   const [image, json, exifBytes] = await Promise.all([
-    fetchFile(imageUrl).then(
-      async (res) => new Uint8Array(await res.arrayBuffer()),
-    ),
+    fetchFile(imageUrl).then((file) => Uint8Array.fromBase64(file)),
     jsonUrl !== undefined
       ? fetchFile(jsonUrl).then(
-          (res) => res.json() as Promise<Record<PropertyKey, unknown>>,
+          (file) => JSON.parse(file) as Record<PropertyKey, unknown>,
         )
       : undefined,
     exifUrl !== undefined
-      ? fetchFile(exifUrl).then(
-          async (res) => new Uint8Array(await res.arrayBuffer()),
-        )
+      ? fetchFile(exifUrl).then((file) => Uint8Array.fromBase64(file))
       : undefined,
   ]);
 
