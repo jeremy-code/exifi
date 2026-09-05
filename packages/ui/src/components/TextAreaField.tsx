@@ -4,6 +4,8 @@ import {
 } from "react-aria-components/TextField";
 import { tv } from "tailwind-variants";
 
+import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
+import { focusRing } from "../utils/focusRing";
 import {
   Description,
   FieldError,
@@ -12,8 +14,6 @@ import {
   fieldBorderVariants,
   type FieldErrorMessage,
 } from "./form";
-import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
-import { focusRing } from "../utils/focusRing";
 
 const textAreaVariants = tv({
   extend: focusRing,

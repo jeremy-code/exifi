@@ -2,8 +2,8 @@ import { useMemo, useState } from "react";
 
 import { Decimal } from "decimal.js";
 import type { RationalObject } from "libexif-wasm";
-import { useNumberFormatter } from "react-aria/useNumberFormatter";
 import { Group } from "react-aria-components/Group";
+import { useNumberFormatter } from "react-aria/useNumberFormatter";
 
 import { approximateRational } from "#lib/math/approximateRational";
 import {

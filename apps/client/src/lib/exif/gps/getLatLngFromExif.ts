@@ -1,8 +1,8 @@
 import { LatLng } from "leaflet";
 import { type ExifContent } from "libexif-wasm";
 
-import { parseCoordinateEntry } from "./parseCoordinateEntry";
 import { getRequiredEntry } from "../utils/getRequiredEntry";
+import { parseCoordinateEntry } from "./parseCoordinateEntry";
 
 const getLatLngFromExif = (exifDataGpsIfd: ExifContent): LatLng => {
   const latitude = parseCoordinateEntry(

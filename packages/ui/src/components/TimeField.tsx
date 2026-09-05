@@ -4,9 +4,9 @@ import {
   type TimeValue,
 } from "react-aria-components/TimeField";
 
+import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 import { DateInput } from "./DateInput";
 import { Description, FieldError, Label, type FieldErrorMessage } from "./form";
-import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 
 type TimeFieldProps<T extends TimeValue> = {
   label?: string;

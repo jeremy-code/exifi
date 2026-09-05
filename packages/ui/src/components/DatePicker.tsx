@@ -5,6 +5,7 @@ import {
   type DateValue,
 } from "react-aria-components/DatePicker";
 
+import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 import { Calendar } from "./Calendar";
 import { DateInput } from "./DateInput";
 import { FieldButton } from "./FieldButton";
@@ -16,7 +17,6 @@ import {
   Label,
   type FieldErrorMessage,
 } from "./form";
-import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 
 type DatePickerProps<T extends DateValue> = {
   label?: string;

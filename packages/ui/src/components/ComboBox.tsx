@@ -8,6 +8,7 @@ import {
   ListBox,
 } from "react-aria-components/ComboBox";
 
+import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 import { FieldButton } from "./FieldButton";
 import {
   ListBoxItem as ComboBoxItem,
@@ -25,7 +26,6 @@ import {
   Label,
   type FieldErrorMessage,
 } from "./form";
-import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 
 type SelectionMode = "single" | "multiple";
 

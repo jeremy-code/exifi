@@ -21,9 +21,9 @@ import {
 import { composeRenderProps } from "react-aria-components/composeRenderProps";
 import { cn } from "tailwind-variants";
 
+import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 import { listBoxItemVariants } from "./ListBox";
 import { Popover, type PopoverProps } from "./Popover";
-import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 
 const Menu = <T extends object>(props: MenuProps<T>) => {
   return (

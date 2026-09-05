@@ -6,14 +6,14 @@ import {
   exifSupportLevelGetName,
 } from "libexif-wasm";
 import { ChevronDown } from "lucide-react";
-import { useLocale } from "react-aria/I18nProvider";
-import { useNumberFormatter } from "react-aria/useNumberFormatter";
 import {
   Disclosure,
   type DisclosureProps,
   DisclosurePanel,
   Heading,
 } from "react-aria-components/Disclosure";
+import { useLocale } from "react-aria/I18nProvider";
+import { useNumberFormatter } from "react-aria/useNumberFormatter";
 
 import type { ExifEntryObject } from "#lib/exif/interfaces";
 import { getEntryObjectLabel } from "#lib/exif/utils/getEntryObjectLabel";

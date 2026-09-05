@@ -5,11 +5,11 @@ import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 import { approximateRational } from "#lib/math/approximateRational";
 import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
-import { updateLatLng } from "./updateLatLng";
 import { MAX_UINT32_VALUE } from "../constants";
 import { formatExifDateStamp } from "../date/dateStamp/formatExifDateStamp";
 import { formatExifTimeStamp } from "../date/timeStamp/formatExifTimeStamp";
 import { getOrInsertEntry } from "../utils/getOrInsertEntry";
+import { updateLatLng } from "./updateLatLng";
 
 const SECONDS_IN_HOUR = 3600;
 const METERS_IN_KILOMETERS = 1000;

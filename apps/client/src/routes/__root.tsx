@@ -2,7 +2,6 @@
 import "../leaflet.css";
 import "temporal-spec/global";
 import "temporal-polyfill/global";
-
 import type { ReactNode } from "react";
 
 import {

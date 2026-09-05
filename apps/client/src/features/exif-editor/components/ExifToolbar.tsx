@@ -10,10 +10,10 @@ import { writeExifData } from "@exifi/exif-utils";
 import { Button } from "@exifi/ui/components/Button";
 import { Toolbar, type ToolbarProps } from "@exifi/ui/components/Toolbar";
 
+import { useExifEditor } from "../contexts/ExifEditorContext";
 import { ExifMenu } from "./ExifMenu";
 import { AddEntryDialog } from "./dialogs/AddEntryDialog";
 import { AddGpsEntriesDialog } from "./dialogs/AddGpsEntriesDialog";
-import { useExifEditor } from "../contexts/ExifEditorContext";
 import { DiffDialog } from "./dialogs/DiffDialog";
 
 type ExifToolbarProps = Omit<ToolbarProps, "children">;

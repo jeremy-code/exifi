@@ -4,9 +4,9 @@ import {
   type DateValue,
 } from "react-aria-components/DateField";
 
+import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 import { DateInput } from "./DateInput";
 import { Description, FieldError, Label, type FieldErrorMessage } from "./form";
-import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 
 type DateFieldProps<T extends DateValue> = {
   label?: string;

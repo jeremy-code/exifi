@@ -11,6 +11,8 @@ import {
 } from "react-aria-components/Select";
 import { cn, tv } from "tailwind-variants";
 
+import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
+import { focusRing } from "../utils/focusRing";
 import {
   ListBoxItem as SelectItem,
   ListBoxSection as SelectSection,
@@ -18,8 +20,6 @@ import {
 } from "./ListBox";
 import { Popover } from "./Popover";
 import { Description, FieldError, Label } from "./form";
-import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
-import { focusRing } from "../utils/focusRing";
 
 const selectVariants = tv({
   extend: focusRing,

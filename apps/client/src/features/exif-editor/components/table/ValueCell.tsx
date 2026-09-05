@@ -12,8 +12,8 @@ import { TextField } from "@exifi/ui/components/TextField";
 import { TimeField } from "@exifi/ui/components/TimeField";
 import { assertNever } from "@exifi/utils/assertNever";
 
-import type { ExifTableRow } from "./columns";
 import { getExifQuickEditor } from "../../editors/quick/getExifQuickEditor";
+import type { ExifTableRow } from "./columns";
 
 type ValueCellProps = CellContext<
   ExifTableRow,

@@ -7,6 +7,7 @@ import {
 } from "react-aria-components/NumberField";
 import { cn, type VariantProps } from "tailwind-variants";
 
+import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 import {
   FieldError,
   FieldGroup,
@@ -17,7 +18,6 @@ import {
   type FieldErrorMessage,
   type inputVariants,
 } from "./form";
-import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 
 const StepperButton = ({ className, ...props }: StepperButtonProps) => {
   return (

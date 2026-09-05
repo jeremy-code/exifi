@@ -6,8 +6,8 @@ import { IFD_NAMES } from "libexif-wasm";
 
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
 
-import type { ExifTableRow } from "./columns";
 import { DeleteEntriesDialog } from "../dialogs/DeleteEntriesDialog";
+import type { ExifTableRow } from "./columns";
 
 const SelectionBar = ({
   rowSelection,

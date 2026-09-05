@@ -5,6 +5,8 @@ import {
 import { composeRenderProps } from "react-aria-components/composeRenderProps";
 import { tv, type VariantProps } from "tailwind-variants";
 
+import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
+import { focusRing } from "../utils/focusRing";
 import {
   Description,
   FieldError,
@@ -15,8 +17,6 @@ import {
   type FieldErrorMessage,
   type InputProps,
 } from "./form";
-import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
-import { focusRing } from "../utils/focusRing";
 
 const inputVariants = tv({
   extend: focusRing,

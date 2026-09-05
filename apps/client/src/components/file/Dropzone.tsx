@@ -1,8 +1,8 @@
 import type { ComponentPropsWithRef, RefObject } from "react";
 
 import { Clapperboard, File, FileUp, Image, Music, X } from "lucide-react";
-import { useLocale } from "react-aria/I18nProvider";
 import { Button as AriaButton } from "react-aria-components/Button";
+import { useLocale } from "react-aria/I18nProvider";
 import {
   useDropzone,
   type DropzoneInputProps,

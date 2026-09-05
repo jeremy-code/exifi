@@ -9,8 +9,8 @@ import {
   type RowSelectionState,
 } from "@tanstack/react-table";
 import type { Ifd } from "libexif-wasm";
-import { useLocale } from "react-aria/I18nProvider";
 import { Button as AriaButton } from "react-aria-components/Button";
+import { useLocale } from "react-aria/I18nProvider";
 import { useShallow } from "zustand/react/shallow";
 
 import { ColumnResizer } from "#components/table/ColumnResizer";
@@ -30,10 +30,10 @@ import {
   type TableProps,
 } from "@exifi/ui/components/Table";
 
-import { SelectionBar } from "./table/SelectionBar";
-import { columns } from "./table/columns";
 import { useExifEditor } from "../contexts/ExifEditorContext";
 import type { ExifEditorStoreActions } from "../stores/exifEditorStore";
+import { SelectionBar } from "./table/SelectionBar";
+import { columns } from "./table/columns";
 
 declare module "@tanstack/react-table" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars -- All declarations of 'TableMeta' must have identical type parameters.
