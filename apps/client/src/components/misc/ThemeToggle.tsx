@@ -1,9 +1,9 @@
+import { useHydrated } from "@tanstack/react-router";
 import { Moon, RefreshCw, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { composeRenderProps } from "react-aria-components/composeRenderProps";
 import { cn } from "tailwind-variants";
 
-import { useIsMounted } from "#hooks/useIsMounted";
 import {
   SwitchTrack,
   SwitchHandle,
@@ -20,11 +20,11 @@ const ThemeToggle = ({
 }: ThemeToggleProps) => {
   // Prevent hydration error and layout shift as theme must be resolved from
   // `localStorage`
-  const isMounted = useIsMounted();
+  const isHydrated = useHydrated();
   const { setTheme, resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
-  const [ThemeIcon, themeIconLabel] = isMounted
+  const [ThemeIcon, themeIconLabel] = isHydrated
     ? isDark
       ? [Moon, "Switch to light theme"]
       : [Sun, "Switch to dark theme"]
@@ -33,13 +33,13 @@ const ThemeToggle = ({
   return (
     <SwitchRoot
       // Light mode or not mounted = unchecked, Dark mode = checked
-      isSelected={isMounted && isDark}
+      isSelected={isHydrated && isDark}
       onChange={(isSelected) => {
-        if (isMounted) {
+        if (isHydrated) {
           setTheme(isSelected ? "dark" : "light");
         }
       }}
-      isDisabled={!isMounted}
+      isDisabled={!isHydrated}
       aria-label={themeIconLabel}
       {...props}
     >
@@ -55,7 +55,7 @@ const ThemeToggle = ({
           >
             <SwitchHandle className="bg-bg text-gray-600 dark:text-gray-50">
               <ThemeIcon
-                className={cn("size-4", { "animate-spin": !isMounted })}
+                className={cn("size-4", { "animate-spin": !isHydrated })}
                 aria-hidden
               />
             </SwitchHandle>
