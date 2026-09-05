@@ -23,6 +23,8 @@ const viteConfig = defineConfig({
       // https://github.com/TanStack/router/discussions/3394#discussioncomment-16523892
       prerender: {
         enabled: true,
+        // Not sure why, but it attempts to prerender a route with a query parameter
+        filter: ({ path }) => !path.includes("?url="),
         crawlLinks: true,
       },
       sitemap: {
