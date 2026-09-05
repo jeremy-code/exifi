@@ -1,7 +1,7 @@
 import type { CellContext } from "@tanstack/react-table";
 import { ExifTagInfo } from "libexif-wasm";
 
-import { getEntryObjectLabel } from "#lib/exif/utils/getEntryObjectLabel";
+import { getEntryObjectLabel } from "@exifi/core/exif/utils/getEntryObjectLabel";
 import {
   Tooltip,
   TooltipTrigger,

@@ -1,3 +1,8 @@
+import {
+  mapRationalFromObject,
+  mapRationalToObject,
+  type RationalObject,
+} from "libexif-wasm";
 import { Minus, Plus } from "lucide-react";
 import {
   Disclosure,
@@ -7,10 +12,12 @@ import {
 } from "react-aria-components/Disclosure";
 
 import { useExifEntryDraftContext } from "#features/exif-editor/contexts/ExifEntryDraftContext";
-import { EXIF_TAG_MAP } from "#lib/exif/exifTagMap";
-import { XP_TAGS } from "#lib/exif/xp/constants";
+import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
+import { XP_TAGS } from "@exifi/core/exif/xp/constants";
 import { Button } from "@exifi/ui/components/Button";
 import { NumberField } from "@exifi/ui/components/NumberField";
+import { decodeStringFromUtf8 } from "@exifi/utils/decodeStringFromUtf8";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 type ExifEntryEditorProps = DisclosureProps;
 
@@ -21,13 +28,26 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
     exifEntryObject.format === "RATIONAL" ||
     exifEntryObject.format === "SRATIONAL";
 
+  const isAscii = exifEntryObject.format === "ASCII";
+
   if (
     isRationalOrSRational ||
-    exifEntryObject.format === "ASCII" ||
+    isAscii ||
     (exifEntryObject.format === "BYTE" &&
       XP_TAGS.includes(exifEntryObject.tag)) ||
     exifEntryObject.tag === "USER_COMMENT"
   ) {
+    const numberArray = isRationalOrSRational
+      ? Array.from(
+          mapRationalFromObject(
+            draft as RationalObject[],
+            exifEntryObject.format,
+          ),
+        )
+      : isAscii
+        ? Array.from(encodeStringToUtf8(draft as string))
+        : (draft as number[]);
+
     return (
       <Disclosure {...props}>
         <Heading>
@@ -46,13 +66,24 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
         </Heading>
         <DisclosurePanel className="mt-4">
           <div className="grid grid-cols-[repeat(auto-fit,minmax(--spacing(20),1fr))] gap-2">
-            {draft.map((value, index) => (
+            {numberArray.map((value, index) => (
               <NumberField
                 key={index}
                 value={value}
-                onChange={(newValue) =>
-                  setDraft((prevValue) => prevValue.with(index, newValue))
-                }
+                onChange={(newValue) => {
+                  const newNumberArray = numberArray.with(index, newValue);
+                  const newEntryValue = isAscii
+                    ? decodeStringFromUtf8(new Uint8Array(newNumberArray))
+                    : isRationalOrSRational
+                      ? mapRationalToObject(
+                          exifEntryObject.format === "SRATIONAL"
+                            ? new Int32Array(newNumberArray)
+                            : new Uint32Array(newNumberArray),
+                        )
+                      : newNumberArray;
+
+                  setDraft(newEntryValue);
+                }}
                 aria-label={`${exifEntryObject.tag} component ${index + 1}`}
               />
             ))}
@@ -62,11 +93,7 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
               exifEntryObject.format !== "ASCII" && (
                 <Button
                   size="icon"
-                  onPress={() =>
-                    setDraft((prev) =>
-                      prev.slice(0, isRationalOrSRational ? -2 : -1),
-                    )
-                  }
+                  onPress={() => setDraft((prev) => prev.slice(0, -1))}
                   aria-label="Remove component"
                 >
                   <Minus size={16} />
@@ -74,20 +101,26 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
               )}
             {exifEntryObject.components <
               (EXIF_TAG_MAP[exifEntryObject.tag]?.maxNumberOfComponents ??
-                Infinity) &&
-              exifEntryObject.format !== "ASCII" && (
-                <Button
-                  size="icon"
-                  onPress={() => {
-                    setDraft((prev) =>
-                      prev.concat(isRationalOrSRational ? [0, 1] : [0]),
-                    );
-                  }}
-                  aria-label="Add component"
-                >
-                  <Plus size={16} />
-                </Button>
-              )}
+                Infinity) && (
+              <Button
+                size="icon"
+                onPress={() => {
+                  setDraft((prev) => {
+                    if (isAscii) {
+                      return (prev as string) + "\u0000";
+                    } else if (isRationalOrSRational) {
+                      return (prev as RationalObject[]).concat([
+                        { numerator: 0, denominator: 1 },
+                      ]);
+                    }
+                    return (prev as number[]).concat([0]);
+                  });
+                }}
+                aria-label="Add component"
+              >
+                <Plus size={16} />
+              </Button>
+            )}
           </div>
         </DisclosurePanel>
       </Disclosure>

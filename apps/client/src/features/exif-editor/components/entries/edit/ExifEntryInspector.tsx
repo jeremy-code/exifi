@@ -4,8 +4,8 @@ import { cn } from "tailwind-variants";
 
 import { ExifEntryDraftContext } from "#features/exif-editor/contexts/ExifEntryDraftContext";
 import { useExifEntryDraft } from "#features/exif-editor/hooks/useExifEntryDraft";
-import type { ExifEntryObject } from "#lib/exif/interfaces";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
+import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { Button } from "@exifi/ui/components/Button";
 
 import { ExifEntryByteEditor } from "./ExifEntryByteEditor";
@@ -40,7 +40,9 @@ const ExifEntryInspector = ({
           {"Expected change: "}
           {isChanged ? (
             <ExifEntryValidity
-              exifEntryObject={{ ...exifEntryObject, value: draft }}
+              exifEntryObject={
+                { ...exifEntryObject, value: draft } as ExifEntryObject
+              }
             />
           ) : (
             <span className="text-fg-muted italic">no changes</span>

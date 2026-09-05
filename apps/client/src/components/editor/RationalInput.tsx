@@ -5,7 +5,7 @@ import type { RationalObject } from "libexif-wasm";
 import { Group } from "react-aria-components/Group";
 import { useNumberFormatter } from "react-aria/useNumberFormatter";
 
-import { approximateRational } from "#lib/math/approximateRational";
+import { approximateRational } from "@exifi/core/math/approximateRational";
 import {
   NumberField,
   type NumberFieldProps,

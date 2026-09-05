@@ -1,7 +1,13 @@
 import type { ComponentPropsWithRef } from "react";
 
 import { useForm } from "@tanstack/react-form";
-import { ExifFormat, exifIfdGetName, getExifTagTable } from "libexif-wasm";
+import {
+  ExifFormat,
+  exifIfdGetName,
+  getExifTagTable,
+  mapRationalFromObject,
+  mapRationalToObject,
+} from "libexif-wasm";
 import { IFD_NAMES } from "libexif-wasm/constants";
 
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
@@ -10,14 +16,21 @@ import {
   addFormSchema,
   type AddFieldValues,
 } from "#features/exif-editor/forms/addEntryForm";
-import { GEOLOCATION_TAGS, SUPPORT_LEVEL_MAP } from "#lib/exif/constants";
-import { EXIF_TAG_MAP } from "#lib/exif/exifTagMap";
+import { FormatSchema } from "#schemas/exif";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
+import {
+  GEOLOCATION_TAGS,
+  SUPPORT_LEVEL_MAP,
+} from "@exifi/core/exif/constants";
+import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
+import { typedArrayInFormat } from "@exifi/core/exif/utils/typedArrayInFormat";
 import { Button } from "@exifi/ui/components/Button";
 import { Callout, CalloutText } from "@exifi/ui/components/Callout";
 import { ComboBox, ComboBoxItem } from "@exifi/ui/components/ComboBox";
 import { Select, SelectItem } from "@exifi/ui/components/Select";
 import { Spinner } from "@exifi/ui/components/Spinner";
+import { decodeStringFromUtf8 } from "@exifi/utils/decodeStringFromUtf8";
+import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
 import { ExifEntryAddEditor } from "./ExifEntryAddEditor";
 
@@ -152,16 +165,55 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
                 value={field.state.value}
                 placeholder="Select a format"
                 onChange={(value) => {
-                  if (
-                    (value === "RATIONAL" || value === "SRATIONAL") &&
-                    addForm.state.values.value.length % 2 !== 0
-                  ) {
-                    addForm.setFieldValue(
-                      "value",
-                      addForm.state.values.value.concat([1]),
-                    );
+                  const currFormValues = addForm.state.values;
+
+                  if (value === currFormValues.format) {
+                    return field.handleChange(value);
                   }
-                  field.handleChange(value as AddFieldValues["format"]);
+
+                  const result = FormatSchema.safeParse(value);
+                  if (!result.success) {
+                    return field.handleChange("UNDEFINED");
+                  }
+
+                  const typedArray =
+                    currFormValues.format === "ASCII" ||
+                    currFormValues.format === undefined
+                      ? encodeStringToUtf8(currFormValues.value)
+                      : currFormValues.format === "RATIONAL" ||
+                          currFormValues.format === "SRATIONAL"
+                        ? mapRationalFromObject(
+                            currFormValues.value,
+                            currFormValues.format,
+                          )
+                        : typedArrayInFormat(
+                            currFormValues.value as number[],
+                            currFormValues.format,
+                          );
+
+                  try {
+                    if (value === "ASCII") {
+                      addForm.setFieldValue(
+                        "value",
+                        decodeStringFromUtf8(typedArray),
+                      );
+                    } else if (value === "RATIONAL" || value === "SRATIONAL") {
+                      addForm.setFieldValue(
+                        "value",
+                        mapRationalToObject(typedArray),
+                      );
+                    } else {
+                      addForm.setFieldValue(
+                        "value",
+                        Array.from(typedArrayInFormat(typedArray, result.data)),
+                      );
+                    }
+                  } catch (e) {
+                    console.error(e);
+                    addForm.setFieldValue("value", value === "ASCII" ? "" : []);
+                  }
+
+                  field.handleChange(result.data);
                 }}
                 onBlur={field.handleBlur}
                 isRequired
@@ -188,23 +240,15 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
               </Select>
             )}
           </addForm.Field>
-          <addForm.Subscribe
-            selector={(state) => ({
-              tag: state.values.tagEntry?.tag,
-              format: state.values.format,
-              ifd: state.values.ifd,
-            })}
-          >
-            {({ tag, format, ifd }) => (
-              <addForm.Field key={`${tag}-${format}-${ifd}`} name="value">
+          <addForm.Subscribe selector={(state) => state.values}>
+            {(value) => (
+              <addForm.Field
+                key={`${value.tagEntry?.tag}-${value.format}-${value.ifd}`}
+                name="value"
+              >
                 {(field) => (
                   <ExifEntryAddEditor
-                    exifEntryObject={{
-                      tag,
-                      format,
-                      ifd,
-                      value: field.state.value,
-                    }}
+                    exifEntryObject={{ ...value, tag: value.tagEntry?.tag }}
                     onValueChange={field.handleChange}
                   />
                 )}

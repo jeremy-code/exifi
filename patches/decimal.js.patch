@@ -1,0 +1,13 @@
+diff --git a/decimal.d.ts b/decimal.d.ts
+index e0db32efd9cadae2de5869fee23e63d1de463e6c..3bd3e4e1e3cee5efe9201b00ef1451f48e96c61b 100644
+--- a/decimal.d.ts
++++ b/decimal.d.ts
+@@ -196,7 +196,7 @@ export declare class Decimal {
+   toFixed(decimalPlaces?: number): string;
+   toFixed(decimalPlaces: number, rounding: Decimal.Rounding): string;
+ 
+-  toFraction(max_denominator?: Decimal.Value): Decimal[];
++  toFraction(max_denominator?: Decimal.Value): [numerator: Decimal, denominator: Decimal];
+ 
+   toHexadecimal(significantDigits?: number): string;
+   toHexadecimal(significantDigits: number, rounding: Decimal.Rounding): string;

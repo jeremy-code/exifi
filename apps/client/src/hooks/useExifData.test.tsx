@@ -3,7 +3,7 @@ import { describe, expect, test as baseTest } from "vitest";
 import { renderHook } from "vitest-browser-react";
 
 import { AppProvider } from "#components/misc/AppProvider";
-import { serializeExifData } from "#lib/exif/serializeExifData";
+import { serializeExifData } from "@exifi/core/exif/utils/serializeExifData";
 import { getFixture } from "@exifi/test-fixtures";
 import { concatUint8Arrays } from "@exifi/utils/concatUint8Arrays";
 

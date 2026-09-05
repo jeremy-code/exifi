@@ -2,10 +2,13 @@ import { formOptions } from "@tanstack/react-form";
 import type { Tag } from "libexif-wasm";
 import { z } from "zod";
 
-import { MAX_UINT32_VALUE } from "#lib/exif/constants";
-import { parseCoordinateEntry } from "#lib/exif/gps/parseCoordinateEntry";
-import type { ExifDataObject, ExifEntryObject } from "#lib/exif/interfaces";
 import { Latitude, Longitude } from "#schemas/common";
+import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
+import { parseCoordinateEntry } from "@exifi/core/exif/gps/parseCoordinateEntry";
+import type {
+  ExifDataObject,
+  ExifEntryObject,
+} from "@exifi/core/exif/interfaces";
 
 const gpsFormSchema = z.strictObject({
   latitude: Latitude,
@@ -24,23 +27,44 @@ const getInitialGpsFieldValues = (
     acc[prevValue.tag] = prevValue;
     return acc;
   }, {});
+
+  if (
+    gpsEntries.LONGITUDE?.format !== "RATIONAL" ||
+    gpsEntries.LONGITUDE_REF?.format !== "ASCII" ||
+    gpsEntries.LATITUDE?.format !== "RATIONAL" ||
+    gpsEntries.LATITUDE_REF?.format !== "ASCII"
+  ) {
+    throw new Error("Longitude or Latitude is in an invalid format");
+  }
+
   const longitude =
     parseCoordinateEntry(
-      gpsEntries.LONGITUDE?.value ?? [],
-      gpsEntries.LONGITUDE_REF?.formattedValue ?? "",
+      gpsEntries.LONGITUDE.value,
+      gpsEntries.LONGITUDE_REF.value,
     ) ?? undefined;
   const latitude =
     parseCoordinateEntry(
-      gpsEntries.LATITUDE?.value ?? [],
-      gpsEntries.LATITUDE_REF?.formattedValue ?? "",
-    ) ?? undefined;
-  const altitude =
-    parseCoordinateEntry(
-      gpsEntries.ALTITUDE?.value ?? [],
-      gpsEntries.ALTITUDE_REF?.formattedValue ?? "",
+      gpsEntries.LATITUDE.value,
+      gpsEntries.LATITUDE_REF.value,
     ) ?? undefined;
 
-  return { longitude, latitude, altitude };
+  if (gpsEntries.ALTITUDE !== undefined) {
+    if (
+      gpsEntries.ALTITUDE?.format !== "RATIONAL" ||
+      gpsEntries.ALTITUDE_REF?.format !== "BYTE"
+    ) {
+      throw new Error("Altitude is in an invalid format");
+    }
+    const altitude =
+      parseCoordinateEntry(
+        gpsEntries.ALTITUDE.value,
+        gpsEntries.ALTITUDE_REF.formattedValue ?? "",
+      ) ?? undefined;
+
+    return { longitude, latitude, altitude };
+  }
+
+  return { longitude, latitude, altitude: undefined };
 };
 
 const addGpsEntriesFormOptions = (exifDataObject: ExifDataObject) => {

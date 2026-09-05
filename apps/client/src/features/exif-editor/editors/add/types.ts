@@ -5,12 +5,17 @@ import type {
 } from "@internationalized/date";
 import type { RationalObject } from "libexif-wasm";
 
-import type { ExifEntryObject, ExifVersion } from "#lib/exif/interfaces";
-import type { UserComment } from "#lib/exif/userComment/interfaces";
+import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
+import type { UserComment } from "@exifi/core/exif/userComment/interfaces";
+
+type ExifVersion = {
+  major: number;
+  minor: number;
+};
 
 type AddEditorResolver = (
   entry: Partial<ExifEntryObject> & Pick<ExifEntryObject, "value">,
-  onValueChange: (value: number[]) => void,
+  onValueChange: (value: ExifEntryObject["value"]) => void,
 ) => AddEditor | null;
 
 type ResolvedAddEditor<T> = {

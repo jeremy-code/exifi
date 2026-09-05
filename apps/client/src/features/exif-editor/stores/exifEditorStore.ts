@@ -1,15 +1,23 @@
 import { dequal } from "dequal";
-import { ExifIfd, type ExifData, type ValidTypedArray } from "libexif-wasm";
+import {
+  ExifIfd,
+  mapRationalFromObject,
+  type ExifData,
+  type RationalObject,
+  type ValidTypedArray,
+} from "libexif-wasm";
 import { create } from "zustand";
 
+import type {
+  ExifDataObject,
+  ExifEntryObject,
+} from "@exifi/core/exif/interfaces";
 import {
-  type ExifDataObject,
-  type ExifEntryObject,
-} from "#lib/exif/interfaces";
-import { serializeExifData } from "#lib/exif/serializeExifData";
-import { getEntryFromEntryObject } from "#lib/exif/utils/getEntryFromEntryObject";
-import { getOrInsertEntry } from "#lib/exif/utils/getOrInsertEntry";
-import { typedArrayInFormat } from "#lib/exif/utils/typedArrayInFormat";
+  serializeExifData,
+  getEntryFromEntryObject,
+  getOrInsertEntry,
+  typedArrayInFormat,
+} from "@exifi/core/exif/utils";
 import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 import { isTypedArray } from "@exifi/utils/isTypedArray";
 
@@ -24,13 +32,13 @@ type ExifEditorStoreActions = {
   updateExifDataObject: () => void;
   updateExifEntry: (
     exifEntryObject: ExifEntryObject,
-    value: string | ValidTypedArray,
+    value: ValidTypedArray | ExifEntryObject["value"],
   ) => void;
   removeExifEntries: (exifEntryObjects: ExifEntryObject[]) => void;
   addExifEntry: (
     exifEntryObject: Partial<ExifEntryObject> &
       Pick<ExifEntryObject, "ifd" | "tag" | "format">,
-    value: string | ValidTypedArray | number[],
+    value: ValidTypedArray | ExifEntryObject["value"],
   ) => void;
 };
 
@@ -67,7 +75,16 @@ const createExifEditorStore = (exifData: ExifData) =>
               ? encodeStringToUtf8(value)
               : isTypedArray(value)
                 ? value
-                : typedArrayInFormat(value, exifEntryObject.format);
+                : exifEntryObject.format === "RATIONAL" ||
+                    exifEntryObject.format === "SRATIONAL"
+                  ? mapRationalFromObject(
+                      value as RationalObject[],
+                      exifEntryObject.format,
+                    )
+                  : typedArrayInFormat(
+                      value as number[],
+                      exifEntryObject.format,
+                    );
 
           exifEntry.fromTypedArray(typedArray);
 
@@ -106,12 +123,27 @@ const createExifEditorStore = (exifData: ExifData) =>
           }
           const exifEntry = getOrInsertEntry(exifContent, exifEntryObject.tag);
           exifEntry.format = exifEntryObject.format;
-          const typedArray =
-            typeof value === "string"
-              ? encodeStringToUtf8(value)
-              : isTypedArray(value)
-                ? value
-                : typedArrayInFormat(value, exifEntryObject.format);
+          let typedArray: ValidTypedArray = new Uint8Array(0);
+          try {
+            typedArray =
+              typeof value === "string"
+                ? encodeStringToUtf8(value)
+                : isTypedArray(value)
+                  ? value
+                  : exifEntryObject.format === "RATIONAL" ||
+                      exifEntryObject.format === "SRATIONAL"
+                    ? mapRationalFromObject(
+                        value as RationalObject[],
+                        exifEntryObject.format,
+                      )
+                    : typedArrayInFormat(
+                        value as number[],
+                        exifEntryObject.format,
+                      );
+          } catch (e) {
+            console.error("An error occurred", e);
+          }
+
           exifEntry.fromTypedArray(typedArray);
 
           const exifDataObject = serializeExifData(state.exifData);

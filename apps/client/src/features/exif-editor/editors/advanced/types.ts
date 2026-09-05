@@ -1,11 +1,11 @@
 import type { RationalObject } from "libexif-wasm";
 
-import type { ExifEntryObject } from "#lib/exif/interfaces";
-import type { UserComment } from "#lib/exif/userComment/interfaces";
+import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
+import type { UserComment } from "@exifi/core/exif/userComment/interfaces";
 
 type AdvancedEditorResolver = (
   entry: ExifEntryObject,
-  onValueChange: (value: number[]) => void,
+  onValueChange: (value: ExifEntryObject["value"]) => void,
 ) => AdvancedEditor | null;
 
 type ResolvedAdvancedEditor<T> = {

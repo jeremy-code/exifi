@@ -30,3 +30,9 @@ allowBuilds:
 
 # Other Settings (https://pnpm.io/settings#other-settings)
 shellEmulator: true
+
+# Settings documented elsewhere (https://pnpm.io/settings#settings-documented-elsewhere)
+patchedDependencies:
+  # Only updating types. This PR has already been merged
+  # https://github.com/MikeMcl/decimal.js/pull/264
+  decimal.js: patches/decimal.js.patch

@@ -1,6 +1,6 @@
-import { XP_TAGS } from "#lib/exif/xp/constants";
-import { formatXp } from "#lib/exif/xp/formatXp";
-import { parseXp } from "#lib/exif/xp/parseXp";
+import { XP_TAGS } from "@exifi/core/exif/xp/constants";
+import { formatXp } from "@exifi/core/exif/xp/formatXp";
+import { parseXp } from "@exifi/core/exif/xp/parseXp";
 
 import type { AddEditorResolver } from "../types";
 
@@ -17,13 +17,8 @@ const resolveXp: AddEditorResolver = (exifEntryObject, onValueChange) => {
         exifEntryObject.value.length === 0
           ? undefined
           : parseXp(new Uint8Array(exifEntryObject.value)),
-      onValueChange: (value) => {
-        if (value === "") {
-          onValueChange([]);
-        }
-
-        return onValueChange(Array.from(formatXp(value)));
-      },
+      onValueChange: (value) =>
+        onValueChange(value === "" ? [] : Array.from(formatXp(value))),
     };
   }
 

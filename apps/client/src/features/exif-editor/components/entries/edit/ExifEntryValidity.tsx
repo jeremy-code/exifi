@@ -2,8 +2,8 @@ import type { ComponentPropsWithRef } from "react";
 
 import { cn } from "tailwind-variants";
 
-import type { ExifEntryObject } from "#lib/exif/interfaces";
-import { getValueFromEntryObject } from "#lib/exif/utils/getValueFromEntryObject";
+import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
+import { getValueFromEntryObject } from "@exifi/core/exif/utils/getValueFromEntryObject";
 
 type ExifEntryValidityProps = {
   exifEntryObject: ExifEntryObject;

@@ -1,39 +1,22 @@
-import type { AddEditorResolver } from "../types";
+import { formatExifVersion } from "@exifi/core/exif/exifVersion/formatExifVersion";
+import { parseExifVersion } from "@exifi/core/exif/exifVersion/parseExifVersion";
 
-const textEncoder = new TextEncoder();
-const textDecoder = new TextDecoder();
+import type { AddEditorResolver } from "../types";
 
 const resolveExifVersion: AddEditorResolver = (
   exifEntryObject,
   onValueChange,
 ) => {
-  if (exifEntryObject.tag === "EXIF_VERSION") {
-    const isEmpty = exifEntryObject.value.length === 0;
-
-    const exifVersionString = isEmpty
-      ? undefined
-      : textDecoder.decode(new Uint8Array(exifEntryObject.value));
-    // Everything seems to make sense except 0230 === 2.3?
-    const major = exifVersionString
-      ? parseInt(exifVersionString.slice(0, 2))
-      : undefined;
-    const minor = exifVersionString
-      ? parseInt(exifVersionString.slice(2))
-      : undefined;
-
+  if (
+    exifEntryObject.tag === "EXIF_VERSION" &&
+    exifEntryObject.format === "UNDEFINED"
+  ) {
     return {
       kind: "exifVersion",
       exifEntryObject,
-      value: major && minor ? { major, minor } : undefined,
+      value: parseExifVersion(exifEntryObject.value) ?? undefined,
       onValueChange: (value) =>
-        onValueChange(
-          Array.from(
-            textEncoder.encode(
-              value.major.toString().padStart(2, "0") +
-                value.minor.toString().padStart(2, "0"),
-            ),
-          ),
-        ),
+        onValueChange(Array.from(formatExifVersion(value))),
     };
   }
 

@@ -9,7 +9,6 @@ const FIXTURES = import.meta.glob("../fixtures/*/*", {
 });
 
 const fetchFile = async (fileUrl: string): Promise<string> => {
-  console.log(new URL(import.meta.url).origin);
   const response = await fetch(
     new URL(
       fileUrl,
