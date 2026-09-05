@@ -3,6 +3,7 @@ import { Suspense, useMemo, type ComponentPropsWithRef } from "react";
 import { imageDimensionsFromStream } from "image-dimensions";
 import { type ExifData } from "libexif-wasm";
 import { useLocale } from "react-aria/I18nProvider";
+import { cn } from "tailwind-variants";
 
 import { useObjectUrl } from "#hooks/useObjectUrl";
 import { DATA_TYPE_MAP } from "#lib/exif/constants";
@@ -61,7 +62,7 @@ const ExifInformation = ({
   const { locale } = useLocale();
 
   return (
-    <Card className="max-w-full min-w-0" {...props}>
+    <Card className={cn("max-w-full min-w-0", className)} {...props}>
       <CardHeader>
         <CardTitle>Exif information</CardTitle>
       </CardHeader>

@@ -123,7 +123,6 @@ type AccordionHeaderProps = {
 } & HeadingProps;
 
 const AccordionHeader = ({
-  className,
   buttonProps,
   children,
   ...props

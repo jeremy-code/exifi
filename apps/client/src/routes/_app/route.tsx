@@ -25,7 +25,7 @@ const AppLayoutComponent = () => {
   );
 
   useEffect(() => {
-    if (url !== undefined && isTabUpdatedRef.current === false) {
+    if (url !== undefined && isTabUpdatedRef.current) {
       const abortController = new AbortController();
 
       void fetch(url, { signal: abortController.signal })
@@ -49,7 +49,7 @@ const AppLayoutComponent = () => {
           // overwritten
           navigate({
             to: ".",
-            search: ({ url, ...prev }) => prev,
+            search: ({ url: _url, ...prev }) => prev,
           }),
         );
 

@@ -8,7 +8,7 @@
     "./*": "./src/*.js"
   },
   "scripts": {
-    "lint": "eslint .",
+    "lint": "oxlint .",
     "test": "vitest --run",
     "test:watch": "vitest"
   },

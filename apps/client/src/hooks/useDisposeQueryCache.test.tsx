@@ -5,7 +5,7 @@ import { renderHook } from "vitest-browser-react";
 import { useDisposeQueryCache } from "./useDisposeQueryCache";
 
 const createMockDisposable = () =>
-  ({ [Symbol.dispose]: vi.fn() }) satisfies Disposable;
+  ({ [Symbol.dispose]: vi.fn<() => void>() }) satisfies Disposable;
 
 describe("useDisposeQueryCache", () => {
   let queryClient: QueryClient;
@@ -93,7 +93,7 @@ describe("useDisposeQueryCache", () => {
       .mockImplementation(() => undefined);
 
     const disposable: Disposable = {
-      [Symbol.dispose]: vi.fn(() => {
+      [Symbol.dispose]: vi.fn<() => void>(() => {
         throw new Error("dispose failed");
       }),
     };
@@ -119,7 +119,7 @@ describe("useDisposeQueryCache", () => {
     const queryCache = queryClient.getQueryCache();
 
     const originalSubscribe = queryCache.subscribe.bind(queryCache);
-    const unsubscribeSpy = vi.fn();
+    const unsubscribeSpy = vi.fn<() => void>();
 
     vi.spyOn(queryCache, "subscribe").mockImplementation((listener) => {
       const unsubscribe = originalSubscribe(listener);

@@ -39,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Lint code with ESLint
+      - name: Lint code with Oxlint
         run: pnpm run lint
 
       - name: Check code formatting with Oxfmt

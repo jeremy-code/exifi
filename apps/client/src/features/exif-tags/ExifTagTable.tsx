@@ -30,7 +30,6 @@ const exifTagTable = getExifTagTable();
 
 const ExifTagTable = () => {
   const { locale } = useLocale();
-  // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Table does not have any alternative API
   const table = useReactTable({
     columns,
     columnResizeMode: "onChange",
@@ -51,8 +50,7 @@ const ExifTagTable = () => {
           acc[`--col-${header.column.id}-size`] = header.column.getSize();
           return acc;
         }, {}),
-    // eslint-disable-next-line react-compiler/react-compiler
-    // eslint-disable-next-line react-hooks/exhaustive-deps, @eslint-react/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
+    // oxlint-disable-next-line react-hooks/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
     [table.getState().columnSizingInfo, table.getState().columnSizing],
   );
   return (

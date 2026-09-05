@@ -8,7 +8,7 @@ import { navigationMenuTriggerVariants } from "@exifi/ui/components/NavigationMe
 
 import { NAVIGATION_ITEMS } from "./constants";
 
-const MobileNavButton = ({ className, ...props }: ButtonProps) => {
+const MobileNavButton = (props: ButtonProps) => {
   return (
     <Button variant="ghost" size="icon" {...props}>
       <svg

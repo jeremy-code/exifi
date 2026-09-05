@@ -7,7 +7,6 @@ import type { ExifTableRow } from "./columns";
 const SelectCell = ({ row }: CellContext<ExifTableRow, unknown>) => {
   // It seems that TanStack Table (which may be incompatible with React compiler)
   // does not place nice with React Aria Checkbox.
-  // eslint-disable-next-line react-compiler/react-compiler
   "use no memo";
 
   return (

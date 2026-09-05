@@ -18,7 +18,6 @@ const SortingHandlerToggle = <TData extends RowData, TValue>({
   className,
   ...props
 }: SortingHandlerToggle<TData, TValue>) => {
-  // eslint-disable-next-line react-compiler/react-compiler -- TanStack Table is not compatible with React compiler
   "use no memo";
 
   return (

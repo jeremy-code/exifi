@@ -5,7 +5,6 @@ import { Checkbox } from "@exifi/ui/components/Checkbox";
 import type { ExifTableRow } from "./columns";
 
 const SelectHeader = ({ table }: HeaderContext<ExifTableRow, unknown>) => {
-  // eslint-disable-next-line react-compiler/react-compiler
   "use no memo";
 
   return (

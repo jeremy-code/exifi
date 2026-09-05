@@ -16,7 +16,7 @@ const useExifData = (file: File) => {
     queryFn: async () => {
       try {
         return await ExifData.fromReadableStream(file.stream());
-      } catch (_) {
+      } catch {
         // Since rather than returning an empty ExifData, exifLoaderWrite errors
         // when there is no Exif data (even if it is a valid JPG), load ExifData
         // from buffer instead

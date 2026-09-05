@@ -27,7 +27,6 @@ const toastQueue = new ToastQueue<ToastInfo>({
   wrapUpdate(fn) {
     if ("startViewTransition" in document) {
       document.startViewTransition(() => {
-        // eslint-disable-next-line @eslint-react/dom-no-flush-sync -- Per https://developer.chrome.com/docs/web-platform/view-transitions/same-document#working_with_frameworks and Dan Abramov, this is correct for view transitions
         flushSync(fn);
       });
     } else {
@@ -138,7 +137,10 @@ const ToastRoot = ({ className, color, ...props }: ToastProps) => {
   return (
     <AriaToast
       {...props}
-      style={{ viewTransitionName: props.toast.key, ...props.style }}
+      style={composeRenderProps(props.style, (style) => ({
+        viewTransitionName: props.toast.key,
+        ...style,
+      }))}
       className={composeRenderProps(className, (className, renderProps) =>
         toastRootVariants({ className, color, ...renderProps }),
       )}

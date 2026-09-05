@@ -126,7 +126,6 @@ describe("Rational", () => {
 
     test("supports arithmetic via coercion", () => {
       // @ts-expect-error intentional coercion
-      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       expect(new Rational(1, 4) + new Rational(1, 4)).toBe(0.5);
     });
   });

@@ -52,11 +52,7 @@ type SelectProps<T extends object, M extends SelectionMode> = {
   listboxProps?: Omit<ListBoxProps<T>, "children">;
 } & Omit<AriaSelectProps<T, M>, "children">;
 
-const Select = <
-  // eslint-disable-next-line @typescript-eslint/no-empty-object-type -- Match `AriaSelectProps` type
-  T extends object = {},
-  M extends SelectionMode = "single",
->({
+const Select = <T extends object = {}, M extends SelectionMode = "single">({
   className,
   children,
   label,

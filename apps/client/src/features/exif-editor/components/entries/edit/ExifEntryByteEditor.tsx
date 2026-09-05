@@ -48,7 +48,6 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
           <div className="grid grid-cols-[repeat(auto-fit,minmax(--spacing(20),1fr))] gap-2">
             {draft.map((value, index) => (
               <NumberField
-                // eslint-disable-next-line @eslint-react/no-array-index-key -- Index is only reasonable key
                 key={index}
                 value={value}
                 onChange={(newValue) =>

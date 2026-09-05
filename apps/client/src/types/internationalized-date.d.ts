@@ -1,3 +1,4 @@
+// oxlint-disable-next-line import/no-unassigned-import
 import "@internationalized/date";
 
 declare module "@internationalized/date" {

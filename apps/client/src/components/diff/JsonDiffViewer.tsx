@@ -14,13 +14,15 @@ type JsonDiffViewerProps = {
   "oldValue" | "newValue" | "compareMethod"
 >;
 
+const JsonDiffViewerSkeleton = () => <Skeleton className="h-30 w-full" />;
+
 const JsonDiffViewer = (props: JsonDiffViewerProps) => {
   const { resolvedTheme } = useTheme();
 
   return (
     <DiffViewer
       styles={diffStyles}
-      loadingElement={() => <Skeleton className="h-30 w-full" />}
+      loadingElement={JsonDiffViewerSkeleton}
       {...props}
       compareMethod={DiffMethod.JSON}
       useDarkTheme={resolvedTheme === "dark"}

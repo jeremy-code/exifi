@@ -10,7 +10,7 @@ const lintStagedConfig = {
    *
    * @see {@link https://turborepo.dev/docs/reference/run}
    */
-  "*.{js,mjs,cjs,ts,tsx,mts,cts}": ["turbo run lint --", "oxfmt --check"],
+  "*.{js,mjs,cjs,ts,tsx,mts,cts}": ["oxlint --", "oxfmt --check"],
   "*.{json,md,yaml,yml}": "oxfmt --check",
 };
 

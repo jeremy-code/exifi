@@ -36,7 +36,6 @@ import { SelectionBar } from "./table/SelectionBar";
 import { columns } from "./table/columns";
 
 declare module "@tanstack/react-table" {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- All declarations of 'TableMeta' must have identical type parameters.
   interface TableMeta<TData extends RowData> extends Pick<
     ExifEditorStoreActions,
     "updateExifEntry"
@@ -65,7 +64,6 @@ const ExifTable = (props: ExifTableProps) => {
   );
   const updateExifEntry = useExifEditor((state) => state.updateExifEntry);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  // eslint-disable-next-line react-hooks/incompatible-library -- TanStack Table does not have any alternative API
   const table = useReactTable({
     columns,
     getSubRows: (originalRow) =>
@@ -95,8 +93,7 @@ const ExifTable = (props: ExifTableProps) => {
           acc[`--col-${header.column.id}-size`] = header.column.getSize();
           return acc;
         }, {}),
-    // eslint-disable-next-line react-compiler/react-compiler -- See below
-    // eslint-disable-next-line react-hooks/exhaustive-deps, @eslint-react/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
+    // oxlint-disable-next-line react-hooks/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
     [table.getState().columnSizingInfo, table.getState().columnSizing],
   );
 

@@ -31,8 +31,8 @@ const commitlintConfig = {
       "always",
       [
         "client",
-        "eslint-config",
         "exif-utils",
+        "oxlint-config",
         "test-fixtures",
         "tsconfig",
         "ui",

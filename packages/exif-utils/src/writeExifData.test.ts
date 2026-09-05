@@ -23,14 +23,16 @@ describe("writeExifData()", () => {
         image,
         concatUint8Arrays([EXIF_HEADER, plainJpgWithExif.exifBytes!]),
       ),
-    ).toThrow();
+    ).toThrow("First two bytes is not a SOI marker");
   });
 
   test("throws if exif header is invalid", () => {
     const image = concatUint8Arrays([SOI, EOI]);
     const invalidExif = new Uint8Array([1, 2, 3]);
 
-    expect(() => writeExifData(image, invalidExif)).toThrow();
+    expect(() => writeExifData(image, invalidExif)).toThrow(
+      "Invalid Exif data provided",
+    );
   });
 
   test("inserts EXIF after APP0", ({ plainJpgWithExif }) => {

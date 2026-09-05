@@ -37,7 +37,7 @@ const GpsPopup = ({ coordinate, label, ...props }: GpsPopupProps) => {
         )}
 
         <LocateFixed className="size-4 text-fg-muted" />
-        <div>{`${formatLatLng(coordinate)}`}</div>
+        <div>{formatLatLng(coordinate)}</div>
 
         <Link className="size-4 text-fg-muted" />
         <div>

@@ -4,7 +4,7 @@ import { renderHook } from "vitest-browser-react";
 import { useFileTabsStore } from "./fileTabsStore";
 
 const { mockedUuidv4 } = vi.hoisted(() => ({
-  mockedUuidv4: vi.fn(() => "uuid-0"),
+  mockedUuidv4: vi.fn<() => string>(() => "uuid-0"),
 }));
 
 vi.mock("uuid", () => ({

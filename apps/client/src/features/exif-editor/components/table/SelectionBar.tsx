@@ -21,8 +21,7 @@ const SelectionBar = ({
       Object.entries(rowSelection)
         .filter(
           ([key, value]) =>
-            !IFD_NAMES.map((_, index) => String(index)).includes(key) &&
-            value === true,
+            !IFD_NAMES.map((_, index) => String(index)).includes(key) && value,
         )
         .map(([rowId]) => rowId),
     [rowSelection],

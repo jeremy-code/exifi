@@ -13,7 +13,9 @@ describe("assertNever function", () => {
       ["boolean", true],
       ["symbol", Symbol.iterator],
     ])("should throw for %s", (_, value) => {
-      expect(() => assertNever(value as never)).toThrow();
+      expect(() => assertNever(value as never)).toThrow(
+        `Unexpected value: ${JSON.stringify(value)}`,
+      );
     });
   });
 });

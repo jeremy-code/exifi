@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { Group, type GroupProps } from "react-aria-components/Group";
 import { Fragment } from "react/jsx-runtime";
+import { cn } from "tailwind-variants";
 
 import {
   NumberField,
@@ -38,9 +39,8 @@ const GpsTagVersionInput = ({
   ]);
 
   return (
-    <Group className="flex items-baseline gap-1" {...props}>
+    <Group className={cn("flex items-baseline gap-1", className)} {...props}>
       {gpsTagVersion.map((byte, index) => (
-        // eslint-disable-next-line @eslint-react/no-array-index-key -- Index is only reasonable key
         <Fragment key={index}>
           <NumberField
             size="xs"

@@ -162,7 +162,6 @@ const Dropzone = ({
         <ol className="flex w-full flex-col gap-2">
           {acceptedFiles.map((file, index) => (
             <AcceptedFile
-              // eslint-disable-next-line @eslint-react/no-array-index-key -- Using index since it is possible for the same file to uploaded more than once
               key={index}
               file={file}
               removeFile={() => removeAcceptedFileByIndex(index)}
