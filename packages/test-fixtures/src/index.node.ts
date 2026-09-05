@@ -34,9 +34,9 @@ const getFixture = async (fixtureName: string): Promise<Fixture> => {
   const [image, json, exifBytes] = await Promise.all([
     readFile(imagePath),
     jsonPath !== undefined
-      ? (import(jsonPath, { with: { type: "json" } }) as Promise<
-          Record<PropertyKey, unknown>
-        >)
+      ? (import(jsonPath, { with: { type: "json" } }).then(
+          (mod) => mod.default,
+        ) as Promise<Record<PropertyKey, unknown>>)
       : undefined,
     exifPath !== undefined ? readFile(exifPath) : undefined,
   ]);

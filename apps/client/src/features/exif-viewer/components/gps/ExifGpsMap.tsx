@@ -1,3 +1,4 @@
+import { latLng } from "leaflet";
 import { type ExifContent } from "libexif-wasm";
 import { Marker } from "react-leaflet";
 
@@ -11,7 +12,7 @@ type ExifGpsMapProps = {
 };
 
 const ExifGpsMap = ({ exifDataGps }: ExifGpsMapProps) => {
-  const coordinate = getLatLngFromExif(exifDataGps);
+  const coordinate = latLng(getLatLngFromExif(exifDataGps));
 
   return (
     <Map className="h-120 rounded" center={coordinate}>

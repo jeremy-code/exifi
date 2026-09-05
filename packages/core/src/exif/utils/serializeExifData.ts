@@ -1,10 +1,14 @@
-import type { ExifData, ExifEntry } from "libexif-wasm";
+import {
+  mapRationalToObject,
+  type ExifData,
+  type ExifEntry,
+} from "libexif-wasm";
 
 import type {
   ExifDataObject,
   ExifEntryObject,
   ExifIfdObject,
-} from "./interfaces";
+} from "../interfaces";
 
 const EMPTY_EXIF_IFD_OBJECT: ExifIfdObject = {
   IFD_0: [],
@@ -21,17 +25,39 @@ const serializeExifEntry = (entry: ExifEntry): ExifEntryObject | null => {
     return null;
   }
 
-  return {
+  const baseExifEntry = {
     ifd,
     tag: entry.tag,
     format: entry.format,
     components: entry.components,
     data: Array.from(entry.data),
     size: entry.size,
-    value: Array.from(entry.toTypedArray()),
     formattedValue: entry.toString(),
     byteOrder: entry.byteOrder,
   };
+
+  if (baseExifEntry.format === "ASCII") {
+    return {
+      ...baseExifEntry,
+      format: baseExifEntry.format,
+      value: baseExifEntry.formattedValue ?? "",
+    };
+  } else if (
+    baseExifEntry.format === "RATIONAL" ||
+    baseExifEntry.format === "SRATIONAL"
+  ) {
+    return {
+      ...baseExifEntry,
+      format: baseExifEntry.format,
+      value: mapRationalToObject(entry.toTypedArray()),
+    };
+  } else {
+    return {
+      ...baseExifEntry,
+      format: baseExifEntry.format,
+      value: Array.from(entry.toTypedArray()),
+    };
+  }
 };
 
 /**

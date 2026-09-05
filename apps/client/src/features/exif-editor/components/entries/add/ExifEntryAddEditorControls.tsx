@@ -5,7 +5,7 @@ import { Button } from "@exifi/ui/components/Button";
 
 type ExifEntryAddEditorControlsProps = {
   exifEntryObject: Partial<ExifEntryObject> & Pick<ExifEntryObject, "value">;
-  setValues: (values: number[]) => void;
+  setValues: (values: ExifEntryObject["value"]) => void;
 };
 
 const ExifEntryAddEditorControls = ({
@@ -17,12 +17,18 @@ const ExifEntryAddEditorControls = ({
       <Button
         size="icon"
         onPress={() => {
+          // If length is zero, then there is already one (uncontrolled) input.
+          // Hence, if the user wants to add another input, add two new inputs
+          // (both controlled)
           if (exifEntryObject.value.length === 0) {
             if (
               exifEntryObject.format === "RATIONAL" ||
               exifEntryObject.format === "SRATIONAL"
             ) {
-              setValues([0, 1, 0, 1]);
+              setValues([
+                { numerator: 0, denominator: 1 },
+                { numerator: 0, denominator: 1 },
+              ]);
             } else {
               setValues([0, 0]);
             }
@@ -31,9 +37,13 @@ const ExifEntryAddEditorControls = ({
               exifEntryObject.format === "RATIONAL" ||
               exifEntryObject.format === "SRATIONAL"
             ) {
-              setValues(exifEntryObject.value.concat([0, 1]));
+              setValues(
+                exifEntryObject.value.concat([
+                  { numerator: 0, denominator: 1 },
+                ]),
+              );
             } else {
-              setValues(exifEntryObject.value.concat([0]));
+              setValues((exifEntryObject.value as number[]).concat([0]));
             }
           }
         }}
@@ -44,14 +54,7 @@ const ExifEntryAddEditorControls = ({
         size="icon"
         isDisabled={exifEntryObject.value.length === 0}
         onPress={() => {
-          if (
-            exifEntryObject.format === "RATIONAL" ||
-            exifEntryObject.format === "SRATIONAL"
-          ) {
-            setValues(exifEntryObject.value.slice(0, -2));
-          } else {
-            setValues(exifEntryObject.value.slice(0, -1));
-          }
+          setValues(exifEntryObject.value.slice(0, -1));
         }}
       >
         <Minus className="size-4" />

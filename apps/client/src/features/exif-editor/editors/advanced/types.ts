@@ -5,7 +5,7 @@ import type { UserComment } from "@exifi/core/exif/userComment/interfaces";
 
 type AdvancedEditorResolver = (
   entry: ExifEntryObject,
-  onValueChange: (value: number[]) => void,
+  onValueChange: (value: ExifEntryObject["value"]) => void,
 ) => AdvancedEditor | null;
 
 type ResolvedAdvancedEditor<T> = {

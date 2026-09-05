@@ -1,5 +1,7 @@
-import { formatExifTimeStamp } from "@exifi/core/exif/date/timeStamp/formatExifTimeStamp";
-import { parseExifTimeStamp } from "@exifi/core/exif/date/timeStamp/parseExifTimeStamp";
+import {
+  parseTimeStamp,
+  formatTimeStamp,
+} from "@exifi/core/exif/date/timeStamp";
 
 import type { AddEditorResolver } from "../types";
 
@@ -9,6 +11,7 @@ const resolveTimeStamp: AddEditorResolver = (
 ) => {
   if (
     exifEntryObject.tag === "TIME_STAMP" &&
+    exifEntryObject.format === "RATIONAL" &&
     (exifEntryObject.value.length === 0 || exifEntryObject.value.length === 6)
   ) {
     return {
@@ -17,9 +20,9 @@ const resolveTimeStamp: AddEditorResolver = (
       value:
         exifEntryObject.value.length === 0
           ? undefined
-          : parseExifTimeStamp(exifEntryObject.value),
+          : parseTimeStamp(exifEntryObject.value),
       onValueChange: (value) =>
-        onValueChange(value === undefined ? [] : formatExifTimeStamp(value)),
+        onValueChange(value === undefined ? [] : formatTimeStamp(value)),
     };
   }
 

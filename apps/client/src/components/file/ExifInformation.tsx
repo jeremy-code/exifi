@@ -7,6 +7,7 @@ import { cn } from "tailwind-variants";
 
 import { useObjectUrl } from "#hooks/useObjectUrl";
 import { formatPlural } from "#utils/format/formatPlural";
+import { DATA_TYPE_MAP } from "@exifi/core/exif/constants";
 import {
   Card,
   CardContent,
@@ -23,7 +24,6 @@ import { Link } from "@exifi/ui/components/Link";
 import { Skeleton } from "@exifi/ui/components/Skeleton";
 import { assertNever } from "@exifi/utils/assertNever";
 
-import { DATA_TYPE_MAP } from "../../../../../packages/core/src/exif/constants";
 import { ExifDateTimeInformation } from "./ExifDateTimeInformation";
 import { ImageDimensions } from "./ImageDimensions";
 

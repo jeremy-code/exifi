@@ -1,6 +1,8 @@
 import { EXIF_DATESTAMP_REGEX } from "@exifi/core/exif/date/constants";
-import { formatExifDateStamp } from "@exifi/core/exif/date/dateStamp/formatExifDateStamp";
-import { parseExifDateStamp } from "@exifi/core/exif/date/dateStamp/parseExifDateStamp";
+import {
+  formatDateStamp,
+  parseDateStamp,
+} from "@exifi/core/exif/date/dateStamp";
 
 import type { QuickEditorResolver } from "../types";
 
@@ -15,8 +17,8 @@ const resolveDateStamp: QuickEditorResolver = (
     return {
       kind: "dateStamp",
       exifEntryObject,
-      value: parseExifDateStamp(exifEntryObject.formattedValue ?? ""),
-      onValueChange: (value) => onValueChange(formatExifDateStamp(value)),
+      value: parseDateStamp(exifEntryObject.formattedValue ?? ""),
+      onValueChange: (value) => onValueChange(formatDateStamp(value)),
     };
   }
 

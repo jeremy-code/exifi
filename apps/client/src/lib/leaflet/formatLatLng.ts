@@ -1,7 +1,7 @@
 import type { LatLng } from "leaflet";
 
-import { decimalDegreesToDms } from "./decimalDegreesToDms";
-import type { Axis } from "./interfaces";
+import { decimalDegreesToDms } from "@exifi/core/geo/decimalDegreesToDms";
+import type { Axis } from "@exifi/core/geo/interfaces";
 
 const formatCoordinate = (decimal: number, axis: Axis): string => {
   const { degrees, minutes, seconds, direction } = decimalDegreesToDms(

@@ -1,13 +1,12 @@
 import { fromAbsolute, toCalendarDate, toTime } from "@internationalized/date";
-import { LatLng } from "leaflet";
 import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 
-import { approximateRational } from "@exifi/core/math/approximateRational";
+import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
+import { formatDateStamp } from "@exifi/core/exif/date/dateStamp";
+import { formatTimeStamp } from "@exifi/core/exif/date/timeStamp";
 import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
-import { MAX_UINT32_VALUE } from "../constants";
-import { formatExifDateStamp } from "../date/dateStamp/formatExifDateStamp";
-import { formatExifTimeStamp } from "../date/timeStamp/formatExifTimeStamp";
+import { approximateRational } from "../../math/approximateRational";
 import { getOrInsertEntry } from "../utils/getOrInsertEntry";
 import { updateLatLng } from "./updateLatLng";
 
@@ -25,18 +24,19 @@ const updateGeolocationPosition = (
   const dateStampEntry = getOrInsertEntry(exifDataGpsIfd, "DATE_STAMP");
   dateStampEntry.format = "ASCII";
   dateStampEntry.fromTypedArray(
-    encodeStringToUtf8(formatExifDateStamp(toCalendarDate(zonedDateTime))),
+    encodeStringToUtf8(formatDateStamp(toCalendarDate(zonedDateTime))),
   );
   const timeStampEntry = getOrInsertEntry(exifDataGpsIfd, "TIME_STAMP");
   timeStampEntry.format = "RATIONAL";
   timeStampEntry.fromTypedArray(
-    new Uint32Array(formatExifTimeStamp(toTime(zonedDateTime))),
+    new Uint32Array(formatTimeStamp(toTime(zonedDateTime))),
   );
 
-  updateLatLng(
-    exifData,
-    new LatLng(coords.latitude, coords.longitude, coords.altitude ?? undefined),
-  );
+  updateLatLng(exifData, {
+    lat: coords.latitude,
+    lng: coords.longitude,
+    alt: coords.altitude ?? undefined,
+  });
 
   const hPositioningErrorEntry = getOrInsertEntry(
     exifDataGpsIfd,

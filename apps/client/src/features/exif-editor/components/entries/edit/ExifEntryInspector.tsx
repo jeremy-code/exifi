@@ -40,7 +40,9 @@ const ExifEntryInspector = ({
           {"Expected change: "}
           {isChanged ? (
             <ExifEntryValidity
-              exifEntryObject={{ ...exifEntryObject, value: draft }}
+              exifEntryObject={
+                { ...exifEntryObject, value: draft } as ExifEntryObject
+              }
             />
           ) : (
             <span className="text-fg-muted italic">no changes</span>

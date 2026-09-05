@@ -1,11 +1,11 @@
-import type { LatLng } from "leaflet";
 import { ExifIfd, mapRationalFromObject, type ExifData } from "libexif-wasm";
 
-import { decimalDegreesToDms } from "@exifi/core/leaflet/decimalDegreesToDms";
-import { approximateRational } from "@exifi/core/math/approximateRational";
+import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
 import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
-import { MAX_UINT32_VALUE } from "../constants";
+import { decimalDegreesToDms } from "../../geo/decimalDegreesToDms";
+import type { LatLng } from "../../geo/interfaces";
+import { approximateRational } from "../../math/approximateRational";
 import { getOrInsertEntry } from "../utils/getOrInsertEntry";
 
 const updateLatLng = (exifData: ExifData, latLng: LatLng) => {

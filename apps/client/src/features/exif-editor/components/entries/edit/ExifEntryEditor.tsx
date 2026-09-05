@@ -3,6 +3,7 @@ import { UserCommentSelect } from "#components/editor/UserCommentSelect";
 import { UserCommentTextarea } from "#components/editor/UserCommentTextarea";
 import { useExifEntryDraftContext } from "#features/exif-editor/contexts/ExifEntryDraftContext";
 import { getExifAdvancedEditor } from "#features/exif-editor/editors/advanced/getExifAdvancedEditor";
+import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { getEntryObjectLabel } from "@exifi/core/exif/utils/getEntryObjectLabel";
 import { NumberField } from "@exifi/ui/components/NumberField";
 import { TextAreaField } from "@exifi/ui/components/TextAreaField";
@@ -11,7 +12,7 @@ import { assertNever } from "@exifi/utils/assertNever";
 const ExifEntryEditor = () => {
   const { exifEntryObject, draft, setDraft } = useExifEntryDraftContext();
   const exifAdvancedEditor = getExifAdvancedEditor(
-    { ...exifEntryObject, value: draft },
+    { ...exifEntryObject, value: draft } as ExifEntryObject,
     setDraft,
   );
 

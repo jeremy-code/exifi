@@ -1,14 +1,12 @@
 import { DATETIME_TAGS } from "@exifi/core/exif/date/constants";
-import { formatExifDateTime } from "@exifi/core/exif/date/dateTime/formatExifDateTime";
-import { parseExifDateTime } from "@exifi/core/exif/date/dateTime/parseExifDateTime";
-import { decodeStringFromUtf8 } from "@exifi/utils/decodeStringFromUtf8";
-import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
+import { formatDateTime, parseDateTime } from "@exifi/core/exif/date/dateTime";
 
 import type { AddEditorResolver } from "../types";
 
 const resolveDateTime: AddEditorResolver = (exifEntryObject, onValueChange) => {
   if (
     exifEntryObject.tag !== undefined &&
+    exifEntryObject.format === "ASCII" &&
     DATETIME_TAGS.includes(exifEntryObject.tag)
   ) {
     return {
@@ -16,16 +14,10 @@ const resolveDateTime: AddEditorResolver = (exifEntryObject, onValueChange) => {
       exifEntryObject,
       value:
         exifEntryObject.value.length !== 0
-          ? parseExifDateTime(
-              decodeStringFromUtf8(new Uint8Array(exifEntryObject.value)),
-            )
+          ? parseDateTime(exifEntryObject.value)
           : undefined,
       onValueChange: (value) =>
-        onValueChange(
-          value !== undefined
-            ? Array.from(encodeStringToUtf8(formatExifDateTime(value)))
-            : [],
-        ),
+        onValueChange(value !== undefined ? formatDateTime(value) : ""),
     };
   }
 

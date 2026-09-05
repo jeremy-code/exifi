@@ -1,7 +1,9 @@
 import { exifFormatGetSize } from "libexif-wasm";
 
-import { formatExifTimeStamp } from "@exifi/core/exif/date/timeStamp/formatExifTimeStamp";
-import { parseExifTimeStamp } from "@exifi/core/exif/date/timeStamp/parseExifTimeStamp";
+import {
+  formatTimeStamp,
+  parseTimeStamp,
+} from "@exifi/core/exif/date/timeStamp";
 
 import type { QuickEditorResolver } from "../types";
 
@@ -20,9 +22,9 @@ const resolveTimeStamp: QuickEditorResolver = (
     return {
       kind: "timeStamp",
       exifEntryObject,
-      value: parseExifTimeStamp(exifEntryObject.value),
+      value: parseTimeStamp(exifEntryObject.value),
       onValueChange: (value) =>
-        onValueChange(new Uint32Array(formatExifTimeStamp(value))),
+        onValueChange(new Uint32Array(formatTimeStamp(value))),
     };
   }
 

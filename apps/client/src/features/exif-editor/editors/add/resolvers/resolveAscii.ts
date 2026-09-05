@@ -1,6 +1,3 @@
-import { decodeStringFromUtf8 } from "@exifi/utils/decodeStringFromUtf8";
-import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
-
 import type { AddEditorResolver } from "../types";
 
 const resolveAscii: AddEditorResolver = (exifEntryObject, onValueChange) => {
@@ -8,17 +5,8 @@ const resolveAscii: AddEditorResolver = (exifEntryObject, onValueChange) => {
     return {
       kind: "ascii",
       exifEntryObject,
-      value:
-        exifEntryObject.value.length === 0
-          ? undefined
-          : decodeStringFromUtf8(new Uint8Array(exifEntryObject.value)),
-      onValueChange: (value) => {
-        if (value === "") {
-          onValueChange([]);
-        }
-
-        return onValueChange(Array.from(encodeStringToUtf8(value)));
-      },
+      value: exifEntryObject.value,
+      onValueChange: (value) => onValueChange(value),
     };
   }
 

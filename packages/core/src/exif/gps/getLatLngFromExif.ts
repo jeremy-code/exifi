@@ -1,16 +1,20 @@
-import { LatLng } from "leaflet";
-import { type ExifContent } from "libexif-wasm";
+import { mapRationalToObject, type ExifContent } from "libexif-wasm";
 
+import type { LatLng } from "../../geo/interfaces";
 import { getRequiredEntry } from "../utils/getRequiredEntry";
 import { parseCoordinateEntry } from "./parseCoordinateEntry";
 
 const getLatLngFromExif = (exifDataGpsIfd: ExifContent): LatLng => {
   const latitude = parseCoordinateEntry(
-    getRequiredEntry(exifDataGpsIfd, "LATITUDE").toTypedArray(),
+    mapRationalToObject(
+      getRequiredEntry(exifDataGpsIfd, "LATITUDE").toTypedArray(),
+    ),
     getRequiredEntry(exifDataGpsIfd, "LATITUDE_REF").toString(),
   );
   const longitude = parseCoordinateEntry(
-    getRequiredEntry(exifDataGpsIfd, "LONGITUDE").toTypedArray(),
+    mapRationalToObject(
+      getRequiredEntry(exifDataGpsIfd, "LONGITUDE").toTypedArray(),
+    ),
     getRequiredEntry(exifDataGpsIfd, "LONGITUDE_REF").toString(),
   );
 
@@ -23,14 +27,14 @@ const getLatLngFromExif = (exifDataGpsIfd: ExifContent): LatLng => {
 
   if (altitudeEntry !== null && altitudeRefEntry !== null) {
     const altitude = parseCoordinateEntry(
-      altitudeEntry.toTypedArray(),
+      mapRationalToObject(altitudeEntry.toTypedArray()),
       altitudeRefEntry.toString(),
     );
 
-    return new LatLng(latitude, longitude, altitude ?? undefined);
+    return { lat: latitude, lng: longitude, alt: altitude ?? undefined };
   }
 
-  return new LatLng(latitude, longitude);
+  return { lat: latitude, lng: longitude };
 };
 
 export { getLatLngFromExif };

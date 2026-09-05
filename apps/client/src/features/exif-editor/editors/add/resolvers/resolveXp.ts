@@ -17,13 +17,8 @@ const resolveXp: AddEditorResolver = (exifEntryObject, onValueChange) => {
         exifEntryObject.value.length === 0
           ? undefined
           : parseXp(new Uint8Array(exifEntryObject.value)),
-      onValueChange: (value) => {
-        if (value === "") {
-          onValueChange([]);
-        }
-
-        return onValueChange(Array.from(formatXp(value)));
-      },
+      onValueChange: (value) =>
+        onValueChange(value === "" ? [] : Array.from(formatXp(value))),
     };
   }
 

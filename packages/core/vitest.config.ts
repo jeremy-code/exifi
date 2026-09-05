@@ -2,7 +2,7 @@ import { defineConfig } from "vitest/config";
 
 const vitestConfig = defineConfig({
   test: {
-    name: "@exifi/core/exif",
+    name: "@exifi/core",
     clearMocks: true,
   },
 });
