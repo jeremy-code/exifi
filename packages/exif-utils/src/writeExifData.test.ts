@@ -23,7 +23,9 @@ describe("writeExifData()", () => {
         image,
         concatUint8Arrays([EXIF_HEADER, plainJpgWithExif.exifBytes!]),
       ),
-    ).toThrow("First two bytes is not a SOI marker");
+    ).toThrow(
+      "Invalid JPEG marker at offset 0. Marker does not start with 0xff",
+    );
   });
 
   test("throws if exif header is invalid", () => {
