@@ -265,6 +265,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0(@types/react-dom@19.2.7(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vitest@4.1.11)
 
+  packages/core: {}
+
   packages/exif-utils:
     dependencies:
       '@exifi/utils':

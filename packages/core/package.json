@@ -1,0 +1,15 @@
+{
+  "name": "@exifi/core",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./*": "./src/*.js"
+  },
+  "scripts": {
+    "lint": "oxlint .",
+    "test": "vitest --run",
+    "test:watch": "vitest"
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "extends": "@exifi/tsconfig/tsconfig-base",
+  "include": ["src"]
+}
