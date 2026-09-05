@@ -183,15 +183,9 @@ importers:
         specifier: ^5.0.15
         version: 5.0.15(@types/react@19.2.18)(react@19.2.8)(use-sync-external-store@1.6.0(react@19.2.8))
     devDependencies:
-      '@exifi/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
       '@exifi/test-fixtures':
         specifier: workspace:*
         version: link:../../packages/test-fixtures
-      '@exifi/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
       '@rolldown/plugin-babel':
         specifier: ^0.2.3
         version: 0.2.3(@babel/core@7.29.7(supports-color@10.2.2))(@babel/runtime@7.29.7)(rolldown@1.2.6)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0))
@@ -261,9 +255,6 @@ importers:
       vite-plugin-node-polyfills:
         specifier: ^0.28.0
         version: 0.28.0(vite@8.2.2(@types/node@24.13.3)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0))
-      vitest:
-        specifier: ^4.1.11
-        version: 4.1.11(@types/node@24.13.3)(@vitest/browser-playwright@4.1.11)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0))
       vitest-browser-react:
         specifier: ^2.2.0
         version: 2.2.0(@types/react-dom@19.2.5(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vitest@4.1.11)
@@ -319,36 +310,18 @@ importers:
         specifier: workspace:*
         version: link:../utils
     devDependencies:
-      '@exifi/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
       '@exifi/test-fixtures':
         specifier: workspace:*
         version: link:../test-fixtures
-      '@exifi/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      vitest:
-        specifier: ^4.1.11
-        version: 4.1.11(@types/node@25.9.1)(@vitest/browser-playwright@4.1.11)(vite@8.2.2(@types/node@25.9.1)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0))
 
   packages/test-fixtures:
     devDependencies:
-      '@exifi/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@exifi/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
       vite:
         specifier: ^8.2.2
         version: 8.2.2(@types/node@24.13.3)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0)
-      vitest:
-        specifier: ^4.1.11
-        version: 4.1.11(@types/node@24.13.3)(@vitest/browser-playwright@4.1.11)(vite@8.2.2(@types/node@24.13.3)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0))
 
   packages/tsconfig: {}
 
@@ -379,12 +352,6 @@ importers:
         specifier: ^3.3.1
         version: 3.3.1(tailwind-merge@3.6.0)(tailwindcss@4.3.3)
     devDependencies:
-      '@exifi/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@exifi/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@types/react':
         specifier: ^19.2.18
         version: 19.2.18
@@ -401,17 +368,7 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
 
-  packages/utils:
-    devDependencies:
-      '@exifi/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@exifi/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      vitest:
-        specifier: ^4.1.11
-        version: 4.1.11(@types/node@25.9.1)(@vitest/browser-playwright@4.1.11)(vite@8.2.2(@types/node@25.9.1)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0))
+  packages/utils: {}
 
 packages:
 

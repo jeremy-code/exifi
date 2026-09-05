@@ -9,10 +9,5 @@
     "lint": "eslint .",
     "test": "vitest --run",
     "test:watch": "vitest"
-  },
-  "devDependencies": {
-    "@exifi/eslint-config": "workspace:*",
-    "@exifi/tsconfig": "workspace:*",
-    "vitest": "^4.1.11"
   }
 }

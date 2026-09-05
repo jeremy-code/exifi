@@ -18,8 +18,6 @@
     "tailwind-variants": "^3.3.1"
   },
   "devDependencies": {
-    "@exifi/eslint-config": "workspace:*",
-    "@exifi/tsconfig": "workspace:*",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "tailwindcss": "^4.3.3",
