@@ -89,10 +89,7 @@ const RationalInput = ({
         onChange={(value) => {
           setDenominator(value);
           if (numerator !== undefined) {
-            setRational?.({
-              numerator,
-              denominator: value,
-            });
+            setRational?.({ numerator, denominator: value });
           }
         }}
       />

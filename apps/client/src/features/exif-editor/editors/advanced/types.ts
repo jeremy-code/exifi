@@ -34,8 +34,6 @@ type AdvancedEditor =
       value: string;
       onValueChange: (value: string) => void;
     }
-  | ({
-      kind: "numeric";
-    } & ResolvedAdvancedEditor<number>);
+  | ({ kind: "numeric" } & ResolvedAdvancedEditor<number>);
 
 export type { AdvancedEditorResolver, AdvancedEditor };

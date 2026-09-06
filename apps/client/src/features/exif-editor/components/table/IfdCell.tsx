@@ -18,10 +18,7 @@ const IfdCell = ({ row, getValue }: CellContext<ExifTableRow, Ifd>) => {
         <Badge>
           {formatPlural(
             row.getCanExpand() ? row.subRows.length : 0,
-            {
-              one: " tag",
-              other: " tags",
-            },
+            { one: " tag", other: " tags" },
             locale,
           )}
         </Badge>

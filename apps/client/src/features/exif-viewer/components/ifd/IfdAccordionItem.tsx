@@ -38,10 +38,7 @@ const IfdAccordionItem = ({ exifContent }: { exifContent: ExifContent }) => {
           <Badge>
             {formatPlural(
               exifContent.count,
-              {
-                one: " tag",
-                other: " tags",
-              },
+              { one: " tag", other: " tags" },
               locale,
             )}
           </Badge>

@@ -42,10 +42,7 @@ const ExifVersionInput = ({
         value={exifVersion.major}
         onChange={(target) => {
           setExifVersion((prev) => {
-            const nextExifVersion = {
-              ...prev,
-              major: target,
-            };
+            const nextExifVersion = { ...prev, major: target };
 
             if (
               nextExifVersion.major !== undefined &&
@@ -74,10 +71,7 @@ const ExifVersionInput = ({
         value={exifVersion.minor}
         onChange={(target) => {
           setExifVersion((prev) => {
-            const nextExifVersion = {
-              ...prev,
-              minor: target,
-            };
+            const nextExifVersion = { ...prev, minor: target };
 
             if (
               nextExifVersion.major !== undefined &&

@@ -47,10 +47,6 @@ export const formatBytes = (
     locale === undefined
       ? Intl.NumberFormat().resolvedOptions().locale
       : locale,
-    {
-      style: "unit",
-      unit: UNITS[exponent],
-      ...options,
-    },
+    { style: "unit", unit: UNITS[exponent], ...options },
   ).format(value);
 };

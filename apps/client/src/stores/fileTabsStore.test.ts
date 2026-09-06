@@ -7,9 +7,7 @@ const { mockedUuidv4 } = vi.hoisted(() => ({
   mockedUuidv4: vi.fn<() => string>(() => "uuid-0"),
 }));
 
-vi.mock("uuid", () => ({
-  v4: mockedUuidv4,
-}));
+vi.mock("uuid", () => ({ v4: mockedUuidv4 }));
 vi.mock("zustand");
 
 describe("useFileTabsStore", () => {
@@ -47,9 +45,7 @@ describe("useFileTabsStore", () => {
 
     test("creates a new tab with a file", async () => {
       const { result, act } = await renderHook(() => useFileTabsStore());
-      const file = new File(["hello"], "test.txt", {
-        type: "text/plain",
-      });
+      const file = new File(["hello"], "test.txt", { type: "text/plain" });
 
       await act(() => result.current.createNewTab(file));
 
@@ -98,12 +94,7 @@ describe("useFileTabsStore", () => {
 
       const file = new File(["updated"], "updated.txt");
 
-      await act(() =>
-        result.current.updateTab({
-          id: "uuid-0",
-          file,
-        }),
-      );
+      await act(() => result.current.updateTab({ id: "uuid-0", file }));
 
       expect(result.current.tabs).toStrictEqual([{ id: "uuid-0", file }]);
       expect(result.current.activeTabId).toBe("uuid-0");

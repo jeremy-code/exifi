@@ -105,10 +105,7 @@ const ExifEntryMetadata = ({
               <DataListItemValue>
                 {`${formatPlural(
                   exifEntryObject.components,
-                  {
-                    one: " component",
-                    other: " components",
-                  },
+                  { one: " component", other: " components" },
                   locale,
                 )} (${byteNumberFormatter.format(
                   exifEntryObject.size,

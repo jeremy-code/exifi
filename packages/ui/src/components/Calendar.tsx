@@ -52,10 +52,7 @@ const CalendarCell = ({ className, ...props }: CalendarCellProps) => (
   <AriaCalendarCell
     {...props}
     className={composeRenderProps(className, (className, renderProps) =>
-      calendarCellVariants({
-        className,
-        ...renderProps,
-      }),
+      calendarCellVariants({ className, ...renderProps }),
     )}
   />
 );
@@ -63,9 +60,7 @@ const CalendarCell = ({ className, ...props }: CalendarCellProps) => (
 type CalendarProps<T extends DateValue> = Omit<
   AriaCalendarProps<T>,
   "visibleDuration"
-> & {
-  errorMessage?: string;
-};
+> & { errorMessage?: string };
 
 const Calendar = <T extends DateValue>({
   errorMessage,

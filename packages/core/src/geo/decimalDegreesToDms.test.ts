@@ -7,32 +7,17 @@ describe("decimalDegreesToDms", () => {
     {
       decimalDegrees: 38.897778,
       axis: "lat",
-      expected: {
-        degrees: 38,
-        minutes: 53,
-        seconds: 52,
-        direction: "N",
-      },
+      expected: { degrees: 38, minutes: 53, seconds: 52, direction: "N" },
     },
     {
       decimalDegrees: -77.036389,
       axis: "lng",
-      expected: {
-        degrees: 77,
-        minutes: 2,
-        seconds: 11,
-        direction: "W",
-      },
+      expected: { degrees: 77, minutes: 2, seconds: 11, direction: "W" },
     },
     {
       decimalDegrees: -33.8567844,
       axis: "lat",
-      expected: {
-        degrees: 33,
-        minutes: 51,
-        seconds: 24.42384,
-        direction: "S",
-      },
+      expected: { degrees: 33, minutes: 51, seconds: 24.42384, direction: "S" },
     },
     {
       decimalDegrees: 151.2152967,

@@ -31,10 +31,9 @@ const Route = createFileRoute("/_app")({
           signal: abortController.signal,
         });
         const file = await getFileFromResponse(response);
-        useFileTabsStore.getState().updateTab({
-          id: useFileTabsStore.getState().activeTabId,
-          file,
-        });
+        useFileTabsStore
+          .getState()
+          .updateTab({ id: useFileTabsStore.getState().activeTabId, file });
       } catch (error) {
         if (!(error instanceof Error)) {
           assertNever(error as never);
@@ -44,9 +43,7 @@ const Route = createFileRoute("/_app")({
           toastQueue.add({
             title: "Fetching from URL failed",
             description: `Fetching ${deps.url} failed with error ${error.message}.`,
-            toastProps: {
-              color: "destructive",
-            },
+            toastProps: { color: "destructive" },
           });
         }
       }

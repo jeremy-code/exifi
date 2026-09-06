@@ -5,39 +5,19 @@ import { dmsToDecimalDegrees } from "./dmsToDecimalDegrees";
 describe("dmsToDecimalDegrees", () => {
   test.for([
     {
-      dms: {
-        degrees: 38,
-        minutes: 53,
-        seconds: 52,
-        direction: "N",
-      },
+      dms: { degrees: 38, minutes: 53, seconds: 52, direction: "N" },
       expectedDecimalDegrees: 38.897778,
     },
     {
-      dms: {
-        degrees: 77,
-        minutes: 2,
-        seconds: 11,
-        direction: "W",
-      },
+      dms: { degrees: 77, minutes: 2, seconds: 11, direction: "W" },
       expectedDecimalDegrees: -77.036389,
     },
     {
-      dms: {
-        degrees: 33,
-        minutes: 51,
-        seconds: 24.42384,
-        direction: "S",
-      },
+      dms: { degrees: 33, minutes: 51, seconds: 24.42384, direction: "S" },
       expectedDecimalDegrees: -33.8567844,
     },
     {
-      dms: {
-        degrees: 151,
-        minutes: 12,
-        seconds: 55.06812,
-        direction: "E",
-      },
+      dms: { degrees: 151, minutes: 12, seconds: 55.06812, direction: "E" },
       expectedDecimalDegrees: 151.2152967,
     },
   ] as const)(

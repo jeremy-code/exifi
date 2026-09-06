@@ -22,13 +22,7 @@ describe("serializeExifData", () => {
     const exifDataObject = serializeExifData(exifData);
     expect(exifDataObject).toStrictEqual({
       data: [],
-      ifd: {
-        IFD_0: [],
-        IFD_1: [],
-        EXIF: [],
-        GPS: [],
-        INTEROPERABILITY: [],
-      },
+      ifd: { IFD_0: [], IFD_1: [], EXIF: [], GPS: [], INTEROPERABILITY: [] },
       dataType: "UNKNOWN",
       byteOrder: "MOTOROLA",
     });

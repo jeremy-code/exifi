@@ -67,9 +67,7 @@ const MobileNav = (props: Omit<MobileNavProps, "children">) => {
                   to={item.href}
                   // Using <NavigationMenuLink> would error due to not being in
                   // a <NavigationMenu>
-                  className={navigationMenuTriggerVariants({
-                    variant: "link",
-                  })}
+                  className={navigationMenuTriggerVariants({ variant: "link" })}
                 >
                   {item.name}
                 </RouterLink>

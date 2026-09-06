@@ -20,10 +20,7 @@ const UserCommentTextarea = ({
       value={value?.value}
       onChange={(target) => {
         if (value !== undefined) {
-          onValueChange?.({
-            ...value,
-            value: target,
-          });
+          onValueChange?.({ ...value, value: target });
         }
       }}
     />

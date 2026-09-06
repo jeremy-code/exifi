@@ -17,10 +17,7 @@ const renderUseExifData = (file: File) =>
   renderHook(
     // @ts-expect-error -- think the types are wrong
     useExifData,
-    {
-      initialProps: file,
-      wrapper: AppProvider,
-    },
+    { initialProps: file, wrapper: AppProvider },
   );
 
 describe("useExifData", () => {
@@ -56,13 +53,7 @@ describe("useExifData", () => {
       byteOrder: "MOTOROLA",
       data: [],
       dataType: "UNKNOWN",
-      ifd: {
-        EXIF: [],
-        GPS: [],
-        IFD_0: [],
-        IFD_1: [],
-        INTEROPERABILITY: [],
-      },
+      ifd: { EXIF: [], GPS: [], IFD_0: [], IFD_1: [], INTEROPERABILITY: [] },
     });
 
     exifData.free();

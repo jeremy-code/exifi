@@ -45,10 +45,7 @@ const DeleteEntriesDialog = ({
           <DialogBody>
             {`This action will delete ${formatPlural(
               rows.length,
-              {
-                one: " Exif entry",
-                other: " Exif entries",
-              },
+              { one: " Exif entry", other: " Exif entries" },
               locale,
             )}`}
           </DialogBody>

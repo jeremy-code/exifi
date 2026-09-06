@@ -37,9 +37,7 @@ describe("getFileFromResponse", () => {
 
     test("falls back to URL pathname basename when no Content-Disposition", async () => {
       const file = await getFileFromResponse(
-        getResponse("data", {
-          url: "https://example.com/photo.png",
-        }),
+        getResponse("data", { url: "https://example.com/photo.png" }),
       );
       expect(file.name).toBe("photo.png");
     });
@@ -135,9 +133,7 @@ describe("getFileFromResponse", () => {
       plainJpg,
     }) => {
       const file = await getFileFromResponse(
-        getResponse(plainJpg.image, {
-          url: "https://example.com/file",
-        }),
+        getResponse(plainJpg.image, { url: "https://example.com/file" }),
       );
       expect(file.type).toBe("image/jpeg");
     });

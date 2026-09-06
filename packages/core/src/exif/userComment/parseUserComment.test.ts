@@ -8,22 +8,10 @@ const textEncoder = new TextEncoder();
 
 describe("parseUserComment", () => {
   test.for([
-    {
-      encoding: "ASCII",
-      value: "Hello world",
-    },
-    {
-      encoding: "UNICODE",
-      value: "Hello 🦖",
-    },
-    {
-      encoding: "EMPTY",
-      value: "",
-    },
-    {
-      encoding: "JIS",
-      value: "ジョジョの奇妙な冒険",
-    },
+    { encoding: "ASCII", value: "Hello world" },
+    { encoding: "UNICODE", value: "Hello 🦖" },
+    { encoding: "EMPTY", value: "" },
+    { encoding: "JIS", value: "ジョジョの奇妙な冒険" },
   ] as const)("parses $encoding user comment", ({ encoding, value }) => {
     const userCommentBytes =
       encoding === "JIS"
@@ -75,10 +63,7 @@ describe("parseUserComment", () => {
           ? new Uint8Array(encode(ENCODING_TO_HEADER_MAP.JIS, "eucjp"))
           : textEncoder.encode(ENCODING_TO_HEADER_MAP[encoding]);
 
-      expect(parseUserComment(bytes)).toStrictEqual({
-        encoding,
-        value: "",
-      });
+      expect(parseUserComment(bytes)).toStrictEqual({ encoding, value: "" });
     },
   );
 });

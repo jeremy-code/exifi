@@ -41,16 +41,10 @@ const parseUserComment = (data: Iterable<number>): UserComment => {
   );
 
   if (match !== undefined) {
-    return {
-      encoding: match.encoding,
-      value: match.decoder.decode(value),
-    };
+    return { encoding: match.encoding, value: match.decoder.decode(value) };
   }
 
-  return {
-    encoding: "UNICODE",
-    value: textDecoder.decode(value),
-  };
+  return { encoding: "UNICODE", value: textDecoder.decode(value) };
 };
 
 export { parseUserComment, type UserComment };

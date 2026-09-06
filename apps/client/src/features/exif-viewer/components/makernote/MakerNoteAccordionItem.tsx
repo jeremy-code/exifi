@@ -34,10 +34,7 @@ const MakerNoteAccordionItem = ({
           <Badge>
             {formatPlural(
               mnoteData.dataCount,
-              {
-                one: " tag",
-                other: " tags",
-              },
+              { one: " tag", other: " tags" },
               locale,
             )}
           </Badge>
