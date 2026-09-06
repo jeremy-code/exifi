@@ -8,6 +8,12 @@ if [ ! -d "${OUTPUT_DIR}" ]; then
   mkdir -p "${OUTPUT_DIR}"
 fi
 
+ENVIRONMENTS=(
+  # Node environment is only needed for Vitest
+  node
+  web
+)
+
 # https://emscripten.org/docs/tools_reference/settings_reference.html
 COMPILE_FLAGS=(
   -Oz # https://clang.llvm.org/docs/CommandGuide/clang.html#cmdoption-O0
@@ -17,7 +23,6 @@ COMPILE_FLAGS=(
   --emit-tsd "${OUTPUT_DIR}/imageUtils.d.ts"
   -sSTACK_SIZE=$((2 ** 16))
   -sALLOW_MEMORY_GROWTH=1
-  -sENVIRONMENT="web,node"
   -sFILESYSTEM=0
   -sMODULARIZE=1
   -sEXPORT_ES6=1
@@ -27,7 +32,14 @@ COMPILE_FLAGS=(
   -o "${OUTPUT_DIR}/imageUtils.js"
 )
 
-em++ \
-  "${COMPILE_FLAGS[@]}" \
-  src/main.cpp \
-  src/codecs/*.cpp
+for environment in "${ENVIRONMENTS[@]}"; do
+  em++ \
+    "${COMPILE_FLAGS[@]}" \
+    -sENVIRONMENT="$environment" \
+    src/main.cpp \
+    src/codecs/*.cpp
+
+  # Instead of determining environment at runtime, use conditional exports to
+  # resolve glue code. The WASM bundle is the same in both environment
+  mv "${OUTPUT_DIR}/imageUtils.js" "${OUTPUT_DIR}/imageUtils.${environment}.js"
+done

@@ -5,7 +5,9 @@
   "exports": {
     ".": {
       "types": "./dist/imageUtils.d.ts",
-      "default": "./dist/imageUtils.js"
+      "node": "./dist/imageUtils.node.js",
+      "browser": "./dist/imageUtils.web.js",
+      "default": "./dist/imageUtils.web.js"
     },
     "./imageUtils.wasm": "./dist/imageUtils.wasm"
   },
