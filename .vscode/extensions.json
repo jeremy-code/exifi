@@ -3,6 +3,7 @@
     "bradlc.vscode-tailwindcss",
     "github.vscode-github-actions",
     "github.vscode-pull-request-github",
+    "ms-vscode.cpptools",
     "oxc.oxc-vscode"
   ]
 }

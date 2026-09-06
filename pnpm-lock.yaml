@@ -318,6 +318,8 @@ importers:
         specifier: workspace:*
         version: link:../test-fixtures
 
+  packages/image-utils: {}
+
   packages/oxlint-config:
     devDependencies:
       '@tanstack/eslint-plugin-query':

@@ -1,0 +1,34 @@
+{
+  "env": {
+    "EMSCRIPTEN_CFLAGS": [
+      "-target",
+      "wasm32-unknown-emscripten",
+      "-fignore-exceptions",
+      "-mllvm",
+      "-combiner-global-alias-analysis=false",
+      "-mllvm",
+      "-enable-emscripten-sjlj",
+      "-mllvm",
+      "-disable-lsr",
+      "--sysroot=/opt/homebrew/Cellar/emscripten/6.0.8/libexec/cache/sysroot",
+      "-DEMSCRIPTEN",
+      "-Xclang",
+      "-iwithsysroot/include/fakesdl",
+      "-Xclang",
+      "-iwithsysroot/include/compat"
+    ]
+  },
+  "configurations": [
+    {
+      "name": "Emscripten",
+      "compilerPath": "/opt/homebrew/opt/emscripten/libexec/llvm/bin/clang++",
+      "compilerArgs": ["${EMSCRIPTEN_CFLAGS}"],
+      "intelliSenseMode": "linux-clang-arm64",
+      "cStandard": "c17",
+      "cppStandard": "c++17",
+      "includePath": ["/opt/homebrew/opt/emscripten/libexec/system/include"]
+    }
+  ],
+  "version": 4,
+  "enableConfigurationSquiggles": true
+}

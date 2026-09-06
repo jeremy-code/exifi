@@ -33,6 +33,7 @@ const commitlintConfig = {
         "client",
         "core",
         "exif-utils",
+        "image-utils",
         "oxlint-config",
         "test-fixtures",
         "tsconfig",
