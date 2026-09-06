@@ -70,9 +70,16 @@ const serializeExifData = (exifData: ExifData): ExifDataObject => {
     (acc, exifContent) => {
       const ifdName = exifContent.ifd;
       if (ifdName !== null && exifContent.count !== 0) {
-        acc[ifdName] = exifContent.entries
-          .map(serializeExifEntry)
-          .filter((entry) => entry !== null);
+        acc[ifdName] = exifContent.entries.reduce<ExifEntryObject[]>(
+          (acc, currEntry) => {
+            const serializedExifEntry = serializeExifEntry(currEntry);
+            if (serializedExifEntry !== null) {
+              acc.push(serializedExifEntry);
+            }
+            return acc;
+          },
+          [],
+        );
       }
       return acc;
     },

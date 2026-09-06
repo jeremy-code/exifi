@@ -1,4 +1,3 @@
-/// <reference types="vite/client" />
 // oxlint-disable import/no-unassigned-import -- Allow side effect imports only in root route
 import "../leaflet.css";
 import "temporal-spec/global";

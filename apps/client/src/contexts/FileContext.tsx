@@ -27,7 +27,7 @@ const useFile = (): FileContextType => {
   const fileContext = use(FileContext);
 
   if (fileContext === null) {
-    throw new Error("Missing FileStoreProvider in the tree");
+    throw new Error("Missing FileProvider in the tree");
   }
 
   return fileContext;

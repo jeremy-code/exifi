@@ -3,9 +3,6 @@ import { defineConfig } from "oxlint";
 import baseConfig from "@exifi/oxlint-config";
 
 const reactConfig = defineConfig({
-  categories: {
-    correctness: "error",
-  },
   extends: [baseConfig],
   plugins: ["react"],
   jsPlugins: [
