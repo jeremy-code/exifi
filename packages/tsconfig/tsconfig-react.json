@@ -6,6 +6,13 @@
 
     /* Language and Environment */
     "jsx": "react-jsx",
-    "lib": ["ES2024", "DOM", "DOM.Iterable", "ESNext.Disposable"]
+    "lib": [
+      "ES2024",
+      "DOM",
+      "DOM.Iterable",
+      "ESNext.Disposable",
+      "ESNext.Intl",
+      "ESNext.Temporal"
+    ]
   }
 }

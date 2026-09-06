@@ -252,9 +252,6 @@ importers:
       playwright:
         specifier: ^1.62.1
         version: 1.62.1
-      temporal-spec:
-        specifier: ^1.0.1
-        version: 1.0.1
       type-fest:
         specifier: ^5.9.0
         version: 5.9.0
