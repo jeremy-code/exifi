@@ -7,22 +7,26 @@ import { bytesToHex } from "@noble/hashes/utils.js";
 // multiple calls to useFileHash
 const fileHashPromiseCache = new WeakMap<File, Promise<string>>();
 
-const getFileHashPromise = (file: File) => {
+const getFileHash = async (file: File): Promise<string> => {
+  // Blob.arrayBuffer has better support in browsers than Blob.bytes()
+  const arrayBuffer = await file.arrayBuffer();
+  /**
+   * Hashes function using native WebCrypto if available (not avaliable in
+   * non-secure contexts, mostly for development), otherwise uses sha256
+   * from @noble/hashes
+   */
+  const fileHashBytes =
+    "subtle" in crypto && "digest" in crypto.subtle
+      ? new Uint8Array(await crypto.subtle.digest("SHA-256", arrayBuffer))
+      : sha256(new Uint8Array(arrayBuffer));
+
+  return bytesToHex(fileHashBytes); // bytesToHex uses Uint8Array.toHex if avaliable
+};
+
+const getFileHashPromise = (file: File): Promise<string> => {
   let fileHashPromise = fileHashPromiseCache.get(file);
   if (fileHashPromise === undefined) {
-    fileHashPromise = file.arrayBuffer().then(async (arrayBuffer) => {
-      /**
-       * Hashes function using native WebCrypto if available (not avaliable in
-       * non-secure contexts, mostly for development), otherwise uses sha256
-       * from @noble/hashes
-       */
-      const hash =
-        "subtle" in crypto && "digest" in crypto.subtle
-          ? new Uint8Array(await crypto.subtle.digest("SHA-256", arrayBuffer))
-          : sha256(new Uint8Array(arrayBuffer));
-
-      return bytesToHex(hash); // bytesToHex uses Uint8Array.toHex if avaliable
-    });
+    fileHashPromise = getFileHash(file);
     fileHashPromiseCache.set(file, fileHashPromise);
   }
   return fileHashPromise;
