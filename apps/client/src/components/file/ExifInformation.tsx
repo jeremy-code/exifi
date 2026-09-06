@@ -6,7 +6,7 @@ import { useLocale } from "react-aria/I18nProvider";
 import { cn } from "tailwind-variants";
 
 import { useObjectUrl } from "#hooks/useObjectUrl";
-import { formatPlural } from "#utils/format/formatPlural";
+import { formatPlural } from "#utils/formatPlural";
 import { DATA_TYPE_MAP } from "@exifi/core/exif/constants";
 import {
   Card,

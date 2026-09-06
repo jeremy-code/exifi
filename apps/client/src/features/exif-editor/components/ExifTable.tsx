@@ -15,7 +15,7 @@ import { useShallow } from "zustand/react/shallow";
 
 import { ColumnResizer } from "#components/table/ColumnResizer";
 import { ExpandRows } from "#components/table/ExpandRows";
-import { formatPlural } from "#utils/format/formatPlural";
+import { formatPlural } from "#utils/formatPlural";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { Badge } from "@exifi/ui/components/Badge";
 import { linkVariants } from "@exifi/ui/components/Link";

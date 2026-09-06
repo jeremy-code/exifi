@@ -12,7 +12,7 @@ import { useLocale } from "react-aria/I18nProvider";
 import { ColumnResizer } from "#components/table/ColumnResizer";
 import { ExpandRows } from "#components/table/ExpandRows";
 import { SortingHandlerToggle } from "#components/table/SortingHandlerToggle";
-import { formatPlural } from "#utils/format/formatPlural";
+import { formatPlural } from "#utils/formatPlural";
 import { Badge } from "@exifi/ui/components/Badge";
 import {
   Table,

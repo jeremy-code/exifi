@@ -3,7 +3,7 @@ import { exifIfdGetName, type Ifd } from "libexif-wasm";
 import { useLocale } from "react-aria/I18nProvider";
 
 import { ExpandRows } from "#components/table/ExpandRows";
-import { formatPlural } from "#utils/format/formatPlural";
+import { formatPlural } from "#utils/formatPlural";
 import { Badge } from "@exifi/ui/components/Badge";
 
 import type { ExifTableRow } from "./columns";

@@ -1,7 +1,7 @@
 import { Trash2 } from "lucide-react";
 import { useLocale } from "react-aria/I18nProvider";
 
-import { formatPlural } from "#utils/format/formatPlural";
+import { formatPlural } from "#utils/formatPlural";
 import { Button } from "@exifi/ui/components/Button";
 import {
   Dialog,

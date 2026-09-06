@@ -15,7 +15,7 @@ import {
 import { useLocale } from "react-aria/I18nProvider";
 import { useNumberFormatter } from "react-aria/useNumberFormatter";
 
-import { formatPlural } from "#utils/format/formatPlural";
+import { formatPlural } from "#utils/formatPlural";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { getEntryObjectLabel } from "@exifi/core/exif/utils/getEntryObjectLabel";
 import { Button } from "@exifi/ui/components/Button";

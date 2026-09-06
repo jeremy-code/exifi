@@ -1,7 +1,7 @@
 import { exifIfdGetName, ExifTagInfo, type ExifContent } from "libexif-wasm";
 import { useLocale } from "react-aria/I18nProvider";
 
-import { formatPlural } from "#utils/format/formatPlural";
+import { formatPlural } from "#utils/formatPlural";
 import {
   AccordionItem,
   AccordionHeader,
