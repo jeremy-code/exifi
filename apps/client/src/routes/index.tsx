@@ -208,7 +208,7 @@ const HomeComponent = () => {
   );
 };
 
-const Route = createFileRoute("/(static)/")({
+const Route = createFileRoute("/")({
   component: HomeComponent,
 });
 

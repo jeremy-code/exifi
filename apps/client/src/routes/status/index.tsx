@@ -50,7 +50,7 @@ const StatusComponent = () => {
   );
 };
 
-const Route = createFileRoute("/(static)/status/")({
+const Route = createFileRoute("/status/")({
   head: () => ({
     meta: seo({
       title: "Status | exifi",

@@ -9,30 +9,30 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './../routes/__root'
+import { Route as IndexRouteImport } from './../routes/index'
 import { Route as AppRouteRouteImport } from './../routes/_app/route'
-import { Route as staticIndexRouteImport } from './../routes/(static)/index'
-import { Route as staticStatusIndexRouteImport } from './../routes/(static)/status/index'
-import { Route as staticTagsIndexRouteImport } from './../routes/(static)/tags/index'
+import { Route as StatusIndexRouteImport } from './../routes/status/index'
+import { Route as TagsIndexRouteImport } from './../routes/tags/index'
 import { Route as AppEditorIndexRouteImport } from './../routes/_app/editor/index'
 import { Route as AppViewerIndexRouteImport } from './../routes/_app/viewer/index'
 import { Route as AppEditorGpsIndexRouteImport } from './../routes/_app/editor_/gps/index'
 
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
-const staticIndexRoute = staticIndexRouteImport.update({
-  id: '/(static)/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const staticStatusIndexRoute = staticStatusIndexRouteImport.update({
-  id: '/(static)/status/',
+const StatusIndexRoute = StatusIndexRouteImport.update({
+  id: '/status/',
   path: '/status/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const staticTagsIndexRoute = staticTagsIndexRouteImport.update({
-  id: '/(static)/tags/',
+const TagsIndexRoute = TagsIndexRouteImport.update({
+  id: '/tags/',
   path: '/tags/',
   getParentRoute: () => rootRouteImport,
 } as any)
@@ -53,27 +53,27 @@ const AppEditorGpsIndexRoute = AppEditorGpsIndexRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof staticIndexRoute
-  '/status/': typeof staticStatusIndexRoute
-  '/tags/': typeof staticTagsIndexRoute
+  '/': typeof IndexRoute
+  '/status/': typeof StatusIndexRoute
+  '/tags/': typeof TagsIndexRoute
   '/editor/': typeof AppEditorIndexRoute
   '/viewer/': typeof AppViewerIndexRoute
   '/editor/gps/': typeof AppEditorGpsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof staticIndexRoute
-  '/status': typeof staticStatusIndexRoute
-  '/tags': typeof staticTagsIndexRoute
+  '/': typeof IndexRoute
+  '/status': typeof StatusIndexRoute
+  '/tags': typeof TagsIndexRoute
   '/editor': typeof AppEditorIndexRoute
   '/viewer': typeof AppViewerIndexRoute
   '/editor/gps': typeof AppEditorGpsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
   '/_app': typeof AppRouteRouteWithChildren
-  '/(static)/': typeof staticIndexRoute
-  '/(static)/status/': typeof staticStatusIndexRoute
-  '/(static)/tags/': typeof staticTagsIndexRoute
+  '/status/': typeof StatusIndexRoute
+  '/tags/': typeof TagsIndexRoute
   '/_app/editor/': typeof AppEditorIndexRoute
   '/_app/viewer/': typeof AppViewerIndexRoute
   '/_app/editor_/gps/': typeof AppEditorGpsIndexRoute
@@ -86,24 +86,31 @@ export interface FileRouteTypes {
   to: '/' | '/status' | '/tags' | '/editor' | '/viewer' | '/editor/gps'
   id:
     | '__root__'
+    | '/'
     | '/_app'
-    | '/(static)/'
-    | '/(static)/status/'
-    | '/(static)/tags/'
+    | '/status/'
+    | '/tags/'
     | '/_app/editor/'
     | '/_app/viewer/'
     | '/_app/editor_/gps/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   AppRouteRoute: typeof AppRouteRouteWithChildren
-  staticIndexRoute: typeof staticIndexRoute
-  staticStatusIndexRoute: typeof staticStatusIndexRoute
-  staticTagsIndexRoute: typeof staticTagsIndexRoute
+  StatusIndexRoute: typeof StatusIndexRoute
+  TagsIndexRoute: typeof TagsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_app': {
       id: '/_app'
       path: ''
@@ -111,25 +118,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(static)/': {
-      id: '/(static)/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof staticIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(static)/status/': {
-      id: '/(static)/status/'
+    '/status/': {
+      id: '/status/'
       path: '/status'
       fullPath: '/status/'
-      preLoaderRoute: typeof staticStatusIndexRouteImport
+      preLoaderRoute: typeof StatusIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(static)/tags/': {
-      id: '/(static)/tags/'
+    '/tags/': {
+      id: '/tags/'
       path: '/tags'
       fullPath: '/tags/'
-      preLoaderRoute: typeof staticTagsIndexRouteImport
+      preLoaderRoute: typeof TagsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app/editor/': {
@@ -173,10 +173,10 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   AppRouteRoute: AppRouteRouteWithChildren,
-  staticIndexRoute: staticIndexRoute,
-  staticStatusIndexRoute: staticStatusIndexRoute,
-  staticTagsIndexRoute: staticTagsIndexRoute,
+  StatusIndexRoute: StatusIndexRoute,
+  TagsIndexRoute: TagsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
