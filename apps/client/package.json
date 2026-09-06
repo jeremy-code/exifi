@@ -80,6 +80,7 @@
     "babel-plugin-react-compiler": "^1.0.0",
     "fontless": "^0.4.3",
     "lightningcss": "^1.33.0",
+    "netlify-plugin-emsdk": "^0.0.1",
     "openapi-typescript": "^7.13.0",
     "playwright": "^1.62.1",
     "type-fest": "^5.9.0",

@@ -1,9 +1,12 @@
 [build]
 publish = "apps/client/dist/client"
-command = "turbo run build --filter @exifi/client"
+command = "turbo run build"
 
 [build.processing.html]
 pretty_urls = true
+
+[[plugins]]
+package = "netlify-plugin-emsdk"
 
 # Vite emits fingerprinted files under /assets, so they can be cached until the
 # filename changes on a later build.
