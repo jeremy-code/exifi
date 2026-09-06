@@ -1,5 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ExifData } from "libexif-wasm";
+
+import { getExifData } from "@exifi/core/exif/utils/getExifData";
 
 import { useFileHash } from "./useFileHash";
 
@@ -13,16 +14,7 @@ const useExifData = (file: File) => {
   const fileHash = useFileHash(file);
   const { data: exifData } = useSuspenseQuery({
     queryKey: ["useExifData", file, fileHash],
-    queryFn: async () => {
-      try {
-        return await ExifData.fromReadableStream(file.stream());
-      } catch {
-        // Since rather than returning an empty ExifData, exifLoaderWrite errors
-        // when there is no Exif data (even if it is a valid JPG), load ExifData
-        // from buffer instead
-        return ExifData.from(await file.arrayBuffer());
-      }
-    },
+    queryFn: async () => getExifData(file),
     gcTime: 30_000, // By default, it is 300,000
   });
 
