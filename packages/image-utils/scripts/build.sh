@@ -17,7 +17,7 @@ COMPILE_FLAGS=(
   --emit-tsd "${OUTPUT_DIR}/imageUtils.d.ts"
   -sSTACK_SIZE=$((2 ** 16))
   -sALLOW_MEMORY_GROWTH=1
-  -sINCOMING_MODULE_JS_API="[]"
+  -sENVIRONMENT="web,node"
   -sFILESYSTEM=0
   -sMODULARIZE=1
   -sEXPORT_ES6=1

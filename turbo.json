@@ -8,6 +8,7 @@
       "outputs": ["dist/**"]
     },
     "@exifi/client#build": {
+      "dependsOn": ["@exifi/image-utils#build"],
       "env": ["ANALYZE", "DEV", "URL", "BASE_URL", "COMMIT_REF"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
     },
@@ -25,6 +26,9 @@
     "@exifi/client#dev": {
       "env": ["PORT", "URL", "BASE_URL", "COMMIT_REF"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
+    },
+    "@exifi/image-utils#dev": {
+      "dependsOn": ["build"]
     },
     "test": {
       "cache": false,

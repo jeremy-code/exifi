@@ -22,7 +22,6 @@
     "@dnd-kit/helpers": "^0.5.0",
     "@dnd-kit/react": "^0.5.0",
     "@exifi/core": "workspace:*",
-    "@exifi/exif-utils": "workspace:*",
     "@exifi/ui": "workspace:*",
     "@exifi/utils": "workspace:*",
     "@internationalized/date": "^3.12.4",

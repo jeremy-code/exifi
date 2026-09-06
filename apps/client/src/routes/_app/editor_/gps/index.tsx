@@ -15,7 +15,7 @@ import { getCurrentPosition } from "#utils/getCurrentPosition";
 import { saveFile } from "#utils/saveFile";
 import { seo } from "#utils/seo";
 import { updateLatLng } from "@exifi/core/exif/actions/updateLatLng";
-import { writeExifData } from "@exifi/exif-utils";
+import { setExifData } from "@exifi/core/exif/utils/setExifData";
 import { Button } from "@exifi/ui/components/Button";
 import { Skeleton } from "@exifi/ui/components/Skeleton";
 
@@ -74,16 +74,9 @@ const EditorGpsApp = ({
           const exifData = ExifData.from(fileInBytes.buffer);
           updateLatLng(exifData, latLng);
 
-          const newFileInBytes = writeExifData(
-            fileInBytes,
-            exifData.saveData(),
-          );
+          const newFile = await setExifData(file, exifData);
           exifData.free();
-          const newFile = new File(
-            [new Uint8Array(newFileInBytes)],
-            file.name,
-            { type: file.type, lastModified: new Date().getTime() },
-          );
+
           await saveFile(newFile);
           setFile(newFile);
         }}

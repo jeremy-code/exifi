@@ -42,6 +42,9 @@ const viteConfig = defineConfig({
       // Polyfill `buffer` for `iconv-lite`. Global not necessary because
       // safer-buffer imports the package
       include: ["buffer"],
+      globals: {
+        process: false,
+      },
     }),
     ...(isAnalyzerEnabled
       ? [

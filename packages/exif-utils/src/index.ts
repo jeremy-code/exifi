@@ -1,1 +1,0 @@
-export { writeExifData } from "./writeExifData";
