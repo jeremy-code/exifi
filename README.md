@@ -1,14 +1,15 @@
-# exifi
+<p align="center">
+  <a href="https://exifi.io">
+    <img src="./apps/client/public/favicon.svg" height="128">
+    <h1 align="center">exifi</h1>
+  </a>
+</p>
 
-<!-- Link references -->
-
-[github-actions]: https://www.github.com/jeremy-code/exifi/actions/workflows/ci.yml
-[github-actions-badge]: https://www.github.com/jeremy-code/exifi/actions/workflows/ci.yml/badge.svg
-[license-badge]: https://img.shields.io/github/license/jeremy-code/exifi
-[netlify-status-badge]: https://api.netlify.com/api/v1/badges/027f759e-5e19-4417-9311-394ce8cd4bbc/deploy-status
-[netlify-website]: https://exifi.io
-
-[![GitHub Actions][github-actions-badge]][github-actions] [![License][license-badge]](LICENSE) [![Netlify Status][netlify-status-badge]][netlify-website]
+<p align="center">
+  <a aria-label="GitHub Actions" href="https://www.github.com/jeremy-code/exifi/actions/workflows/ci.yml"><img src="https://www.github.com/jeremy-code/exifi/actions/workflows/ci.yml/badge.svg"></a>
+  <a aria-label="License" href="LICENSE"><img alt="" src="https://img.shields.io/github/license/jeremy-code/exifi"></a>
+  <a aria-label="Netlify Status" href="https://exifi.io"><img alt="" src="https://api.netlify.com/api/v1/badges/027f759e-5e19-4417-9311-394ce8cd4bbc/deploy-status"></a>
+</p>
 
 ## Installation
 
