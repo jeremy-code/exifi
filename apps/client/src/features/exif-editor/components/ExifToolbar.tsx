@@ -6,7 +6,7 @@ import { useShallow } from "zustand/react/shallow";
 import { useFile } from "#contexts/FileContext";
 import { isMobileWebKit } from "#utils/platform";
 import { saveFile } from "#utils/saveFile";
-import { writeExifData } from "@exifi/exif-utils";
+import { setExifData } from "@exifi/core/exif/utils/setExifData";
 import { Button } from "@exifi/ui/components/Button";
 import { Toolbar, type ToolbarProps } from "@exifi/ui/components/Toolbar";
 
@@ -33,18 +33,6 @@ const ExifToolbar = (props: ExifToolbarProps) => {
       <Button
         isDisabled={!isDirty}
         onPress={() => {
-          const generateFile = async () => {
-            const newFileInBytes = writeExifData(
-              new Uint8Array(await file.arrayBuffer()),
-              exifData.saveData(),
-            );
-
-            return new File([new Uint8Array(newFileInBytes)], file.name, {
-              type: file.type,
-              lastModified: new Date().getTime(),
-            });
-          };
-
           // For an unfathomable reason, Mobile iOS specifically seems to have
           // issues with saveFile(), returning a NotReadableError "The I/O read
           // operation failed." afterwards. For more information, see
@@ -56,19 +44,19 @@ const ExifToolbar = (props: ExifToolbarProps) => {
 
             // https://react.dev/reference/react/useTransition#react-doesnt-treat-my-state-update-after-await-as-a-transition
             startTransition(async () => {
-              const newFile = await generateFile();
+              const newFile = await setExifData(file, exifData);
+
               if (windowProxy !== null) {
                 const blobUrl = URL.createObjectURL(file);
                 windowProxy.location.assign(blobUrl);
                 URL.revokeObjectURL(blobUrl);
               }
-              startTransition(() => {
-                setFile(newFile);
-              });
+              startTransition(() => setFile(newFile));
             });
           } else {
             startTransition(async () => {
-              const newFile = await generateFile();
+              const newFile = await setExifData(file, exifData);
+
               startTransition(() => {
                 // If I move this outside of the startTransition callback, React
                 // gets stuck on isPending for much longer than it should be.

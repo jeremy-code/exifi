@@ -68,9 +68,6 @@ importers:
       '@exifi/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@exifi/exif-utils':
-        specifier: workspace:*
-        version: link:../../packages/exif-utils
       '@exifi/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -240,6 +237,9 @@ importers:
       lightningcss:
         specifier: ^1.33.0
         version: 1.33.0
+      netlify-plugin-emsdk:
+        specifier: ^0.0.1
+        version: 0.0.1
       openapi-typescript:
         specifier: ^7.13.0
         version: 7.13.0(typescript@6.0.3)
@@ -267,6 +267,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@exifi/image-utils':
+        specifier: workspace:*
+        version: link:../image-utils
       '@exifi/utils':
         specifier: workspace:*
         version: link:../utils
@@ -276,6 +279,9 @@ importers:
       decimal.js:
         specifier: ^10.6.0
         version: 10.6.0(patch_hash=e14b269f5e50ee392b817f53afd5fbf309e08b8e1cbd082b9ebbc9c4b0bddbf9)
+      file-type:
+        specifier: ^22.0.2
+        version: 22.0.2(supports-color@10.2.2)
       iconv-lite:
         specifier: ^0.7.3
         version: 0.7.3
@@ -289,22 +295,20 @@ importers:
       '@exifi/test-fixtures':
         specifier: workspace:*
         version: link:../test-fixtures
+      '@std/path':
+        specifier: jsr:^1.1.6
+        version: '@jsr/std__path@1.1.6'
       image-dimensions:
         specifier: ^2.5.1
         version: 2.5.1
+      mrmime:
+        specifier: ^2.0.1
+        version: 2.0.1
       type-fest:
         specifier: ^5.9.0
         version: 5.9.0
 
-  packages/exif-utils:
-    dependencies:
-      '@exifi/utils':
-        specifier: workspace:*
-        version: link:../utils
-    devDependencies:
-      '@exifi/test-fixtures':
-        specifier: workspace:*
-        version: link:../test-fixtures
+  packages/image-utils: {}
 
   packages/oxlint-config:
     devDependencies:
@@ -3411,6 +3415,9 @@ packages:
 
   natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
+
+  netlify-plugin-emsdk@0.0.1:
+    resolution: {integrity: sha512-9xsrmfmpGglEWKuvd62CoV9oR9f7CDZGkkGfvVYSdCbQuWPG/PfQ6/kJ5JdxgdfCoV+4uLXefAdWCVaWh1XnyA==}
 
   next-themes@0.4.6:
     resolution: {integrity: sha512-pZvgD5L0IEvX5/9GWyHMf3m8BKiVQwsCMHfoFosXtXBMnaS0ZnIJ9ST4b4NqLVKDEm8QBxoNNGNaBv2JNF6XNA==}
@@ -7369,6 +7376,8 @@ snapshots:
   nanoid@3.3.18: {}
 
   natural-compare@1.4.0: {}
+
+  netlify-plugin-emsdk@0.0.1: {}
 
   next-themes@0.4.6(react-dom@19.2.8(react@19.2.8))(react@19.2.8):
     dependencies:

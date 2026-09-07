@@ -1,0 +1,18 @@
+{
+  "name": "@exifi/image-utils",
+  "version": "0.0.0",
+  "private": false,
+  "exports": {
+    ".": {
+      "types": "./dist/imageUtils.d.ts",
+      "node": "./dist/imageUtils.node.js",
+      "browser": "./dist/imageUtils.web.js",
+      "default": "./dist/imageUtils.web.js"
+    },
+    "./imageUtils.wasm": "./dist/imageUtils.wasm"
+  },
+  "scripts": {
+    "build": "./scripts/build.sh",
+    "format": "find src -name \"*.cpp\" -o -name \"*.h\" | xargs clang-format -i"
+  }
+}

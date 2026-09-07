@@ -11,6 +11,8 @@ const lintStagedConfig = {
    * @see {@link https://turborepo.dev/docs/reference/run}
    */
   "*.{js,mjs,cjs,ts,tsx,mts,cts}": ["oxlint --", "oxfmt --check"],
+  "*.{c,cpp,h}":
+    "clang-format --Werror --dry-run --style=file:packages/image-utils/.clang-format",
   "*.{json,md,yaml,yml}": "oxfmt --check",
 };
 
