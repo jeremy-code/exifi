@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://exifi.io">
-    <img src="./apps/client/public/favicon.svg" height="128">
+    <img src="./apps/client/public/favicon.svg" height="64">
     <h1 align="center">Exifi</h1>
   </a>
 </p>
