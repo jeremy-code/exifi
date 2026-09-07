@@ -2,11 +2,10 @@ import { useMemo, useState, type CSSProperties } from "react";
 
 import {
   flexRender,
-  getCoreRowModel,
-  getExpandedRowModel,
-  useReactTable,
+  useTable,
   type RowData,
   type RowSelectionState,
+  type TableFeatures,
 } from "@tanstack/react-table";
 import type { Ifd } from "libexif-wasm";
 import { Button as AriaButton } from "react-aria-components/Button";
@@ -15,6 +14,7 @@ import { useShallow } from "zustand/react/shallow";
 
 import { ColumnResizer } from "#components/table/ColumnResizer";
 import { ExpandRows } from "#components/table/ExpandRows";
+import { features } from "#components/table/tableFeatures";
 import { formatPlural } from "#utils/formatPlural";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { Badge } from "@exifi/ui/components/Badge";
@@ -36,10 +36,10 @@ import { SelectionBar } from "./table/SelectionBar";
 import { columns } from "./table/columns";
 
 declare module "@tanstack/react-table" {
-  interface TableMeta<TData extends RowData> extends Pick<
-    ExifEditorStoreActions,
-    "updateExifEntry"
-  > {}
+  interface TableMeta<
+    in out TFeatures extends TableFeatures,
+    in out TData extends RowData,
+  > extends Pick<ExifEditorStoreActions, "updateExifEntry"> {}
 }
 
 const fallbackData: ExifEntryObject[] = [];
@@ -64,14 +64,13 @@ const ExifTable = (props: ExifTableProps) => {
   );
   const updateExifEntry = useExifEditor((state) => state.updateExifEntry);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const table = useReactTable({
+  const table = useTable({
+    features,
     columns,
     getSubRows: (originalRow) =>
       "entries" in originalRow ? originalRow.entries : undefined,
     columnResizeMode: "onChange",
     data: exifEntryObjects ?? fallbackData,
-    getCoreRowModel: getCoreRowModel(),
-    getExpandedRowModel: getExpandedRowModel(),
     onRowSelectionChange: setRowSelection,
     initialState: {
       expanded: true,
@@ -93,8 +92,9 @@ const ExifTable = (props: ExifTableProps) => {
           acc[`--col-${header.column.id}-size`] = header.column.getSize();
           return acc;
         }, {}),
+    // `columnSizingInfo` state -> `columnResizing` state in V9
     // oxlint-disable-next-line react-hooks/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
-    [table.getState().columnSizingInfo, table.getState().columnSizing],
+    [table.state.columnResizing, table.state.columnSizing],
   );
 
   if (exifEntryObjects.length === 0) {

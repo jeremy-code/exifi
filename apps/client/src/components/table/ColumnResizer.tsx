@@ -3,8 +3,10 @@ import type { ComponentPropsWithRef, CSSProperties } from "react";
 import { type RowData, type Header as HeaderType } from "@tanstack/react-table";
 import { cn } from "tailwind-variants";
 
+import type { Features } from "./tableFeatures";
+
 type ColumnResizerProps<TData extends RowData, TValue> = {
-  header: HeaderType<TData, TValue>;
+  header: HeaderType<Features, TData, TValue>;
 } & ComponentPropsWithRef<"div">;
 
 const ColumnResizer = <TData extends RowData, TValue>({
@@ -39,7 +41,7 @@ const ColumnResizer = <TData extends RowData, TValue>({
           "--resizer-offset":
             table.options.columnResizeMode === "onEnd" &&
             header.column.getIsResizing()
-              ? `${table.getState().columnSizingInfo.deltaOffset ?? 0}px`
+              ? `${table.store.state.columnResizing.deltaOffset ?? 0}px`
               : "0px",
         } as CSSProperties
       }

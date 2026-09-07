@@ -1,14 +1,11 @@
 import type { CellContext } from "@tanstack/react-table";
 
+import type { Features } from "#components/table/tableFeatures";
 import { Checkbox } from "@exifi/ui/components/Checkbox";
 
 import type { ExifTableRow } from "./columns";
 
-const SelectCell = ({ row }: CellContext<ExifTableRow, unknown>) => {
-  // It seems that TanStack Table (which may be incompatible with React compiler)
-  // does not place nice with React Aria Checkbox.
-  "use no memo";
-
+const SelectCell = ({ row }: CellContext<Features, ExifTableRow>) => {
   return (
     <Checkbox
       boxProps={{ className: "mx-auto" }}

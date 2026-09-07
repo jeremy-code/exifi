@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 import type { RowSelectionState, Table } from "@tanstack/react-table";
 import { IFD_NAMES } from "libexif-wasm";
 
+import type { Features } from "#components/table/tableFeatures";
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
 
 import { DeleteEntriesDialog } from "../dialogs/DeleteEntriesDialog";
@@ -14,7 +15,7 @@ const SelectionBar = ({
   table,
 }: {
   rowSelection: RowSelectionState;
-  table: Table<ExifTableRow>;
+  table: Table<Features, ExifTableRow>;
 }) => {
   const selectedRowIds = useMemo(
     () =>

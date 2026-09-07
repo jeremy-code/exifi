@@ -1,17 +1,13 @@
 import { useMemo, type CSSProperties } from "react";
 
-import {
-  flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { flexRender, useTable } from "@tanstack/react-table";
 import { getExifTagTable } from "libexif-wasm";
 import { useLocale } from "react-aria/I18nProvider";
 
 import { ColumnResizer } from "#components/table/ColumnResizer";
 import { ExpandRows } from "#components/table/ExpandRows";
 import { SortingHandlerToggle } from "#components/table/SortingHandlerToggle";
+import { features } from "#components/table/tableFeatures";
 import { formatPlural } from "#utils/formatPlural";
 import { Badge } from "@exifi/ui/components/Badge";
 import {
@@ -30,12 +26,11 @@ const exifTagTable = getExifTagTable();
 
 const ExifTagTable = () => {
   const { locale } = useLocale();
-  const table = useReactTable({
+  const table = useTable({
+    features,
     columns,
     columnResizeMode: "onChange",
     data: exifTagTable,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     initialState: {
       sorting: [{ id: "tagVal", desc: false }],
     },
@@ -51,7 +46,7 @@ const ExifTagTable = () => {
           return acc;
         }, {}),
     // oxlint-disable-next-line react-hooks/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
-    [table.getState().columnSizingInfo, table.getState().columnSizing],
+    [table.state.columnResizing, table.state.columnSizing],
   );
   return (
     <TableScrollArea>

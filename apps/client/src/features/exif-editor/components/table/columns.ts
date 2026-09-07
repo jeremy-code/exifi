@@ -1,6 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import type { Ifd } from "libexif-wasm";
 
+import { type Features } from "#components/table/tableFeatures";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 
 import { EditCell } from "./EditCell";
@@ -12,12 +13,12 @@ import { ValueCell } from "./ValueCell";
 
 type ExifTableRow = ExifEntryObject | { ifd: Ifd; entries: ExifTableRow[] };
 
-const columnHelper = createColumnHelper<ExifTableRow>();
+const columnHelper = createColumnHelper<Features, ExifTableRow>();
 
 /**
  * Column sizes are based on a total size of 40rem (breakpoint sm) for the table
  */
-const columns = [
+const columns = columnHelper.columns([
   columnHelper.display({
     id: "select",
     aggregatedCell: SelectCell,
@@ -48,6 +49,6 @@ const columns = [
     cell: EditCell,
     size: 56, // 3.5rem
   }),
-];
+]);
 
 export { type ExifTableRow, columns };

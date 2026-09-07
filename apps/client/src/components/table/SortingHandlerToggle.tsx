@@ -8,8 +8,10 @@ import { composeRenderProps } from "react-aria-components/composeRenderProps";
 
 import { composeTailwindRenderProps } from "@exifi/ui/utils/composeTailwindRenderProps";
 
+import type { Features } from "./tableFeatures";
+
 type SortingHandlerToggle<TData extends RowData, TValue> = {
-  column: Column<TData, TValue>;
+  column: Column<Features, TData, TValue>;
 } & AriaButtonProps;
 
 const SortingHandlerToggle = <TData extends RowData, TValue>({

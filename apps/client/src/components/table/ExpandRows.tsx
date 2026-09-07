@@ -9,8 +9,10 @@ import { cn } from "tailwind-variants";
 
 import { composeTailwindRenderProps } from "@exifi/ui/utils/composeTailwindRenderProps";
 
+import type { Features } from "./tableFeatures";
+
 type ExpandRowsProps<TData extends RowData> = {
-  row: Row<TData>;
+  row: Row<Features, TData>;
 } & AriaButtonProps;
 
 const ExpandRows = <TData extends RowData>({

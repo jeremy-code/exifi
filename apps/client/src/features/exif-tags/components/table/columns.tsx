@@ -1,16 +1,18 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { type TagEntry } from "libexif-wasm";
 
+import { type Features } from "#components/table/tableFeatures";
+
 import { NameCell } from "./NameCell";
 import { SupportLevelCell } from "./SupportLevelCell";
 import { TagCell } from "./TagCell";
 
-const columnHelper = createColumnHelper<TagEntry>();
+const columnHelper = createColumnHelper<Features, TagEntry>();
 
 /**
  * Column sizes are based on a total size of 64rem (breakpoint lg) for the table
  */
-const columns = [
+const columns = columnHelper.columns([
   columnHelper.accessor("tagVal", {
     header: "Tag",
     size: 80, // --spacing(20) = 5rem
@@ -25,7 +27,7 @@ const columns = [
     id: "supportLevel",
     header: "Support Level",
     size: 636, // --spacing(159) = 39.75rem
-    columns: [
+    columns: columnHelper.columns([
       columnHelper.accessor("esl.IFD_0", {
         header: () => "IFD 0",
         cell: SupportLevelCell,
@@ -46,8 +48,8 @@ const columns = [
         header: () => "Interop.",
         cell: SupportLevelCell,
       }),
-    ],
+    ]),
   }),
-];
+]);
 
 export { columns };
