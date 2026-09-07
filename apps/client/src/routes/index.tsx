@@ -77,8 +77,19 @@ const FAQS = [
   },
   {
     question: "What image formats are supported?",
-    answer:
-      "As of right now, only JPEG images are supported since libexif does not support TIFF images.",
+    answer: (
+      <span>
+        JPEG images, PNG images, and raw Exif metadata are supported. For more
+        information, see{" "}
+        <Link
+          color="link"
+          href="https://github.com/jeremy-code/exifi/issues/13"
+        >
+          jeremy-code/exifi#13
+        </Link>
+      </span>
+    ),
+    // "As of right now, only JPEG images are supported since libexif does not support TIFF images.",
   },
   {
     question:
