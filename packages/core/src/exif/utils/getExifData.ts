@@ -20,6 +20,12 @@ const getExifData = async (file: File): Promise<ExifData> => {
     if (exifData !== undefined) {
       return ExifData.newFromData(exifData);
     }
+  } else if (mimeType === "image/webp") {
+    const exifData = imageUtils.webp_get_exif_data(fileBytes);
+
+    if (exifData !== undefined) {
+      return ExifData.newFromData(exifData);
+    }
   }
 
   return ExifData.newFromData(fileBytes);

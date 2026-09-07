@@ -150,6 +150,7 @@ Uint8Array png_set_exif_data(const std::string png_data,
 
 #ifdef PNG_eXIf_SUPPORTED
   bool has_exif_header =
+      exif_data.size() >= std::size(ExifHeader) &&
       memcmp(exif_data.data(), ExifHeader, std::size(ExifHeader)) == 0;
   auto png_exif_data = reinterpret_cast<png_bytep>(const_cast<char *>(
       has_exif_header ? exif_data.data() + std::size(ExifHeader)

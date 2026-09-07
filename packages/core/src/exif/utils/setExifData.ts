@@ -30,6 +30,16 @@ const setExifData = async (file: File, exifData: ExifData): Promise<File> => {
       type: fileType,
       lastModified: new Date().getTime(),
     });
+  } else if (fileType === "image/webp") {
+    const newFileBytes = imageUtils.webp_set_exif_data(
+      fileBytes,
+      exifDataBytes,
+    );
+
+    return new File([newFileBytes.slice()], file.name, {
+      type: fileType,
+      lastModified: new Date().getTime(),
+    });
   }
 
   return file;

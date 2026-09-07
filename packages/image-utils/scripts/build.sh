@@ -19,6 +19,7 @@ COMPILE_FLAGS=(
   -Oz # https://clang.llvm.org/docs/CommandGuide/clang.html#cmdoption-O0
   -g0 # Do not generate debug information
   --minify 0 # Do not minify JavaScript glue code
+  --use-port="${PWD}/scripts/libwebp.py"
   -lembind
   --emit-tsd "${OUTPUT_DIR}/imageUtils.d.ts"
   -sSTACK_SIZE=$((2 ** 16))
