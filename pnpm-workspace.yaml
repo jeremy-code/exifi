@@ -26,6 +26,7 @@ verifyDepsBeforeRun: install
 strictDepBuilds: true
 allowBuilds:
   esbuild: true
+  lefthook: true
   unrs-resolver: true
 
 # Other Settings (https://pnpm.io/settings#other-settings)

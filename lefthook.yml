@@ -1,0 +1,21 @@
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm exec commitlint --edit $LEFTHOOK_GIT_PARAMS
+
+pre-commit:
+  parallel: true
+  jobs:
+    - name: Oxlint
+      run: pnpm exec oxlint -- {staged_files}
+      glob: "*.{js,mjs,cjs,ts,tsx,mts,cts}"
+
+    - name: Oxfmt
+      run: pnpm exec oxfmt --check -- {staged_files}
+      glob:
+        - "*.{js,mjs,cjs,ts,tsx,mts,cts}"
+        - "*.{json,css,yml,yaml,md}"
+
+    - name: Clang-format
+      run: clang-format --Werror --dry-run -- {staged_files}
+      glob: "*.{c,cpp,h,hpp}"
