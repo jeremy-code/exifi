@@ -4,7 +4,8 @@ import { GpsTagVersionInput } from "#components/editor/GpsTagVersionInput";
 import { RationalInput } from "#components/editor/RationalInput";
 import { UserCommentSelect } from "#components/editor/UserCommentSelect";
 import { UserCommentTextarea } from "#components/editor/UserCommentTextarea";
-import type { AddEditor } from "#features/exif-editor/editors/add/types";
+import type { AddEditor } from "#features/exif-editor/editors/add/interfaces";
+import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { getEntryObjectLabel } from "@exifi/core/exif/utils/getEntryObjectLabel";
 import { DateField } from "@exifi/ui/components/DateField";
 import { DatePicker } from "@exifi/ui/components/DatePicker";
@@ -16,12 +17,14 @@ import { assertNever } from "@exifi/utils/assertNever";
 
 type ExifEntryAddEditorFieldsProps = {
   exifAddEditor: AddEditor;
+  exifEntryObject: Partial<ExifEntryObject>;
 };
 
 const ExifEntryAddEditorFields = ({
   exifAddEditor,
+  exifEntryObject,
 }: ExifEntryAddEditorFieldsProps) => {
-  const label = getEntryObjectLabel(exifAddEditor.exifEntryObject);
+  const label = getEntryObjectLabel(exifEntryObject);
 
   switch (exifAddEditor.kind) {
     case "enum":
@@ -40,7 +43,9 @@ const ExifEntryAddEditorFields = ({
           {...exifAddEditor}
           label="Value"
           onChange={(value) => {
-            exifAddEditor.onValueChange(value ?? undefined);
+            if (value) {
+              exifAddEditor.onValueChange(value);
+            }
           }}
         />
       );
@@ -59,7 +64,9 @@ const ExifEntryAddEditorFields = ({
           granularity="second"
           label="Value"
           onChange={(value) => {
-            exifAddEditor.onValueChange(value ?? undefined);
+            if (value) {
+              exifAddEditor.onValueChange(value ?? undefined);
+            }
           }}
         />
       );
@@ -71,7 +78,9 @@ const ExifEntryAddEditorFields = ({
           label="Value"
           aria-label={label}
           onChange={(value) => {
-            exifAddEditor.onValueChange(value ?? undefined);
+            if (value) {
+              exifAddEditor.onValueChange(value);
+            }
           }}
         />
       );

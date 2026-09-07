@@ -1,3 +1,4 @@
+import type { QuickEditorResolver } from "./interfaces";
 import { resolveAscii } from "./resolvers/resolveAscii";
 import { resolveDateStamp } from "./resolvers/resolveDateStamp";
 import { resolveDateTime } from "./resolvers/resolveDateTime";
@@ -9,7 +10,6 @@ import { resolveSimpleRational } from "./resolvers/resolveSimpleRational";
 import { resolveTimeStamp } from "./resolvers/resolveTimeStamp";
 import { resolveVersionId } from "./resolvers/resolveVersionId";
 import { resolveXp } from "./resolvers/resolveXp";
-import type { QuickEditorResolver } from "./types";
 
 const resolvers: QuickEditorResolver[] = [
   resolveEnum, // Based on EXIF_TAG_MAP

@@ -1,6 +1,4 @@
-import { mapRationalFromObject } from "libexif-wasm";
-
-import type { QuickEditorResolver } from "../types";
+import type { QuickEditorResolver } from "../interfaces";
 
 const resolveSimpleRational: QuickEditorResolver = (
   exifEntryObject,
@@ -18,9 +16,7 @@ const resolveSimpleRational: QuickEditorResolver = (
       exifEntryObject,
       value: exifEntryObject.value[0].numerator,
       onValueChange: (value) =>
-        onValueChange(
-          mapRationalFromObject([{ numerator: value, denominator: 1 }]),
-        ),
+        onValueChange([{ numerator: value, denominator: 1 }]),
     };
   }
   return null;

@@ -1,4 +1,4 @@
-import type { AddEditorResolver } from "../types";
+import type { AddEditorResolver } from "../interfaces";
 
 const resolveNumeric: AddEditorResolver = (exifEntryObject, onValueChange) => {
   if (

@@ -2,7 +2,7 @@ import { XP_TAGS } from "@exifi/core/exif/xp/constants";
 import { formatXp } from "@exifi/core/exif/xp/formatXp";
 import { parseXp } from "@exifi/core/exif/xp/parseXp";
 
-import type { QuickEditorResolver } from "../types";
+import type { QuickEditorResolver } from "../interfaces";
 
 const resolveXp: QuickEditorResolver = (exifEntryObject, onValueChange) => {
   if (
@@ -13,7 +13,7 @@ const resolveXp: QuickEditorResolver = (exifEntryObject, onValueChange) => {
       kind: "xp",
       exifEntryObject,
       value: parseXp(new Uint8Array(exifEntryObject.value)),
-      onValueChange: (value) => onValueChange(formatXp(value)),
+      onValueChange: (value) => onValueChange(Array.from(formatXp(value))),
     };
   }
 

@@ -2,7 +2,7 @@ import { XP_TAGS } from "@exifi/core/exif/xp/constants";
 import { formatXp } from "@exifi/core/exif/xp/formatXp";
 import { parseXp } from "@exifi/core/exif/xp/parseXp";
 
-import type { AdvancedEditorResolver } from "../types";
+import type { AdvancedEditorResolver } from "../interfaces";
 
 const resolveXp: AdvancedEditorResolver = (exifEntryObject, onValueChange) => {
   if (
@@ -11,7 +11,6 @@ const resolveXp: AdvancedEditorResolver = (exifEntryObject, onValueChange) => {
   ) {
     return {
       kind: "xp",
-      exifEntryObject,
       value: parseXp(new Uint8Array(exifEntryObject.value)),
       onValueChange: (value) => onValueChange(Array.from(formatXp(value))),
     };

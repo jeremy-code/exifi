@@ -1,7 +1,6 @@
 import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
-import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
-import type { QuickEditorResolver } from "../types";
+import type { QuickEditorResolver } from "../interfaces";
 
 const resolveEnumAscii: QuickEditorResolver = (
   exifEntryObject,
@@ -35,7 +34,7 @@ const resolveEnumAscii: QuickEditorResolver = (
     values: Object.keys(asciiValues),
     onValueChange: (value) => {
       if (value in asciiValues && asciiValues[value] !== undefined) {
-        onValueChange(encodeStringToUtf8(asciiValues[value]));
+        onValueChange(asciiValues[value]);
       }
     },
   };

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Group, type GroupProps } from "react-aria-components/Group";
 import { cn } from "tailwind-variants";
 
-import type { ExifVersion } from "#features/exif-editor/editors/quick/types";
+import type { ExifVersion } from "#features/exif-editor/editors/shared/interfaces";
 import {
   NumberField,
   type NumberFieldProps,

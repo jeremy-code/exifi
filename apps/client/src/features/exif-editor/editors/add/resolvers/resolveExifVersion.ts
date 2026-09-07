@@ -1,7 +1,7 @@
 import { formatExifVersion } from "@exifi/core/exif/exifVersion/formatExifVersion";
 import { parseExifVersion } from "@exifi/core/exif/exifVersion/parseExifVersion";
 
-import type { AddEditorResolver } from "../types";
+import type { AddEditorResolver } from "../interfaces";
 
 const resolveExifVersion: AddEditorResolver = (
   exifEntryObject,

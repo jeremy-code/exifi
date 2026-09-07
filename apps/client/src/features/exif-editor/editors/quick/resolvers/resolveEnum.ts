@@ -1,7 +1,6 @@
 import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
-import { typedArrayInFormat } from "@exifi/core/exif/utils/typedArrayInFormat";
 
-import type { QuickEditorResolver } from "../types";
+import type { QuickEditorResolver } from "../interfaces";
 
 const resolveEnum: QuickEditorResolver = (entry, onValueChange) => {
   const mappedTag = EXIF_TAG_MAP[entry.tag];
@@ -25,7 +24,7 @@ const resolveEnum: QuickEditorResolver = (entry, onValueChange) => {
     values: Object.keys(values),
     onValueChange: (value) => {
       if (value in values && values[value] !== undefined) {
-        onValueChange(typedArrayInFormat([values[value]], entry.format));
+        onValueChange([values[value]]);
       }
     },
   };

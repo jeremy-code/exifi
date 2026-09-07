@@ -5,7 +5,7 @@ import {
   parseTimeStamp,
 } from "@exifi/core/exif/date/timeStamp";
 
-import type { QuickEditorResolver } from "../types";
+import type { QuickEditorResolver } from "../interfaces";
 
 const resolveTimeStamp: QuickEditorResolver = (
   exifEntryObject,
@@ -23,8 +23,7 @@ const resolveTimeStamp: QuickEditorResolver = (
       kind: "timeStamp",
       exifEntryObject,
       value: parseTimeStamp(exifEntryObject.value),
-      onValueChange: (value) =>
-        onValueChange(new Uint32Array(formatTimeStamp(value))),
+      onValueChange: (value) => onValueChange(formatTimeStamp(value)),
     };
   }
 

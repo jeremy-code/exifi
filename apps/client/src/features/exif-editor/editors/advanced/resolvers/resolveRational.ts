@@ -1,4 +1,4 @@
-import type { AdvancedEditorResolver } from "../types";
+import type { AdvancedEditorResolver } from "../interfaces";
 
 const resolveRational: AdvancedEditorResolver = (
   exifEntryObject,
@@ -10,7 +10,6 @@ const resolveRational: AdvancedEditorResolver = (
   ) {
     return {
       kind: "rational",
-      exifEntryObject,
       values: exifEntryObject.value,
       onValueChange: (rationalObject, index) =>
         onValueChange(exifEntryObject.value.with(index, rationalObject)),

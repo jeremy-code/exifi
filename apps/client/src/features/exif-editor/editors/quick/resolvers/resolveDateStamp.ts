@@ -4,7 +4,7 @@ import {
   parseDateStamp,
 } from "@exifi/core/exif/date/dateStamp";
 
-import type { QuickEditorResolver } from "../types";
+import type { QuickEditorResolver } from "../interfaces";
 
 const resolveDateStamp: QuickEditorResolver = (
   exifEntryObject,

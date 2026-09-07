@@ -1,7 +1,7 @@
 import { formatExifVersion } from "@exifi/core/exif/exifVersion/formatExifVersion";
 import { parseExifVersion } from "@exifi/core/exif/exifVersion/parseExifVersion";
 
-import type { QuickEditorResolver } from "../types";
+import type { QuickEditorResolver } from "../interfaces";
 
 const resolveExifVersion: QuickEditorResolver = (
   exifEntryObject,
@@ -22,7 +22,8 @@ const resolveExifVersion: QuickEditorResolver = (
       kind: "exifVersion",
       exifEntryObject,
       value: exifVersion,
-      onValueChange: (value) => onValueChange(formatExifVersion(value)),
+      onValueChange: (value) =>
+        onValueChange(Array.from(formatExifVersion(value))),
     };
   }
 

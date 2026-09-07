@@ -1,6 +1,6 @@
 import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
 
-import type { AddEditorResolver } from "../types";
+import type { AddEditorResolver } from "../interfaces";
 
 const resolveEnumAscii: AddEditorResolver = (
   exifEntryObject,

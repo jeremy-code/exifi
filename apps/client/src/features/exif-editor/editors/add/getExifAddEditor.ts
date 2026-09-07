@@ -1,3 +1,4 @@
+import type { AddEditorResolver } from "./interfaces";
 import { resolveAscii } from "./resolvers/resolveAscii";
 import { resolveDateStamp } from "./resolvers/resolveDateStamp";
 import { resolveDateTime } from "./resolvers/resolveDateTime";
@@ -10,7 +11,6 @@ import { resolveTimeStamp } from "./resolvers/resolveTimeStamp";
 import { resolveUserComment } from "./resolvers/resolveUserComment";
 import { resolveVersionId } from "./resolvers/resolveVersionId";
 import { resolveXp } from "./resolvers/resolveXp";
-import type { AddEditorResolver } from "./types";
 
 const resolvers: AddEditorResolver[] = [
   resolveEnum, // Based on EXIF_TAG_MAP

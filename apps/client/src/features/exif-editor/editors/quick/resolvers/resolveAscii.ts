@@ -1,4 +1,4 @@
-import type { QuickEditorResolver } from "../types";
+import type { QuickEditorResolver } from "../interfaces";
 
 const resolveAscii: QuickEditorResolver = (exifEntryObject, onValueChange) => {
   if (exifEntryObject.format === "ASCII") {

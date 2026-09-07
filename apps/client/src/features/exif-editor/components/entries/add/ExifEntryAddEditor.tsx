@@ -44,7 +44,10 @@ const ExifEntryAddEditor = ({
 
   return (
     <>
-      <ExifEntryAddEditorFields exifAddEditor={exifAddEditor} />
+      <ExifEntryAddEditorFields
+        exifAddEditor={exifAddEditor}
+        exifEntryObject={exifEntryObject}
+      />
       {!!exifAddEditor.hasIndeterminateSize && (
         <ExifEntryAddEditorControls
           exifEntryObject={exifEntryObject}

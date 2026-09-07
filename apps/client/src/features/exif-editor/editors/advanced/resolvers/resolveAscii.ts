@@ -1,4 +1,4 @@
-import type { AdvancedEditorResolver } from "../types";
+import type { AdvancedEditorResolver } from "../interfaces";
 
 const resolveAscii: AdvancedEditorResolver = (
   exifEntryObject,
@@ -7,7 +7,6 @@ const resolveAscii: AdvancedEditorResolver = (
   if (exifEntryObject.format === "ASCII") {
     return {
       kind: "ascii",
-      exifEntryObject,
       value: exifEntryObject.value,
       onValueChange: (value) => onValueChange(value),
     };

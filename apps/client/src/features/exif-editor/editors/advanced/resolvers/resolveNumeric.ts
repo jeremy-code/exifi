@@ -1,4 +1,4 @@
-import type { AdvancedEditorResolver } from "../types";
+import type { AdvancedEditorResolver } from "../interfaces";
 
 const resolveNumeric: AdvancedEditorResolver = (
   exifEntryObject,
@@ -15,7 +15,6 @@ const resolveNumeric: AdvancedEditorResolver = (
   ) {
     return {
       kind: "numeric",
-      exifEntryObject,
       values: exifEntryObject.value,
       onValueChange: (newValue, index) => {
         onValueChange(exifEntryObject.value.with(index, newValue));

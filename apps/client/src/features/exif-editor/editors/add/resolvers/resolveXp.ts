@@ -2,7 +2,7 @@ import { XP_TAGS } from "@exifi/core/exif/xp/constants";
 import { formatXp } from "@exifi/core/exif/xp/formatXp";
 import { parseXp } from "@exifi/core/exif/xp/parseXp";
 
-import type { AddEditorResolver } from "../types";
+import type { AddEditorResolver } from "../interfaces";
 
 const resolveXp: AddEditorResolver = (exifEntryObject, onValueChange) => {
   if (

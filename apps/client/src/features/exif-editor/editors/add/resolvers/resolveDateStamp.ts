@@ -3,7 +3,7 @@ import {
   parseDateStamp,
 } from "@exifi/core/exif/date/dateStamp";
 
-import type { AddEditorResolver } from "../types";
+import type { AddEditorResolver } from "../interfaces";
 
 const resolveDateStamp: AddEditorResolver = (
   exifEntryObject,

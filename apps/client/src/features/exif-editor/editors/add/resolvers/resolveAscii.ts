@@ -1,4 +1,4 @@
-import type { AddEditorResolver } from "../types";
+import type { AddEditorResolver } from "../interfaces";
 
 const resolveAscii: AddEditorResolver = (exifEntryObject, onValueChange) => {
   if (exifEntryObject.format === "ASCII") {

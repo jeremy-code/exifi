@@ -1,7 +1,7 @@
 import { formatUserComment } from "@exifi/core/exif/userComment/formatUserComment";
 import { parseUserComment } from "@exifi/core/exif/userComment/parseUserComment";
 
-import type { AddEditorResolver } from "../types";
+import type { AddEditorResolver } from "../interfaces";
 
 const resolveUserComment: AddEditorResolver = (
   exifEntryObject,
@@ -17,7 +17,7 @@ const resolveUserComment: AddEditorResolver = (
       value:
         exifEntryObject.value.length !== 0
           ? parseUserComment(exifEntryObject.value)
-          : { encoding: "ASCII", value: "" },
+          : undefined,
       onValueChange: (value) =>
         onValueChange(Array.from(formatUserComment(value))),
     };

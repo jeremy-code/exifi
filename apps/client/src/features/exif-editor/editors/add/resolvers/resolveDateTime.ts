@@ -1,7 +1,7 @@
 import { DATETIME_TAGS } from "@exifi/core/exif/date/constants";
 import { formatDateTime, parseDateTime } from "@exifi/core/exif/date/dateTime";
 
-import type { AddEditorResolver } from "../types";
+import type { AddEditorResolver } from "../interfaces";
 
 const resolveDateTime: AddEditorResolver = (exifEntryObject, onValueChange) => {
   if (

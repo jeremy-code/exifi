@@ -4,7 +4,7 @@ import {
 } from "@exifi/core/exif/date/constants";
 import { formatDateTime, parseDateTime } from "@exifi/core/exif/date/dateTime";
 
-import type { QuickEditorResolver } from "../types";
+import type { QuickEditorResolver } from "../interfaces";
 
 const resolveDateTime: QuickEditorResolver = (
   exifEntryObject,

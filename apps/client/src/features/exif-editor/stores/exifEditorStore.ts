@@ -19,7 +19,6 @@ import {
   typedArrayInFormat,
 } from "@exifi/core/exif/utils";
 import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
-import { isTypedArray } from "@exifi/utils/isTypedArray";
 
 type ExifEditorStoreState = {
   exifData: ExifData;
@@ -32,13 +31,13 @@ type ExifEditorStoreActions = {
   updateExifDataObject: () => void;
   updateExifEntry: (
     exifEntryObject: ExifEntryObject,
-    value: ValidTypedArray | ExifEntryObject["value"],
+    value: ExifEntryObject["value"],
   ) => void;
   removeExifEntries: (exifEntryObjects: ExifEntryObject[]) => void;
   addExifEntry: (
     exifEntryObject: Partial<ExifEntryObject> &
       Pick<ExifEntryObject, "ifd" | "tag" | "format">,
-    value: ValidTypedArray | ExifEntryObject["value"],
+    value: ExifEntryObject["value"],
   ) => void;
 };
 
@@ -73,18 +72,13 @@ const createExifEditorStore = (exifData: ExifData) =>
           const typedArray =
             typeof value === "string"
               ? encodeStringToUtf8(value)
-              : isTypedArray(value)
-                ? value
-                : exifEntryObject.format === "RATIONAL" ||
-                    exifEntryObject.format === "SRATIONAL"
-                  ? mapRationalFromObject(
-                      value as RationalObject[],
-                      exifEntryObject.format,
-                    )
-                  : typedArrayInFormat(
-                      value as number[],
-                      exifEntryObject.format,
-                    );
+              : exifEntryObject.format === "RATIONAL" ||
+                  exifEntryObject.format === "SRATIONAL"
+                ? mapRationalFromObject(
+                    value as RationalObject[],
+                    exifEntryObject.format,
+                  )
+                : typedArrayInFormat(value as number[], exifEntryObject.format);
 
           exifEntry.fromTypedArray(typedArray);
 
@@ -123,34 +117,35 @@ const createExifEditorStore = (exifData: ExifData) =>
           }
           const exifEntry = getOrInsertEntry(exifContent, exifEntryObject.tag);
           exifEntry.format = exifEntryObject.format;
-          let typedArray: ValidTypedArray = new Uint8Array(0);
+          let typedArray: ValidTypedArray | undefined = undefined;
           try {
             typedArray =
               typeof value === "string"
                 ? encodeStringToUtf8(value)
-                : isTypedArray(value)
-                  ? value
-                  : exifEntryObject.format === "RATIONAL" ||
-                      exifEntryObject.format === "SRATIONAL"
-                    ? mapRationalFromObject(
-                        value as RationalObject[],
-                        exifEntryObject.format,
-                      )
-                    : typedArrayInFormat(
-                        value as number[],
-                        exifEntryObject.format,
-                      );
+                : exifEntryObject.format === "RATIONAL" ||
+                    exifEntryObject.format === "SRATIONAL"
+                  ? mapRationalFromObject(
+                      value as RationalObject[],
+                      exifEntryObject.format,
+                    )
+                  : typedArrayInFormat(
+                      value as number[],
+                      exifEntryObject.format,
+                    );
           } catch (e) {
             console.error("An error occurred", e);
           }
 
-          exifEntry.fromTypedArray(typedArray);
+          if (typedArray !== undefined) {
+            exifEntry.fromTypedArray(typedArray);
 
-          const exifDataObject = serializeExifData(state.exifData);
-          return {
-            exifDataObject,
-            isDirty: !dequal(exifDataObject, state.initialExifDataObject),
-          };
+            const exifDataObject = serializeExifData(state.exifData);
+            return {
+              exifDataObject,
+              isDirty: !dequal(exifDataObject, state.initialExifDataObject),
+            };
+          }
+          return {};
         });
       },
     };

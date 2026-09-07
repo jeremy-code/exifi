@@ -1,4 +1,4 @@
-import type { QuickEditorResolver } from "../types";
+import type { QuickEditorResolver } from "../interfaces";
 
 const resolveVersionId: QuickEditorResolver = (
   exifEntryObject,
@@ -14,7 +14,7 @@ const resolveVersionId: QuickEditorResolver = (
       kind: "versionId",
       exifEntryObject,
       value: exifEntryObject.value,
-      onValueChange: (value) => onValueChange(new Uint8Array(value)),
+      onValueChange: (value) => onValueChange(value),
     };
   }
 
