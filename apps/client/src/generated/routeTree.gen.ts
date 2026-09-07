@@ -15,7 +15,6 @@ import { Route as StatusIndexRouteImport } from './../routes/status/index'
 import { Route as TagsIndexRouteImport } from './../routes/tags/index'
 import { Route as AppEditorIndexRouteImport } from './../routes/_app/editor/index'
 import { Route as AppViewerIndexRouteImport } from './../routes/_app/viewer/index'
-import { Route as AppEditorGpsIndexRouteImport } from './../routes/_app/editor_/gps/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,11 +45,6 @@ const AppViewerIndexRoute = AppViewerIndexRouteImport.update({
   path: '/viewer/',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppEditorGpsIndexRoute = AppEditorGpsIndexRouteImport.update({
-  id: '/editor_/gps/',
-  path: '/editor/gps/',
-  getParentRoute: () => AppRouteRoute,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -58,7 +52,6 @@ export interface FileRoutesByFullPath {
   '/tags/': typeof TagsIndexRoute
   '/editor/': typeof AppEditorIndexRoute
   '/viewer/': typeof AppViewerIndexRoute
-  '/editor/gps/': typeof AppEditorGpsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -66,7 +59,6 @@ export interface FileRoutesByTo {
   '/tags': typeof TagsIndexRoute
   '/editor': typeof AppEditorIndexRoute
   '/viewer': typeof AppViewerIndexRoute
-  '/editor/gps': typeof AppEditorGpsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -76,14 +68,12 @@ export interface FileRoutesById {
   '/tags/': typeof TagsIndexRoute
   '/_app/editor/': typeof AppEditorIndexRoute
   '/_app/viewer/': typeof AppViewerIndexRoute
-  '/_app/editor_/gps/': typeof AppEditorGpsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    '/' | '/status/' | '/tags/' | '/editor/' | '/viewer/' | '/editor/gps/'
+  fullPaths: '/' | '/status/' | '/tags/' | '/editor/' | '/viewer/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/status' | '/tags' | '/editor' | '/viewer' | '/editor/gps'
+  to: '/' | '/status' | '/tags' | '/editor' | '/viewer'
   id:
     | '__root__'
     | '/'
@@ -92,7 +82,6 @@ export interface FileRouteTypes {
     | '/tags/'
     | '/_app/editor/'
     | '/_app/viewer/'
-    | '/_app/editor_/gps/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -146,26 +135,17 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppViewerIndexRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/_app/editor_/gps/': {
-      id: '/_app/editor_/gps/'
-      path: '/editor/gps'
-      fullPath: '/editor/gps/'
-      preLoaderRoute: typeof AppEditorGpsIndexRouteImport
-      parentRoute: typeof AppRouteRoute
-    }
   }
 }
 
 interface AppRouteRouteChildren {
   AppEditorIndexRoute: typeof AppEditorIndexRoute
   AppViewerIndexRoute: typeof AppViewerIndexRoute
-  AppEditorGpsIndexRoute: typeof AppEditorGpsIndexRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppEditorIndexRoute: AppEditorIndexRoute,
   AppViewerIndexRoute: AppViewerIndexRoute,
-  AppEditorGpsIndexRoute: AppEditorGpsIndexRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
