@@ -43,3 +43,5 @@ for environment in "${ENVIRONMENTS[@]}"; do
   # resolve glue code. The WASM bundle is the same in both environment
   mv "${OUTPUT_DIR}/imageUtils.js" "${OUTPUT_DIR}/imageUtils.${environment}.js"
 done
+
+tsc

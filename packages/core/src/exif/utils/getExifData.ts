@@ -3,9 +3,7 @@ import { fileTypeFromBlob } from "file-type";
 import { ExifData } from "libexif-wasm";
 import { lookup } from "mrmime";
 
-import imageUtilsFactory from "@exifi/image-utils";
-
-const imageUtils = await imageUtilsFactory();
+import { png_get_exif_data } from "@exifi/image-utils";
 
 const getExifData = async (file: File): Promise<ExifData> => {
   const mimeType =
@@ -15,7 +13,7 @@ const getExifData = async (file: File): Promise<ExifData> => {
   if (mimeType === "image/jpeg") {
     return ExifData.newFromData(fileBytes);
   } else if (mimeType === "image/png") {
-    const exifData = imageUtils.png_get_exif_data(fileBytes);
+    const exifData = png_get_exif_data(fileBytes);
 
     if (exifData !== undefined) {
       return ExifData.newFromData(exifData);

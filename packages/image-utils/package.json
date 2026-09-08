@@ -4,6 +4,10 @@
   "private": false,
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./imageUtils": {
       "types": "./dist/imageUtils.d.ts",
       "node": "./dist/imageUtils.node.js",
       "browser": "./dist/imageUtils.web.js",
