@@ -3,7 +3,11 @@ import { fileTypeFromBlob } from "file-type";
 import { ExifData } from "libexif-wasm";
 import { lookup } from "mrmime";
 
-import { jpeg_set_exif_data, png_set_exif_data } from "@exifi/image-utils";
+import {
+  jpeg_set_exif_data,
+  png_set_exif_data,
+  webp_set_exif_data,
+} from "@exifi/image-utils";
 
 const setExifData = async (file: File, exifData: ExifData): Promise<File> => {
   const fileExtension = extname(file.name);
@@ -24,7 +28,9 @@ const setExifData = async (file: File, exifData: ExifData): Promise<File> => {
       ? jpeg_set_exif_data(fileBytes.slice(), exifDataBytes)
       : fileType === "image/png"
         ? png_set_exif_data(fileBytes.slice(), exifDataBytes)
-        : undefined;
+        : fileType === "image/webp"
+          ? webp_set_exif_data(fileBytes.slice(), exifDataBytes)
+          : undefined;
 
   if (newFileBytes === undefined) {
     return file;

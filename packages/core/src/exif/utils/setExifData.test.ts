@@ -13,7 +13,9 @@ const test = baseTest
   .extend("plainJpg", () => getFixture("plain-jpg"))
   .extend("plainJpgWithExif", () => getFixture("plain-jpg-with-exif"))
   .extend("plainPng", () => getFixture("plain-png"))
-  .extend("plainPngWithExif", () => getFixture("plain-png-with-exif"));
+  .extend("plainPngWithExif", () => getFixture("plain-png-with-exif"))
+  .extend("plainWebp", () => getFixture("plain-webp"))
+  .extend("plainWebpWithExif", () => getFixture("plain-webp-with-exif"));
 
 describe("setExifData", () => {
   test("set Exif data for JPG", async ({ plainJpg, plainJpgWithExif }) => {
@@ -73,6 +75,25 @@ describe("setExifData", () => {
     ]);
 
     expect(await newFile.bytes()).toStrictEqual(exifBytesWithHeader);
+
+    exifData.free();
+
+    const newExifData = await getExifData(newFile);
+    expect(newExifData.saveData()).toEqual(exifBytesWithHeader);
+    newExifData.free();
+  });
+
+  test("set Exif data for Webp", async ({ plainWebp, plainWebpWithExif }) => {
+    const file = new File([plainWebp.image], "plain-webp-with-exif.webp");
+    const exifBytesWithHeader = concatUint8Arrays([
+      EXIF_HEADER,
+      plainWebpWithExif.exifBytes!,
+    ]);
+    const exifData = ExifData.newFromData(exifBytesWithHeader);
+
+    const newFile = await setExifData(file, exifData);
+
+    expect(await newFile.bytes()).toStrictEqual(plainWebpWithExif.image);
 
     exifData.free();
 
