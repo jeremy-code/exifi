@@ -35,4 +35,19 @@ describe("getExifData", () => {
 
     exifData.free();
   });
+
+  test("gets Exif data from raw Exif", async ({ plainJpgWithExif }) => {
+    const file = new File(
+      [plainJpgWithExif.exifBytes!],
+      "plain-jpg-with-exif.exif",
+    );
+
+    const exifData = await getExifData(file);
+
+    expect(exifData.saveData()).toStrictEqual(
+      concatUint8Arrays([EXIF_HEADER, plainJpgWithExif.exifBytes!]),
+    );
+
+    exifData.free();
+  });
 });
