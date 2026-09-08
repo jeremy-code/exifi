@@ -1,7 +1,4 @@
-#include <emscripten/bind.h>
-#include <emscripten/val.h>
 #include <png.h>
-#include <stdio.h>
 
 #include "png.h"
 

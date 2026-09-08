@@ -111,3 +111,49 @@ int main(void) {
   return 0;
 }
 ```
+
+plain-webp.webp was created with
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <webp/encode.h>
+
+int main(void) {
+  const uint8_t pixel[4] = {0, 0, 0, 255};
+
+  uint8_t *output = NULL;
+
+  size_t size = WebPEncodeRGBA(pixel,
+                               /* width */ 1,
+                               /* height */ 1,
+                               /* stride */ 4,
+                               /* quality */ 0, &output);
+
+  if (size == 0) {
+    fprintf(stderr, "WebPEncodeRGBA failed\n");
+    return 1;
+  }
+
+  FILE *file = fopen("smallest.webp", "wb");
+  if (!file) {
+    perror("fopen");
+    WebPFree(output);
+    return 1;
+  }
+
+  if (fwrite(output, 1, size, file) != size) {
+    perror("fwrite");
+    fclose(file);
+    WebPFree(output);
+    return 1;
+  }
+
+  fclose(file);
+  WebPFree(output);
+
+  printf("Wrote %zu bytes\n", size);
+  return 0;
+}
+```

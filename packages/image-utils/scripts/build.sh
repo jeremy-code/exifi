@@ -20,6 +20,7 @@ COMPILE_FLAGS=(
   --minify 0 # Do not minify JavaScript glue code
   -lembind
   --emit-tsd "${OUTPUT_DIR}/imageUtils.d.ts"
+  --use-port="${PWD}/ports/libwebp.py"
   -sSTACK_SIZE=$((2 ** 16))
   -sALLOW_MEMORY_GROWTH=1
   -sFILESYSTEM=0
