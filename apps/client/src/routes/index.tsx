@@ -79,8 +79,8 @@ const FAQS = [
     question: "What image formats are supported?",
     answer: (
       <span>
-        JPEG images, PNG images, and raw Exif metadata are supported. For more
-        information, see{" "}
+        JPEG images, PNG images, WebP images, raw Exif metadata are supported.
+        For more information, see{" "}
         <Link
           color="link"
           href="https://github.com/jeremy-code/exifi/issues/13"
