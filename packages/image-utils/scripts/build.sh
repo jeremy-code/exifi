@@ -9,9 +9,8 @@ if [ ! -d "${OUTPUT_DIR}" ]; then
 fi
 
 ENVIRONMENTS=(
-  # Node environment is only needed for Vitest
-  node
   web
+  node # Node environment is only needed for Vitest
 )
 
 # https://emscripten.org/docs/tools_reference/settings_reference.html
@@ -32,6 +31,7 @@ COMPILE_FLAGS=(
   -o "${OUTPUT_DIR}/imageUtils.js"
 )
 
+wasm_files=()
 for environment in "${ENVIRONMENTS[@]}"; do
   em++ \
     "${COMPILE_FLAGS[@]}" \
@@ -40,8 +40,25 @@ for environment in "${ENVIRONMENTS[@]}"; do
     src/codecs/*.cpp
 
   # Instead of determining environment at runtime, use conditional exports to
-  # resolve glue code. The WASM bundle is the same in both environment
+  # resolve glue code
   mv "${OUTPUT_DIR}/imageUtils.js" "${OUTPUT_DIR}/imageUtils.${environment}.js"
+  mv "${OUTPUT_DIR}/imageUtils.wasm" "${OUTPUT_DIR}/imageUtils.${environment}.wasm"
+  wasm_files+=("${OUTPUT_DIR}/imageUtils.${environment}.wasm")
+done
+
+# Double check that the WASM files are identical
+if [ "$(sha256sum "${wasm_files[@]}" | awk '{print $1}' | uniq | wc -l)" -ne 1 ]; then
+  echo "Error: WASM files have different SHA-256 checksums:" >&2
+  sha256sum "${wasm_files[@]}" >&2
+  exit 1
+fi
+
+for index in "${!wasm_files[@]}"; do
+  if (($index == 1)); then
+    mv "${wasm_files[$index]}" "${OUTPUT_DIR}/imageUtils.wasm"
+  else
+    rm "${wasm_files[$index]}"
+  fi
 done
 
 tsc
