@@ -1,8 +1,7 @@
-import babel from "@rolldown/plugin-babel";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
-import react, { reactCompilerPreset } from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react";
 import { fontless } from "fontless";
 import { Features } from "lightningcss";
 import { defineConfig } from "vite";
@@ -33,8 +32,7 @@ const viteConfig = defineConfig({
           process.env.URL !== undefined ? process.env.URL : "http://localhost/",
       },
     }),
-    react(),
-    babel({ presets: [reactCompilerPreset()] }),
+    react({ compiler: true }),
     tailwindcss(),
     fontless(),
     devtools(),
