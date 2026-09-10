@@ -2,6 +2,12 @@ packages:
   - apps/*
   - packages/*
 
+catalog:
+  react: ^19.2.8
+  react-dom: ^19.2.8
+  "@types/react": "^19.2.18"
+  "@types/react-dom": "^19.2.7"
+
 # Dependency Resolution (https://pnpm.io/settings#dependency-resolution)
 overrides:
   # https://github.com/openapi-ts/openapi-typescript/issues/2723

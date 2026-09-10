@@ -36,6 +36,7 @@
     "@commitlint/types": "^21.2.0",
     "@exifi/oxlint-config": "workspace:*",
     "@exifi/tsconfig": "workspace:*",
+    "@types/node": "^24.13.3",
     "lefthook": "^2.1.12",
     "oxfmt": "^0.67.0",
     "oxlint": "^1.82.0",

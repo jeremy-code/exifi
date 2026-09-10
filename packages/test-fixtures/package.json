@@ -14,7 +14,6 @@
     "lint": "oxlint ."
   },
   "devDependencies": {
-    "@types/node": "^24.13.3",
     "vite": "^8.2.2"
   }
 }
