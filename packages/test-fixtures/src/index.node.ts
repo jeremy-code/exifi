@@ -1,31 +1,31 @@
 import { glob, readFile } from "node:fs/promises";
 import { extname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import type { Fixture } from "./interfaces";
 
-const getFixture = async (fixtureName: string): Promise<Fixture> => {
-  let imagePath: string | undefined;
-  let jsonPath: string | undefined;
-  let exifPath: string | undefined;
+const FIXTURES_DIR = new URL("../fixtures", import.meta.url);
 
-  for await (const fixturePath of glob(
-    join(
-      import.meta.dirname,
-      "..",
-      "fixtures",
-      fixtureName,
-      `${fixtureName}.*`,
-    ),
-  )) {
+const getFixture = async (fixtureName: string): Promise<Fixture> => {
+  const {
+    image: imagePath,
+    exifBytes: exifPath,
+    json: jsonPath,
+  } = (
+    await Array.fromAsync(
+      glob(join(fileURLToPath(FIXTURES_DIR), fixtureName, `${fixtureName}.*`)),
+    )
+  ).reduce<{ [Property in keyof Fixture]?: string }>((acc, fixturePath) => {
     const extension = extname(fixturePath);
     if (extension === ".json") {
-      jsonPath = fixturePath;
+      acc["json"] = fixturePath;
     } else if (extension === ".exif") {
-      exifPath = fixturePath;
+      acc["exifBytes"] = fixturePath;
     } else {
-      imagePath = fixturePath;
+      acc["image"] = fixturePath;
     }
-  }
+    return acc;
+  }, {});
 
   if (imagePath === undefined) {
     throw new Error(`${fixtureName} is not a valid fixture`);
