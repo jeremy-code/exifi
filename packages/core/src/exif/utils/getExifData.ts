@@ -3,6 +3,7 @@ import { fileTypeFromBlob } from "file-type";
 import { ExifData } from "libexif-wasm";
 import { lookup } from "mrmime";
 
+import { heif_get_exif_data } from "@exifi/image-utils";
 import { assertNever } from "@exifi/utils/assertNever";
 import { concatUint8Arrays } from "@exifi/utils/concatUint8Arrays";
 
@@ -19,7 +20,12 @@ const getExifData = async (file: File): Promise<ExifData> => {
   } else if (mimeType === "image/tiff" && fileExtension === ".exif") {
     // Raw Exif also uses the TIFF header, so we check if the file extension is also .exif
     return ExifData.newFromData(concatUint8Arrays([EXIF_HEADER, fileBytes]));
-  } else if (mimeType === "image/png" || mimeType === "image/webp") {
+  } else if (
+    mimeType === "image/png" ||
+    mimeType === "image/webp" ||
+    mimeType === "image/heif" ||
+    mimeType === "image/heic"
+  ) {
     const { png_get_exif_data, webp_get_exif_data } =
       await import("@exifi/image-utils");
 
@@ -28,7 +34,9 @@ const getExifData = async (file: File): Promise<ExifData> => {
         ? png_get_exif_data(fileBytes)
         : mimeType === "image/webp"
           ? webp_get_exif_data(fileBytes)
-          : assertNever(mimeType);
+          : mimeType === "image/heif" || mimeType === "image/heic"
+            ? heif_get_exif_data(fileBytes)
+            : assertNever(mimeType);
 
     if (exifData !== undefined) {
       return ExifData.newFromData(exifData);

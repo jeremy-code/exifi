@@ -8,6 +8,7 @@ const ImageUtils = await ImageUtilsModule();
 
 /* oxlint-disable typescript/unbound-method -- Methods do not rely on this */
 export const {
+  heif_get_exif_data,
   jpeg_set_exif_data,
   png_get_exif_data,
   png_set_exif_data,
