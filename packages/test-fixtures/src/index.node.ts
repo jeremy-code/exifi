@@ -16,7 +16,7 @@ const getFixture = async (fixtureName: string): Promise<Fixture> => {
       glob(join(fileURLToPath(FIXTURES_DIR), fixtureName, `${fixtureName}.*`)),
     )
   ).reduce<{ [Property in keyof Fixture]?: string }>((acc, fixturePath) => {
-    const extension = extname(fixturePath);
+    const extension = extname(fixturePath).toLowerCase();
     if (extension === ".json") {
       acc["json"] = fixturePath;
     } else if (extension === ".exif") {

@@ -10,7 +10,7 @@ import {
 } from "@exifi/image-utils";
 
 const setExifData = async (file: File, exifData: ExifData): Promise<File> => {
-  const fileExtension = extname(file.name);
+  const fileExtension = extname(file.name).toLowerCase();
   const fileType =
     (await fileTypeFromBlob(file))?.mime ?? lookup(fileExtension);
   const fileBytes = await file.bytes();

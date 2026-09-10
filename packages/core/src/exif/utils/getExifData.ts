@@ -9,7 +9,7 @@ import { concatUint8Arrays } from "@exifi/utils/concatUint8Arrays";
 const EXIF_HEADER = new Uint8Array([0x45, 0x78, 0x69, 0x66, 0x00, 0x00]); // Exif\0\0
 
 const getExifData = async (file: File): Promise<ExifData> => {
-  const fileExtension = extname(file.name);
+  const fileExtension = extname(file.name).toLowerCase();
   const mimeType =
     (await fileTypeFromBlob(file))?.mime ?? lookup(fileExtension);
   const fileBytes = await file.bytes();
