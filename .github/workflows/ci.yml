@@ -53,10 +53,11 @@ jobs:
       - name: Check code formatting with Oxfmt
         run: pnpm run format:check
 
-      - name: Test
-        run: |
-          pnpm --filter @exifi/client exec playwright install --with-deps chromium
-          pnpm run test
+      - name: Install Playwright browsers
+        run: pnpm --filter @exifi/client exec playwright install --with-deps chromium
+
+      - name: Run tests
+        run: pnpm run test
 
       - name: Build
         run: pnpm run build
