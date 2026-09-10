@@ -22,15 +22,27 @@ const viteConfig = defineConfig({
       // https://github.com/TanStack/router/discussions/3394#discussioncomment-16523892
       prerender: {
         enabled: true,
-        // Not sure why, but it attempts to prerender a route with a query parameter
-        filter: ({ path }) => !path.includes("?url="),
         crawlLinks: true,
       },
       sitemap: {
         enabled: true,
         host:
-          process.env.URL !== undefined ? process.env.URL : "http://localhost/",
+          process.env.URL !== undefined
+            ? process.env.URL
+            : "http://localhost:4173/",
       },
+      pages: [
+        // Not sure why, but it attempts to prerender a route with a query parameter
+        {
+          path: `/viewer?url=${encodeURIComponent("https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg")}`,
+          sitemap: {
+            exclude: true,
+          },
+          prerender: {
+            enabled: false,
+          },
+        },
+      ],
     }),
     react({ compiler: true }),
     tailwindcss(),
