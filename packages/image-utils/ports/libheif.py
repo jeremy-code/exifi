@@ -97,6 +97,19 @@ def get(ports, settings, shared):
       # is defined
       # https://github.com/strukturag/libheif/blob/08075aebcc0d9bf7d35f900c36114b1b6e90ed7d/build-emscripten.sh#L144
       '-D__EMSCRIPTEN_STANDALONE_WASM__=1',
+      # https://github.com/strukturag/libheif/blob/08075aebcc0d9bf7d35f900c36114b1b6e90ed7d/CMakeLists.txt#L41-L60
+      '-Wall',
+      '-Wsign-compare',
+      '-Wconversion',
+      '-Wno-sign-conversion',
+      '-Wno-error=conversion',
+      '-Wno-error=unused-parameter',
+      '-Wno-error=deprecated-declarations',
+      '-Wno-error=array-bounds',
+      '-Wno-error=tautological-compare',
+      '-Wno-error=tautological-constant-out-of-range-compare',
+      # https://github.com/strukturag/libheif/blob/08075aebcc0d9bf7d35f900c36114b1b6e90ed7d/CMakeLists.txt#L80
+      '-Wno-error=potentially-evaluated-expression',
     ]
     if settings.PTHREADS:
       flags += [
