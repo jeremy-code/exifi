@@ -157,3 +157,64 @@ int main(void) {
   return 0;
 }
 ```
+
+plain-heif was created from:
+
+```c
+#include <libheif/heif.h>
+
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+static void check(struct heif_error err, const char *what) {
+  if (err.code != heif_error_Ok) {
+    fprintf(stderr, "Error in %s: %s\n", what, err.message);
+    exit(1);
+  }
+}
+
+int main(int argc, char **argv) {
+  struct heif_image *image = NULL;
+  check(heif_image_create(1, 1, heif_colorspace_monochrome,
+                          heif_chroma_monochrome, &image),
+        "heif_image_create");
+
+  check(heif_image_add_plane(image, heif_channel_Y, 1, 1, 8),
+        "heif_image_add_plane");
+
+  struct heif_context *ctx = heif_context_alloc();
+
+  struct heif_encoder *encoder = NULL;
+  check(
+      heif_context_get_encoder_for_format(ctx, heif_compression_HEVC, &encoder),
+      "heif_context_get_encoder_for_format (is the x265 plugin installed?)");
+
+  heif_encoder_set_lossless(encoder, 0);
+  heif_encoder_set_lossy_quality(encoder, /* quality */ 0);
+  heif_encoder_set_parameter(encoder, "preset", "ultrafast");
+
+  struct heif_encoding_options *options = heif_encoding_options_alloc();
+
+  struct heif_image_handle *handle = NULL;
+  check(heif_context_encode_image(ctx, image, encoder, options, &handle),
+        "heif_context_encode_image");
+
+  heif_encoding_options_free(options);
+  heif_encoder_release(encoder);
+  heif_image_release(image);
+
+  check(heif_context_write_to_file(ctx, "smallest.heic"),
+        "heif_context_write_to_file(smallest.heic)");
+
+  heif_image_handle_release(handle);
+  heif_context_free(ctx);
+
+  return 0;
+}
+```
+
+Exif data is from:
+
+https://github.com/ianare/exif-samples/blob/master/heic/IMG_5195.HEIC

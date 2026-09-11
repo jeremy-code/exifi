@@ -10,7 +10,8 @@ const EXIF_HEADER = new Uint8Array([0x45, 0x78, 0x69, 0x66, 0x00, 0x00]); // Exi
 const test = baseTest
   .extend("plainJpgWithExif", () => getFixture("plain-jpg-with-exif"))
   .extend("plainPngWithExif", () => getFixture("plain-png-with-exif"))
-  .extend("plainWebpWithExif", () => getFixture("plain-webp-with-exif"));
+  .extend("plainWebpWithExif", () => getFixture("plain-webp-with-exif"))
+  .extend("plainHeicWithExif", () => getFixture("plain-heic-with-exif"));
 
 describe("getExifData", () => {
   test("gets Exif data from JPG", async ({ plainJpgWithExif }) => {
@@ -62,6 +63,21 @@ describe("getExifData", () => {
 
     expect(exifData.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainWebpWithExif.exifBytes!]),
+    );
+
+    exifData.free();
+  });
+
+  test("gets Exif data from HEIC", async ({ plainHeicWithExif }) => {
+    const file = new File(
+      [plainHeicWithExif.image],
+      "plain-heic-with-exif.heic",
+    );
+
+    const exifData = await getExifData(file);
+
+    expect(exifData.saveData()).toStrictEqual(
+      concatUint8Arrays([EXIF_HEADER, plainHeicWithExif.exifBytes!]),
     );
 
     exifData.free();
