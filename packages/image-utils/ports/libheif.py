@@ -1,5 +1,7 @@
-import glob
 import os
+import shutil
+
+from tools import shared, utils
 
 URL = 'https://github.com/strukturag/libheif'
 DESCRIPTION = (
@@ -12,37 +14,9 @@ HASH = 'f33b216fd550ad1f7d65c76977bea77e4447875e1c84a868d620406bc2530ce8425e781e
 
 port_name = 'libheif'
 
-variants = {
-  'libheif-mt': {'PTHREADS': 1},
-}
-
-glob_patterns = [
-  'api/libheif/*.cc',
-  '*.cc',
-  'codecs/*.cc',
-  'codecs/uncompressed/*.cc',
-  'color-conversion/*.cc',
-  'image-items/*.cc',
-  'image/*.cc',
-  # libheif's own third-party codec plugins are in libheif/plugins/ and are only
-  # compiled by upstream's CMake build when the corresponding external library
-  # is found via find_package()
-  'plugins/decoder_uncompressed.cc',
-  'plugins/encoder_mask.cc',
-  'plugins/encoder_uncompressed.cc',
-  'plugins/nalu_utils.cc',
-  'sequences/*.cc',
-]
-
-exclude_files = [
-  'api/libheif/heif_experimental.cc',
-  'plugins_unix.cc',
-  'plugins_windows.cc',
-]
-
 
 def get_lib_name(settings):
-  return 'libheif-mt.a' if settings.PTHREADS else 'libheif.a'
+  return 'libheif.a'
 
 
 def get(ports, settings, shared):
@@ -57,20 +31,11 @@ def get(ports, settings, shared):
     source_path = os.path.join(root_path, 'libheif')
     api_path = os.path.join(source_path, 'api', 'libheif')
 
-    srcs = []
-    for pattern in glob_patterns:
-      matches = glob.glob(
-        os.path.join(source_path, pattern),
-        recursive=False,
-      )
-      assert matches, f'Glob pattern matched no files: {pattern}'
-      srcs.extend([
-        match
-        for match in matches
-        if match not in [os.path.join(source_path, exclude_file) for exclude_file in exclude_files]
-      ])
+    build_path = os.path.join(ports.get_build_dir(), port_name)
 
-    srcs = {os.path.relpath(path, source_path) for path in srcs}
+    emscripten_dir = os.path.dirname(shared.EMXX)
+    emcmake = os.path.join(emscripten_dir, 'emcmake')
+    emmake = os.path.join(emscripten_dir, 'emmake')
 
     # Upstream generates this header from heif_version.h.in via CMake's
     # configure_file() -- reproduce that substitution here
@@ -86,49 +51,43 @@ def get(ports, settings, shared):
 
     ports.install_headers(api_path, target='libheif')
 
-    flags = [
-      '-DHAVE_VISIBILITY=1',
-      '-DLIBHEIF_EXPORTS',
-      '-DWITH_UNCOMPRESSED_CODEC=1',
-      # libc++ on Emscripten has <bit>
-      '-DHAVE_BIT=1',
-      # api/libheif/heif.cc conditionally pulls in an embind (JS-binding)
-      # wrapper (api_structs.h + heif_emscripten.h) whenever __EMSCRIPTEN__
-      # is defined
-      # https://github.com/strukturag/libheif/blob/08075aebcc0d9bf7d35f900c36114b1b6e90ed7d/build-emscripten.sh#L144
-      '-D__EMSCRIPTEN_STANDALONE_WASM__=1',
-      # https://github.com/strukturag/libheif/blob/08075aebcc0d9bf7d35f900c36114b1b6e90ed7d/CMakeLists.txt#L41-L60
-      '-Wall',
-      '-Wsign-compare',
-      '-Wconversion',
-      '-Wno-sign-conversion',
-      '-Wno-error=conversion',
-      '-Wno-error=unused-parameter',
-      '-Wno-error=deprecated-declarations',
-      '-Wno-error=array-bounds',
-      '-Wno-error=tautological-compare',
-      '-Wno-error=tautological-constant-out-of-range-compare',
-      # https://github.com/strukturag/libheif/blob/08075aebcc0d9bf7d35f900c36114b1b6e90ed7d/CMakeLists.txt#L80
-      '-Wno-error=potentially-evaluated-expression',
+    utils.safe_ensure_dirs(build_path)
+
+    configure = [
+      emcmake,
+      'cmake',
+      '--preset=release-noplugins',
+      '-DBUILD_SHARED_LIBS=OFF',
+      '-DWITH_LIBSHARPYUV=OFF',
+      '-DWITH_EXAMPLES=OFF',
+      '-DCMAKE_INSTALL_PREFIX=' + os.path.join(build_path, 'install'),
+      root_path,
     ]
-    if settings.PTHREADS:
-      flags += [
-        '-pthread',
-        '-DENABLE_MULTITHREADING_SUPPORT=1',
-        '-DENABLE_PARALLEL_TILE_DECODING=1',
-      ]
 
-    ports.build_port(
-      source_path,
-      final,
-      port_name,
-      includes=[api_path],
-      flags=flags,
-      cxxflags=['-std=c++20'],
-      srcs=srcs,
+    utils.run_process(configure, cwd=build_path)
+
+    build = [
+      emmake,
+      'cmake',
+      '--build',
+      build_path,
+      '--target',
+      'heif',
+      '--parallel',
+    ]
+
+    utils.run_process(build, cwd=build_path)
+
+    library = os.path.join(build_path, 'libheif', 'libheif.a')
+    shutil.copyfile(library, final)
+
+  return [
+    shared.cache.get_lib(
+      get_lib_name(settings),
+      create,
+      what='port',
     )
-
-  return [shared.cache.get_lib(get_lib_name(settings), create, what='port')]
+  ]
 
 
 def clear(ports, settings, shared):
