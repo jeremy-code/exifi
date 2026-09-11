@@ -24,11 +24,9 @@
       "persistent": true
     },
     "@exifi/client#dev": {
+      "dependsOn": ["@exifi/image-utils#build"],
       "env": ["PORT", "URL", "BASE_URL", "COMMIT_REF"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
-    },
-    "@exifi/image-utils#dev": {
-      "dependsOn": ["build"]
     },
     "test": {
       "cache": false,
