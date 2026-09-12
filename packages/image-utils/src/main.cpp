@@ -1,6 +1,6 @@
 #include <emscripten/bind.h>
 
-#include "codecs/heif.h"
+#include "codecs/heic.h"
 #include "codecs/jpeg.h"
 #include "codecs/png.h"
 #include "codecs/webp.h"
@@ -12,7 +12,7 @@ EMSCRIPTEN_BINDINGS(image_utils) {
   register_type<Uint8Array>("Uint8Array");
   register_optional<Uint8Array>();
 
-  function("heif_get_exif_data(heif_data)", &heif_get_exif_data);
+  function("heic_get_exif_data(heic_data)", &heic_get_exif_data);
 
   function("jpeg_set_exif_data(jpeg_data, exif_data)", &jpeg_set_exif_data);
 

@@ -26,7 +26,7 @@ const getExifData = async (file: File): Promise<ExifData> => {
     mimeType === "image/heic" ||
     mimeType === "image/avif"
   ) {
-    const { png_get_exif_data, webp_get_exif_data, heif_get_exif_data } =
+    const { png_get_exif_data, webp_get_exif_data, heic_get_exif_data } =
       await import("@exifi/image-utils");
 
     const exifData =
@@ -37,7 +37,7 @@ const getExifData = async (file: File): Promise<ExifData> => {
           : mimeType === "image/heif" ||
               mimeType === "image/heic" ||
               mimeType === "image/avif"
-            ? heif_get_exif_data(fileBytes)
+            ? heic_get_exif_data(fileBytes)
             : assertNever(mimeType);
 
     if (exifData !== undefined) {
