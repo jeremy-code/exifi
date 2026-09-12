@@ -33,7 +33,7 @@ const viteConfig = defineConfig({
       },
     }),
     react({ compiler: true }),
-    tailwindcss(),
+    tailwindcss({ optimize: { minify: true } }),
     fontless(),
     devtools(),
     nodePolyfills({
@@ -44,13 +44,7 @@ const viteConfig = defineConfig({
         process: false,
       },
     }),
-    ...(isAnalyzerEnabled
-      ? [
-          analyzer({
-            analyzerPort: "auto",
-          }),
-        ]
-      : []),
+    ...(isAnalyzerEnabled ? [analyzer({ analyzerPort: "auto" })] : []),
   ],
   define: {
     __BUILD_TIMESTAMP__: JSON.stringify(new Date().getTime()),
