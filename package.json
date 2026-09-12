@@ -36,14 +36,14 @@
     "@commitlint/types": "^21.2.0",
     "@exifi/oxlint-config": "workspace:*",
     "@exifi/tsconfig": "workspace:*",
-    "@types/node": "^24.13.3",
+    "@types/node": "^24.13.4",
     "lefthook": "^2.1.12",
     "oxfmt": "^0.67.0",
     "oxlint": "^1.82.0",
     "oxlint-tsgolint": "^7.0.2001",
     "turbo": "^2.10.12",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.11"
+    "vitest": "^5.0.0"
   },
   "packageManager": "pnpm@11.26.0+sha512.fc0e2bf890b9f983611f1ab68c0637bce914390653699f83c1a78b005ed25f2c81e77920c8fd8eee2ecf0b58b28cdcb00a84d97f69bcf7c56b2f344710238664"
 }

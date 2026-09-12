@@ -17,7 +17,7 @@
     "@exifi/utils": "workspace:*",
     "@internationalized/date": "^3.12.4",
     "decimal.js": "^10.6.0",
-    "file-type": "^22.0.2",
+    "file-type": "^22.1.0",
     "iconv-lite": "^0.7.3",
     "libexif-wasm": "^0.5.4",
     "uuid": "^14.0.2"
