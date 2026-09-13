@@ -96,6 +96,7 @@ const Route = createRootRoute({
         href: "/android-chrome-512x512.png",
       },
       { rel: "icon", href: "/favicon.ico" },
+      { rel: "manifest", href: "/manifest.json" },
     ],
   }),
   component: RootComponent,

@@ -3,6 +3,11 @@ import { fileTypeFromBlob } from "file-type";
 import { ExifData } from "libexif-wasm";
 import { lookup } from "mrmime";
 
+import {
+  png_get_exif_data,
+  webp_get_exif_data,
+  heic_get_exif_data,
+} from "@exifi/image-utils";
 import { assertNever } from "@exifi/utils/assertNever";
 import { concatUint8Arrays } from "@exifi/utils/concatUint8Arrays";
 
@@ -26,9 +31,6 @@ const getExifData = async (file: File): Promise<ExifData> => {
     mimeType === "image/heic" ||
     mimeType === "image/avif"
   ) {
-    const { png_get_exif_data, webp_get_exif_data, heic_get_exif_data } =
-      await import("@exifi/image-utils");
-
     const exifData =
       mimeType === "image/png"
         ? png_get_exif_data(fileBytes)
