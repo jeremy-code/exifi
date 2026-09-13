@@ -15,9 +15,12 @@ import { useExifEditor } from "../contexts/ExifEditorContext";
 
 const ExifDownload = () => {
   const { file, setFile } = useFile();
-  const { exifData, isDirty } = useExifEditor(
+  const { exifData, makerNoteEntryObject, isDirty } = useExifEditor(
     useShallow((state) => ({
       exifData: state.exifData,
+      makerNoteEntryObject: state.exifDataObject.ifd.EXIF.find(
+        (entry) => entry.tag === "MAKER_NOTE",
+      ),
       isDirty: state.isDirty,
     })),
   );
@@ -90,7 +93,22 @@ const ExifDownload = () => {
               void saveFile(exifDataFile);
             }}
           >
-            Download Exif data as file
+            Download Exif data
+          </MenuItem>
+          <MenuItem
+            isDisabled={makerNoteEntryObject === undefined}
+            onAction={() => {
+              if (makerNoteEntryObject !== undefined) {
+                const makerNoteFile = new File(
+                  [new Uint8Array(makerNoteEntryObject.data)],
+                  parse(file.name).name + "_mnote.bin",
+                );
+
+                void saveFile(makerNoteFile);
+              }
+            }}
+          >
+            Download MakerNote data
           </MenuItem>
         </Menu>
       </MenuTrigger>
