@@ -28,6 +28,7 @@
     "@internationalized/number": "^3.6.8",
     "@noble/hashes": "^2.4.0",
     "@react-leaflet/core": "^3.0.0",
+    "@serwist/window": "^9.5.12",
     "@std/path": "jsr:^1.1.6",
     "@tanstack/react-form": "^1.33.5",
     "@tanstack/react-query": "^5.102.8",
@@ -55,6 +56,7 @@
     "react-dropzone": "^20.1.1",
     "react-error-boundary": "^6.1.5",
     "react-leaflet": "^5.0.0",
+    "serwist": "^9.5.12",
     "tailwind-variants": "^3.3.1",
     "temporal-polyfill": "^1.0.5",
     "uuid": "^14.0.2",
@@ -63,6 +65,7 @@
   },
   "devDependencies": {
     "@exifi/test-fixtures": "workspace:*",
+    "@serwist/vite": "^9.5.12",
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/devtools-vite": "^0.8.5",
     "@tanstack/react-devtools": "^0.10.12",
