@@ -44,13 +44,16 @@ const FileUrlInput = ({
       onSuccess?.(data);
     },
     onError: (error, variables) => {
-      toastQueue.add({
-        title: "Fetching from URL failed",
-        description: `Fetching ${variables} failed with error ${error.message}.`,
-        toastProps: {
-          color: "destructive",
+      toastQueue.add(
+        {
+          title: "Fetching from URL failed",
+          description: `Fetching ${variables} failed with error ${error.message}.`,
+          toastProps: {
+            color: "destructive",
+          },
         },
-      });
+        { timeout: 5_000 /* 5 seconds */ },
+      );
     },
   });
   const form = useForm({

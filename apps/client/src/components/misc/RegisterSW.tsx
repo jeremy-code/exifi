@@ -15,11 +15,14 @@ const RegisterSW = () => {
 
         if (serwist !== undefined && !abortController.signal.aborted) {
           serwist.addEventListener("installed", () => {
-            toastQueue.add({
-              title: "Ready to work offline",
-              description:
-                "exifi has been cached and can now be used without an internet connection.",
-            });
+            toastQueue.add(
+              {
+                title: "Ready to work offline",
+                description:
+                  "exifi has been cached and can now be used without an internet connection.",
+              },
+              { timeout: 5_000 /* 5 seconds */ },
+            );
           });
 
           await serwist.register();

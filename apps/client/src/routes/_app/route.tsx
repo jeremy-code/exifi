@@ -40,11 +40,14 @@ const Route = createFileRoute("/_app")({
         }
 
         if (!(error instanceof DOMException && error.name === "AbortError")) {
-          toastQueue.add({
-            title: "Fetching from URL failed",
-            description: `Fetching ${deps.url} failed with error ${error.message}.`,
-            toastProps: { color: "destructive" },
-          });
+          toastQueue.add(
+            {
+              title: "Fetching from URL failed",
+              description: `Fetching ${deps.url} failed with error ${error.message}.`,
+              toastProps: { color: "destructive" },
+            },
+            { timeout: 5_000 /* 5 seconds */ },
+          );
         }
       }
     }
