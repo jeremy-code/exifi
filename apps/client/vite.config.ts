@@ -115,7 +115,7 @@ const viteConfig = defineConfig({
   },
   build: {
     cssMinify: "lightningcss",
-    license: true,
+    license: { fileName: "license.md" },
   },
   /**
    * Otherwise, Vite errors `[commonjs--resolver] Module format "iife"
