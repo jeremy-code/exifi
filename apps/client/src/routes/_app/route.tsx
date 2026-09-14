@@ -7,6 +7,8 @@ import { getFileFromResponse } from "#utils/getFileFromResponse";
 import { toastQueue } from "@exifi/ui/components/Toast";
 import { assertNever } from "@exifi/utils/assertNever";
 
+import leafletCss from "../../leaflet.css?url";
+
 const appLayoutSearchSchema = z.object({
   url: z.url().optional().catch(undefined),
 });
@@ -52,6 +54,9 @@ const Route = createFileRoute("/_app")({
       }
     }
   },
+  head: () => ({
+    links: [{ rel: "stylesheet", href: leafletCss }],
+  }),
 });
 
 export { Route };

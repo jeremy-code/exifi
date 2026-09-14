@@ -1,7 +1,7 @@
 // oxlint-disable import/no-unassigned-import -- Allow side effect imports only in root route
-import "../leaflet.css";
 import "temporal-polyfill/global";
 import "zod/compile";
+// oxlint-enable import/no-unassigned-import
 import type { ReactNode } from "react";
 
 import {
