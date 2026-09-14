@@ -1,0 +1,700 @@
+{
+  "data": [],
+  "ifd": {
+    "IFD_0": [
+      {
+        "ifd": "IFD_0",
+        "tag": "MAKE",
+        "format": "ASCII",
+        "components": 7,
+        "data": [71, 111, 111, 103, 108, 101, 0],
+        "size": 7,
+        "formattedValue": "Google",
+        "byteOrder": "INTEL",
+        "value": "Google"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "MODEL",
+        "format": "ASCII",
+        "components": 9,
+        "data": [80, 105, 120, 101, 108, 32, 52, 97, 0],
+        "size": 9,
+        "formattedValue": "Pixel 4a",
+        "byteOrder": "INTEL",
+        "value": "Pixel 4a"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "X_RESOLUTION",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [72, 0, 0, 0, 1, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "72",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 72,
+            "denominator": 1
+          }
+        ]
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "Y_RESOLUTION",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [72, 0, 0, 0, 1, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "72",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 72,
+            "denominator": 1
+          }
+        ]
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "RESOLUTION_UNIT",
+        "format": "SHORT",
+        "components": 1,
+        "data": [2, 0],
+        "size": 2,
+        "formattedValue": "Inch",
+        "byteOrder": "INTEL",
+        "value": [2]
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "SOFTWARE",
+        "format": "ASCII",
+        "components": 46,
+        "data": [
+          65, 100, 111, 98, 101, 32, 80, 104, 111, 116, 111, 115, 104, 111, 112,
+          32, 67, 97, 109, 101, 114, 97, 32, 82, 97, 119, 32, 49, 54, 46, 48,
+          46, 49, 32, 40, 77, 97, 99, 105, 110, 116, 111, 115, 104, 41, 0
+        ],
+        "size": 46,
+        "formattedValue": "Adobe Photoshop Camera Raw 16.0.1 (Macintosh)",
+        "byteOrder": "INTEL",
+        "value": "Adobe Photoshop Camera Raw 16.0.1 (Macintosh)"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "DATE_TIME",
+        "format": "ASCII",
+        "components": 20,
+        "data": [
+          50, 48, 50, 51, 58, 49, 49, 58, 49, 51, 32, 49, 53, 58, 52, 55, 58,
+          51, 50, 0
+        ],
+        "size": 20,
+        "formattedValue": "2023:11:13 15:47:32",
+        "byteOrder": "INTEL",
+        "value": "2023:11:13 15:47:32"
+      }
+    ],
+    "IFD_1": [],
+    "EXIF": [
+      {
+        "ifd": "EXIF",
+        "tag": "EXPOSURE_TIME",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [1, 0, 0, 0, 43, 4, 0, 0],
+        "size": 8,
+        "formattedValue": "1/1067 sec.",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 1,
+            "denominator": 1067
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FNUMBER",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [17, 0, 0, 0, 10, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "f/1.7",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 17,
+            "denominator": 10
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "EXPOSURE_PROGRAM",
+        "format": "SHORT",
+        "components": 1,
+        "data": [2, 0],
+        "size": 2,
+        "formattedValue": "Normal program",
+        "byteOrder": "INTEL",
+        "value": [2]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "ISO_SPEED_RATINGS",
+        "format": "SHORT",
+        "components": 1,
+        "data": [77, 0],
+        "size": 2,
+        "formattedValue": "77",
+        "byteOrder": "INTEL",
+        "value": [77]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "EXIF_VERSION",
+        "format": "UNDEFINED",
+        "components": 4,
+        "data": [48, 50, 51, 50],
+        "size": 4,
+        "formattedValue": "Exif Version 2.32",
+        "byteOrder": "INTEL",
+        "value": [48, 50, 51, 50]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "DATE_TIME_ORIGINAL",
+        "format": "ASCII",
+        "components": 20,
+        "data": [
+          50, 48, 50, 51, 58, 48, 56, 58, 48, 53, 32, 49, 55, 58, 49, 54, 58,
+          53, 51, 0
+        ],
+        "size": 20,
+        "formattedValue": "2023:08:05 17:16:53",
+        "byteOrder": "INTEL",
+        "value": "2023:08:05 17:16:53"
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "DATE_TIME_DIGITIZED",
+        "format": "ASCII",
+        "components": 20,
+        "data": [
+          50, 48, 50, 51, 58, 48, 56, 58, 48, 53, 32, 49, 55, 58, 49, 54, 58,
+          53, 51, 0
+        ],
+        "size": 20,
+        "formattedValue": "2023:08:05 17:16:53",
+        "byteOrder": "INTEL",
+        "value": "2023:08:05 17:16:53"
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "OFFSET_TIME",
+        "format": "ASCII",
+        "components": 7,
+        "data": [43, 48, 49, 58, 48, 48, 0],
+        "size": 7,
+        "formattedValue": "+01:00",
+        "byteOrder": "INTEL",
+        "value": "+01:00"
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SHUTTER_SPEED_VALUE",
+        "format": "SRATIONAL",
+        "components": 1,
+        "data": [80, 126, 153, 0, 64, 66, 15, 0],
+        "size": 8,
+        "formattedValue": "10.06 EV (1/1067 sec.)",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 10059344,
+            "denominator": 1000000
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "APERTURE_VALUE",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [189, 92, 23, 0, 64, 66, 15, 0],
+        "size": 8,
+        "formattedValue": "1.53 EV (f/1.7)",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 1531069,
+            "denominator": 1000000
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "BRIGHTNESS_VALUE",
+        "format": "SRATIONAL",
+        "components": 1,
+        "data": [190, 2, 0, 0, 100, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "7.02 EV (444.68 cd/m^2)",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 702,
+            "denominator": 100
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "EXPOSURE_BIAS_VALUE",
+        "format": "SRATIONAL",
+        "components": 1,
+        "data": [0, 0, 0, 0, 6, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "0.00 EV",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 0,
+            "denominator": 6
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "MAX_APERTURE_VALUE",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [158, 0, 0, 0, 100, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "1.58 EV (f/1.7)",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 158,
+            "denominator": 100
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SUBJECT_DISTANCE",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [255, 255, 255, 255, 1, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "4294967295.0 m",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 4294967295,
+            "denominator": 1
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "METERING_MODE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [2, 0],
+        "size": 2,
+        "formattedValue": "Center-weighted average",
+        "byteOrder": "INTEL",
+        "value": [2]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FLASH",
+        "format": "SHORT",
+        "components": 1,
+        "data": [16, 0],
+        "size": 2,
+        "formattedValue": "Flash did not fire, compulsory flash mode",
+        "byteOrder": "INTEL",
+        "value": [16]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FOCAL_LENGTH",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [28, 17, 0, 0, 232, 3, 0, 0],
+        "size": 8,
+        "formattedValue": "4.4 mm",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 4380,
+            "denominator": 1000
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FLASH_PIX_VERSION",
+        "format": "UNDEFINED",
+        "components": 4,
+        "data": [48, 49, 48, 48],
+        "size": 4,
+        "formattedValue": "FlashPix Version 1.0",
+        "byteOrder": "INTEL",
+        "value": [48, 49, 48, 48]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "COLOR_SPACE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [255, 255],
+        "size": 2,
+        "formattedValue": "Uncalibrated",
+        "byteOrder": "INTEL",
+        "value": [65535]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SENSING_METHOD",
+        "format": "SHORT",
+        "components": 1,
+        "data": [2, 0],
+        "size": 2,
+        "formattedValue": "One-chip color area sensor",
+        "byteOrder": "INTEL",
+        "value": [2]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SCENE_TYPE",
+        "format": "UNDEFINED",
+        "components": 1,
+        "data": [1],
+        "size": 1,
+        "formattedValue": "Directly photographed",
+        "byteOrder": "INTEL",
+        "value": [1]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "CUSTOM_RENDERED",
+        "format": "SHORT",
+        "components": 1,
+        "data": [1, 0],
+        "size": 2,
+        "formattedValue": "Custom process",
+        "byteOrder": "INTEL",
+        "value": [1]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "EXPOSURE_MODE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Auto exposure",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "WHITE_BALANCE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Auto white balance",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "DIGITAL_ZOOM_RATIO",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [0, 0, 0, 0, 1, 0, 0, 0],
+        "size": 8,
+        "formattedValue": " 0",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 0,
+            "denominator": 1
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FOCAL_LENGTH_IN_35MM_FILM",
+        "format": "SHORT",
+        "components": 1,
+        "data": [27, 0],
+        "size": 2,
+        "formattedValue": "27",
+        "byteOrder": "INTEL",
+        "value": [27]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SCENE_CAPTURE_TYPE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Standard",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "CONTRAST",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Normal",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SATURATION",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Normal",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SHARPNESS",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Normal",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SUBJECT_DISTANCE_RANGE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [3, 0],
+        "size": 2,
+        "formattedValue": "Distant view",
+        "byteOrder": "INTEL",
+        "value": [3]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "LENS_MAKE",
+        "format": "ASCII",
+        "components": 7,
+        "data": [71, 111, 111, 103, 108, 101, 0],
+        "size": 7,
+        "formattedValue": "Google",
+        "byteOrder": "INTEL",
+        "value": "Google"
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "LENS_MODEL",
+        "format": "ASCII",
+        "components": 35,
+        "data": [
+          80, 105, 120, 101, 108, 32, 52, 97, 32, 98, 97, 99, 107, 32, 99, 97,
+          109, 101, 114, 97, 32, 52, 46, 51, 56, 109, 109, 32, 102, 47, 49, 46,
+          55, 51, 0
+        ],
+        "size": 35,
+        "formattedValue": "Pixel 4a back camera 4.38mm f/1.73",
+        "byteOrder": "INTEL",
+        "value": "Pixel 4a back camera 4.38mm f/1.73"
+      }
+    ],
+    "GPS": [
+      {
+        "ifd": "GPS",
+        "tag": "LATITUDE_REF",
+        "format": "ASCII",
+        "components": 2,
+        "data": [78, 0],
+        "size": 2,
+        "formattedValue": "N",
+        "byteOrder": "INTEL",
+        "value": "N"
+      },
+      {
+        "ifd": "GPS",
+        "tag": "LATITUDE",
+        "format": "RATIONAL",
+        "components": 3,
+        "data": [
+          48, 0, 0, 0, 1, 0, 0, 0, 208, 101, 102, 29, 128, 150, 152, 0, 0, 0, 0,
+          0, 1, 0, 0, 0
+        ],
+        "size": 24,
+        "formattedValue": "48, 49.3250000,  0",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 48,
+            "denominator": 1
+          },
+          {
+            "numerator": 493250000,
+            "denominator": 10000000
+          },
+          {
+            "numerator": 0,
+            "denominator": 1
+          }
+        ]
+      },
+      {
+        "ifd": "GPS",
+        "tag": "LONGITUDE_REF",
+        "format": "ASCII",
+        "components": 2,
+        "data": [69, 0],
+        "size": 2,
+        "formattedValue": "E",
+        "byteOrder": "INTEL",
+        "value": "E"
+      },
+      {
+        "ifd": "GPS",
+        "tag": "LONGITUDE",
+        "format": "RATIONAL",
+        "components": 3,
+        "data": [
+          2, 0, 0, 0, 1, 0, 0, 0, 248, 29, 64, 14, 128, 150, 152, 0, 0, 0, 0, 0,
+          1, 0, 0, 0
+        ],
+        "size": 24,
+        "formattedValue": " 2, 23.9083000,  0",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 2,
+            "denominator": 1
+          },
+          {
+            "numerator": 239083000,
+            "denominator": 10000000
+          },
+          {
+            "numerator": 0,
+            "denominator": 1
+          }
+        ]
+      },
+      {
+        "ifd": "GPS",
+        "tag": "ALTITUDE_REF",
+        "format": "BYTE",
+        "components": 1,
+        "data": [0],
+        "size": 1,
+        "formattedValue": "Sea level",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "GPS",
+        "tag": "ALTITUDE",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [127, 32, 0, 0, 100, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "83.19",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 8319,
+            "denominator": 100
+          }
+        ]
+      },
+      {
+        "ifd": "GPS",
+        "tag": "TIME_STAMP",
+        "format": "RATIONAL",
+        "components": 3,
+        "data": [
+          15, 0, 0, 0, 1, 0, 0, 0, 16, 0, 0, 0, 1, 0, 0, 0, 32, 203, 0, 0, 232,
+          3, 0, 0
+        ],
+        "size": 24,
+        "formattedValue": "15:16:52.00",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 15,
+            "denominator": 1
+          },
+          {
+            "numerator": 16,
+            "denominator": 1
+          },
+          {
+            "numerator": 52000,
+            "denominator": 1000
+          }
+        ]
+      },
+      {
+        "ifd": "GPS",
+        "tag": "IMG_DIRECTION_REF",
+        "format": "ASCII",
+        "components": 2,
+        "data": [77, 0],
+        "size": 2,
+        "formattedValue": "M",
+        "byteOrder": "INTEL",
+        "value": "M"
+      },
+      {
+        "ifd": "GPS",
+        "tag": "IMG_DIRECTION",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [218, 0, 0, 0, 1, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "218",
+        "byteOrder": "INTEL",
+        "value": [
+          {
+            "numerator": 218,
+            "denominator": 1
+          }
+        ]
+      },
+      {
+        "ifd": "GPS",
+        "tag": "DATE_STAMP",
+        "format": "ASCII",
+        "components": 11,
+        "data": [50, 48, 50, 51, 58, 48, 56, 58, 48, 53, 0],
+        "size": 11,
+        "formattedValue": "2023:08:05",
+        "byteOrder": "INTEL",
+        "value": "2023:08:05"
+      }
+    ],
+    "INTEROPERABILITY": []
+  },
+  "dataType": "UNKNOWN",
+  "byteOrder": "INTEL"
+}

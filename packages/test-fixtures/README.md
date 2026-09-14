@@ -246,3 +246,7 @@ int main(void) {
 Exif data for plain-heic-with-exif is from:
 
 https://github.com/ianare/exif-samples/blob/master/heic/IMG_5195.HEIC
+
+Exif data for plain-avif-with-exif is from:
+
+https://github.com/AOMediaCodec/libavif/blob/main/tests/data/colors_hdr_rec2020.avif
