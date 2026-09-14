@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { createFileRoute, Link as RouterLink } from "@tanstack/react-router";
 import { ClipboardCheck, Lock, Wrench } from "lucide-react";
 
+import { getBaseUrl } from "#utils/getBaseUrl";
 import {
   Accordion,
   AccordionHeader,
@@ -72,43 +73,128 @@ const FEATURES = [
 const FAQS = [
   {
     question: "What is this?",
-    answer:
-      "exifi is an open-source tool to view and edit Exif data in the browser. It uses the C library libexif-wasm compiled to WebAssembly.",
+    answer: (
+      <span>
+        {
+          "exifi is an open-source (MIT) tool to view and edit Exif data in the browser. It uses the C library "
+        }
+        <Link color="link" href="https://github.com/libexif/libexif">
+          libexif
+        </Link>
+        {" compiled to WebAssembly ("}
+        <Link color="link" href="https://github.com/jeremy-code/libexif-wasm">
+          libexif-wasm
+        </Link>
+        {"). "}
+        {"It also makes use of the following C libraries for image writing: "}
+        <Link color="link" href="https://www.ijg.org">
+          libjpeg
+        </Link>
+        {", "}
+        <Link color="link" href="https://github.com/pnggroup/libpng">
+          libpng
+        </Link>
+        {", "}
+        <Link
+          color="link"
+          href="https://chromium.googlesource.com/webm/libwebp"
+        >
+          libwebp
+        </Link>
+        {", and "}
+        <Link color="link" href="https://github.com/kjk/heicdec">
+          heicdec
+        </Link>
+        {"."}
+      </span>
+    ),
   },
   {
     question: "What image formats are supported?",
     answer: (
       <span>
-        JPEG images, PNG images, WebP images, raw Exif metadata are supported.
-        HEIC, HEIF, and AVIF images are supported on a read-only basis. For more
-        information, see{" "}
+        {
+          "JPEG images, PNG images, WebP images, raw Exif metadata files are supported. HEIC, HEIF, and AVIF images are supported on a read-only basis. For more information, see "
+        }
         <Link
           color="link"
           href="https://github.com/jeremy-code/exifi/issues/13"
         >
           jeremy-code/exifi#13
         </Link>
+        {"."}
       </span>
     ),
-    // "As of right now, only JPEG images are supported since libexif does not support TIFF images.",
   },
   {
     question:
       "Why should I use this over a specialized tool like ExifTool or Adobe Lightroom?",
-    answer:
-      "Realistically, if you are a photographer or someone who edits images, you probably should be using a specialized tool for the job. This is more a service for those who want to quickly add a little bit of metadata to their images quickly online without having to upload them to someone's server.",
+    answer: (
+      <span>
+        {
+          "Realistically, if you are a photographer or someone who edits images on a frequent basis, you probably should be using a specialized tool for the job. "
+        }
+        {"These may include: "}
+        <Link color="link" href="https://exiftool.org/">
+          ExifTool
+        </Link>{" "}
+        {" by Phil Harvey"}
+        {", "}
+        <Link color="link" href="https://www.darktable.org/">
+          darktable
+        </Link>
+        {", "}
+        <Link color="link" href="https://lightroom.adobe.com/">
+          Adobe Lightroom
+        </Link>
+        {", or many other software. "}
+        {
+          "This is more of a service for those who want to quickly add a little bit of metadata to their images quickly online without having to upload them to someone's server."
+        }
+      </span>
+    ),
   },
   {
-    question: "What image metadata can be edited?",
-    answer:
-      "Only the Exif standard 2.1 and most of 2.2 are supported. Other metadata that may be stored, such as XMP, are not supported.",
+    question: "What image metadata can be viewed or edited?",
+    answer: (
+      <span>
+        {
+          "Only the Exif standard 2.1 and most of 2.2 are supported. Other metadata that may be stored, such as XMP, are not supported."
+        }
+        {
+          "For more information on the Exif specification, see the Wikipedia article on "
+        }
+        <Link color="link" href="https://en.wikipedia.org/wiki/Exif">
+          Exif
+        </Link>
+        {" or or view the official Exif 2.21 standard published by JEITA "}
+        <Link
+          color="link"
+          href="https://web.archive.org/web/20160429150748/http://www.jeita.or.jp/cgi-bin/standard_e/pdf.cgi?jk_n=47&jk_pdf_file=CP-3451B-E.pdf"
+        >
+          at this URL
+        </Link>{" "}
+        <span>
+          {"(or in "}
+          <Link
+            color="link"
+            href="http://www.jeita.or.jp/cgi-bin/standard_e/pdf.cgi?jk_n=46&jk_pdf_file=CP-3451B-J.pdf"
+          >
+            Japanese
+          </Link>
+          {")"}
+        </span>
+        {". "}
+      </span>
+    ),
   },
   {
     question: "How do I read Exif data from a link?",
     answer: (
       <span>
-        {"You can open a link with a url search parameter like this: "}
+        {"You can open a link with a URL search parameter like this: "}
         <Link
+          className="inline"
           href=""
           render={(props) => {
             if (!("href" in props)) {
@@ -122,12 +208,195 @@ const FAQS = [
                 }}
                 {...props}
               >
-                http://exifi.io/viewer?url=https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg
+                {
+                  new URL(
+                    `viewer?url=https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg`,
+                    getBaseUrl(),
+                  ).href
+                }
               </RouterLink>
             );
           }}
         />
         {"."}
+      </span>
+    ),
+  },
+  {
+    question: "Can this be used offline?",
+    answer: (
+      <span>
+        {"Yes! exifi can be used as a progressive web app ("}
+        <abbr>PWA</abbr>
+        {"). "}
+        {
+          "For more information on how to install a PWA, see this guide by MDN: "
+        }
+        <Link
+          color="link"
+          href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing"
+        >
+          Installing and uninstalling web apps
+        </Link>
+        {"."}
+      </span>
+    ),
+  },
+  {
+    question: "What are some useful tags someone may want to add?",
+    answer: (
+      <span>
+        <ol className="list-outside list-disc pl-[1.35em]">
+          <li>
+            {
+              "Tags that provide additional textual information include: ImageDescription, Artist, Copyright, XPTitle, XPAuthor, XPKeywords, XPSubject, and CameraOwnerName"
+            }
+          </li>
+          <li>
+            {
+              'GPS data such as Longitude, Latitude can be added or edited accordingly in the "Edit GPS" menu'
+            }
+          </li>
+          <li>
+            {
+              "DateTime/OffsetTime or their variants, DateTimeOriginal/OffsetTimeOriginal or DateTimeDigitized/OffsetTimeDigitized can also be edited"
+            }
+          </li>
+        </ol>
+        <Link
+          color="link"
+          href=""
+          render={(props) => {
+            if (!("href" in props)) {
+              throw new Error("Link is not an anchor element");
+            }
+
+            return (
+              <RouterLink to="/tags" {...props}>
+                A full list of tags can be found here.
+              </RouterLink>
+            );
+          }}
+        />
+      </span>
+    ),
+  },
+  {
+    question: "What is an IFD?",
+    answer: (
+      <span>
+        An Image File Domain (<abbr>IFD</abbr>)
+        {
+          " refers to the type of data an Exif entry pertains to. There are five IFDs for Exif data: "
+        }
+        <ol className="list-outside list-disc pl-[1.35em]">
+          <li>
+            <strong>IFD 0</strong>
+            {
+              " refers to the main data regarding the image (X or Y-Resolution, ImageDescription, Model, etc.)."
+            }
+          </li>
+          <li>
+            <strong>IFD 1</strong>
+            {
+              " refers to data regarding the thumbnail of the image. If a tag is avaliable in both IFD 0 and IFD 1, you probably want to put it in IFD 0."
+            }
+          </li>
+          <li>
+            {"The "}
+            <strong>Exif IFD</strong>
+            {
+              " refers to additional miscellanous metadata on the image (e.g. ExifVersion, ColorSpace, ExposureTime, etc.)."
+            }
+          </li>
+          <li>
+            {"The "}
+            <strong>GPS IFD</strong>
+            {
+              " refers to geographic data relevant to the image (e.g. Latitude, Longitude)."
+            }
+          </li>
+          <li>
+            {"The "}
+            <strong>Interoperability IFD</strong>
+            {
+              " refers to interoperability tags (InteroperabilityIndex and/or InteroperabilityVersion)."
+            }
+          </li>
+        </ol>
+        {"For more information, see "}
+        <Link color="link" href="https://en.wikipedia.org/wiki/Exif#Technical">
+          Wikipedia:Exif#Technical
+        </Link>
+        {"."}
+      </span>
+    ),
+  },
+  {
+    question: "What is MakerNote data?",
+    answer: (
+      <span>
+        {
+          "MakerNote data is stored a special tag in the Exif IFD reserved exclusively for manufacturer-specific binary data."
+        }
+        {" For more information, see "}
+        <Link
+          color="link"
+          href="https://en.wikipedia.org/wiki/Exif#MakerNote_data"
+        >
+          Wikipedia:Exif#MakerNote data
+        </Link>
+        {". "}
+        {"Currently, libexif is able of decoding the following manufacturers: "}
+        <Link
+          color="link"
+          href="https://github.com/libexif/libexif/tree/master/libexif/canon"
+        >
+          Canon
+        </Link>
+        {", "}
+        <Link
+          color="link"
+          href="https://github.com/libexif/libexif/tree/master/libexif/fuji"
+        >
+          Fuji
+        </Link>
+        {", "}
+        <Link
+          color="link"
+          href="https://github.com/libexif/libexif/tree/master/libexif/olympus"
+        >
+          Olympus
+        </Link>
+        {" (Epson, Sanyo) , and "}
+        <Link
+          color="link"
+          href="https://github.com/libexif/libexif/tree/master/libexif/pentax"
+        >
+          Pentax
+        </Link>
+        {" (Casio) ."}
+      </span>
+    ),
+  },
+  {
+    question: "Why is exifi not correctly reading my PNG's Exif data?",
+    answer: (
+      <span>
+        {"In July 2017, "}
+        <Link
+          color="blue"
+          href="http://ftp-osl.osuosl.org/pub/libpng/documents/pngext-1.5.0.html#C.eXIf"
+        >
+          version 1.5.0 of the extensions to the PNG 1.2 Specification
+        </Link>
+        {" added support for a eXIf chunk in PNGs that stored Exif metadata. "}
+        {
+          'Previously, legacy encoders stored Exif data in nonstandard methods. For example, ImageMagick stored Exif information in a "Raw profile type APP1" zTXt chunk whereas Photoshop stored it in a "Raw profile type exif" zTXt chunk. '
+        }
+        {
+          "Since read and write support for PNGs is handled by libpng reading the eXIf chunk specifically, you may experience false negatives for older PNGs where exifi claims that an image has no Exif data when it was actually stored somewhere else."
+        }
       </span>
     ),
   },
@@ -208,7 +477,7 @@ const HomeComponent = () => {
             {FAQS.map((faq) => (
               <AccordionItem key={faq.question}>
                 <AccordionHeader>{faq.question}</AccordionHeader>
-                <AccordionPanel className="text-fg-muted">
+                <AccordionPanel className="leading-relaxed text-fg-muted">
                   {faq.answer}
                 </AccordionPanel>
               </AccordionItem>
