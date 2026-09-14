@@ -67,21 +67,21 @@ const serializeExifEntry = (entry: ExifEntry): ExifEntryObject | null => {
  */
 const serializeExifData = (exifData: ExifData): ExifDataObject => {
   const ifd = exifData.ifd.reduce(
-    (acc, exifContent) => {
+    (ifdAcc, exifContent) => {
       const ifdName = exifContent.ifd;
       if (ifdName !== null && exifContent.count !== 0) {
-        acc[ifdName] = exifContent.entries.reduce<ExifEntryObject[]>(
-          (acc, currEntry) => {
+        ifdAcc[ifdName] = exifContent.entries.reduce<ExifEntryObject[]>(
+          (entriesAcc, currEntry) => {
             const serializedExifEntry = serializeExifEntry(currEntry);
             if (serializedExifEntry !== null) {
-              acc.push(serializedExifEntry);
+              entriesAcc.push(serializedExifEntry);
             }
-            return acc;
+            return entriesAcc;
           },
           [],
         );
       }
-      return acc;
+      return ifdAcc;
     },
     { ...EMPTY_EXIF_IFD_OBJECT },
   );

@@ -40,8 +40,8 @@ const FileTabPanel = ({
             <Link
               href=""
               color="link"
-              render={(props) => {
-                if (!("href" in props)) {
+              render={(linkProps) => {
+                if (!("href" in linkProps)) {
                   throw new Error("Link is not an anchor element");
                 }
 
@@ -51,7 +51,7 @@ const FileTabPanel = ({
                     search={{
                       url: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg",
                     }}
-                    {...props}
+                    {...linkProps}
                   >
                     click here
                   </RouterLink>
@@ -85,8 +85,8 @@ const FileTabPanel = ({
             OR
           </div>
           <FileUrlInput
-            onSuccess={(file) => {
-              updateFile(file);
+            onSuccess={(nextFile) => {
+              updateFile(nextFile);
               reset();
             }}
             textFieldProps={{

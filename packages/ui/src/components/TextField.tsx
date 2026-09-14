@@ -37,7 +37,6 @@ type TextFieldProps = AriaTextFieldProps & {
 } & VariantProps<typeof rootInputVariants>;
 
 const TextField = ({
-  className,
   label,
   description,
   errorMessage,
@@ -46,8 +45,11 @@ const TextField = ({
 }: TextFieldProps) => {
   return (
     <AriaTextField
-      className={composeTailwindRenderProps(className, "flex flex-col gap-1")}
       {...props}
+      className={composeTailwindRenderProps(
+        props.className,
+        "flex flex-col gap-1",
+      )}
     >
       {label && <Label>{label}</Label>}
       <Input

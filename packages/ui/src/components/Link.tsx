@@ -50,19 +50,13 @@ type LinkProps = {
 } & AriaLinkProps &
   VariantProps<typeof linkVariants>;
 
-const Link = ({
-  isExternal,
-  className,
-  underline,
-  color,
-  ...props
-}: LinkProps) => {
+const Link = ({ isExternal, underline, color, ...props }: LinkProps) => {
   return (
     <AriaLink
       // target="_blank" implies rel="noopener": https://caniuse.com/mdn-html_elements_a_implicit_noopener
       {...(isExternal && { target: "_blank" })}
       {...props}
-      className={composeRenderProps(className, (className, renderProps) =>
+      className={composeRenderProps(props.className, (className, renderProps) =>
         linkVariants({ ...renderProps, className, underline, color }),
       )}
     >

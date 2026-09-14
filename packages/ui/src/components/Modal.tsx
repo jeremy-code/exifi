@@ -20,12 +20,12 @@ const modalOverlayVariants = tv({
   },
 });
 
-const ModalOverlay = ({ className, ...props }: ModalOverlayProps) => (
+const ModalOverlay = (props: ModalOverlayProps) => (
   <AriaModalOverlay
-    className={composeRenderProps(className, (className, renderProps) =>
+    {...props}
+    className={composeRenderProps(props.className, (className, renderProps) =>
       modalOverlayVariants({ className, ...renderProps }),
     )}
-    {...props}
   />
 );
 

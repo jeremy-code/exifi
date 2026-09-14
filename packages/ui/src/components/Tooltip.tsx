@@ -33,7 +33,7 @@ const tooltipVariants = tv({
   },
 });
 
-const Tooltip = ({ children, offset = 10, ...props }: TooltipProps) => {
+const Tooltip = ({ offset = 10, ...props }: TooltipProps) => {
   return (
     <AriaTooltip
       {...props}
@@ -48,7 +48,7 @@ const Tooltip = ({ children, offset = 10, ...props }: TooltipProps) => {
           }),
       )}
     >
-      {composeRenderProps(children, (children) => (
+      {composeRenderProps(props.children, (children) => (
         <>
           <OverlayArrow className="size-2" />
           {children}

@@ -34,11 +34,11 @@ const inputVariants = tv({
 type InputProps = Omit<AriaInputProps, "size"> &
   VariantProps<typeof inputVariants>;
 
-const Input = ({ className, size, ...props }: InputProps) => {
+const Input = ({ size, ...props }: InputProps) => {
   return (
     <AriaInput
       {...props}
-      className={composeRenderProps(className, (className, renderProps) =>
+      className={composeRenderProps(props.className, (className, renderProps) =>
         inputVariants({ ...renderProps, size, className }),
       )}
     />

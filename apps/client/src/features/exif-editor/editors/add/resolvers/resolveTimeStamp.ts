@@ -32,11 +32,11 @@ const resolveTimeStamp: AddEditorResolver = (
       kind: "timeStamp",
       exifEntryObject,
       value,
-      onValueChange: (value) =>
+      onValueChange: (nextValue) =>
         onValueChange(
-          value === undefined
+          nextValue === undefined
             ? []
-            : mapRationalToObject(new Uint32Array(formatTimeStamp(value))),
+            : mapRationalToObject(new Uint32Array(formatTimeStamp(nextValue))),
         ),
     };
   }

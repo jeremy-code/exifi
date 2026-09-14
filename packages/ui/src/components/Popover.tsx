@@ -40,21 +40,15 @@ type PopoverProps = AriaPopoverProps & {
   showArrow?: boolean;
 } & VariantProps<typeof popoverVariants>;
 
-const Popover = ({
-  className,
-  showArrow,
-  children,
-  offset,
-  size,
-  ...props
-}: PopoverProps) => {
+const Popover = ({ showArrow, offset, size, ...props }: PopoverProps) => {
   const defaultOffset = showArrow ? 12 : 8;
 
   return (
     <AriaPopover
       offset={offset ?? defaultOffset}
+      {...props}
       className={composeRenderProps(
-        className,
+        props.className,
         (className, { placement, ...renderProps }) =>
           popoverVariants({
             ...renderProps,
@@ -63,9 +57,8 @@ const Popover = ({
             className,
           }),
       )}
-      {...props}
     >
-      {composeRenderProps(children, (children) => (
+      {composeRenderProps(props.children, (children) => (
         <>
           {showArrow && <OverlayArrow />}
           {children}

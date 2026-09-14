@@ -15,26 +15,24 @@ type ExpandRowsProps<TData extends RowData> = {
 
 const ExpandRows = <TData extends RowData>({
   row,
-  children,
-  className,
   ...props
 }: ExpandRowsProps<TData>) => {
   return (
     <AriaButton
+      data-state={row.getIsExpanded() ? "open" : "closed"}
+      onPress={row.getToggleExpandedHandler()}
+      aria-label={row.getIsExpanded() ? "Collapse" : "Expand"}
+      {...props}
       className={composeTailwindRenderProps(
-        className,
+        props.className,
         cn(
           "flex flex-row items-center gap-2",
           { "cursor-pointer": row.getCanExpand() },
           { "cursor-not-allowed text-fg-muted": !row.getCanExpand() },
         ),
       )}
-      data-state={row.getIsExpanded() ? "open" : "closed"}
-      onPress={row.getToggleExpandedHandler()}
-      aria-label={row.getIsExpanded() ? "Collapse" : "Expand"}
-      {...props}
     >
-      {composeRenderProps(children, (children) => (
+      {composeRenderProps(props.children, (children) => (
         <>
           <ChevronRight className="size-3 transition-transform in-data-[state=open]:rotate-90" />
           {children}

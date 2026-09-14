@@ -48,10 +48,10 @@ const calendarCellVariants = tv({
   },
 });
 
-const CalendarCell = ({ className, ...props }: CalendarCellProps) => (
+const CalendarCell = (props: CalendarCellProps) => (
   <AriaCalendarCell
     {...props}
-    className={composeRenderProps(className, (className, renderProps) =>
+    className={composeRenderProps(props.className, (className, renderProps) =>
       calendarCellVariants({ className, ...renderProps }),
     )}
   />

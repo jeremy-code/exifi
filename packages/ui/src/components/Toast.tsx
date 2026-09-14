@@ -55,14 +55,15 @@ type ToastRegionProps = Omit<
   "queue" | "children"
 >;
 
-const ToastRegion = ({ className, ...props }: ToastRegionProps) => {
+const ToastRegion = (props: ToastRegionProps) => {
   return (
     <AriaToastRegion
       queue={toastQueue}
-      className={composeRenderProps(className, (className, renderProps) =>
+
+      {...props}
+      className={composeRenderProps(props.className, (className, renderProps) =>
         toastRegionVariants({ ...renderProps, className }),
       )}
-      {...props}
     >
       {({ toast }) => <Toast toast={toast} {...toast.content.toastProps} />}
     </AriaToastRegion>
@@ -86,15 +87,15 @@ const closeToastButtonVariants = tv({
   },
 });
 
-const CloseToastButton = ({ className, ...props }: ButtonProps) => {
+const CloseToastButton = (props: ButtonProps) => {
   return (
     <Button
       slot="close"
       aria-label="Close"
-      className={composeRenderProps(className, (className, renderProps) =>
+      {...props}
+      className={composeRenderProps(props.className, (className, renderProps) =>
         closeToastButtonVariants({ className, ...renderProps }),
       )}
-      {...props}
     >
       <X aria-disabled className="size-4" />
     </Button>

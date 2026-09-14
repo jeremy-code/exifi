@@ -21,10 +21,10 @@ const useDialogState = () => {
   });
 
   const onOpenChange = useCallback(
-    (isOpen: boolean) => {
+    (nextIsOpen: boolean) => {
       if (isDialogBlocked) {
         setIsDialogBlocked(false);
-        if (!isOpen) {
+        if (!nextIsOpen) {
           toastQueue.add({
             title: "Unsaved changes",
             description:
@@ -35,10 +35,10 @@ const useDialogState = () => {
           });
         }
       } else {
-        if (!isOpen) {
+        if (!nextIsOpen) {
           setIsDialogBlocked(false);
         }
-        setIsOpen(isOpen);
+        setIsOpen(nextIsOpen);
       }
     },
     [isDialogBlocked, setIsDialogBlocked],

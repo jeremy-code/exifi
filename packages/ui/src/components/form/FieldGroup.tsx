@@ -33,11 +33,11 @@ const fieldGroupVariants = tv({
   variants: fieldBorderVariants.variants,
 });
 
-const FieldGroup = ({ className, ...props }: FieldGroupProps) => {
+const FieldGroup = (props: FieldGroupProps) => {
   return (
     <Group
       {...props}
-      className={composeRenderProps(className, (className, renderProps) =>
+      className={composeRenderProps(props.className, (className, renderProps) =>
         fieldGroupVariants({ ...renderProps, className }),
       )}
     />

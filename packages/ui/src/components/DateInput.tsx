@@ -30,13 +30,13 @@ const dateSegmentVariants = tv({
   },
 });
 
-const DateSegment = ({ className, ...props }: DateSegmentProps) => {
+const DateSegment = (props: DateSegmentProps) => {
   return (
     <AriaDateSegment
-      className={composeRenderProps(className, (className, renderProps) =>
+      {...props}
+      className={composeRenderProps(props.className, (className, renderProps) =>
         dateSegmentVariants({ className, ...renderProps }),
       )}
-      {...props}
     />
   );
 };

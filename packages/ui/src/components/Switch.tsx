@@ -75,12 +75,12 @@ const switchVariants = tv({
 
 type SwitchRootProps = AriaSwitchProps & VariantProps<typeof switchVariants>;
 
-const SwitchRoot = ({ className, size, ...props }: SwitchRootProps) => (
+const SwitchRoot = ({ size, ...props }: SwitchRootProps) => (
   <AriaSwitch
-    className={composeRenderProps(className, (className, renderProps) =>
+    {...props}
+    className={composeRenderProps(props.className, (className, renderProps) =>
       switchVariants({ className, size, ...renderProps }),
     )}
-    {...props}
   />
 );
 
@@ -89,9 +89,9 @@ type SwitchProps = {
   switchHandleProps?: SwitchHandleProps;
 } & SwitchRootProps;
 
-const Switch = ({ children, switchTrackProps, ...props }: SwitchProps) => (
+const Switch = ({ switchTrackProps, ...props }: SwitchProps) => (
   <SwitchRoot {...props}>
-    {composeRenderProps(children, (children, renderProps) => (
+    {composeRenderProps(props.children, (children, renderProps) => (
       <>
         <SwitchTrack renderProps={renderProps} {...switchTrackProps}>
           <SwitchHandle {...switchTrackProps} />

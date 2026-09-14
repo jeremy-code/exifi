@@ -141,8 +141,8 @@ const ExifEntryAddEditorFields = ({
               aria-label={`${label} ${index + 1}`}
               key={index}
               value={value}
-              onChange={(value) =>
-                exifAddEditor.onValueChange(value, index + 1)
+              onChange={(nextValue) =>
+                exifAddEditor.onValueChange(nextValue, index + 1)
               }
             />
           ))}

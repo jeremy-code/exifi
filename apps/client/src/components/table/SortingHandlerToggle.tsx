@@ -14,22 +14,20 @@ type SortingHandlerToggle<TData extends RowData, TValue> = {
 
 const SortingHandlerToggle = <TData extends RowData, TValue>({
   column,
-  children,
-  className,
   ...props
 }: SortingHandlerToggle<TData, TValue>) => {
   "use no memo";
 
   return (
     <AriaButton
-      className={composeTailwindRenderProps(
-        className,
-        "flex cursor-pointer items-center gap-2",
-      )}
       onPress={column.getToggleSortingHandler()}
       {...props}
+      className={composeTailwindRenderProps(
+        props.className,
+        "flex cursor-pointer items-center gap-2",
+      )}
     >
-      {composeRenderProps(children, (children) => (
+      {composeRenderProps(props.children, (children) => (
         <>
           {children}
           {column.getIsSorted() === "asc" ? (

@@ -23,15 +23,10 @@ type DialogProps = {
   closeButton?: boolean;
 } & AriaDialogProps;
 
-const Dialog = ({
-  className,
-  children,
-  closeButton = true,
-  ...props
-}: DialogProps) => {
+const Dialog = ({ className, closeButton = true, ...props }: DialogProps) => {
   return (
     <AriaDialog className={dialogVariants({ className })} {...props}>
-      {composeRenderProps(children, (children) => (
+      {composeRenderProps(props.children, (children) => (
         <>
           {children}
           {closeButton && <DialogCloseButton />}

@@ -35,9 +35,9 @@ const resolveEnum: AddEditorResolver = (entry, onValueChange) => {
     exifEntryObject: entry,
     value,
     values: Object.keys(values),
-    onValueChange: (value) => {
-      if (value in values && values[value] !== undefined) {
-        onValueChange([values[value]]);
+    onValueChange: (nextValue) => {
+      if (nextValue in values && values[nextValue] !== undefined) {
+        onValueChange([values[nextValue]]);
       }
     },
   };

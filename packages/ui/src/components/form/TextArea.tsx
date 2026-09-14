@@ -33,13 +33,13 @@ const textAreaVariants = tv({
 
 type TextAreaProps = AriaTextAreaProps & VariantProps<typeof textAreaVariants>;
 
-const TextArea = ({ className, size, variant, ...props }: TextAreaProps) => {
+const TextArea = ({ size, variant, ...props }: TextAreaProps) => {
   return (
     <AriaTextArea
-      className={composeRenderProps(className, (className, renderProps) =>
+      {...props}
+      className={composeRenderProps(props.className, (className, renderProps) =>
         textAreaVariants({ className, size, variant, ...renderProps }),
       )}
-      {...props}
     />
   );
 };

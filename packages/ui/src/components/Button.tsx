@@ -80,13 +80,13 @@ const buttonVariants = tv({
 
 type ButtonProps = AriaButtonProps & VariantProps<typeof buttonVariants>;
 
-const Button = ({ className, variant, color, size, ...props }: ButtonProps) => {
+const Button = ({ variant, color, size, ...props }: ButtonProps) => {
   return (
     <AriaButton
-      className={composeRenderProps(className, (className, renderProps) =>
+      {...props}
+      className={composeRenderProps(props.className, (className, renderProps) =>
         buttonVariants({ variant, size, color, className, ...renderProps }),
       )}
-      {...props}
     />
   );
 };

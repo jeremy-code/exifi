@@ -26,17 +26,17 @@ const useNominatimApiReverse = (coordinate: LatLng) => {
     }
 
     const featureCollection = data as components["schemas"]["OSMGeocodeJson"];
-    const feature = featureCollection.features.at(0);
+    const firstFeature = featureCollection.features.at(0);
 
-    if (feature === undefined) {
+    if (firstFeature === undefined) {
       return null;
     }
 
-    if (!("type" in feature) || feature.type !== "Feature") {
+    if (!("type" in firstFeature) || firstFeature.type !== "Feature") {
       return null;
     }
 
-    return feature;
+    return firstFeature;
   }, [data]);
 
   return feature;

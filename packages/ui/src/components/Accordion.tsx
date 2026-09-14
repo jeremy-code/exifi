@@ -86,7 +86,7 @@ const useAccordionContext = () => {
 type AccordionProps = DisclosureGroupProps &
   VariantProps<typeof accordionVariants>;
 
-const Accordion = ({ variant, size, className, ...props }: AccordionProps) => {
+const Accordion = ({ variant, size, ...props }: AccordionProps) => {
   const computedAccordionVariants = accordionVariants({
     variant,
     size,
@@ -96,24 +96,26 @@ const Accordion = ({ variant, size, className, ...props }: AccordionProps) => {
     <AccordionContext value={computedAccordionVariants}>
       <DisclosureGroup
         data-variant={variant}
-        className={composeRenderProps(className, (className, renderProps) =>
-          computedAccordionVariants.base({ ...renderProps, className }),
-        )}
         {...props}
+        className={composeRenderProps(
+          props.className,
+          (className, renderProps) =>
+            computedAccordionVariants.base({ ...renderProps, className }),
+        )}
       />
     </AccordionContext>
   );
 };
 
-const AccordionItem = ({ className, ...props }: AccordionItemProps) => {
+const AccordionItem = (props: AccordionItemProps) => {
   const { item } = useAccordionContext();
 
   return (
     <Disclosure
-      className={composeRenderProps(className, (className, renderProps) =>
+      {...props}
+      className={composeRenderProps(props.className, (className, renderProps) =>
         item({ className, ...renderProps }),
       )}
-      {...props}
     />
   );
 };
@@ -122,11 +124,7 @@ type AccordionHeaderProps = {
   buttonProps?: ButtonProps;
 } & HeadingProps;
 
-const AccordionHeader = ({
-  buttonProps,
-  children,
-  ...props
-}: AccordionHeaderProps) => {
+const AccordionHeader = ({ buttonProps, ...props }: AccordionHeaderProps) => {
   const { header } = useAccordionContext();
 
   return (
@@ -143,7 +141,7 @@ const AccordionHeader = ({
         )}
         {...buttonProps}
       >
-        {composeRenderProps(children, (children) => (
+        {composeRenderProps(props.children, (children) => (
           <>
             {children}
             <ChevronDown
@@ -162,7 +160,6 @@ type AccordionPanelProps = {
 } & DisclosurePanelProps;
 
 const AccordionPanel = ({
-  className,
   bodyProps,
   children,
   ...props
@@ -171,10 +168,10 @@ const AccordionPanel = ({
 
   return (
     <DisclosurePanel
-      className={composeRenderProps(className, (className, renderProps) =>
+      {...props}
+      className={composeRenderProps(props.className, (className, renderProps) =>
         panel({ className, ...renderProps }),
       )}
-      {...props}
     >
       <div
         {...bodyProps}

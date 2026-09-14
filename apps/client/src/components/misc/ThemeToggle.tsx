@@ -13,11 +13,7 @@ import {
 
 type ThemeToggleProps = SwitchProps;
 
-const ThemeToggle = ({
-  children,
-  switchTrackProps,
-  ...props
-}: ThemeToggleProps) => {
+const ThemeToggle = ({ switchTrackProps, ...props }: ThemeToggleProps) => {
   // Prevent hydration error and layout shift as theme must be resolved from
   // `localStorage`
   const isHydrated = useHydrated();
@@ -43,7 +39,7 @@ const ThemeToggle = ({
       aria-label={themeIconLabel}
       {...props}
     >
-      {composeRenderProps(children, (children, renderProps) => (
+      {composeRenderProps(props.children, (children, renderProps) => (
         <>
           <SwitchTrack
             renderProps={renderProps}

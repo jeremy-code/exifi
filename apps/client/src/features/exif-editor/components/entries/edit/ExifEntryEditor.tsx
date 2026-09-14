@@ -48,7 +48,9 @@ const ExifEntryEditor = () => {
           aria-label={`${label} ${index + 1}`}
           key={index}
           value={value}
-          onChange={(value) => exifAdvancedEditor.onValueChange(value, index)}
+          onChange={(nextValue) =>
+            exifAdvancedEditor.onValueChange(nextValue, index)
+          }
         />
       ));
     case "userComment":

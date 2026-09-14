@@ -51,7 +51,9 @@ const GpsTagVersionInput = ({
               const nextGpsTagVersion = gpsTagVersion.with(index, number);
 
               setGpsTagVersion(nextGpsTagVersion as GpsTagVersionTuple);
-              if (nextGpsTagVersion.every((byte) => byte !== undefined)) {
+              if (
+                nextGpsTagVersion.every((nextByte) => nextByte !== undefined)
+              ) {
                 onValueChange?.(nextGpsTagVersion);
               }
             }}

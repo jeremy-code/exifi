@@ -71,8 +71,8 @@ const ExifEntryAddGpsForm = ({
       }
     },
     listeners: {
-      onChange: (props) => {
-        setIsDialogBlocked(!props.formApi.state.isDefaultValue);
+      onChange: ({ formApi }) => {
+        setIsDialogBlocked(!formApi.state.isDefaultValue);
       },
     },
   });

@@ -16,7 +16,7 @@ const formatTimeStamp = (value: Time): number[] => {
   ].flatMap((timeComponent) =>
     new Decimal(timeComponent)
       .toFraction(MAX_UINT32_VALUE)
-      .map((value) => value.toNumber()),
+      .map((timeComponentFraction) => timeComponentFraction.toNumber()),
   );
 };
 

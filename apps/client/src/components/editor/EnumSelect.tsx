@@ -28,10 +28,10 @@ const EnumSelect = ({
     <Select
       {...props}
       value={value}
-      items={values?.map((value) => ({ id: value, value }))}
-      onChange={(value) => {
-        if (value !== null && typeof value === "string") {
-          onValueChange?.(value);
+      items={values?.map((v) => ({ id: v, value: v }))}
+      onChange={(nextValue) => {
+        if (nextValue !== null && typeof nextValue === "string") {
+          onValueChange?.(nextValue);
         }
       }}
     >

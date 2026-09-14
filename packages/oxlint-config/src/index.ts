@@ -13,7 +13,6 @@ const baseConfig = defineConfig({
 
     // TODO: Rules that seemingly conflict with previous ESLint config. Will
     // fix/adjust as needed later
-    "eslint/no-shadow": "off",
     "typescript/consistent-return": "off",
     "typescript/no-unsafe-type-assertion": "off",
 
