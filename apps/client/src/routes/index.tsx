@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { createFileRoute, Link as RouterLink } from "@tanstack/react-router";
-import { ClipboardCheck, Lock, Wrench } from "lucide-react";
+import { Cog, Lock, Zap } from "lucide-react";
 
 import { getBaseUrl } from "#utils/getBaseUrl";
 import {
@@ -25,7 +25,7 @@ const FeatureCard = ({ icon, title, description }: FeatureCardProps) => {
   return (
     <Card className="p-6">
       <dt className="text-lg font-semibold">
-        <div className="mb-4 grid size-10 place-content-center rounded-md bg-accent text-white">
+        <div className="mb-4 grid size-10 place-content-center rounded-md border border-blue-200 bg-blue-100 text-accent dark:border-blue-700 dark:bg-accent dark:text-accent-fg">
           {icon}
         </div>
         {title}
@@ -37,13 +37,42 @@ const FeatureCard = ({ icon, title, description }: FeatureCardProps) => {
 
 const FEATURES = [
   {
-    icon: <Lock className="size-4" />,
+    icon: (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        className="size-4"
+      >
+        <Lock />
+        <rect
+          fill="currentcolor"
+          width="18"
+          height="11"
+          x="3"
+          y="11"
+          rx="2"
+          ry="2"
+        />
+      </svg>
+    ),
     title: "Private",
-    description:
-      "Images never leave your browser and are never uploaded to someone's server",
+    description: (
+      <span>
+        {"Images never leave your browser and are "}
+        <em>never</em>
+        {" uploaded to someone else's server"}
+      </span>
+    ),
   },
   {
-    icon: <ClipboardCheck className="size-4" />,
+    icon: <Cog className="size-5" />,
     title: "Standardized",
     description: (
       <>
@@ -59,14 +88,14 @@ const FEATURES = [
         <Link href="https://libexif.github.io/" color="link" underline="hover">
           libexif
         </Link>
-        {" C library, which supports all of Exif standard 2.1 and most of 2.2."}
+        {" C library, which supports all of Exif standard 2.1 and most of 2.2"}
       </>
     ),
   },
   {
-    icon: <Wrench className="size-4" />,
+    icon: <Zap className="size-5 fill-current stroke-0" />,
     title: "Convenient",
-    description: "Read and write Exif data directly in the browser.",
+    description: "Read and write Exif data directly in the browser",
   },
 ] satisfies FeatureCardProps[];
 
@@ -459,7 +488,7 @@ const HomeComponent = () => {
           </Heading>
         </div>
         <div className="mt-12">
-          <dl className="grid gap-6 sm:grid-cols-3">
+          <dl className="grid gap-6 md:grid-cols-3">
             {FEATURES.map((informationItem) => (
               <FeatureCard key={informationItem.title} {...informationItem} />
             ))}
