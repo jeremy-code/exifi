@@ -117,7 +117,6 @@ int main(void) {
 ```c
 // libwebp v1.6.0
 #include <stdio.h>
-#include <stdlib.h>
 
 #include <webp/encode.h>
 
@@ -182,6 +181,61 @@ int main() {
   auto handle = ctx.encode_image(image, encoder, options);
 
   ctx.write_to_file("plain-heic.heic");
+
+  return 0;
+}
+```
+
+### plain-avif.avif
+
+```c
+// libavif v1.4.2, aom v3.15.0
+#include "avif/avif.h"
+#include <stdio.h>
+
+int main(void) {
+  avifImage *image =
+      avifImageCreate(/* width */ 1, /* height */ 1, /* depth */ 8,
+                      /* yuvFormat */ AVIF_PIXEL_FORMAT_YUV400);
+  if (!image) {
+    return 1;
+  }
+
+  avifResult allocate_result = avifImageAllocatePlanes(image, AVIF_PLANES_YUV);
+
+  if (allocate_result != AVIF_RESULT_OK) {
+    avifImageDestroy(image);
+    return 1;
+  }
+
+  uint8_t *y_plane = avifImagePlane(image, AVIF_CHAN_Y);
+  y_plane[0] = 0;
+
+  image->colorPrimaries = AVIF_COLOR_PRIMARIES_BT709;
+  image->transferCharacteristics = AVIF_TRANSFER_CHARACTERISTICS_BT709;
+  image->matrixCoefficients = AVIF_MATRIX_COEFFICIENTS_BT709;
+  image->yuvRange = AVIF_RANGE_FULL;
+
+  avifEncoder *encoder = avifEncoderCreate();
+
+  encoder->quality = AVIF_QUALITY_WORST;
+  encoder->qualityAlpha = AVIF_QUALITY_WORST;
+  encoder->speed = AVIF_SPEED_SLOWEST;
+
+  avifRWData avif_output = AVIF_DATA_EMPTY;
+  avifResult result = avifEncoderWrite(encoder, image, &avif_output);
+
+  if (result == AVIF_RESULT_OK) {
+    FILE *file = fopen("plain-avif.avif", "wb");
+    if (file) {
+      fwrite(avif_output.data, 1, avif_output.size, file);
+      fclose(file);
+    }
+  }
+
+  avifRWDataFree(&avif_output);
+  avifEncoderDestroy(encoder);
+  avifImageDestroy(image);
 
   return 0;
 }
