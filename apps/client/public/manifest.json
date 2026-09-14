@@ -1,6 +1,8 @@
 {
   "short_name": "exifi",
   "name": "exifi",
+  "categories": ["photo", "utilities"],
+  "description": "Local-first Exif viewer and editor",
   "icons": [
     {
       "src": "favicon.ico",
