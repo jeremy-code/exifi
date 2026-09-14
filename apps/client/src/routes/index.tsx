@@ -429,6 +429,22 @@ const FAQS = [
       </span>
     ),
   },
+  {
+    question:
+      "I am looking for a web app to remove all metadata from my photos, is exifi for me?",
+    answer: (
+      <span>
+        No, exifi only is capable of reading Exif metadata and not other forms
+        of metadata such as XMP. You probably should look towards something like
+        Google Chrome Lab's{" "}
+        <Link color="link" href="https://squoosh.app/">
+          squoosh.app
+        </Link>
+        , which also uses WebAssembly to handle image encoding directly in the
+        browser and most importantly, <em>only</em> preserves image data.
+      </span>
+    ),
+  },
 ];
 
 const HomeComponent = () => {
