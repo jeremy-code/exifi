@@ -7,8 +7,9 @@ import { routeTree } from "./generated/routeTree.gen";
 const getRouter = () => {
   const router = createRouter({
     routeTree,
-    scrollRestoration: true,
+    defaultPreload: "intent",
     defaultErrorComponent: CatchBoundary,
+    scrollRestoration: true,
   });
 
   return router;
