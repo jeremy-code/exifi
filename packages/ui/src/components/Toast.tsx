@@ -26,8 +26,16 @@ type ToastInfo = {
 const toastQueue = new ToastQueue<ToastInfo>({
   wrapUpdate(fn) {
     if ("startViewTransition" in document) {
-      document.startViewTransition(() => {
+      const viewTransition = document.startViewTransition(() => {
         flushSync(fn);
+      });
+      viewTransition.ready.catch((error) => {
+        // Handle AbortError exception
+        // https://github.com/jeremy-code/exifi/actions/runs/34803984796/job/103852091433
+        if (error instanceof DOMException && error.name === "AbortError") {
+        } else {
+          throw error;
+        }
       });
     } else {
       fn();
@@ -133,7 +141,7 @@ const Toast = ({ toast, ...props }: ToastProps) => {
   );
 };
 
-const ToastRoot = ({ className, color, ...props }: ToastProps) => {
+const ToastRoot = ({ color, ...props }: ToastProps) => {
   return (
     <AriaToast
       {...props}
@@ -141,7 +149,7 @@ const ToastRoot = ({ className, color, ...props }: ToastProps) => {
         viewTransitionName: props.toast.key,
         ...style,
       }))}
-      className={composeRenderProps(className, (className, renderProps) =>
+      className={composeRenderProps(props.className, (className, renderProps) =>
         toastRootVariants({ className, color, ...renderProps }),
       )}
     />
