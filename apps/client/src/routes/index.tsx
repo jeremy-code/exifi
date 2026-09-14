@@ -483,7 +483,7 @@ const HomeComponent = () => {
       </div>
       <div className="pt-16">
         <div className="text-center">
-          <Heading level={2} size="3xl">
+          <Heading level={2} size="3xl" id="features">
             Features
           </Heading>
         </div>
@@ -497,7 +497,7 @@ const HomeComponent = () => {
       </div>
       <div className="py-16">
         <div className="text-center">
-          <Heading level={2} size="3xl">
+          <Heading level={2} size="3xl" id="faq">
             FAQ
           </Heading>
         </div>
