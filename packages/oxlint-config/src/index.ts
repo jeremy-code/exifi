@@ -11,10 +11,6 @@ const baseConfig = defineConfig({
     // eslint-plugin-turbo.configs["flat/recommended"]
     "turbo/no-undeclared-env-vars": "error",
 
-    // TODO: Rules that seemingly conflict with previous ESLint config. Will
-    // fix/adjust as needed later
-    "typescript/no-unsafe-type-assertion": "off",
-
     /**
      * Prefer TypeScript's `noImplicitReturns`
      *
@@ -27,6 +23,14 @@ const baseConfig = defineConfig({
      * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/no-unsafe-enum-comparison.html}
      */
     "typescript/no-unsafe-enum-comparison": "off",
+    /**
+     * I prefer to use type assertions when it is guaranteed in runtime to be a
+     * specific type but TypeScript cannot infer that
+     *
+     * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/no-unsafe-type-assertion}
+     */
+    "typescript/no-unsafe-type-assertion": "off",
+
     /**
      * Otherwise, the rule falsely errors when extending `test`
      *
