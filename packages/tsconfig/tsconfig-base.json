@@ -5,6 +5,7 @@
 
     /* Type Checking */
     "noImplicitOverride": true,
+    "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true,
     "strict": true,
     "strictNullChecks": true,

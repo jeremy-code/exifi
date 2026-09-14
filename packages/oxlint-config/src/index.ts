@@ -13,9 +13,14 @@ const baseConfig = defineConfig({
 
     // TODO: Rules that seemingly conflict with previous ESLint config. Will
     // fix/adjust as needed later
-    "typescript/consistent-return": "off",
     "typescript/no-unsafe-type-assertion": "off",
 
+    /**
+     * Prefer TypeScript's `noImplicitReturns`
+     *
+     * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/consistent-return.html}
+     */
+    "typescript/consistent-return": "off",
     /**
      * I intend to use TypeScript enums like "a namespaced bag of values"
      *
