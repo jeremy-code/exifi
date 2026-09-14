@@ -1,66 +1,66 @@
 # @exifi/test-fixtures
 
-plain-jpg.jpg was created with:
+## Files
+
+### plain-jpg.jpg
 
 ```c
+// libjpeg-turbo v3.2.0
 #include <stdio.h>
 
 #include <jpeglib.h>
 
 int main(void) {
-    FILE *file = fopen("plain.jpg", "wb");
-    if (!file) {
-        perror("fopen");
-        return 1;
-    }
+  FILE *file = fopen("plain-jpg.jpg", "wb");
+  if (!file) {
+    return 1;
+  }
 
-    struct jpeg_compress_struct cinfo;
-    struct jpeg_error_mgr jerr;
-    cinfo.err = jpeg_std_error(&jerr);
-    jpeg_create_compress(&cinfo);
+  struct jpeg_compress_struct cinfo;
+  struct jpeg_error_mgr jerr;
+  cinfo.err = jpeg_std_error(&jerr);
+  jpeg_create_compress(&cinfo);
 
-    jpeg_stdio_dest(&cinfo, file);
+  jpeg_stdio_dest(&cinfo, file);
 
-    cinfo.image_width = 1;
-    cinfo.image_height = 1;
-    cinfo.input_components = 1;
-    cinfo.in_color_space = JCS_GRAYSCALE;
+  cinfo.image_width = 1;
+  cinfo.image_height = 1;
+  cinfo.input_components = 1;
+  cinfo.in_color_space = JCS_GRAYSCALE;
 
-    jpeg_set_defaults(&cinfo);
+  jpeg_set_defaults(&cinfo);
 
-    jpeg_set_quality(&cinfo, 1, TRUE);
+  jpeg_set_quality(&cinfo, 1, TRUE);
 
-    cinfo.optimize_coding = TRUE;
-    cinfo.write_JFIF_header = TRUE;
+  cinfo.optimize_coding = TRUE;
+  cinfo.write_JFIF_header = TRUE;
 
-    jpeg_start_compress(&cinfo, TRUE);
+  jpeg_start_compress(&cinfo, TRUE);
 
-    JSAMPLE pixel = 0;
-    JSAMPROW row = &pixel;
+  JSAMPLE pixel = 0;
+  JSAMPROW row = &pixel;
 
-    jpeg_write_scanlines(&cinfo, &row, 1);
+  jpeg_write_scanlines(&cinfo, &row, 1);
 
-    jpeg_finish_compress(&cinfo);
-    jpeg_destroy_compress(&cinfo);
+  jpeg_finish_compress(&cinfo);
+  jpeg_destroy_compress(&cinfo);
 
-    fclose(file);
+  fclose(file);
 
-    return 0;
+  return 0;
 }
 ```
 
-plain-jpg-with-exif.exif does not including the leading `Exif\0\0` header, which is the format ExifTool seems to use.
-
-plain-png.png was created with
+### plain-png.png
 
 ```c
-#include <stdio.h>
+// libpng v1.6.58
 #include <png.h>
+#include <stdio.h>
 
 int main(void) {
-  FILE *file = fopen("smallest.png", "wb");
+  FILE *file = fopen("plain-png.png", "wb");
   if (!file) {
-    perror("fopen");
     return 1;
   }
 
@@ -112,9 +112,10 @@ int main(void) {
 }
 ```
 
-plain-webp.webp was created with
+### plain-webp.webp
 
 ```c
+// libwebp v1.6.0
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -132,13 +133,11 @@ int main(void) {
                                /* quality */ 0, &output);
 
   if (size == 0) {
-    fprintf(stderr, "WebPEncodeRGBA failed\n");
     return 1;
   }
 
   FILE *file = fopen("smallest.webp", "wb");
   if (!file) {
-    perror("fopen");
     WebPFree(output);
     return 1;
   }
@@ -153,68 +152,43 @@ int main(void) {
   fclose(file);
   WebPFree(output);
 
-  printf("Wrote %zu bytes\n", size);
   return 0;
 }
 ```
 
-plain-heif was created from:
+### plain-heic.heic
 
-```c
-#include <libheif/heif.h>
+```cpp
+// libheif v1.23.4
+#include <libheif/heif_cxx.h>
 
-#include <errno.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+int main() {
+  heif::Image image;
 
-static void check(struct heif_error err, const char *what) {
-  if (err.code != heif_error_Ok) {
-    fprintf(stderr, "Error in %s: %s\n", what, err.message);
-    exit(1);
-  }
-}
+  image.create(1, 1, heif_colorspace_monochrome, heif_chroma_monochrome);
 
-int main(int argc, char **argv) {
-  struct heif_image *image = NULL;
-  check(heif_image_create(1, 1, heif_colorspace_monochrome,
-                          heif_chroma_monochrome, &image),
-        "heif_image_create");
+  image.add_plane(heif_channel_Y, 1, 1, 8);
 
-  check(heif_image_add_plane(image, heif_channel_Y, 1, 1, 8),
-        "heif_image_add_plane");
+  heif::Context ctx;
 
-  struct heif_context *ctx = heif_context_alloc();
+  heif::Encoder encoder(heif_compression_HEVC);
 
-  struct heif_encoder *encoder = NULL;
-  check(
-      heif_context_get_encoder_for_format(ctx, heif_compression_HEVC, &encoder),
-      "heif_context_get_encoder_for_format (is the x265 plugin installed?)");
+  encoder.set_lossless(false);
+  encoder.set_lossy_quality(0);
+  encoder.set_parameter("preset", "ultrafast");
 
-  heif_encoder_set_lossless(encoder, 0);
-  heif_encoder_set_lossy_quality(encoder, /* quality */ 0);
-  heif_encoder_set_parameter(encoder, "preset", "ultrafast");
+  heif::Context::EncodingOptions options;
 
-  struct heif_encoding_options *options = heif_encoding_options_alloc();
+  auto handle = ctx.encode_image(image, encoder, options);
 
-  struct heif_image_handle *handle = NULL;
-  check(heif_context_encode_image(ctx, image, encoder, options, &handle),
-        "heif_context_encode_image");
-
-  heif_encoding_options_free(options);
-  heif_encoder_release(encoder);
-  heif_image_release(image);
-
-  check(heif_context_write_to_file(ctx, "smallest.heic"),
-        "heif_context_write_to_file(smallest.heic)");
-
-  heif_image_handle_release(handle);
-  heif_context_free(ctx);
+  ctx.write_to_file("plain-heic.heic");
 
   return 0;
 }
 ```
 
-Exif data is from:
+## Notes
+
+Exif data for plain-heic-with-exif is from:
 
 https://github.com/ianare/exif-samples/blob/master/heic/IMG_5195.HEIC
