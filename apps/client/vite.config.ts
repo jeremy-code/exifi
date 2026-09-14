@@ -87,6 +87,8 @@ const viteConfig = defineConfig({
       },
     }),
     serwist({
+      // See WorkerGlobalScope.__SW_MANIFEST in src/sw.ts
+      injectionPoint: "self.__SW_MANIFEST",
       swSrc: "src/sw.ts",
       // Otherwise, it attempts to to output it in dist/server/sw.js
       swDest: new URL("dist/client/sw.js", import.meta.url).pathname,
