@@ -11,7 +11,8 @@ const test = baseTest
   .extend("plainJpgWithExif", () => getFixture("plain-jpg-with-exif"))
   .extend("plainPngWithExif", () => getFixture("plain-png-with-exif"))
   .extend("plainWebpWithExif", () => getFixture("plain-webp-with-exif"))
-  .extend("plainHeicWithExif", () => getFixture("plain-heic-with-exif"));
+  .extend("plainHeicWithExif", () => getFixture("plain-heic-with-exif"))
+  .extend("plainAvifWithExif", () => getFixture("plain-avif-with-exif"));
 
 describe("getExifData", () => {
   test("gets Exif data from JPG", async ({ plainJpgWithExif }) => {
@@ -78,6 +79,21 @@ describe("getExifData", () => {
 
     expect(exifData.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainHeicWithExif.exifBytes!]),
+    );
+
+    exifData.free();
+  });
+
+  test("gets Exif data from AVIF", async ({ plainAvifWithExif }) => {
+    const file = new File(
+      [plainAvifWithExif.image],
+      "plain-avif-with-exif.avif",
+    );
+
+    const exifData = await getExifData(file);
+
+    expect(exifData.saveData()).toStrictEqual(
+      concatUint8Arrays([EXIF_HEADER, plainAvifWithExif.exifBytes!]),
     );
 
     exifData.free();
