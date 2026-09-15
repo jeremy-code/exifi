@@ -25,20 +25,24 @@ const ExifDateTimeInformation = ({
 }: ExifDateTimeInformationProps) => {
   const dateFormatter = useDateFormatter();
 
-  const dateTime = parseDateTimeEntries(exifData, "DATE_TIME");
-  const dateTimeOriginal = parseDateTimeEntries(exifData, "DATE_TIME_ORIGINAL");
-  const dateTimeDigitized = parseDateTimeEntries(
-    exifData,
-    "DATE_TIME_DIGITIZED",
-  );
-  const dateTimeGps = parseGpsDateTimeEntries(exifData);
-
   const dateTimeItems = Array.from(
     [
-      { label: "Date and Time", value: dateTime },
-      { label: "Date and Time (Original)", value: dateTimeOriginal },
-      { label: "Date and Time (Digitized)", value: dateTimeDigitized },
-      { label: "Date and Time (GPS)", value: dateTimeGps },
+      {
+        label: "Date and Time",
+        value: parseDateTimeEntries(exifData, "DATE_TIME"),
+      },
+      {
+        label: "Date and Time (Original)",
+        value: parseDateTimeEntries(exifData, "DATE_TIME_ORIGINAL"),
+      },
+      {
+        label: "Date and Time (Digitized)",
+        value: parseDateTimeEntries(exifData, "DATE_TIME_DIGITIZED"),
+      },
+      {
+        label: "Date and Time (GPS)",
+        value: parseGpsDateTimeEntries(exifData),
+      },
     ]
       .reduce((acc, { label, value }) => {
         if (value !== null) {
