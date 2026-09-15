@@ -2,7 +2,7 @@ import { defineConfig } from "oxlint";
 
 import baseConfig from "@exifi/oxlint-config";
 
-export default defineConfig({
+const oxlintConfig = defineConfig({
   extends: [baseConfig],
   options: {
     reportUnusedDisableDirectives: "warn",
@@ -10,3 +10,5 @@ export default defineConfig({
     typeCheck: true,
   },
 });
+
+export default oxlintConfig;

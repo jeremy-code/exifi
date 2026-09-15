@@ -11,17 +11,12 @@ const oxfmtConfig = defineConfig({
       "external",
       ["internal", "subpath"],
       ["parent", "sibling", "index"],
+      "unknown",
     ],
     customGroups: [
       {
         groupName: "react",
-        elementNamePattern: [
-          "react",
-          "react-dom",
-          "react-dom/server",
-          "react-dom/client",
-          "react-dom/static",
-        ],
+        elementNamePattern: ["react", "react-dom", "react-dom/*"],
       },
     ],
     internalPattern: ["@exifi/"],
@@ -34,7 +29,7 @@ const oxfmtConfig = defineConfig({
     stylesheet: "./packages/ui/src/globals.css",
     functions: ["cx", "cn", "cnMerge", "tv", "twMerge"],
   },
-  ignorePatterns: ["**/src/generated"],
+  ignorePatterns: ["{apps,packages}/*/src/generated/"],
 });
 
 export default oxfmtConfig;
