@@ -9,7 +9,7 @@ const SelectHeader = ({ table }: HeaderContext<ExifTableRow, unknown>) => {
 
   return (
     <Checkbox
-      boxProps={{ className: "mx-auto" }}
+      checkboxButtonProps={{ boxProps: { className: "mx-auto" } }}
       isSelected={table.getIsAllRowsSelected()}
       isIndeterminate={table.getIsSomeRowsSelected()}
       onChange={(isSelected) => {

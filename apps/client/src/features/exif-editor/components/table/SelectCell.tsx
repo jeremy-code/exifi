@@ -11,7 +11,7 @@ const SelectCell = ({ row }: CellContext<ExifTableRow, unknown>) => {
 
   return (
     <Checkbox
-      boxProps={{ className: "mx-auto" }}
+      checkboxButtonProps={{ boxProps: { className: "mx-auto" } }}
       isSelected={row.getIsSelected()}
       isIndeterminate={row.getIsSomeSelected()}
       onChange={(isSelected) => {
