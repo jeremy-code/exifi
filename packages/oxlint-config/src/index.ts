@@ -1,15 +1,32 @@
+import turbo from "eslint-plugin-turbo";
 import { defineConfig } from "oxlint";
 
 const baseConfig = defineConfig({
+  // https://oxc.rs/docs/guide/usage/linter/config.html#enable-groups-of-rules-with-categories
   categories: {
     correctness: "error",
     suspicious: "warn",
   },
-  plugins: ["eslint", "typescript", "import", "promise", "vitest"],
+  env: {
+    builtin: true,
+    es2024: true,
+  },
+  plugins: [
+    "eslint",
+    "typescript",
+    "unicorn",
+    "oxc",
+    "import",
+    "jsdoc",
+    "node",
+    "promise",
+    "vitest",
+  ],
   jsPlugins: ["eslint-plugin-turbo"],
   rules: {
-    // eslint-plugin-turbo.configs["flat/recommended"]
-    "turbo/no-undeclared-env-vars": "error",
+    // While in runtime, eslint-plugin-turbo always returns a single config,
+    // TypeScript does not know that. Use `.flat()` to always get an array
+    ...[turbo.configs?.["flat/recommended"]].flat()[0]?.rules,
 
     /**
      * Prefer TypeScript's `noImplicitReturns`

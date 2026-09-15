@@ -1,3 +1,5 @@
+import pluginQuery from "@tanstack/eslint-plugin-query";
+import pluginRouter from "@tanstack/eslint-plugin-router";
 import { defineConfig } from "oxlint";
 
 import baseConfig from "@exifi/oxlint-config";
@@ -9,7 +11,12 @@ const reactConfig = defineConfig({
     "@tanstack/eslint-plugin-query",
     "@tanstack/eslint-plugin-router",
   ],
-  ignorePatterns: ["src/generated", "dist"],
+  env: {
+    browser: true,
+    builtin: true,
+    es2024: true,
+  },
+  ignorePatterns: ["src/generated/"],
   rules: {
     /**
      * Not necessary, since using JSX runtime
@@ -17,18 +24,8 @@ const reactConfig = defineConfig({
      */
     "react/react-in-jsx-scope": "off",
 
-    // @tanstack/eslint-plugin-query.configs["flat/recommended"]
-    "@tanstack/query/exhaustive-deps": "error",
-    "@tanstack/query/no-rest-destructuring": "warn",
-    "@tanstack/query/stable-query-client": "error",
-    "@tanstack/query/no-unstable-deps": "error",
-    "@tanstack/query/infinite-query-property-order": "error",
-    "@tanstack/query/no-void-query-fn": "error",
-    "@tanstack/query/mutation-property-order": "error",
-
-    // @tanstack/eslint-plugin-router.configs["flat/recommended"]
-    "@tanstack/router/create-route-property-order": "warn",
-    "@tanstack/router/route-param-names": "error",
+    ...pluginQuery.configs["flat/recommended"][0]?.rules,
+    ...pluginRouter.configs["flat/recommended"][0]?.rules,
   },
   settings: {
     react: {
