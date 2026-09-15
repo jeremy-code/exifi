@@ -19,7 +19,7 @@ describe("ThemeToggle", () => {
     vi.clearAllMocks();
   });
 
-  test("renders light mode state correctly", async () => {
+  test("renders light theme correctly", async () => {
     mockResolvedTheme = "light";
 
     const screen = await render(<ThemeToggle data-testid="theme-toggle" />);
@@ -31,7 +31,7 @@ describe("ThemeToggle", () => {
     );
   });
 
-  test("renders dark mode state correctly", async () => {
+  test("renders dark theme correctly", async () => {
     mockResolvedTheme = "dark";
 
     const screen = await render(<ThemeToggle data-testid="theme-toggle" />);
@@ -41,5 +41,30 @@ describe("ThemeToggle", () => {
       "data-selected",
       "true",
     );
+  });
+
+  test("switches to dark theme when clicked in light theme", async () => {
+    mockResolvedTheme = "light";
+    const screen = await render(<ThemeToggle data-testid="theme-toggle" />);
+
+    await screen.getByTestId("theme-toggle").click();
+
+    expect(mockSetTheme).toHaveBeenCalledExactlyOnceWith("dark");
+  });
+
+  test("switches to light theme when clicked in dark theme", async () => {
+    mockResolvedTheme = "dark";
+    const screen = await render(<ThemeToggle data-testid="theme-toggle" />);
+
+    await screen.getByTestId("theme-toggle").click();
+
+    expect(mockSetTheme).toHaveBeenCalledExactlyOnceWith("light");
+  });
+
+  test("renders children", async () => {
+    mockResolvedTheme = "light";
+    const screen = await render(<ThemeToggle>Theme</ThemeToggle>);
+
+    await expect.element(screen.getByText("Theme")).toBeInTheDocument();
   });
 });
