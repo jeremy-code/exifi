@@ -1,19 +1,17 @@
 import { useHydrated } from "@tanstack/react-router";
 import { Moon, RefreshCw, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { composeRenderProps } from "react-aria-components/composeRenderProps";
 import { cn } from "tailwind-variants";
 
-import {
-  SwitchTrack,
-  SwitchHandle,
-  type SwitchProps,
-  SwitchRoot,
-} from "@exifi/ui/components/Switch";
+import { type SwitchProps, Switch } from "@exifi/ui/components/Switch";
 
 type ThemeToggleProps = SwitchProps;
 
-const ThemeToggle = ({ switchTrackProps, ...props }: ThemeToggleProps) => {
+const ThemeToggle = ({
+  switchTrackProps,
+  switchHandleProps,
+  ...props
+}: ThemeToggleProps) => {
   // Prevent hydration error and layout shift as theme must be resolved from
   // `localStorage`
   const isHydrated = useHydrated();
@@ -27,9 +25,9 @@ const ThemeToggle = ({ switchTrackProps, ...props }: ThemeToggleProps) => {
     : [RefreshCw, "Loading"];
 
   return (
-    <SwitchRoot
+    <Switch
       // Light mode or not mounted = unchecked, Dark mode = checked
-      isSelected={isHydrated && isDark}
+      isSelected={isDark}
       onChange={(isSelected) => {
         if (isHydrated) {
           setTheme(isSelected ? "dark" : "light");
@@ -37,29 +35,22 @@ const ThemeToggle = ({ switchTrackProps, ...props }: ThemeToggleProps) => {
       }}
       isDisabled={!isHydrated}
       aria-label={themeIconLabel}
+      switchTrackProps={{ color: "gray", ...switchTrackProps }}
+      switchHandleProps={{
+        children: (
+          <ThemeIcon
+            className={cn("size-4", { "animate-spin": !isHydrated })}
+            aria-hidden
+          />
+        ),
+        ...switchHandleProps,
+        className: cn(
+          "bg-bg text-gray-600 dark:text-gray-50",
+          switchHandleProps?.className,
+        ),
+      }}
       {...props}
-    >
-      {composeRenderProps(props.children, (children, renderProps) => (
-        <>
-          <SwitchTrack
-            renderProps={renderProps}
-            {...switchTrackProps}
-            className={cn(
-              switchTrackProps?.className,
-              "group-selected/switch:group-pressed/switchring-neutral group-selected/switch:bg-bg-muted group-selected/switch:ring-border group-selected/switch:group-hover/switch:ring-fg-subtle",
-            )}
-          >
-            <SwitchHandle className="bg-bg text-gray-600 dark:text-gray-50">
-              <ThemeIcon
-                className={cn("size-4", { "animate-spin": !isHydrated })}
-                aria-hidden
-              />
-            </SwitchHandle>
-          </SwitchTrack>
-          {children}
-        </>
-      ))}
-    </SwitchRoot>
+    />
   );
 };
 

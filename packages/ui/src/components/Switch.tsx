@@ -1,14 +1,19 @@
 import type { ComponentPropsWithRef } from "react";
 
 import {
-  Switch as AriaSwitch,
-  type SwitchProps as AriaSwitchProps,
+  SwitchField as AriaSwitchField,
+  type SwitchFieldProps,
+  SwitchButton as AriaSwitchButton,
+  type SwitchButtonProps as AriaSwitchButtonProps,
   type SwitchRenderProps,
 } from "react-aria-components/Switch";
 import { composeRenderProps } from "react-aria-components/composeRenderProps";
 import { tv, type VariantProps } from "tailwind-variants";
 
+import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 import { focusRing } from "../utils/focusRing";
+import { Description, FieldError } from "./form";
+import type { FieldErrorMessage } from "./form/FieldError";
 
 const switchTrackVariants = tv({
   extend: focusRing,
@@ -17,9 +22,19 @@ const switchTrackVariants = tv({
     "shrink-0",
     "disabled:cursor-not-allowed disabled:opacity-50",
     "h-(--switch-height) w-(--switch-width)",
-    "group-not-selected/switch:bg-bg-muted group-not-selected/switch:ring-border group-hover/switch:group-not-selected/switch:ring-fg-subtle group-pressed/switch:group-not-selected/switch:ring-neutral",
-    "group-selected/switch:bg-accent group-selected/switch:ring-accent",
   ],
+  variants: {
+    color: {
+      accent: [
+        "group-not-selected/switch:bg-bg-muted group-not-selected/switch:ring-border group-hover/switch:group-not-selected/switch:ring-fg-subtle group-pressed/switch:group-not-selected/switch:ring-neutral",
+        "group-selected/switch:bg-accent group-selected/switch:ring-accent",
+      ],
+      gray: "bg-bg-muted ring-border group-hover/switch:ring-fg-subtle group-pressed/switch:ring-neutral",
+    },
+  },
+  defaultVariants: {
+    color: "accent",
+  },
 });
 
 type SwitchTrackProps = {
@@ -30,10 +45,11 @@ type SwitchTrackProps = {
 const SwitchTrack = ({
   className,
   renderProps,
+  color,
   ...props
 }: SwitchTrackProps) => (
   <div
-    className={switchTrackVariants({ className, ...renderProps })}
+    className={switchTrackVariants({ className, color, ...renderProps })}
     {...props}
   />
 );
@@ -54,7 +70,7 @@ const SwitchHandle = ({ className, ...props }: SwitchHandleProps) => (
   <div className={switchHandleVariants({ className })} {...props} />
 );
 
-const switchVariants = tv({
+const switchButtonVariants = tv({
   base: [
     "group/switch relative flex items-center gap-2 text-sm text-gray-800 transition [-webkit-tap-highlight-color:transparent] dark:text-gray-200",
   ],
@@ -73,33 +89,55 @@ const switchVariants = tv({
   defaultVariants: { size: "md" },
 });
 
-type SwitchRootProps = AriaSwitchProps & VariantProps<typeof switchVariants>;
+type SwitchButtonProps = AriaSwitchButtonProps &
+  VariantProps<typeof switchButtonVariants>;
 
-const SwitchRoot = ({ size, ...props }: SwitchRootProps) => (
-  <AriaSwitch
+const SwitchButton = ({ size, ...props }: SwitchButtonProps) => (
+  <AriaSwitchButton
     {...props}
     className={composeRenderProps(props.className, (className, renderProps) =>
-      switchVariants({ className, size, ...renderProps }),
+      switchButtonVariants({ className, size, ...renderProps }),
     )}
   />
 );
 
+const SwitchField = (props: SwitchFieldProps) => {
+  return (
+    <AriaSwitchField
+      {...props}
+      className={composeTailwindRenderProps(
+        props.className,
+        "flex flex-col gap-1",
+      )}
+    />
+  );
+};
+
 type SwitchProps = {
+  switchButtonProps?: SwitchButtonProps;
   switchTrackProps?: SwitchTrackProps;
   switchHandleProps?: SwitchHandleProps;
-} & SwitchRootProps;
+  children?: SwitchButtonProps["children"];
+  description?: string;
+  errorMessage?: FieldErrorMessage;
+} & Omit<SwitchFieldProps, "children"> &
+  VariantProps<typeof switchButtonVariants>;
 
-const Switch = ({ switchTrackProps, ...props }: SwitchProps) => (
-  <SwitchRoot {...props}>
-    {composeRenderProps(props.children, (children, renderProps) => (
-      <>
-        <SwitchTrack renderProps={renderProps} {...switchTrackProps}>
-          <SwitchHandle {...switchTrackProps} />
-        </SwitchTrack>
-        {children}
-      </>
-    ))}
-  </SwitchRoot>
+const Switch = ({ description, errorMessage, size, ...props }: SwitchProps) => (
+  <SwitchField {...props}>
+    <SwitchButton size={size} {...props.switchButtonProps}>
+      {composeRenderProps(props.children, (children, renderProps) => (
+        <>
+          <SwitchTrack {...props.switchTrackProps} renderProps={renderProps}>
+            <SwitchHandle {...props.switchHandleProps} />
+          </SwitchTrack>
+          {children}
+        </>
+      ))}
+    </SwitchButton>
+    {description && <Description>{description}</Description>}
+    <FieldError>{errorMessage}</FieldError>
+  </SwitchField>
 );
 
 export {
@@ -109,9 +147,11 @@ export {
   SwitchHandle,
   type SwitchHandleProps,
   switchHandleVariants,
-  SwitchRoot,
-  type SwitchRootProps,
+  SwitchButton,
+  type SwitchButtonProps,
+  switchButtonVariants,
+  SwitchField,
+  type SwitchFieldProps,
   Switch,
   type SwitchProps,
-  switchVariants,
 };
