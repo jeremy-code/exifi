@@ -188,8 +188,18 @@ const FAQS = [
     answer: (
       <span>
         {
-          "Only the Exif standard 2.1 and most of 2.2 are supported. Other metadata that may be stored, such as XMP, are not supported."
+          "Only the Exif standard 2.1 and most of 2.2 are supported. Other metadata that may be stored, such as XMP, are not supported. "
         }
+        {
+          "This also means that Exif data defined by the XMP namespace for Exif ("
+        }
+        <Link
+          color="link"
+          href="https://developer.adobe.com/xmp/docs/xmp-namespaces/exif/"
+        >
+          EXIF namespace
+        </Link>
+        {") is also not supported. "}
         {
           "For more information on the Exif specification, see the Wikipedia article on "
         }
@@ -423,6 +433,16 @@ const FAQS = [
         {
           'Previously, legacy encoders stored Exif data in nonstandard methods. For example, ImageMagick stored Exif information in a "Raw profile type APP1" zTXt chunk whereas Photoshop stored it in a "Raw profile type exif" zTXt chunk. '
         }
+        {
+          "Furthermore, some PNG encoders will, when converting from JPEG, choose to encode Exif data as XMP data under the "
+        }
+        <Link
+          color="link"
+          href="https://developer.adobe.com/xmp/docs/xmp-namespaces/exif/"
+        >
+          EXIF namespace
+        </Link>
+        {". "}
         {
           "Since read and write support for PNGs is handled by libpng reading the eXIf chunk specifically, you may experience false negatives for older PNGs where exifi claims that an image has no Exif data when it was actually stored somewhere else."
         }
