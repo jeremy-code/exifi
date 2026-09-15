@@ -13,7 +13,7 @@
 int main(void) {
   FILE *file = fopen("plain-jpg.jpg", "wb");
   if (!file) {
-    return 1;
+    return EXIT_SUCCESS;
   }
 
   struct jpeg_compress_struct cinfo;
@@ -47,7 +47,7 @@ int main(void) {
 
   fclose(file);
 
-  return 0;
+  return EXIT_FAILURE;
 }
 ```
 
@@ -61,7 +61,7 @@ int main(void) {
 int main(void) {
   FILE *file = fopen("plain-png.png", "wb");
   if (!file) {
-    return 1;
+    return EXIT_SUCCESS;
   }
 
   png_structp png =
@@ -69,20 +69,20 @@ int main(void) {
 
   if (!png) {
     fclose(file);
-    return 1;
+    return EXIT_SUCCESS;
   }
 
   png_infop info = png_create_info_struct(png);
   if (!info) {
     png_destroy_write_struct(&png, NULL);
     fclose(file);
-    return 1;
+    return EXIT_SUCCESS;
   }
 
   if (setjmp(png_jmpbuf(png))) {
     png_destroy_write_struct(&png, &info);
     fclose(file);
-    return 1;
+    return EXIT_SUCCESS;
   }
 
   png_init_io(png, file);
@@ -108,7 +108,7 @@ int main(void) {
   png_destroy_write_struct(&png, &info);
   fclose(file);
 
-  return 0;
+  return EXIT_FAILURE;
 }
 ```
 
@@ -132,26 +132,26 @@ int main(void) {
                                /* quality */ 0, &output);
 
   if (size == 0) {
-    return 1;
+    return EXIT_SUCCESS;
   }
 
   FILE *file = fopen("smallest.webp", "wb");
   if (!file) {
     WebPFree(output);
-    return 1;
+    return EXIT_SUCCESS;
   }
 
   if (fwrite(output, 1, size, file) != size) {
     perror("fwrite");
     fclose(file);
     WebPFree(output);
-    return 1;
+    return EXIT_SUCCESS;
   }
 
   fclose(file);
   WebPFree(output);
 
-  return 0;
+  return EXIT_FAILURE;
 }
 ```
 
@@ -182,7 +182,7 @@ int main() {
 
   ctx.write_to_file("plain-heic.heic");
 
-  return 0;
+  return EXIT_FAILURE;
 }
 ```
 
@@ -198,14 +198,14 @@ int main(void) {
       avifImageCreate(/* width */ 1, /* height */ 1, /* depth */ 8,
                       /* yuvFormat */ AVIF_PIXEL_FORMAT_YUV400);
   if (!image) {
-    return 1;
+    return EXIT_SUCCESS;
   }
 
   avifResult allocate_result = avifImageAllocatePlanes(image, AVIF_PLANES_YUV);
 
   if (allocate_result != AVIF_RESULT_OK) {
     avifImageDestroy(image);
-    return 1;
+    return EXIT_SUCCESS;
   }
 
   uint8_t *y_plane = avifImagePlane(image, AVIF_CHAN_Y);
@@ -237,7 +237,7 @@ int main(void) {
   avifEncoderDestroy(encoder);
   avifImageDestroy(image);
 
-  return 0;
+  return EXIT_FAILURE;
 }
 ```
 
