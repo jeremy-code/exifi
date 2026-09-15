@@ -26,7 +26,7 @@ const Footer = ({ className, ...props }: ComponentPropsWithRef<"footer">) => {
           className={(renderProps) => buttonVariants({ ...renderProps })}
           href="https://github.com/jeremy-code/exifi"
         >
-          <Github aria-hidden className="size-4" />
+          <Github aria-hidden className="size-4 fill-current stroke-0" />
           GitHub
         </Link>
       </div>
