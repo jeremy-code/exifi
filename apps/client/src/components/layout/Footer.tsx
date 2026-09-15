@@ -9,22 +9,21 @@ import { Github } from "@exifi/ui/components/icons/Github";
 const Footer = ({ className, ...props }: ComponentPropsWithRef<"footer">) => {
   return (
     <footer className={cn("shrink border-t", className)} {...props}>
-      <div className="container flex items-center justify-between py-4">
-        <span>
-          {"Made by "}
+      <div className="container flex items-center justify-between gap-2 py-4">
+        <span className="text-balance">
+          {"Made with 🧋 by "}
           <Link
+            className="inline"
             color="blue"
             href="https://jeremy.ng"
             underline="hover"
-            isExternal
           >
             Jeremy Nguyen
           </Link>
         </span>
         <Link
-          className={(renderProps) =>
-            buttonVariants({ ...renderProps, className: "hover:no-underline" })
-          }
+          underline={false}
+          className={(renderProps) => buttonVariants({ ...renderProps })}
           href="https://github.com/jeremy-code/exifi"
         >
           <Github aria-hidden className="size-4" />
