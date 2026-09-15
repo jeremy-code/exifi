@@ -241,6 +241,106 @@ int main(void) {
 }
 ```
 
+### plain-jpegxl.jxl
+
+```c
+#include <jxl/encode.h>
+#include <jxl/thread_parallel_runner.h>
+#include <stdio.h>
+
+int main(void) {
+  JxlEncoder *enc = JxlEncoderCreate(/* memory_manager */ NULL);
+  if (!enc) {
+    return EXIT_FAILURE;
+  }
+
+  JxlBasicInfo basic_info;
+  JxlEncoderInitBasicInfo(&basic_info);
+  basic_info.xsize = 1;
+  basic_info.ysize = 1;
+  basic_info.bits_per_sample = 8;
+  basic_info.exponent_bits_per_sample = 0;
+  basic_info.num_color_channels = 1;
+  basic_info.num_extra_channels = 0;
+  basic_info.alpha_bits = 0;
+
+  if (JxlEncoderSetBasicInfo(enc, &basic_info) != JXL_ENC_SUCCESS) {
+    JxlEncoderDestroy(enc);
+    return EXIT_FAILURE;
+  }
+
+  JxlColorEncoding color_encoding;
+  JxlColorEncodingSetToSRGB(&color_encoding, /* is_gray */ JXL_TRUE);
+  if (JxlEncoderSetColorEncoding(enc, &color_encoding) != JXL_ENC_SUCCESS) {
+    JxlEncoderDestroy(enc);
+    return EXIT_FAILURE;
+  }
+
+  JxlEncoderFrameSettings *frame_settings =
+      JxlEncoderFrameSettingsCreate(enc, /* source */ NULL);
+
+  if (!frame_settings) {
+    JxlEncoderDestroy(enc);
+    return EXIT_FAILURE;
+  }
+
+  JxlEncoderFrameSettingsSetOption(
+      frame_settings, JXL_ENC_FRAME_SETTING_MODULAR, /* enforce */ 1);
+
+  JxlEncoderFrameSettingsSetOption(frame_settings, JXL_ENC_FRAME_SETTING_EFFORT,
+                                   /* maximum */ 10);
+
+  uint8_t pixel = 0x00;
+  JxlPixelFormat pixel_format = {.num_channels = 1,
+                                 .data_type = JXL_TYPE_UINT8,
+                                 .endianness = JXL_NATIVE_ENDIAN,
+                                 .align = 0};
+
+  if (JxlEncoderAddImageFrame(frame_settings, &pixel_format, &pixel,
+                              sizeof(pixel)) != JXL_ENC_SUCCESS) {
+    JxlEncoderDestroy(enc);
+    return EXIT_FAILURE;
+  }
+
+  JxlEncoderCloseInput(enc);
+
+  size_t compressed_capacity = 64;
+  uint8_t *compressed_buffer = malloc(compressed_capacity);
+  uint8_t *next_out = compressed_buffer;
+  size_t avail_out = compressed_capacity;
+  JxlEncoderStatus process_result = JXL_ENC_NEED_MORE_OUTPUT;
+  while (process_result == JXL_ENC_NEED_MORE_OUTPUT) {
+    process_result = JxlEncoderProcessOutput(enc, &next_out, &avail_out);
+    if (process_result == JXL_ENC_NEED_MORE_OUTPUT) {
+      size_t offset = next_out - compressed_buffer;
+      compressed_capacity *= 2;
+      compressed_buffer = realloc(compressed_buffer, compressed_capacity);
+      next_out = compressed_buffer + offset;
+      avail_out = compressed_capacity - offset;
+    }
+  }
+
+  if (process_result != JXL_ENC_SUCCESS) {
+    free(compressed_buffer);
+    JxlEncoderDestroy(enc);
+    return EXIT_FAILURE;
+  }
+
+  FILE *file = fopen("plain-jpegxl.jxl", "wb");
+  if (!file) {
+    free(compressed_buffer);
+    JxlEncoderDestroy(enc);
+    return EXIT_FAILURE;
+  }
+
+  fwrite(compressed_buffer, 1, next_out - compressed_buffer, file);
+  fclose(file);
+  free(compressed_buffer);
+  JxlEncoderDestroy(enc);
+  return EXIT_SUCCESS;
+}
+```
+
 ## Notes
 
 Exif data for plain-heic-with-exif is from:
