@@ -17,6 +17,10 @@ const useNominatimApiReverse = (coordinate: LatLng) => {
         format: "geojson",
       },
     },
+    headers: {
+      // https://operations.osmfoundation.org/policies/nominatim/
+      "User-Agent": "exifi",
+    },
   });
   const feature = useMemo(() => {
     // Despite what OpenAPI says, features is undefined when nominatim returns an object
