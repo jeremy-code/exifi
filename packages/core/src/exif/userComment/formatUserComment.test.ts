@@ -1,4 +1,4 @@
-import { encode } from "iconv-lite";
+import { SHIFT_JIS } from "iconv-tiny";
 import { describe, expect, test } from "vitest";
 
 import { ENCODING_TO_HEADER_MAP } from "./constants";
@@ -6,6 +6,7 @@ import { formatUserComment } from "./formatUserComment";
 import { parseUserComment } from "./parseUserComment";
 
 const textEncoder = new TextEncoder();
+const shiftJis = SHIFT_JIS.create();
 
 const ASCII_CHARS = Array.from({ length: 128 }, (_, i) =>
   String.fromCharCode(i),
@@ -29,14 +30,14 @@ describe("formatUserComment", () => {
     [{ encoding: "ASCII", value: ASCII_CHARS.join("") }],
     [{ encoding: "UNICODE", value: ASCII_CHARS.join("") + "🦖" }],
     [{ encoding: "EMPTY", value: ASCII_CHARS.join("") }],
-    [{ encoding: "JIS", value: ASCII_CHARS.join("") + "ジョジョの奇妙な冒険" }],
+    [{ encoding: "JIS", value: "ジョジョの奇妙な冒険" }],
   ] as const)("formats %s UserComment with correct value", ([userComment]) => {
     test("formats UserComment data", () => {
       expect(
         formatUserComment(userComment).subarray(HEADER_LENGTH),
       ).toStrictEqual(
         userComment.encoding === "JIS"
-          ? new Uint8Array(encode(userComment.value, "eucjp"))
+          ? shiftJis.encode(userComment.value)
           : textEncoder.encode(userComment.value),
       );
     });

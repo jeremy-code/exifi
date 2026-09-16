@@ -15,7 +15,6 @@ import { fontless } from "fontless";
 import { Features } from "lightningcss";
 import { defineConfig, type Plugin } from "vite";
 import { analyzer } from "vite-bundle-analyzer";
-import { nodePolyfills } from "vite-plugin-node-polyfills";
 import { z } from "zod";
 
 // https://github.com/serwist/serwist/blob/adf0d79ae8ba7d87cce2251ffc29526955511a2b/packages/vite/src/plugins/build.ts
@@ -78,14 +77,6 @@ const viteConfig = defineConfig({
     tailwindcss({ optimize: { minify: true } }),
     fontless(),
     devtools(),
-    nodePolyfills({
-      // Polyfill `buffer` for `iconv-lite`. Global not necessary because
-      // safer-buffer imports the package
-      include: ["buffer"],
-      globals: {
-        process: false,
-      },
-    }),
     serwist({
       // See WorkerGlobalScope.__SW_MANIFEST in src/sw.ts
       injectionPoint: "self.__SW_MANIFEST",

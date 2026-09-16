@@ -1,3 +1,4 @@
+import { ENCODING_TO_HEADER_MAP } from "@exifi/core/exif/userComment/constants";
 import type {
   UserComment,
   Encoding,
@@ -10,13 +11,6 @@ type UserCommentSelectProps = {
   onValueChange?: (value: UserComment) => void;
 } & Omit<EnumSelectProps, "value" | "values" | "onValueChange">;
 
-const ENCODINGS = new Set([
-  "ASCII",
-  "UNICODE",
-  "EMPTY",
-  "JIS",
-]) satisfies Set<Encoding>;
-
 const UserCommentSelect = ({
   value,
   onValueChange,
@@ -26,9 +20,9 @@ const UserCommentSelect = ({
     <EnumSelect
       {...props}
       value={value?.encoding}
-      values={Array.from(ENCODINGS)}
+      values={Object.keys(ENCODING_TO_HEADER_MAP)}
       onValueChange={(selectedValue) => {
-        if (ENCODINGS.has(selectedValue as Encoding) && value !== undefined) {
+        if (selectedValue in ENCODING_TO_HEADER_MAP && value !== undefined) {
           onValueChange?.({
             encoding: selectedValue as Encoding,
             value: value.value,

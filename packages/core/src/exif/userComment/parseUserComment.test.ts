@@ -1,10 +1,11 @@
-import { encode } from "iconv-lite";
+import { SHIFT_JIS } from "iconv-tiny";
 import { describe, expect, test } from "vitest";
 
 import { ENCODING_TO_HEADER_MAP } from "./constants";
 import { parseUserComment } from "./parseUserComment";
 
 const textEncoder = new TextEncoder();
+const shiftJis = SHIFT_JIS.create();
 
 describe("parseUserComment", () => {
   test.for([
@@ -15,9 +16,7 @@ describe("parseUserComment", () => {
   ] as const)("parses $encoding user comment", ({ encoding, value }) => {
     const userCommentBytes =
       encoding === "JIS"
-        ? new Uint8Array(
-            encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`, "eucjp"),
-          )
+        ? shiftJis.encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`)
         : textEncoder.encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`);
 
     expect(parseUserComment(userCommentBytes)).toStrictEqual({
@@ -60,7 +59,7 @@ describe("parseUserComment", () => {
     ([encoding]) => {
       const bytes =
         encoding === "JIS"
-          ? new Uint8Array(encode(ENCODING_TO_HEADER_MAP.JIS, "eucjp"))
+          ? shiftJis.encode(ENCODING_TO_HEADER_MAP[encoding])
           : textEncoder.encode(ENCODING_TO_HEADER_MAP[encoding]);
 
       expect(parseUserComment(bytes)).toStrictEqual({ encoding, value: "" });

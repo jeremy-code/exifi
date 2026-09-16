@@ -1,12 +1,12 @@
-import { encode } from "iconv-lite";
+import { UTF16LE } from "iconv-tiny";
+
+const utf16le = UTF16LE.create();
 
 const formatXp = (input: string) => {
   const inputWithNullTerminator = input.endsWith("\u0000")
     ? input
     : input + "\u0000";
-  const buffer = encode(inputWithNullTerminator, "utf16le") as Uint8Array;
-
-  return new Uint8Array(buffer.buffer, buffer.byteOffset, buffer.byteLength);
+  return utf16le.encode(inputWithNullTerminator);
 };
 
 export { formatXp };

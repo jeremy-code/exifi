@@ -1,24 +1,20 @@
-import { encode } from "iconv-lite";
+import { SHIFT_JIS, US_ASCII } from "iconv-tiny";
 
 import { assertNever } from "@exifi/utils/assertNever";
 
 import { ENCODING_TO_HEADER_MAP } from "./constants";
 import type { UserComment } from "./interfaces";
 
+const usAscii = US_ASCII.create();
+const shiftJis = SHIFT_JIS.create();
+
 const textEncoder = new TextEncoder();
 
 const formatUserComment = (userComment: UserComment): Uint8Array => {
   switch (userComment.encoding) {
     case "ASCII": {
-      const buffer = encode(
+      return usAscii.encode(
         `${ENCODING_TO_HEADER_MAP[userComment.encoding]}${userComment.value}`,
-        "ASCII",
-      ) as Uint8Array;
-
-      return new Uint8Array(
-        buffer.buffer,
-        buffer.byteOffset,
-        buffer.byteLength,
       );
     }
     case "UNICODE":
@@ -27,17 +23,10 @@ const formatUserComment = (userComment: UserComment): Uint8Array => {
         `${ENCODING_TO_HEADER_MAP[userComment.encoding]}${userComment.value}`,
       );
     case "JIS": {
-      // Since JIS is compatible with ASCII, encoding header can be encoded with
-      // same encoder
-      const buffer = encode(
+      // Encoding header can be encoded with same encoder
+      // 0x4a 0x49 0x53 0x00 0x00 0x00 0x00 0x00
+      return shiftJis.encode(
         `${ENCODING_TO_HEADER_MAP[userComment.encoding]}${userComment.value}`,
-        "eucjp",
-      ) as Uint8Array;
-
-      return new Uint8Array(
-        buffer.buffer,
-        buffer.byteOffset,
-        buffer.byteLength,
       );
     }
     default:

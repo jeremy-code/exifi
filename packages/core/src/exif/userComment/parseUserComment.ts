@@ -4,7 +4,7 @@ import { ENCODING_TO_HEADER_MAP } from "./constants";
 import type { UserComment } from "./interfaces";
 
 const textDecoder = new TextDecoder();
-const textDecoderJis = new TextDecoder("euc-jp");
+const textDecoderJis = new TextDecoder("shift-jis");
 
 const textEncoder = new TextEncoder();
 

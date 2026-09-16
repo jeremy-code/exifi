@@ -1,7 +1,9 @@
-const textDecoder = new TextDecoder("utf-16le");
+import { UTF16LE } from "iconv-tiny";
 
-const parseXp = (input: AllowSharedBufferSource) => {
-  const output = textDecoder.decode(input);
+const utf16le = UTF16LE.create();
+
+const parseXp = (input: Uint8Array) => {
+  const output = utf16le.decode(input);
 
   if (output.at(-1) === "\u0000") {
     return output.slice(0, -1);
