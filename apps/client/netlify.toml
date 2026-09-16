@@ -1,6 +1,7 @@
 [build]
-publish = "apps/client/dist/client"
-command = "turbo run build"
+base = "apps/client"
+publish = "dist/client"
+command = "pnpm --workspace-root exec turbo run build --filter=@exifi/client..."
 
 [build.processing.html]
 pretty_urls = true
