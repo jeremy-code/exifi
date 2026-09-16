@@ -19,9 +19,6 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v7
 
-      - name: Enable Corepack
-        run: corepack enable
-
       - name: Cache Turbo build setup
         uses: actions/cache@v6
         with:
@@ -30,19 +27,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-turbo-
 
-      - name: Set up Node.js environment
-        uses: actions/setup-node@v7
+      - name: Install pnpm and Node.js
+        uses: pnpm/setup@v2
         with:
-          node-version-file: .node-version
-          cache: pnpm
+          cache: true
+          install: true
 
       - name: Setup emsdk
         uses: emscripten-core/setup-emsdk@v16
         with:
           version: 6.0.8
-
-      - name: Install dependencies
-        run: pnpm install
 
       - name: Build @exifi/image-utils
         run: pnpm exec turbo build --filter=@exifi/image-utils

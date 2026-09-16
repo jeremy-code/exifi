@@ -16,7 +16,6 @@
 ```shell
 git clone https://github.com/jeremy-code/exifi.git
 cd exifi
-corepack enable
 pnpm install
 ```
 
