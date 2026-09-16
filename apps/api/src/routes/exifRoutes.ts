@@ -2,6 +2,7 @@ import { zValidator } from "@hono/zod-validator";
 import { fileTypeFromBlob } from "file-type";
 import { Hono } from "hono";
 import { bodyLimit } from "hono/body-limit";
+import { ExifIfd } from "libexif-wasm";
 import * as z from "zod";
 
 import { serializeExifData } from "@exifi/core/exif/utils";
@@ -120,6 +121,49 @@ const setupExifRoutes = (app: Hono<AppEnv>): void => {
 
     return context.body(thumbnail, 200, {
       "Content-Type": "image/jpeg",
+    });
+  });
+
+  exifRoutes.post("/makernote", async (context) => {
+    const blob = await context.req.blob();
+
+    const fileType = await fileTypeFromBlob(blob, {
+      signal: context.req.raw.signal,
+    });
+
+    if (fileType === undefined) {
+      return context.json(
+        { error: "Unsupported media type" },
+        415 /* Unsupported Media Type */,
+      );
+    }
+
+    const file = new File([blob], `_.${fileType.ext}`, {
+      type: fileType.mime,
+    });
+    const exifData = await getExifData(file);
+
+    if (exifData === null) {
+      return context.json(
+        { error: "Unsupported media type" },
+        415 /* Unsupported Media Type */,
+      );
+    }
+
+    const makerNoteEntry = exifData.ifd[ExifIfd.EXIF].getEntry("MAKER_NOTE");
+
+    if (makerNoteEntry?.data === undefined) {
+      exifData.free();
+      return context.body(null, 204 /* No Content */, {
+        "Content-Type": "application/octet-stream",
+      });
+    }
+
+    const makerNoteData = makerNoteEntry.data.slice();
+    exifData.free();
+
+    return context.body(makerNoteData, 200, {
+      "Content-Type": "application/octet-stream",
     });
   });
 
