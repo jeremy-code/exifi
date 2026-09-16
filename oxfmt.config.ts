@@ -30,6 +30,16 @@ const oxfmtConfig = defineConfig({
     functions: ["cx", "cn", "cnMerge", "tv", "twMerge"],
   },
   ignorePatterns: ["{apps,packages}/*/src/generated/"],
+  overrides: [
+    {
+      files: ["*.jsonc"],
+      options: {
+        // Allow JSONC to be more backwards compatible with JSON with the
+        // exception of commas and other intricacies
+        trailingComma: "none",
+      },
+    },
+  ],
 });
 
 export default oxfmtConfig;
