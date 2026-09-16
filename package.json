@@ -21,6 +21,7 @@
   "type": "module",
   "scripts": {
     "prepare": "lefthook install",
+    "codegen": "turbo codegen",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "oxlint",

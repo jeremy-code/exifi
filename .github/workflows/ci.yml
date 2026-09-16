@@ -38,8 +38,8 @@ jobs:
         with:
           version: 6.0.8
 
-      - name: Build @exifi/image-utils
-        run: pnpm exec turbo build --filter=@exifi/image-utils
+      - name: Run codegen scripts
+        run: pnpm run codegen
 
       - name: Lint code with Oxlint
         run: pnpm run lint

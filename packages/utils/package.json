@@ -7,7 +7,7 @@
     "./*": "./src/*.js"
   },
   "scripts": {
-    "lint": "oxlint .",
+    "lint": "oxlint --type-aware --type-check",
     "test": "vitest --run",
     "test:watch": "vitest"
   }

@@ -1,0 +1,22 @@
+{
+  "$schema": "../../node_modules/turbo/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "env": ["ANALYZE", "DEV", "URL", "BASE_URL", "COMMIT_REF"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
+    },
+    "codegen": {
+      "dependsOn": ["codegen:openapi"]
+    },
+    "codegen:openapi": {
+      "inputs": ["redocly.yaml"],
+      "outputs": ["src/generated/nominatim.ts"]
+    },
+    "dev": {
+      "dependsOn": ["@exifi/image-utils#build"],
+      "env": ["PORT", "URL", "BASE_URL", "COMMIT_REF"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
+    }
+  }
+}
