@@ -18,6 +18,9 @@ coverage
 # TanStack
 .tanstack
 
+# Netlify
+.netlify
+
 # Turbo
 .turbo
 

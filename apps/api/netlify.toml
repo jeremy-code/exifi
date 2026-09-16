@@ -1,0 +1,7 @@
+[build]
+base = "apps/api"
+publish = "dist"
+command = "pnpm --workspace-root exec turbo run build --filter=@exifi/api..."
+
+[[plugins]]
+package = "netlify-plugin-emsdk"

@@ -30,6 +30,7 @@ const commitlintConfig = {
       RuleConfigSeverity.Error,
       "always",
       [
+        "api",
         "client",
         "core",
         "image-utils",
