@@ -19,7 +19,7 @@
     "hono-rate-limiter": "^0.5.4",
     "libexif-wasm": "^0.5.4",
     "nitro": "3.0.260903-beta",
-    "zod": "^4.6.4"
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "netlify-plugin-emsdk": "^0.0.3",
