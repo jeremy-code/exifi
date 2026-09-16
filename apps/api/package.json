@@ -22,6 +22,7 @@
     "zod": "^4.6.4"
   },
   "devDependencies": {
+    "netlify-plugin-emsdk": "^0.0.3",
     "vite": "^8.3.0",
     "vite-plugin-static-copy": "^4.1.1"
   }
