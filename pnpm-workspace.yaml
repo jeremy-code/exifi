@@ -25,6 +25,8 @@ trustPolicyExclude:
   #
   # https://github.com/pnpm/pnpm/issues/10202
   - semver@6.3.1
+  - "@netlify/serverless-functions-api@2.18.0"
+  - "@netlify/serverless-functions-api@2.21.2"
 blockExoticSubdeps: true
 
 # Build settings (https://pnpm.io/settings#build-settings)
@@ -33,6 +35,9 @@ strictDepBuilds: true
 allowBuilds:
   esbuild: true
   lefthook: true
+  netlify-cli: true
+  sharp: true
+  unix-dgram: true
   unrs-resolver: true
 
 # Other Settings (https://pnpm.io/settings#other-settings)

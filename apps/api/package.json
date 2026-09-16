@@ -1,0 +1,28 @@
+{
+  "name": "@exifi/api",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "lint": "oxlint --type-aware --type-check",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@exifi/core": "workspace:*",
+    "@exifi/image-utils": "workspace:*",
+    "@hono/zod-validator": "^0.9.1",
+    "file-type": "^22.1.0",
+    "hono": "^4.13.7",
+    "hono-rate-limiter": "^0.5.4",
+    "libexif-wasm": "^0.5.4",
+    "nitro": "3.0.260903-beta",
+    "zod": "^4.6.4"
+  },
+  "devDependencies": {
+    "vite": "^8.3.0",
+    "vite-plugin-static-copy": "^4.1.1"
+  }
+}
