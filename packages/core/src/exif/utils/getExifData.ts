@@ -1,7 +1,5 @@
-import { extname } from "@std/path";
 import { fileTypeFromBlob } from "file-type";
 import { ExifData } from "libexif-wasm";
-import { lookup } from "mrmime";
 
 import {
   png_get_exif_data,
@@ -19,9 +17,7 @@ const EXIF_HEADER = new Uint8Array([0x45, 0x78, 0x69, 0x66, 0x00, 0x00]); // Exi
 const MAX_APP1_SEGMENT_SIZE = 65_535;
 
 const getExifData = async (file: File): Promise<ExifData | null> => {
-  const fileExtension = extname(file.name).toLowerCase();
-  const mimeType =
-    (await fileTypeFromBlob(file))?.mime ?? lookup(fileExtension);
+  const mimeType = (await fileTypeFromBlob(file))?.mime;
 
   if (mimeType === "image/jpeg") {
     try {
@@ -38,6 +34,11 @@ const getExifData = async (file: File): Promise<ExifData | null> => {
       return ExifData.newFromData(fileBytes);
     }
     return ExifData.newFromData(concatUint8Arrays([EXIF_HEADER, fileBytes]));
+  } else if (mimeType === undefined && file.size <= MAX_APP1_SEGMENT_SIZE) {
+    const fileBytes = await file.bytes();
+    if (EXIF_HEADER.every((value, index) => fileBytes.at(index) === value)) {
+      return ExifData.newFromData(fileBytes);
+    }
   }
   const fileBytes = await file.bytes();
   const exifData =
