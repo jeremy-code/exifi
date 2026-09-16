@@ -8,7 +8,6 @@ import {
   webp_get_exif_data,
   heic_get_exif_data,
 } from "@exifi/image-utils";
-import { assertNever } from "@exifi/utils/assertNever";
 import { concatUint8Arrays } from "@exifi/utils/concatUint8Arrays";
 
 const EXIF_HEADER = new Uint8Array([0x45, 0x78, 0x69, 0x66, 0x00, 0x00]); // Exif\0\0
@@ -23,37 +22,37 @@ const getExifData = async (file: File): Promise<ExifData | null> => {
   const fileExtension = extname(file.name).toLowerCase();
   const mimeType =
     (await fileTypeFromBlob(file))?.mime ?? lookup(fileExtension);
-  const fileBytes = await file.bytes();
 
   if (mimeType === "image/jpeg") {
-    return ExifData.newFromData(fileBytes);
+    try {
+      const exifData = await ExifData.fromReadableStream(file.stream());
+      return exifData;
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
   } else if (mimeType === "image/tiff" && file.size <= MAX_APP1_SEGMENT_SIZE) {
-    // Raw Exif also uses the TIFF header, so we check if the file extension is also .exif
+    // Raw Exif also uses the TIFF header
+    const fileBytes = await file.bytes();
     if (EXIF_HEADER.every((value, index) => fileBytes.at(index) === value)) {
       return ExifData.newFromData(fileBytes);
     }
     return ExifData.newFromData(concatUint8Arrays([EXIF_HEADER, fileBytes]));
-  } else if (
-    mimeType === "image/png" ||
-    mimeType === "image/webp" ||
-    mimeType === "image/heif" ||
-    mimeType === "image/heic" ||
-    mimeType === "image/avif"
-  ) {
-    const exifData =
-      mimeType === "image/png"
-        ? png_get_exif_data(fileBytes)
-        : mimeType === "image/webp"
-          ? webp_get_exif_data(fileBytes)
-          : mimeType === "image/heif" ||
-              mimeType === "image/heic" ||
-              mimeType === "image/avif"
-            ? heic_get_exif_data(fileBytes)
-            : assertNever(mimeType);
+  }
+  const fileBytes = await file.bytes();
+  const exifData =
+    mimeType === "image/png"
+      ? png_get_exif_data(fileBytes)
+      : mimeType === "image/webp"
+        ? webp_get_exif_data(fileBytes)
+        : mimeType === "image/heif" ||
+            mimeType === "image/heic" ||
+            mimeType === "image/avif"
+          ? heic_get_exif_data(fileBytes)
+          : undefined;
 
-    if (exifData !== undefined) {
-      return ExifData.newFromData(exifData);
-    }
+  if (exifData !== undefined) {
+    return ExifData.newFromData(exifData);
   }
 
   return null;
