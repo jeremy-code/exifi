@@ -55,7 +55,7 @@ const ExifTable = (props: ExifTableProps) => {
       updateExifDataObject: state.updateExifDataObject,
     })),
   );
-  const exifEntryObjects = useMemo(
+  const exifContentObjects = useMemo(
     () =>
       (Object.entries(exifDataObject.ifd) as [Ifd, ExifEntryObject[]][]).map(
         ([ifd, entries]) => ({ ifd, entries }),
@@ -69,7 +69,7 @@ const ExifTable = (props: ExifTableProps) => {
     getSubRows: (originalRow) =>
       "entries" in originalRow ? originalRow.entries : undefined,
     columnResizeMode: "onChange",
-    data: exifEntryObjects ?? fallbackData,
+    data: exifContentObjects ?? fallbackData,
     getCoreRowModel: getCoreRowModel(),
     getExpandedRowModel: getExpandedRowModel(),
     onRowSelectionChange: setRowSelection,
@@ -97,9 +97,13 @@ const ExifTable = (props: ExifTableProps) => {
     [table.getState().columnSizingInfo, table.getState().columnSizing],
   );
 
-  if (exifEntryObjects.length === 0) {
+  if (
+    exifContentObjects.every(
+      (exifContentObject) => exifContentObject.entries.length === 0,
+    )
+  ) {
     return (
-      <div>
+      <div className="mb-2 text-base">
         {"There doesn't seem to be any Exif entries. "}
         <AriaButton
           className={(renderProps) =>

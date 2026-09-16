@@ -1,10 +1,18 @@
 import { lazy, Suspense } from "react";
 
+import { Link as RouterLink } from "@tanstack/react-router";
 import { ExifIfd } from "libexif-wasm";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { ExifInformation } from "#components/file/ExifInformation";
 import { useExifData } from "#hooks/useExifData";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@exifi/ui/components/Card";
+import { Link } from "@exifi/ui/components/Link";
 import { Skeleton } from "@exifi/ui/components/Skeleton";
 
 import { IfdAccordion } from "./components/ifd/IfdAccordion";
@@ -18,6 +26,33 @@ const ExifGpsMap = lazy(() =>
 
 const ExifViewerContent = ({ file }: { file: File }) => {
   const exifData = useExifData(file);
+  if (exifData === null) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Exif information</CardTitle>
+        </CardHeader>
+        <CardContent>
+          No Exif data was found in this file. Would you like to{" "}
+          <Link
+            href=""
+            render={(props) => {
+              if (!("href" in props)) {
+                throw new Error("fdas");
+              }
+              return (
+                <RouterLink to="/editor" {...props}>
+                  open it in the editor
+                </RouterLink>
+              );
+            }}
+          />{" "}
+          to add some?
+        </CardContent>
+      </Card>
+    );
+  }
+
   const exifDataGps = exifData.ifd[ExifIfd.GPS];
 
   return (

@@ -2,7 +2,6 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { ExifData } from "libexif-wasm";
 
 import { getExifData } from "@exifi/core/exif/utils/getExifData";
-import { toastQueue } from "@exifi/ui/components/Toast";
 
 import { useFileHash } from "./useFileHash";
 
@@ -12,27 +11,11 @@ import { useFileHash } from "./useFileHash";
  * hash as part of the query key to ensure that the ExifData is refetched when a
  * file with different contents is provided
  */
-const useExifData = (file: File): ExifData => {
+const useExifData = (file: File): ExifData | null => {
   const fileHash = useFileHash(file);
   const { data: exifData } = useSuspenseQuery({
     queryKey: ["useExifData", file, fileHash],
-    queryFn: async () => {
-      const exifDataOrNull = await getExifData(file);
-      if (exifDataOrNull === null) {
-        toastQueue.add(
-          {
-            title: "No Exif data was found",
-            description:
-              "Exif data could not be found for this file. Initializing default Exif data...",
-          },
-          { timeout: 5_000 /* 5 seconds */ },
-        );
-        const newExifData = ExifData.new();
-        newExifData.fix();
-        return newExifData;
-      }
-      return exifDataOrNull;
-    },
+    queryFn: async () => getExifData(file),
     gcTime: 30_000, // By default, it is 300,000
   });
 

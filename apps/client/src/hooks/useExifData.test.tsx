@@ -21,7 +21,7 @@ const renderUseExifData = (file: File) =>
   );
 
 describe("useExifData", () => {
-  test("creates ExifData from exif data", async ({ plainJpgWithExif }) => {
+  test("returns ExifData with Exif data", async ({ plainJpgWithExif }) => {
     const exifDataFile = new File(
       ["Exif\0\0", plainJpgWithExif.exifBytes!.slice()],
       "plain-jpg-with-exif.exif",
@@ -33,33 +33,22 @@ describe("useExifData", () => {
     const exifData = result.current;
 
     expect(exifData).toBeInstanceOf(ExifData);
-    expect(exifData.saveData()).toStrictEqual(await exifDataFile.bytes());
-    expect(serializeExifData(exifData)).toStrictEqual(plainJpgWithExif.json);
+    expect(exifData!.saveData()).toStrictEqual(await exifDataFile.bytes());
+    expect(serializeExifData(exifData!)).toStrictEqual(plainJpgWithExif.json);
 
-    result.current.free();
+    result.current!.free();
   });
 
-  test("creates ExifData from jpeg image", async ({ plainJpg }) => {
+  test("returns null with jpeg image with no Exif data", async ({
+    plainJpg,
+  }) => {
     const exifDataFile = new File([plainJpg.image.slice()], "plain-jpg.jpeg");
 
     const { result } = await renderUseExifData(exifDataFile);
-    await expect.poll(() => result.current).not.toBeNull();
-    const exifData = result.current;
-
-    expect(exifData).toBeInstanceOf(ExifData);
-
-    // expect()
-    expect(serializeExifData(exifData)).toStrictEqual({
-      byteOrder: "MOTOROLA",
-      data: [],
-      dataType: "UNKNOWN",
-      ifd: { EXIF: [], GPS: [], IFD_0: [], IFD_1: [], INTEROPERABILITY: [] },
-    });
-
-    exifData.free();
+    expect(result.current).toBe(null);
   });
 
-  test("creates ExifData from jpeg image with exif data", async ({
+  test("returns ExifData with JPEG image with Exif data", async ({
     plainJpgWithExif,
   }) => {
     const exifDataFile = new File(
@@ -73,14 +62,14 @@ describe("useExifData", () => {
     const exifData = result.current;
 
     expect(exifData).toBeInstanceOf(ExifData);
-    expect(exifData.saveData()).toStrictEqual(
+    expect(exifData!.saveData()).toStrictEqual(
       concatUint8Arrays([
         new TextEncoder().encode("Exif\0\0"),
         plainJpgWithExif.exifBytes!,
       ]),
     );
-    expect(serializeExifData(exifData)).toStrictEqual(plainJpgWithExif.json);
+    expect(serializeExifData(exifData!)).toStrictEqual(plainJpgWithExif.json);
 
-    exifData.free();
+    exifData!.free();
   });
 });
