@@ -28,13 +28,14 @@ describe("setExifData", () => {
 
     const newFile = await setExifData(file, exifData);
 
-    expect(await newFile.bytes()).toStrictEqual(plainJpgWithExif.image);
+    expect(newFile).not.toBeNull();
+    expect(await newFile?.bytes()).toStrictEqual(plainJpgWithExif.image);
     exifData.free();
 
-    const newExifData = await getExifData(newFile);
+    const newExifData = await getExifData(newFile!);
 
-    expect(newExifData.saveData()).toEqual(exifBytesWithHeader);
-    newExifData.free();
+    expect(newExifData?.saveData()).toEqual(exifBytesWithHeader);
+    newExifData?.free();
   });
 
   test("set Exif data for PNG", async ({ plainPng, plainPngWithExif }) => {
@@ -47,13 +48,14 @@ describe("setExifData", () => {
 
     const newFile = await setExifData(file, exifData);
 
-    expect(await newFile.bytes()).toStrictEqual(plainPngWithExif.image);
+    expect(newFile).not.toBeNull();
+    expect(await newFile?.bytes()).toStrictEqual(plainPngWithExif.image);
 
     exifData.free();
 
-    const newExifData = await getExifData(newFile);
-    expect(newExifData.saveData()).toEqual(exifBytesWithHeader);
-    newExifData.free();
+    const newExifData = await getExifData(newFile!);
+    expect(newExifData?.saveData()).toEqual(exifBytesWithHeader);
+    newExifData?.free();
   });
 
   test("set Exif data for Exif", async ({
@@ -64,23 +66,22 @@ describe("setExifData", () => {
       [plainJpgWithExif.exifBytes!],
       "plain-jpeg-with-exif.exif",
     );
-    const exifData = ExifData.newFromData(
-      concatUint8Arrays([EXIF_HEADER, plainPngWithExif.exifBytes!]),
-    );
-
-    const newFile = await setExifData(file, exifData);
     const exifBytesWithHeader = concatUint8Arrays([
       EXIF_HEADER,
       plainPngWithExif.exifBytes!,
     ]);
+    const exifData = ExifData.newFromData(exifBytesWithHeader);
+    const newFile = await setExifData(file, exifData);
 
-    expect(await newFile.bytes()).toStrictEqual(exifBytesWithHeader);
+    expect(newFile).not.toBeNull();
+    expect(await newFile?.bytes()).toStrictEqual(plainPngWithExif.exifBytes!);
 
     exifData.free();
 
-    const newExifData = await getExifData(newFile);
-    expect(newExifData.saveData()).toEqual(exifBytesWithHeader);
-    newExifData.free();
+    const newExifData = await getExifData(newFile!);
+    expect(newExifData).not.toBeNull();
+    expect(newExifData?.saveData()).toEqual(exifBytesWithHeader);
+    newExifData?.free();
   });
 
   test("set Exif data for Webp", async ({ plainWebp, plainWebpWithExif }) => {
@@ -93,12 +94,14 @@ describe("setExifData", () => {
 
     const newFile = await setExifData(file, exifData);
 
-    expect(await newFile.bytes()).toStrictEqual(plainWebpWithExif.image);
+    expect(newFile).not.toBeNull();
+    expect(await newFile?.bytes()).toStrictEqual(plainWebpWithExif.image);
 
     exifData.free();
 
-    const newExifData = await getExifData(newFile);
-    expect(newExifData.saveData()).toEqual(exifBytesWithHeader);
-    newExifData.free();
+    const newExifData = await getExifData(newFile!);
+    expect(newExifData).not.toBeNull();
+    expect(newExifData?.saveData()).toEqual(exifBytesWithHeader);
+    newExifData?.free();
   });
 });

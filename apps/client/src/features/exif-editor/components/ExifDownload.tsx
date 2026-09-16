@@ -51,7 +51,7 @@ const ExifDownload = () => {
                 windowProxy.location.assign(blobUrl);
                 URL.revokeObjectURL(blobUrl);
               }
-              startTransition(() => setFile(newFile));
+              startTransition(() => setFile(newFile ?? file));
             });
           } else {
             startTransition(async () => {
@@ -60,8 +60,8 @@ const ExifDownload = () => {
               startTransition(() => {
                 // If I move this outside of the startTransition callback, React
                 // gets stuck on isPending for much longer than it should be.
-                void saveFile(newFile);
-                setFile(newFile);
+                void saveFile(newFile ?? file);
+                setFile(newFile ?? file);
               });
             });
           }

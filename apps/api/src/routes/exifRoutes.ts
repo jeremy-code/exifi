@@ -2,16 +2,10 @@ import { zValidator } from "@hono/zod-validator";
 import { fileTypeFromBlob } from "file-type";
 import type { Hono } from "hono";
 import { bodyLimit } from "hono/body-limit";
-import { ExifData } from "libexif-wasm";
 import * as z from "zod";
 
 import { serializeExifData } from "@exifi/core/exif/utils";
 import { getExifData } from "@exifi/core/exif/utils/getExifData";
-import {
-  heic_get_exif_data,
-  png_get_exif_data,
-  webp_get_exif_data,
-} from "@exifi/image-utils";
 
 import type { AppEnv } from "../interfaces/api";
 
@@ -51,47 +45,36 @@ const setupExifRoutes = (app: Hono<AppEnv>): void => {
       const file = new File([blob], `_.${fileType.ext}`, {
         type: fileType.mime,
       });
+      const exifData = await getExifData(file);
+
+      if (exifData === null) {
+        return format === "json"
+          ? context.json({})
+          : context.body(null, 204 /* No Content */, {
+              application: "application/octet-stream",
+            });
+      }
 
       if (format === "json") {
-        const exifData = await getExifData(file);
         const exifDataObject = serializeExifData(exifData);
         exifData.free();
         return context.json(exifDataObject);
       } else if (format === "raw") {
-        let exifDataBytes: Uint8Array | undefined;
-        const fileBytes = await file.bytes();
-
-        if (fileType.mime === "image/jpeg") {
-          const exifData = ExifData.newFromData(fileBytes);
-          exifDataBytes = exifData.saveData();
-          exifData.free();
-        } else {
-          exifDataBytes =
-            fileType.mime === "image/png"
-              ? png_get_exif_data(fileBytes)
-              : fileType.mime === "image/webp"
-                ? webp_get_exif_data(fileBytes)
-                : fileType.mime === "image/heif" ||
-                    fileType.mime === "image/heic" ||
-                    fileType.mime === "image/avif"
-                  ? heic_get_exif_data(fileBytes)
-                  : undefined;
-        }
-
-        if (exifDataBytes !== undefined) {
-          return context.body(
-            // Remove Exif header
-            exifDataBytes.slice("Exif\0\0".length),
-            200,
-            { "Content-Type": "application/octet-stream" },
-          );
-        }
-        return context.body(null, 204, {
-          application: "application/octet-stream",
-        });
+        const exifDataBytes = exifData.saveData();
+        exifData.free();
+        return context.body(
+          // Remove Exif header
+          exifDataBytes.slice("Exif\0\0".length),
+          200,
+          { "Content-Type": "application/octet-stream" },
+        );
       }
 
-      return context.json({ error: "Internal server error" }, 500);
+      exifData.free();
+      return context.json(
+        { error: "Internal server error" },
+        500 /* Internal Server Error */,
+      );
     },
   );
 };

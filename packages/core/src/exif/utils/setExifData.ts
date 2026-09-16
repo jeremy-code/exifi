@@ -9,15 +9,21 @@ import {
   webp_set_exif_data,
 } from "@exifi/image-utils";
 
-const setExifData = async (file: File, exifData: ExifData): Promise<File> => {
+const MAX_APP1_SEGMENT_SIZE = 65_535;
+
+const setExifData = async (
+  file: File,
+  exifData: ExifData,
+): Promise<File | null> => {
   const fileExtension = extname(file.name).toLowerCase();
   const fileType =
     (await fileTypeFromBlob(file))?.mime ?? lookup(fileExtension);
   const fileBytes = await file.bytes();
   const exifDataBytes = exifData.saveData();
 
-  if (fileType === "image/tiff" && fileExtension === ".exif") {
-    return new File([exifDataBytes.slice()], file.name, {
+  if (fileType === "image/tiff" && file.size <= MAX_APP1_SEGMENT_SIZE) {
+    // Always return without Exif header
+    return new File([exifDataBytes.slice("Exif\0\0".length)], file.name, {
       type: fileType,
       lastModified: new Date().getTime(),
     });
@@ -33,7 +39,7 @@ const setExifData = async (file: File, exifData: ExifData): Promise<File> => {
           : undefined;
 
   if (newFileBytes === undefined) {
-    return file;
+    return null;
   }
 
   return new File([newFileBytes.slice()], file.name, {

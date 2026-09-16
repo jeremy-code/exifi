@@ -20,11 +20,12 @@ describe("getExifData", () => {
 
     const exifData = await getExifData(file);
 
-    expect(exifData.saveData()).toStrictEqual(
+    expect(exifData).not.toBeNull();
+    expect(exifData!.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainJpgWithExif.exifBytes!]),
     );
 
-    exifData.free();
+    exifData!.free();
   });
 
   test("gets Exif data from PNG", async ({ plainPngWithExif }) => {
@@ -32,11 +33,11 @@ describe("getExifData", () => {
 
     const exifData = await getExifData(file);
 
-    expect(exifData.saveData()).toStrictEqual(
+    expect(exifData!.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainPngWithExif.exifBytes!]),
     );
 
-    exifData.free();
+    exifData!.free();
   });
 
   test("gets Exif data from raw Exif", async ({ plainJpgWithExif }) => {
@@ -47,11 +48,11 @@ describe("getExifData", () => {
 
     const exifData = await getExifData(file);
 
-    expect(exifData.saveData()).toStrictEqual(
+    expect(exifData!.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainJpgWithExif.exifBytes!]),
     );
 
-    exifData.free();
+    exifData!.free();
   });
 
   test("gets Exif data from WebP", async ({ plainWebpWithExif }) => {
@@ -62,11 +63,11 @@ describe("getExifData", () => {
 
     const exifData = await getExifData(file);
 
-    expect(exifData.saveData()).toStrictEqual(
+    expect(exifData!.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainWebpWithExif.exifBytes!]),
     );
 
-    exifData.free();
+    exifData!.free();
   });
 
   test("gets Exif data from HEIC", async ({ plainHeicWithExif }) => {
@@ -77,11 +78,11 @@ describe("getExifData", () => {
 
     const exifData = await getExifData(file);
 
-    expect(exifData.saveData()).toStrictEqual(
+    expect(exifData!.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainHeicWithExif.exifBytes!]),
     );
 
-    exifData.free();
+    exifData!.free();
   });
 
   test("gets Exif data from AVIF", async ({ plainAvifWithExif }) => {
@@ -92,10 +93,10 @@ describe("getExifData", () => {
 
     const exifData = await getExifData(file);
 
-    expect(exifData.saveData()).toStrictEqual(
+    expect(exifData!.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainAvifWithExif.exifBytes!]),
     );
 
-    exifData.free();
+    exifData!.free();
   });
 });
