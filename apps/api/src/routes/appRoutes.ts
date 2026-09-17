@@ -1,14 +1,14 @@
-import type { Hono } from "hono";
+import { Hono } from "hono";
 
 import type { AppEnv } from "../interfaces/api";
-import { setupExifRoutes } from "./exifRoutes";
+import { exifRoutes } from "./exifRoutes";
 
-const setupRoutes = (app: Hono<AppEnv>): void => {
-  app.get("/health", async (context) => {
-    return context.json({ status: "OK" });
-  });
+const appRoutes = new Hono<AppEnv>();
 
-  setupExifRoutes(app);
-};
+appRoutes.get("/health", async (context) => {
+  return context.json({ status: "OK" });
+});
 
-export { setupRoutes };
+appRoutes.route("/exif", exifRoutes);
+
+export { appRoutes };
