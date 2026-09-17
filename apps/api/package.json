@@ -13,6 +13,7 @@
   "dependencies": {
     "@exifi/core": "workspace:*",
     "@exifi/image-utils": "workspace:*",
+    "@exifi/utils": "workspace:*",
     "@hono/zod-validator": "^0.9.1",
     "file-type": "^22.1.0",
     "hono": "^4.13.8",

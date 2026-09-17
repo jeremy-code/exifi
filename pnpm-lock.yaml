@@ -238,6 +238,9 @@ importers:
       '@exifi/image-utils':
         specifier: workspace:*
         version: link:../../packages/image-utils
+      '@exifi/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@hono/zod-validator':
         specifier: ^0.9.1
         version: 0.9.1(hono@4.13.8)(zod@4.6.5)

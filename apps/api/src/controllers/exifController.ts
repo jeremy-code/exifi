@@ -1,11 +1,13 @@
 import { zValidator } from "@hono/zod-validator";
 import { fileTypeFromBlob } from "file-type";
+import { accepts } from "hono/accepts";
 import { createFactory } from "hono/factory";
 import { ExifIfd } from "libexif-wasm";
 import * as z from "zod";
 
 import { serializeExifData } from "@exifi/core/exif/utils";
 import { getExifData } from "@exifi/core/exif/utils/getExifData";
+import { assertNever } from "@exifi/utils/assertNever";
 
 import type { AppEnv } from "../interfaces/api";
 
@@ -19,7 +21,18 @@ const getExifDataHandlers = exifFactory.createHandlers(
     }),
   ),
   async (context) => {
-    const { format } = context.req.valid("query");
+    const query = context.req.valid("query");
+    const accept = accepts(context, {
+      header: "Accept",
+      supports: ["application/octet-stream", "application/json"],
+      default:
+        query.format === "json"
+          ? "application/json"
+          : query.format === "raw"
+            ? "application/octet-stream"
+            : assertNever(query.format),
+    });
+
     const blob = await context.req.blob();
 
     const fileType = await fileTypeFromBlob(blob, {
@@ -39,18 +52,18 @@ const getExifDataHandlers = exifFactory.createHandlers(
     const exifData = await getExifData(file);
 
     if (exifData === null) {
-      return format === "json"
+      return accept === "application/json"
         ? context.json({})
         : context.body(null, 204 /* No Content */, {
             "Content-Type": "application/octet-stream",
           });
     }
 
-    if (format === "json") {
+    if (accept === "application/json") {
       const exifDataObject = serializeExifData(exifData);
       exifData.free();
       return context.json(exifDataObject);
-    } else if (format === "raw") {
+    } else if (accept === "application/octet-stream") {
       const exifDataBytes = exifData.saveData();
       exifData.free();
       return context.body(
