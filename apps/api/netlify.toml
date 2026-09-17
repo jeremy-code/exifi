@@ -2,6 +2,9 @@
 base = "apps/api"
 publish = "dist"
 command = "pnpm --workspace-root exec turbo run build --filter=@exifi/api..."
+ignore = "pnpm --workspace-root exec turbo query affected --packages @exifi/api --exit-code"
 
 [[plugins]]
 package = "netlify-plugin-emsdk"
+[plugins.inputs]
+version = "6.0.9"
