@@ -2,6 +2,7 @@
 import "zod/compile";
 import { rateLimiter } from "hono-rate-limiter";
 import { every } from "hono/combine";
+import { cors } from "hono/cors";
 import { createFactory } from "hono/factory";
 import { HTTPException } from "hono/http-exception";
 import { logger } from "hono/logger";
@@ -16,6 +17,12 @@ const factory = createFactory<AppEnv>({
     app.use(
       "*",
       every(
+        cors({
+          origin: "*",
+          allowMethods: ["GET", "POST", "OPTIONS"],
+          allowHeaders: ["Content-Type"],
+          maxAge: 86_400, // 24 hours
+        }),
         secureHeaders(),
         logger(),
         rateLimiter({
