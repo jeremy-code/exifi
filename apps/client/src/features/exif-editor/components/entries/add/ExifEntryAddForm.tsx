@@ -16,7 +16,6 @@ import {
   addFormSchema,
   type AddFieldValues,
 } from "#features/exif-editor/forms/addEntryForm";
-import { FormatSchema } from "#schemas/exif";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
 import {
   GEOLOCATION_TAGS,
@@ -24,6 +23,7 @@ import {
 } from "@exifi/core/exif/constants";
 import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
 import { typedArrayInFormat } from "@exifi/core/exif/utils/typedArrayInFormat";
+import { formatSchema } from "@exifi/schemas/libexif";
 import { Button } from "@exifi/ui/components/Button";
 import { Callout, CalloutText } from "@exifi/ui/components/Callout";
 import { ComboBox, ComboBoxItem } from "@exifi/ui/components/ComboBox";
@@ -171,7 +171,7 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
                     return field.handleChange(value);
                   }
 
-                  const result = FormatSchema.safeParse(value);
+                  const result = formatSchema.safeParse(value);
                   if (!result.success) {
                     return field.handleChange("UNDEFINED");
                   }

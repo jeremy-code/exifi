@@ -3,12 +3,12 @@ import { exifTagTableCount } from "libexif-wasm";
 import type { DistributedPick } from "type-fest";
 import { z } from "zod";
 
-import { IfdSchema, TagEntrySchema } from "#schemas/exif";
 import { MAX_INT32_VALUE, MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
+import { ifdSchema, tagEntrySchema } from "@exifi/schemas/libexif";
 
 const addFormBaseSchema = z.object({
-  ifd: IfdSchema,
-  tagEntry: TagEntrySchema.extend({
+  ifd: ifdSchema,
+  tagEntry: tagEntrySchema.extend({
     index: z
       .int()
       .min(0)
