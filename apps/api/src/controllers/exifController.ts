@@ -277,8 +277,6 @@ const getMakerNoteDataHandlers = exifFactory.createHandlers(
       });
     }
 
-    console.log(accept);
-
     exifData.free();
     return context.json({ error: "Internal server error" }, 500);
   },
