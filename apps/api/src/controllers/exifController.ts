@@ -23,7 +23,7 @@ const getExifDataHandlers = exifFactory.createHandlers(
         description: "OK",
         content: {
           "application/json": {
-            schema: resolver(exifDataObjectSchema),
+            schema: resolver(exifDataObjectSchema.omit("data")),
           },
           "application/octet-stream": {
             schema: { type: "string", format: "binary" },
@@ -95,7 +95,8 @@ const getExifDataHandlers = exifFactory.createHandlers(
     }
 
     if (accept === "application/json") {
-      const exifDataObject = serializeExifData(exifData);
+      // Omit data (thumbnail) since that isn't really useful in JSON form
+      const { data: _data, ...exifDataObject } = serializeExifData(exifData);
       exifData.free();
       return context.json(exifDataObject);
     } else if (accept === "application/octet-stream") {
