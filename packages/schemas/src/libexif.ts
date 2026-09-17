@@ -1,41 +1,46 @@
-import {
-  ExifDataType,
-  ExifFormat,
-  ExifIfd,
-  ExifSupportLevel,
-  ExifTagUnified,
-  type ByteOrder,
-  type Format,
-  type Ifd,
-  type RationalObject,
-  type SupportLevel,
-  type Tag,
-  type TagEntry,
-  type DataType,
-  type ExifMnoteData,
+import type {
+  ByteOrder,
+  Format,
+  Ifd,
+  RationalObject,
+  SupportLevel,
+  Tag,
+  TagEntry,
+  DataType,
+  ExifMnoteData,
 } from "libexif-wasm";
+import {
+  ExifTagUnifiedBiMap,
+  ExifSupportLevelBiMap,
+  ExifIfdBiMap,
+  ExifFormatBiMap,
+  ExifByteOrderBiMap,
+  ExifDataTypeBiMap,
+} from "libexif-wasm/enums";
 import * as z from "zod";
 
 const tagSchema = z.toZod<Tag>()(
-  z.enum(Array.from(ExifTagUnified, ([key]) => key)),
+  z.enum(Array.from(ExifTagUnifiedBiMap.keys())),
 );
 
 const supportLevelSchema = z.toZod<SupportLevel>()(
-  z.enum(Array.from(ExifSupportLevel, ([key]) => key)),
+  z.enum(Array.from(ExifSupportLevelBiMap.keys())),
 );
 
 const ifdSchema = z.toZod<Ifd>()(
-  z.enum(Array.from(ExifIfd, ([key]) => key)).exclude(["COUNT"]),
+  z.enum(Array.from(ExifIfdBiMap.keys()).filter((v) => v !== "COUNT")),
 );
 
-const byteOrderSchema = z.toZod<ByteOrder>()(z.enum(["MOTOROLA", "INTEL"]));
+const byteOrderSchema = z.toZod<ByteOrder>()(
+  z.enum(Array.from(ExifByteOrderBiMap.keys())),
+);
 
 const formatSchema = z.toZod<Format>()(
-  z.enum(Array.from(ExifFormat, ([key]) => key)),
+  z.enum(Array.from(ExifFormatBiMap.keys())),
 );
 
 const dataTypeSchema = z.toZod<DataType>()(
-  z.enum(Array.from(ExifDataType, ([key]) => key)).exclude(["COUNT"]),
+  z.enum(Array.from(ExifDataTypeBiMap.keys()).filter((v) => v !== "COUNT")),
 );
 
 const tagEntrySchema = z.toZod<TagEntry>()(
