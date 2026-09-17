@@ -13,10 +13,12 @@
   "dependencies": {
     "@exifi/core": "workspace:*",
     "@exifi/image-utils": "workspace:*",
+    "@exifi/schemas": "workspace:*",
     "@exifi/utils": "workspace:*",
-    "@hono/zod-validator": "^0.9.1",
+    "@hono/standard-validator": "^0.4.0",
     "file-type": "^22.1.0",
     "hono": "^4.13.8",
+    "hono-openapi": "^1.3.3",
     "hono-rate-limiter": "^0.5.4",
     "libexif-wasm": "^0.5.5",
     "nitro": "3.0.260903-beta",

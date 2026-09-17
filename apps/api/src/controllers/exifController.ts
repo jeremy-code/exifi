@@ -1,5 +1,5 @@
-import { zValidator } from "@hono/zod-validator";
 import { fileTypeFromBlob } from "file-type";
+import { describeRoute, resolver, validator } from "hono-openapi";
 import { accepts } from "hono/accepts";
 import { createFactory } from "hono/factory";
 import { ExifIfd } from "libexif-wasm";
@@ -7,14 +7,52 @@ import * as z from "zod";
 
 import { serializeExifData } from "@exifi/core/exif/utils";
 import { getExifData } from "@exifi/core/exif/utils/getExifData";
+import { exifDataObjectSchema } from "@exifi/schemas/exif";
+import { mnoteDataEntrySchema } from "@exifi/schemas/libexif";
 import { assertNever } from "@exifi/utils/assertNever";
 
 import type { AppEnv } from "../interfaces/api";
+import { appErrorSchema } from "../schemas/common";
 
 const exifFactory = createFactory<AppEnv>();
 
 const getExifDataHandlers = exifFactory.createHandlers(
-  zValidator(
+  describeRoute({
+    responses: {
+      200: {
+        description: "OK",
+        content: {
+          "application/json": {
+            schema: resolver(exifDataObjectSchema),
+          },
+          "application/octet-stream": {
+            schema: { type: "string", format: "binary" },
+          },
+        },
+      },
+      204: {
+        description: "No content",
+        content: {
+          "application/octet-stream": {
+            schema: { type: "string", format: "binary" },
+          },
+        },
+      },
+      404: {
+        description: "Not found",
+        content: { "application/json": { schema: resolver(appErrorSchema) } },
+      },
+      415: {
+        description: "Unsupported media type",
+        content: { "application/json": { schema: resolver(appErrorSchema) } },
+      },
+      500: {
+        description: "Internal server error",
+        content: { "application/json": { schema: resolver(appErrorSchema) } },
+      },
+    },
+  }),
+  validator(
     "query",
     z.strictObject({
       format: z.enum(["json", "raw"]).default("json"),
@@ -40,10 +78,7 @@ const getExifDataHandlers = exifFactory.createHandlers(
     });
 
     if (fileType === undefined) {
-      return context.json(
-        { error: "Unsupported media type" },
-        415 /* Unsupported Media Type */,
-      );
+      return context.json({ error: "Unsupported media type" }, 415);
     }
 
     const file = new File([blob], `_.${fileType.ext}`, {
@@ -53,8 +88,8 @@ const getExifDataHandlers = exifFactory.createHandlers(
 
     if (exifData === null) {
       return accept === "application/json"
-        ? context.json({})
-        : context.body(null, 204 /* No Content */, {
+        ? context.json({ error: "Not found" }, 404)
+        : context.body(null, 204, {
             "Content-Type": "application/octet-stream",
           });
     }
@@ -75,55 +110,108 @@ const getExifDataHandlers = exifFactory.createHandlers(
     }
 
     exifData.free();
-    return context.json(
-      { error: "Internal server error" },
-      500 /* Internal Server Error */,
-    );
+    return context.json({ error: "Internal server error" }, 500);
   },
 );
 
-const getThumbnailHandlers = exifFactory.createHandlers(async (context) => {
-  const blob = await context.req.blob();
+const getThumbnailHandlers = exifFactory.createHandlers(
+  describeRoute({
+    responses: {
+      200: {
+        description: "OK",
+        content: {
+          "image/jpeg": {
+            schema: { type: "string", format: "binary" },
+          },
+        },
+      },
+      204: {
+        description: "No content",
+        content: {
+          "application/octet-stream": {
+            schema: { type: "string", format: "binary" },
+          },
+        },
+      },
+      415: {
+        description: "Unsupported media type",
+        content: { "application/json": { schema: resolver(appErrorSchema) } },
+      },
+    },
+  }),
+  async (context) => {
+    const blob = await context.req.blob();
+    const { signal } = context.req.raw;
 
-  const fileType = await fileTypeFromBlob(blob, {
-    signal: context.req.raw.signal,
-  });
+    const fileType = await fileTypeFromBlob(blob, { signal });
 
-  if (fileType === undefined) {
-    return context.json(
-      { error: "Unsupported media type" },
-      415 /* Unsupported Media Type */,
-    );
-  }
+    if (fileType === undefined) {
+      return context.json({ error: "Unsupported media type" }, 415);
+    }
 
-  const file = new File([blob], `_.${fileType.ext}`, {
-    type: fileType.mime,
-  });
-  const exifData = await getExifData(file);
-
-  if (exifData === null) {
-    return context.json(
-      { error: "Unsupported media type" },
-      415 /* Unsupported Media Type */,
-    );
-  }
-
-  if (exifData.data.length === 0) {
-    exifData.free();
-    return context.body(null, 204 /* No Content */, {
-      "Content-Type": "application/octet-stream",
+    const file = new File([blob], `_.${fileType.ext}`, {
+      type: fileType.mime,
     });
-  }
-  const thumbnail = exifData.data.slice();
-  exifData.free();
+    const exifData = await getExifData(file);
 
-  return context.body(thumbnail, 200, {
-    "Content-Type": "image/jpeg",
-  });
-});
+    if (exifData === null) {
+      return context.json({ error: "Unsupported media type" }, 415);
+    }
+
+    if (exifData.data.length === 0) {
+      exifData.free();
+      return context.body(null, 204, {
+        "Content-Type": "application/octet-stream",
+      });
+    }
+    const thumbnail = exifData.data.slice();
+    exifData.free();
+
+    return context.body(thumbnail, 200, { "Content-Type": "image/jpeg" });
+  },
+);
 
 const getMakerNoteDataHandlers = exifFactory.createHandlers(
-  zValidator(
+  describeRoute({
+    responses: {
+      200: {
+        description: "OK",
+        content: {
+          "application/json": {
+            schema: resolver(z.array(mnoteDataEntrySchema)),
+          },
+          "application/octet-stream": {
+            schema: { type: "string", format: "binary" },
+          },
+        },
+      },
+      204: {
+        description: "No content",
+        content: {
+          "application/octet-stream": {
+            schema: { type: "string", format: "binary" },
+          },
+        },
+      },
+      404: {
+        description: "Not found",
+        content: { "application/json": { schema: resolver(appErrorSchema) } },
+      },
+      415: {
+        description: "Unsupported media type",
+        content: { "application/json": { schema: resolver(appErrorSchema) } },
+      },
+      422: {
+        description: "Unprocessable entity",
+        content: { "application/json": { schema: resolver(appErrorSchema) } },
+      },
+      500: {
+        description: "Internal server error",
+        content: { "application/json": { schema: resolver(appErrorSchema) } },
+      },
+    },
+  }),
+  validator(
     "query",
     z.strictObject({
       format: z.enum(["json", "raw"]).default("json"),
@@ -149,10 +237,7 @@ const getMakerNoteDataHandlers = exifFactory.createHandlers(
     });
 
     if (fileType === undefined) {
-      return context.json(
-        { error: "Unsupported media type" },
-        415 /* Unsupported Media Type */,
-      );
+      return context.json({ error: "Unsupported media type" }, 415);
     }
 
     const file = new File([blob], `_.${fileType.ext}`, {
@@ -161,10 +246,7 @@ const getMakerNoteDataHandlers = exifFactory.createHandlers(
     const exifData = await getExifData(file);
 
     if (exifData === null) {
-      return context.json(
-        { error: "Unsupported media type" },
-        415 /* Unsupported Media Type */,
-      );
+      return context.json({ error: "Unsupported media type" }, 415);
     }
 
     const makerNoteEntry = exifData.ifd[ExifIfd.EXIF].getEntry("MAKER_NOTE");
@@ -172,11 +254,9 @@ const getMakerNoteDataHandlers = exifFactory.createHandlers(
     if (makerNoteEntry === null || makerNoteEntry.size === 0) {
       exifData.free();
 
-      context.status(204 /* No Content */);
-
       return accept === "application/json"
-        ? context.json({})
-        : context.body(null, undefined, {
+        ? context.json({ error: "Not found" }, 404)
+        : context.body(null, 204, {
             "Content-Type": "application/octet-stream",
           });
     }
@@ -187,10 +267,7 @@ const getMakerNoteDataHandlers = exifFactory.createHandlers(
 
       return makerNoteJson !== undefined
         ? context.json(makerNoteJson)
-        : context.json(
-            { error: "Unprocessable entity" },
-            422 /* Unprocessable entity */,
-          );
+        : context.json({ error: "Unprocessable entity" }, 422);
     } else if (accept === "application/octet-stream") {
       const makerNoteData = makerNoteEntry.data.slice();
       exifData.free();
@@ -203,10 +280,7 @@ const getMakerNoteDataHandlers = exifFactory.createHandlers(
     console.log(accept);
 
     exifData.free();
-    return context.json(
-      { error: "Internal server error" },
-      500 /* Internal Server Error */,
-    );
+    return context.json({ error: "Internal server error" }, 500);
   },
 );
 
