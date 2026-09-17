@@ -122,48 +122,93 @@ const getThumbnailHandlers = exifFactory.createHandlers(async (context) => {
   });
 });
 
-const getMakerNoteDataHandlers = exifFactory.createHandlers(async (context) => {
-  const blob = await context.req.blob();
-
-  const fileType = await fileTypeFromBlob(blob, {
-    signal: context.req.raw.signal,
-  });
-
-  if (fileType === undefined) {
-    return context.json(
-      { error: "Unsupported media type" },
-      415 /* Unsupported Media Type */,
-    );
-  }
-
-  const file = new File([blob], `_.${fileType.ext}`, {
-    type: fileType.mime,
-  });
-  const exifData = await getExifData(file);
-
-  if (exifData === null) {
-    return context.json(
-      { error: "Unsupported media type" },
-      415 /* Unsupported Media Type */,
-    );
-  }
-
-  const makerNoteEntry = exifData.ifd[ExifIfd.EXIF].getEntry("MAKER_NOTE");
-
-  if (makerNoteEntry === null || makerNoteEntry.size === 0) {
-    exifData.free();
-    return context.body(null, 204 /* No Content */, {
-      "Content-Type": "application/octet-stream",
+const getMakerNoteDataHandlers = exifFactory.createHandlers(
+  zValidator(
+    "query",
+    z.strictObject({
+      format: z.enum(["json", "raw"]).default("json"),
+    }),
+  ),
+  async (context) => {
+    const query = context.req.valid("query");
+    const accept = accepts(context, {
+      header: "Accept",
+      supports: ["application/octet-stream", "application/json"],
+      default:
+        query.format === "json"
+          ? "application/json"
+          : query.format === "raw"
+            ? "application/octet-stream"
+            : assertNever(query.format),
     });
-  }
 
-  const makerNoteData = makerNoteEntry.data.slice();
-  exifData.free();
+    const blob = await context.req.blob();
 
-  return context.body(makerNoteData, 200, {
-    "Content-Type": "application/octet-stream",
-  });
-});
+    const fileType = await fileTypeFromBlob(blob, {
+      signal: context.req.raw.signal,
+    });
+
+    if (fileType === undefined) {
+      return context.json(
+        { error: "Unsupported media type" },
+        415 /* Unsupported Media Type */,
+      );
+    }
+
+    const file = new File([blob], `_.${fileType.ext}`, {
+      type: fileType.mime,
+    });
+    const exifData = await getExifData(file);
+
+    if (exifData === null) {
+      return context.json(
+        { error: "Unsupported media type" },
+        415 /* Unsupported Media Type */,
+      );
+    }
+
+    const makerNoteEntry = exifData.ifd[ExifIfd.EXIF].getEntry("MAKER_NOTE");
+
+    if (makerNoteEntry === null || makerNoteEntry.size === 0) {
+      exifData.free();
+
+      context.status(204 /* No Content */);
+
+      return accept === "application/json"
+        ? context.json({})
+        : context.body(null, undefined, {
+            "Content-Type": "application/octet-stream",
+          });
+    }
+
+    if (accept === "application/json") {
+      const makerNoteJson = exifData.mnoteData?.data;
+      exifData.free();
+
+      return makerNoteJson !== undefined
+        ? context.json(makerNoteJson)
+        : context.json(
+            { error: "Unprocessable entity" },
+            422 /* Unprocessable entity */,
+          );
+    } else if (accept === "application/octet-stream") {
+      const makerNoteData = makerNoteEntry.data.slice();
+      exifData.free();
+
+      return context.body(makerNoteData, 200, {
+        "Content-Type": "application/octet-stream",
+      });
+    }
+
+    console.log(accept);
+
+    exifData.free();
+    return context.json(
+      { error: "Internal server error" },
+      500 /* Internal Server Error */,
+    );
+  },
+);
 
 const exifController = {
   getExifData: getExifDataHandlers,
