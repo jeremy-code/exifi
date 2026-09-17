@@ -37,14 +37,14 @@
     "@commitlint/types": "^21.2.0",
     "@exifi/oxlint-config": "workspace:*",
     "@exifi/tsconfig": "workspace:*",
-    "@types/node": "^24.13.4",
+    "@types/node": "^24.13.5",
     "lefthook": "^2.1.14",
     "oxfmt": "^0.68.0",
     "oxlint": "^1.83.0",
     "oxlint-tsgolint": "^7.0.2001",
     "turbo": "^2.10.13",
     "typescript": "^6.0.3",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.1"
   },
   "devEngines": {
     "packageManager": {

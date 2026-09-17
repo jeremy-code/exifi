@@ -19,7 +19,7 @@
     "decimal.js": "^10.6.0",
     "file-type": "^22.1.0",
     "iconv-tiny": "^1.4.1",
-    "libexif-wasm": "^0.5.4",
+    "libexif-wasm": "^0.5.5",
     "uuid": "^14.0.2"
   },
   "devDependencies": {
