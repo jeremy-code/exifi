@@ -1,0 +1,17 @@
+{
+  "name": "@exifi/schemas",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "lint": "oxlint --type-aware --type-check"
+  },
+  "dependencies": {
+    "@exifi/core": "workspace:*",
+    "libexif-wasm": "^0.5.5",
+    "zod": "^4.6.5"
+  }
+}

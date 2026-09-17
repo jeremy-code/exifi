@@ -35,6 +35,7 @@ const commitlintConfig = {
         "core",
         "image-utils",
         "oxlint-config",
+        "schemas",
         "test-fixtures",
         "tsconfig",
         "ui",
