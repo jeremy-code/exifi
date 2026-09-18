@@ -15,7 +15,7 @@ const TagsComponent = () => {
   );
 };
 
-const Route = createFileRoute("/tags/")({
+const Route = createFileRoute("/tags")({
   head: () => ({
     meta: seo({
       title: "Tags | exifi",

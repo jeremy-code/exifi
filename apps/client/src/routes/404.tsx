@@ -10,7 +10,7 @@ const NotFoundComponent = () => {
   return <NotFound isNotFound={true} routeId="__root__" />;
 };
 
-const Route = createFileRoute("/404/")({
+const Route = createFileRoute("/404")({
   head: () => ({
     meta: seo({
       title: "Not Found | exifi",

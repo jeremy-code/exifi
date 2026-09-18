@@ -10,7 +10,7 @@ const ViewerComponent = () => {
   return <ExifViewer file={file} />;
 };
 
-const Route = createFileRoute("/_app/viewer/")({
+const Route = createFileRoute("/_app/viewer")({
   head: () => ({
     meta: seo({
       title: "Viewer | exifi",

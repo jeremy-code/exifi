@@ -10,7 +10,7 @@ const EditorComponent = () => {
   return <ExifEditor file={file} />;
 };
 
-const Route = createFileRoute("/_app/editor/")({
+const Route = createFileRoute("/_app/editor")({
   head: () => ({
     meta: seo({
       title: "Editor | exifi",

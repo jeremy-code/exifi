@@ -10,96 +10,96 @@
 
 import { Route as rootRouteImport } from './../routes/__root'
 import { Route as IndexRouteImport } from './../routes/index'
+import { Route as R404RouteImport } from './../routes/404'
 import { Route as AppRouteRouteImport } from './../routes/_app/route'
-import { Route as R404IndexRouteImport } from './../routes/404/index'
-import { Route as StatusIndexRouteImport } from './../routes/status/index'
-import { Route as TagsIndexRouteImport } from './../routes/tags/index'
-import { Route as AppEditorIndexRouteImport } from './../routes/_app/editor/index'
-import { Route as AppViewerIndexRouteImport } from './../routes/_app/viewer/index'
+import { Route as StatusRouteImport } from './../routes/status'
+import { Route as TagsRouteImport } from './../routes/tags'
+import { Route as AppEditorRouteImport } from './../routes/_app/editor'
+import { Route as AppViewerRouteImport } from './../routes/_app/viewer'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const R404Route = R404RouteImport.update({
+  id: '/404',
+  path: '/404',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
-const R404IndexRoute = R404IndexRouteImport.update({
-  id: '/404/',
-  path: '/404/',
+const StatusRoute = StatusRouteImport.update({
+  id: '/status',
+  path: '/status',
   getParentRoute: () => rootRouteImport,
 } as any)
-const StatusIndexRoute = StatusIndexRouteImport.update({
-  id: '/status/',
-  path: '/status/',
+const TagsRoute = TagsRouteImport.update({
+  id: '/tags',
+  path: '/tags',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TagsIndexRoute = TagsIndexRouteImport.update({
-  id: '/tags/',
-  path: '/tags/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppEditorIndexRoute = AppEditorIndexRouteImport.update({
-  id: '/editor/',
-  path: '/editor/',
+const AppEditorRoute = AppEditorRouteImport.update({
+  id: '/editor',
+  path: '/editor',
   getParentRoute: () => AppRouteRoute,
 } as any)
-const AppViewerIndexRoute = AppViewerIndexRouteImport.update({
-  id: '/viewer/',
-  path: '/viewer/',
+const AppViewerRoute = AppViewerRouteImport.update({
+  id: '/viewer',
+  path: '/viewer',
   getParentRoute: () => AppRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/404/': typeof R404IndexRoute
-  '/status/': typeof StatusIndexRoute
-  '/tags/': typeof TagsIndexRoute
-  '/editor/': typeof AppEditorIndexRoute
-  '/viewer/': typeof AppViewerIndexRoute
+  '/404': typeof R404Route
+  '/status': typeof StatusRoute
+  '/tags': typeof TagsRoute
+  '/editor': typeof AppEditorRoute
+  '/viewer': typeof AppViewerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/404': typeof R404IndexRoute
-  '/status': typeof StatusIndexRoute
-  '/tags': typeof TagsIndexRoute
-  '/editor': typeof AppEditorIndexRoute
-  '/viewer': typeof AppViewerIndexRoute
+  '/404': typeof R404Route
+  '/status': typeof StatusRoute
+  '/tags': typeof TagsRoute
+  '/editor': typeof AppEditorRoute
+  '/viewer': typeof AppViewerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_app': typeof AppRouteRouteWithChildren
-  '/404/': typeof R404IndexRoute
-  '/status/': typeof StatusIndexRoute
-  '/tags/': typeof TagsIndexRoute
-  '/_app/editor/': typeof AppEditorIndexRoute
-  '/_app/viewer/': typeof AppViewerIndexRoute
+  '/404': typeof R404Route
+  '/status': typeof StatusRoute
+  '/tags': typeof TagsRoute
+  '/_app/editor': typeof AppEditorRoute
+  '/_app/viewer': typeof AppViewerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/404/' | '/status/' | '/tags/' | '/editor/' | '/viewer/'
+  fullPaths: '/' | '/404' | '/status' | '/tags' | '/editor' | '/viewer'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/404' | '/status' | '/tags' | '/editor' | '/viewer'
   id:
     | '__root__'
     | '/'
     | '/_app'
-    | '/404/'
-    | '/status/'
-    | '/tags/'
-    | '/_app/editor/'
-    | '/_app/viewer/'
+    | '/404'
+    | '/status'
+    | '/tags'
+    | '/_app/editor'
+    | '/_app/viewer'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRouteRoute: typeof AppRouteRouteWithChildren
-  R404IndexRoute: typeof R404IndexRoute
-  StatusIndexRoute: typeof StatusIndexRoute
-  TagsIndexRoute: typeof TagsIndexRoute
+  R404Route: typeof R404Route
+  StatusRoute: typeof StatusRoute
+  TagsRoute: typeof TagsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -111,6 +111,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/404': {
+      id: '/404'
+      path: '/404'
+      fullPath: '/404'
+      preLoaderRoute: typeof R404RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_app': {
       id: '/_app'
       path: ''
@@ -118,52 +125,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/404/': {
-      id: '/404/'
-      path: '/404'
-      fullPath: '/404/'
-      preLoaderRoute: typeof R404IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/status/': {
-      id: '/status/'
+    '/status': {
+      id: '/status'
       path: '/status'
-      fullPath: '/status/'
-      preLoaderRoute: typeof StatusIndexRouteImport
+      fullPath: '/status'
+      preLoaderRoute: typeof StatusRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tags/': {
-      id: '/tags/'
+    '/tags': {
+      id: '/tags'
       path: '/tags'
-      fullPath: '/tags/'
-      preLoaderRoute: typeof TagsIndexRouteImport
+      fullPath: '/tags'
+      preLoaderRoute: typeof TagsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/editor/': {
-      id: '/_app/editor/'
+    '/_app/editor': {
+      id: '/_app/editor'
       path: '/editor'
-      fullPath: '/editor/'
-      preLoaderRoute: typeof AppEditorIndexRouteImport
+      fullPath: '/editor'
+      preLoaderRoute: typeof AppEditorRouteImport
       parentRoute: typeof AppRouteRoute
     }
-    '/_app/viewer/': {
-      id: '/_app/viewer/'
+    '/_app/viewer': {
+      id: '/_app/viewer'
       path: '/viewer'
-      fullPath: '/viewer/'
-      preLoaderRoute: typeof AppViewerIndexRouteImport
+      fullPath: '/viewer'
+      preLoaderRoute: typeof AppViewerRouteImport
       parentRoute: typeof AppRouteRoute
     }
   }
 }
 
 interface AppRouteRouteChildren {
-  AppEditorIndexRoute: typeof AppEditorIndexRoute
-  AppViewerIndexRoute: typeof AppViewerIndexRoute
+  AppEditorRoute: typeof AppEditorRoute
+  AppViewerRoute: typeof AppViewerRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
-  AppEditorIndexRoute: AppEditorIndexRoute,
-  AppViewerIndexRoute: AppViewerIndexRoute,
+  AppEditorRoute: AppEditorRoute,
+  AppViewerRoute: AppViewerRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
@@ -173,9 +173,9 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRouteRoute: AppRouteRouteWithChildren,
-  R404IndexRoute: R404IndexRoute,
-  StatusIndexRoute: StatusIndexRoute,
-  TagsIndexRoute: TagsIndexRoute,
+  R404Route: R404Route,
+  StatusRoute: StatusRoute,
+  TagsRoute: TagsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
