@@ -73,6 +73,8 @@ const viteConfig = defineConfig({
       prerender: {
         enabled: true,
         crawlLinks: false,
+        // Otherwise, 404 page doesn't work
+        autoSubfolderIndex: false,
       },
       sitemap: {
         enabled: true,
