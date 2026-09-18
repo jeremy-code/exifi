@@ -1,17 +1,13 @@
-import { useMemo, type CSSProperties } from "react";
+import { useLayoutEffect, useRef, type CSSProperties } from "react";
 
-import {
-  flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+import { flexRender, useTable } from "@tanstack/react-table";
 import { getExifTagTable } from "libexif-wasm";
 import { useLocale } from "react-aria/I18nProvider";
 
 import { ColumnResizer } from "#components/table/ColumnResizer";
 import { ExpandRows } from "#components/table/ExpandRows";
 import { SortingHandlerToggle } from "#components/table/SortingHandlerToggle";
+import { features } from "#components/table/tableFeatures";
 import { formatPlural } from "#utils/formatPlural";
 import { Badge } from "@exifi/ui/components/Badge";
 import {
@@ -30,40 +26,59 @@ const exifTagTable = getExifTagTable();
 
 const ExifTagTable = () => {
   const { locale } = useLocale();
-  const table = useReactTable({
+  const table = useTable({
+    features,
     columns,
     columnResizeMode: "onChange",
     data: exifTagTable,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     initialState: {
       sorting: [{ id: "tagVal", desc: false }],
     },
     enableSorting: true,
   });
-  const columnSizeCssVars = useMemo(
-    () =>
-      table
-        .getFlatHeaders()
-        .reduce<Record<`--${string}`, number>>((acc, header) => {
-          acc[`--header-${header.id}-size`] = header.getSize();
-          acc[`--col-${header.column.id}-size`] = header.column.getSize();
-          return acc;
-        }, {}),
+  const tableRef = useRef<HTMLTableElement>(null);
+
+  useLayoutEffect(
+    () => {
+      const setColumnSizeCssVars = () => {
+        const tableElement = tableRef.current;
+
+        if (tableElement !== null) {
+          table.getFlatHeaders().forEach((header) => {
+            tableElement.style.setProperty(
+              `--header-${header.id}-size`,
+              String(header.getSize()),
+            );
+            tableElement.style.setProperty(
+              `--col-${header.column.id}-size`,
+              String(header.column.getSize()),
+            );
+          });
+          tableElement.style.setProperty(
+            `--table-width`,
+            `${table.getTotalSize()}px`,
+          );
+        }
+      };
+      setColumnSizeCssVars();
+
+      const { unsubscribe } =
+        table.atoms.columnSizing.subscribe(setColumnSizeCssVars);
+
+      return () => {
+        unsubscribe();
+      };
+    },
     // oxlint-disable-next-line react-hooks/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
-    [table.getState().columnSizingInfo, table.getState().columnSizing],
+    [],
   );
+
   return (
     <TableScrollArea>
       <Table
         variant="outline"
         className="w-(--table-width) table-fixed"
-        style={
-          {
-            "--table-width": `${table.getCenterTotalSize()}px`,
-            ...columnSizeCssVars,
-          } as CSSProperties
-        }
+        ref={tableRef}
       >
         <TableHead>
           {table.getHeaderGroups().map((headerGroup) => (

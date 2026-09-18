@@ -3,12 +3,16 @@ import { exifIfdGetName, type Ifd } from "libexif-wasm";
 import { useLocale } from "react-aria/I18nProvider";
 
 import { ExpandRows } from "#components/table/ExpandRows";
+import type { Features } from "#components/table/tableFeatures";
 import { formatPlural } from "#utils/formatPlural";
 import { Badge } from "@exifi/ui/components/Badge";
 
 import type { ExifTableRow } from "./columns";
 
-const IfdCell = ({ row, getValue }: CellContext<ExifTableRow, Ifd>) => {
+const IfdCell = ({
+  row,
+  getValue,
+}: CellContext<Features, ExifTableRow, Ifd>) => {
   const { locale } = useLocale();
 
   if ("entries" in row.original || row.getCanExpand()) {

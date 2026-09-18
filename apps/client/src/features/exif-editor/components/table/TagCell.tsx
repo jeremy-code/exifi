@@ -1,6 +1,7 @@
 import type { CellContext } from "@tanstack/react-table";
 import { ExifTagInfo } from "libexif-wasm";
 
+import type { Features } from "#components/table/tableFeatures";
 import { getEntryObjectLabel } from "@exifi/core/exif/utils/getEntryObjectLabel";
 import {
   Tooltip,
@@ -10,7 +11,7 @@ import {
 
 import type { ExifTableRow } from "./columns";
 
-type TagCellProps = CellContext<ExifTableRow, unknown>;
+type TagCellProps = CellContext<Features, ExifTableRow>;
 
 const TagCell = ({ row }: TagCellProps) => {
   if ("entries" in row.original) {

@@ -4,6 +4,7 @@ import { ExifTagInfo } from "libexif-wasm";
 import { EnumSelect } from "#components/editor/EnumSelect";
 import { ExifVersionInput } from "#components/editor/ExifVersionInput";
 import { GpsTagVersionInput } from "#components/editor/GpsTagVersionInput";
+import type { Features } from "#components/table/tableFeatures";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { DateField } from "@exifi/ui/components/DateField";
 import { DatePicker } from "@exifi/ui/components/DatePicker";
@@ -16,6 +17,7 @@ import { getExifQuickEditor } from "../../editors/quick/getExifQuickEditor";
 import type { ExifTableRow } from "./columns";
 
 type ValueCellProps = CellContext<
+  Features,
   ExifTableRow,
   ExifEntryObject["formattedValue"]
 >;

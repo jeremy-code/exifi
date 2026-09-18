@@ -1,12 +1,17 @@
-import { useMemo, useState, type CSSProperties } from "react";
+import {
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 
 import {
   flexRender,
-  getCoreRowModel,
-  getExpandedRowModel,
-  useReactTable,
+  useTable,
   type RowData,
   type RowSelectionState,
+  type TableFeatures,
 } from "@tanstack/react-table";
 import type { Ifd } from "libexif-wasm";
 import { Button as AriaButton } from "react-aria-components/Button";
@@ -15,6 +20,7 @@ import { useShallow } from "zustand/react/shallow";
 
 import { ColumnResizer } from "#components/table/ColumnResizer";
 import { ExpandRows } from "#components/table/ExpandRows";
+import { features } from "#components/table/tableFeatures";
 import { formatPlural } from "#utils/formatPlural";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { Badge } from "@exifi/ui/components/Badge";
@@ -36,10 +42,10 @@ import { SelectionBar } from "./table/SelectionBar";
 import { columns } from "./table/columns";
 
 declare module "@tanstack/react-table" {
-  interface TableMeta<TData extends RowData> extends Pick<
-    ExifEditorStoreActions,
-    "updateExifEntry"
-  > {}
+  interface TableMeta<
+    in out TFeatures extends TableFeatures,
+    in out TData extends RowData,
+  > extends Pick<ExifEditorStoreActions, "updateExifEntry"> {}
 }
 
 const fallbackData: ExifEntryObject[] = [];
@@ -64,14 +70,13 @@ const ExifTable = (props: ExifTableProps) => {
   );
   const updateExifEntry = useExifEditor((state) => state.updateExifEntry);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const table = useReactTable({
+  const table = useTable({
+    features,
     columns,
     getSubRows: (originalRow) =>
       "entries" in originalRow ? originalRow.entries : undefined,
     columnResizeMode: "onChange",
     data: exifContentObjects ?? fallbackData,
-    getCoreRowModel: getCoreRowModel(),
-    getExpandedRowModel: getExpandedRowModel(),
     onRowSelectionChange: setRowSelection,
     initialState: {
       expanded: true,
@@ -83,18 +88,41 @@ const ExifTable = (props: ExifTableProps) => {
       updateExifEntry,
     },
   });
+  const tableRef = useRef<HTMLTableElement>(null);
 
-  const columnSizeCssVars = useMemo(
-    () =>
-      table
-        .getFlatHeaders()
-        .reduce<Record<`--${string}`, number>>((acc, header) => {
-          acc[`--header-${header.id}-size`] = header.getSize();
-          acc[`--col-${header.column.id}-size`] = header.column.getSize();
-          return acc;
-        }, {}),
+  useLayoutEffect(
+    () => {
+      const setColumnSizeCssVars = () => {
+        const tableElement = tableRef.current;
+
+        if (tableElement !== null) {
+          table.getFlatHeaders().forEach((header) => {
+            tableElement.style.setProperty(
+              `--header-${header.id}-size`,
+              String(header.getSize()),
+            );
+            tableElement.style.setProperty(
+              `--col-${header.column.id}-size`,
+              String(header.column.getSize()),
+            );
+          });
+          tableElement.style.setProperty(
+            `--table-width`,
+            `${table.getTotalSize()}px`,
+          );
+        }
+      };
+      setColumnSizeCssVars();
+
+      const { unsubscribe } =
+        table.atoms.columnSizing.subscribe(setColumnSizeCssVars);
+
+      return () => {
+        unsubscribe();
+      };
+    },
     // oxlint-disable-next-line react-hooks/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
-    [table.getState().columnSizingInfo, table.getState().columnSizing],
+    [],
   );
 
   if (
@@ -125,13 +153,8 @@ const ExifTable = (props: ExifTableProps) => {
       <Table
         variant="outline"
         className="min-w-(--table-width) table-fixed"
-        style={
-          {
-            "--table-width": `${table.getCenterTotalSize()}px`,
-            ...columnSizeCssVars,
-          } as CSSProperties
-        }
         {...props}
+        ref={tableRef}
       >
         <TableHead>
           {table.getHeaderGroups().map((headerGroup) => (
