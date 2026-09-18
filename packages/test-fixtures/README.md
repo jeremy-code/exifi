@@ -7,13 +7,14 @@
 ```c
 // libjpeg-turbo v3.2.0
 #include <stdio.h>
+#include <stdlib.h>
 
 #include <jpeglib.h>
 
 int main(void) {
   FILE *file = fopen("plain-jpg.jpg", "wb");
   if (!file) {
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
   }
 
   struct jpeg_compress_struct cinfo;
@@ -47,7 +48,7 @@ int main(void) {
 
   fclose(file);
 
-  return EXIT_FAILURE;
+  return EXIT_SUCCESS;
 }
 ```
 
@@ -57,11 +58,12 @@ int main(void) {
 // libpng v1.6.58
 #include <png.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(void) {
   FILE *file = fopen("plain-png.png", "wb");
   if (!file) {
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
   }
 
   png_structp png =
@@ -69,20 +71,20 @@ int main(void) {
 
   if (!png) {
     fclose(file);
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
   }
 
   png_infop info = png_create_info_struct(png);
   if (!info) {
     png_destroy_write_struct(&png, NULL);
     fclose(file);
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
   }
 
   if (setjmp(png_jmpbuf(png))) {
     png_destroy_write_struct(&png, &info);
     fclose(file);
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
   }
 
   png_init_io(png, file);
@@ -108,7 +110,7 @@ int main(void) {
   png_destroy_write_struct(&png, &info);
   fclose(file);
 
-  return EXIT_FAILURE;
+  return EXIT_SUCCESS;
 }
 ```
 
@@ -116,9 +118,9 @@ int main(void) {
 
 ```c
 // libwebp v1.6.0
-#include <stdio.h>
-
 #include <webp/encode.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 int main(void) {
   const uint8_t pixel[4] = {0, 0, 0, 255};
@@ -132,26 +134,26 @@ int main(void) {
                                /* quality */ 0, &output);
 
   if (size == 0) {
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
   }
 
-  FILE *file = fopen("smallest.webp", "wb");
+  FILE *file = fopen("plain-webp.webp", "wb");
   if (!file) {
     WebPFree(output);
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
   }
 
   if (fwrite(output, 1, size, file) != size) {
     perror("fwrite");
     fclose(file);
     WebPFree(output);
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
   }
 
   fclose(file);
   WebPFree(output);
 
-  return EXIT_FAILURE;
+  return EXIT_SUCCESS;
 }
 ```
 
@@ -182,7 +184,7 @@ int main() {
 
   ctx.write_to_file("plain-heic.heic");
 
-  return EXIT_FAILURE;
+  return EXIT_SUCCESS;
 }
 ```
 
@@ -198,14 +200,14 @@ int main(void) {
       avifImageCreate(/* width */ 1, /* height */ 1, /* depth */ 8,
                       /* yuvFormat */ AVIF_PIXEL_FORMAT_YUV400);
   if (!image) {
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
   }
 
   avifResult allocate_result = avifImageAllocatePlanes(image, AVIF_PLANES_YUV);
 
   if (allocate_result != AVIF_RESULT_OK) {
     avifImageDestroy(image);
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
   }
 
   uint8_t *y_plane = avifImagePlane(image, AVIF_CHAN_Y);
@@ -237,13 +239,14 @@ int main(void) {
   avifEncoderDestroy(encoder);
   avifImageDestroy(image);
 
-  return EXIT_FAILURE;
+  return EXIT_SUCCESS;
 }
 ```
 
 ### plain-jpegxl.jxl
 
 ```c
+// libjxl v0.12.0
 #include <jxl/encode.h>
 #include <jxl/thread_parallel_runner.h>
 #include <stdio.h>
@@ -343,10 +346,6 @@ int main(void) {
 
 ## Notes
 
-Exif data for plain-heic-with-exif is from:
+Exif data for `plain-heic-with-exif` is from [IMG_5195.HEIC](https://github.com/ianare/exif-samples/blob/master/heic/IMG_5195.HEIC) from [ianare/exif-samples](https://github.com/ianare/exif-samples).
 
-https://github.com/ianare/exif-samples/blob/master/heic/IMG_5195.HEIC
-
-Exif data for plain-avif-with-exif is from:
-
-https://github.com/AOMediaCodec/libavif/blob/main/tests/data/colors_hdr_rec2020.avif
+Exif data for `plain-avif-with-exif` is from [colors_hdr_rec2020.avif](https://github.com/AOMediaCodec/libavif/blob/main/tests/data/colors_hdr_rec2020.avif) from [AOMediaCodec/libavif](https://github.com/AOMediaCodec/libavif).
