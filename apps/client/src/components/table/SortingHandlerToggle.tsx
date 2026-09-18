@@ -18,8 +18,6 @@ const SortingHandlerToggle = <TData extends RowData, TValue>({
   column,
   ...props
 }: SortingHandlerToggle<TData, TValue>) => {
-  "use no memo";
-
   return (
     <AriaButton
       onPress={column.getToggleSortingHandler()}
