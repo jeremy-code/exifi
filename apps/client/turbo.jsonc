@@ -3,6 +3,7 @@
   "extends": ["//"],
   "tasks": {
     "build": {
+      "dependsOn": ["codegen"],
       "env": ["ANALYZE", "DEV", "URL", "BASE_URL", "COMMIT_REF"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
     },
