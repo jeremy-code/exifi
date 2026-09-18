@@ -344,6 +344,39 @@ int main(void) {
 }
 ```
 
+### plain-tiff.tiff
+
+```c
+// libtiff v4.7.2
+#include <stdio.h>
+#include <stdlib.h>
+#include <tiffio.h>
+
+int main(void) {
+  TIFF *tif = TIFFOpen("plain-tiff.tiff", "w");
+  if (!tif) {
+    return EXIT_FAILURE;
+  }
+
+  TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, 1);
+  TIFFSetField(tif, TIFFTAG_IMAGELENGTH, 1);
+  TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, 1);
+  TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, 1);
+  TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISBLACK);
+  TIFFSetField(tif, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
+  TIFFSetField(tif, TIFFTAG_COMPRESSION, COMPRESSION_NONE);
+  TIFFSetField(tif, TIFFTAG_ROWSPERSTRIP, 1);
+
+  unsigned char buffer[1] = {0x00};
+
+  TIFFWriteScanline(tif, buffer, 0, 0);
+
+  TIFFClose(tif);
+
+  return EXIT_SUCCESS;
+}
+```
+
 ## Notes
 
 Exif data for `plain-heic-with-exif` is from [IMG_5195.HEIC](https://github.com/ianare/exif-samples/blob/master/heic/IMG_5195.HEIC) from [ianare/exif-samples](https://github.com/ianare/exif-samples).
