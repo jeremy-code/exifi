@@ -1,11 +1,11 @@
-import createFetchClient from "openapi-fetch";
-import createClient from "openapi-react-query";
+import { createClient } from "#generated/nominatim/client/client.gen";
 
-import type { paths } from "#generated/nominatim";
-
-const nominatimClient = createFetchClient<paths>({
-  baseUrl: "https://nominatim.openstreetmap.org/",
+const nominatimClient = createClient({
+  baseUrl: "https://nominatim.openstreetmap.org",
+  headers: {
+    // https://operations.osmfoundation.org/policies/nominatim/
+    "User-Agent": "exifi",
+  },
 });
-const $api = createClient(nominatimClient);
 
-export { $api };
+export { nominatimClient };

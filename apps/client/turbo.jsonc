@@ -10,8 +10,8 @@
       "dependsOn": ["codegen:openapi"]
     },
     "codegen:openapi": {
-      "inputs": ["redocly.yaml"],
-      "outputs": ["src/generated/nominatim.ts"]
+      "inputs": ["openapi-ts.config.ts"],
+      "outputs": ["src/generated/nominatim/**/*"]
     },
     "dev": {
       "dependsOn": ["@exifi/image-utils#build"],

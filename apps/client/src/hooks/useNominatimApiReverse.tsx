@@ -1,26 +1,24 @@
 import { useMemo } from "react";
 
+import { useSuspenseQuery } from "@tanstack/react-query";
 import type { LatLng } from "leaflet";
 
-import type { components } from "#generated/nominatim";
-import { $api } from "#lib/nominatim/api";
+import { reverseOptions } from "#generated/nominatim/@tanstack/react-query.gen";
+import { nominatimClient } from "#lib/nominatim/api";
 
 import { useDebouncedValue } from "./useDebouncedValue";
 
 const useNominatimApiReverse = (coordinate: LatLng) => {
   const debouncedCoordinate = useDebouncedValue(coordinate, 500);
-  const { data } = $api.useSuspenseQuery("get", "/reverse", {
-    params: {
+  const { data } = useSuspenseQuery({
+    ...reverseOptions({
       query: {
         lat: debouncedCoordinate.lat,
         lon: debouncedCoordinate.lng,
         format: "geojson",
       },
-    },
-    headers: {
-      // https://operations.osmfoundation.org/policies/nominatim/
-      "User-Agent": "exifi",
-    },
+      client: nominatimClient,
+    }),
   });
   const feature = useMemo(() => {
     // Despite what OpenAPI says, features is undefined when nominatim returns an object
@@ -29,18 +27,7 @@ const useNominatimApiReverse = (coordinate: LatLng) => {
       return null;
     }
 
-    const featureCollection = data as components["schemas"]["OSMGeocodeJson"];
-    const firstFeature = featureCollection.features.at(0);
-
-    if (firstFeature === undefined) {
-      return null;
-    }
-
-    if (!("type" in firstFeature) || firstFeature.type !== "Feature") {
-      return null;
-    }
-
-    return firstFeature;
+    return data.features.at(0) ?? null;
   }, [data]);
 
   return feature;

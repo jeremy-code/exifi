@@ -9,14 +9,7 @@ catalog:
   "@types/react-dom": "^19.3.0"
 
 # Dependency Resolution (https://pnpm.io/settings#dependency-resolution)
-overrides:
-  # https://github.com/openapi-ts/openapi-typescript/issues/2723
-  # https://github.com/openapi-ts/openapi-typescript/pull/2774
-  # https://github.com/openapi-ts/openapi-typescript/pull/2818
-  "openapi-typescript>typescript": "^5.x || ^6.x"
 minimumReleaseAge: 1440 # 1 day in minutes
-minimumReleaseAgeExclude:
-  - libexif-wasm@0.5.5
 minimumReleaseAgeStrict: true
 trustPolicy: no-downgrade
 trustPolicyExclude:
@@ -27,8 +20,6 @@ trustPolicyExclude:
   #
   # https://github.com/pnpm/pnpm/issues/10202
   - semver@6.3.1
-  - "@netlify/serverless-functions-api@2.18.0"
-  - "@netlify/serverless-functions-api@2.21.2"
 blockExoticSubdeps: true
 
 # Build settings (https://pnpm.io/settings#build-settings)

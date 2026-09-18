@@ -17,7 +17,9 @@ import { Skeleton } from "@exifi/ui/components/Skeleton";
 const GpsPopupLabel = ({ coordinate }: { coordinate: LatLng }) => {
   const feature = useNominatimApiReverse(coordinate);
 
-  return feature?.properties?.display_name ?? "Unknown location";
+  return typeof feature?.properties?.display_name === "string"
+    ? feature?.properties?.display_name
+    : "Unknown location";
 };
 
 type GpsPopupProps = {

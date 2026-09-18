@@ -21,6 +21,10 @@ coverage
 # Netlify
 .netlify
 
+# Generated
+**/generated
+!**/generated/routeTree.gen.ts
+
 # Turbo
 .turbo
 
