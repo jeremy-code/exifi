@@ -1,5 +1,0 @@
-apis:
-  nominatim@v1:
-    root: https://sparkfabrik.github.io/nominatim-openapi/nominatim.openapi.json
-    x-openapi-ts:
-      output: ./src/generated/nominatim.ts
