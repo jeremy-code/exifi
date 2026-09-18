@@ -6,12 +6,12 @@ import { Heading } from "@exifi/ui/components/Heading";
 
 const TagsComponent = () => {
   return (
-    <div className="container py-8">
+    <main className="container py-8">
       <Heading level={1} size="2xl" className="mb-4">
         Exif tags
       </Heading>
       <ExifTagTable />
-    </div>
+    </main>
   );
 };
 

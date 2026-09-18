@@ -53,9 +53,7 @@ const RootComponent = () => {
     <RootDocument>
       <AppProvider>
         <Navbar />
-        <main>
-          <Outlet />
-        </main>
+        <Outlet />
         <Footer />
       </AppProvider>
     </RootDocument>
