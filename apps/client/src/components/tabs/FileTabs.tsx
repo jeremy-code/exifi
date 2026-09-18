@@ -60,7 +60,7 @@ const FileTabs = ({ children, ...props }: FileTabsProps) => {
         }
       >
         {/* Offset by height of Navbar */}
-        <div className="sticky top-(--navbar-height) z-50 container p-4 md:pt-6">
+        <div className="sticky top-(--navbar-height) z-50 container p-4">
           <DropZone
             onDrop={async (event) => {
               const files = await Promise.all(
