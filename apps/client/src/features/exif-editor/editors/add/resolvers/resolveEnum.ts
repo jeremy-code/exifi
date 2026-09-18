@@ -32,7 +32,6 @@ const resolveEnum: AddEditorResolver = (entry, onValueChange) => {
 
   return {
     kind: "enum",
-    exifEntryObject: entry,
     value,
     values: Object.keys(values),
     onValueChange: (nextValue) => {

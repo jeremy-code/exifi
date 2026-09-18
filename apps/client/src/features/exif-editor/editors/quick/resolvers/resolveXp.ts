@@ -11,7 +11,6 @@ const resolveXp: QuickEditorResolver = (exifEntryObject, onValueChange) => {
   ) {
     return {
       kind: "xp",
-      exifEntryObject,
       value: parseXp(new Uint8Array(exifEntryObject.value)),
       onValueChange: (value) => onValueChange(Array.from(formatXp(value))),
     };

@@ -7,7 +7,6 @@ const resolveRational: AddEditorResolver = (exifEntryObject, onValueChange) => {
   ) {
     return {
       kind: "rational",
-      exifEntryObject,
       hasIndeterminateSize: true,
       values: exifEntryObject.value,
       onValueChange: (rationalObject, index) => {

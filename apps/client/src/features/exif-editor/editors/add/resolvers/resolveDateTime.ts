@@ -11,7 +11,6 @@ const resolveDateTime: AddEditorResolver = (exifEntryObject, onValueChange) => {
   ) {
     return {
       kind: "datetime",
-      exifEntryObject,
       value:
         exifEntryObject.value.length !== 0
           ? parseDateTime(exifEntryObject.value)

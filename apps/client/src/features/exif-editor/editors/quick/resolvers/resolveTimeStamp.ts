@@ -21,7 +21,6 @@ const resolveTimeStamp: QuickEditorResolver = (
   ) {
     return {
       kind: "timeStamp",
-      exifEntryObject,
       value: parseTimeStamp(exifEntryObject.value),
       onValueChange: (value) => onValueChange(formatTimeStamp(value)),
     };

@@ -19,7 +19,6 @@ const resolveEnum: QuickEditorResolver = (entry, onValueChange) => {
 
   return {
     kind: "enum",
-    exifEntryObject: entry,
     value: entry.formattedValue,
     values: Object.keys(values),
     onValueChange: (value) => {

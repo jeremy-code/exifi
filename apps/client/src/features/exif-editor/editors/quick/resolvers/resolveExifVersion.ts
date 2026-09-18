@@ -20,7 +20,6 @@ const resolveExifVersion: QuickEditorResolver = (
 
     return {
       kind: "exifVersion",
-      exifEntryObject,
       value: exifVersion,
       onValueChange: (value) =>
         onValueChange(Array.from(formatExifVersion(value))),

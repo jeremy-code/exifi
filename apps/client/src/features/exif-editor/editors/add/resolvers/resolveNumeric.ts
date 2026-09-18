@@ -12,7 +12,6 @@ const resolveNumeric: AddEditorResolver = (exifEntryObject, onValueChange) => {
   ) {
     return {
       kind: "numeric",
-      exifEntryObject,
       hasIndeterminateSize: true,
       values: exifEntryObject.value,
       onValueChange: (newValue, index) => {

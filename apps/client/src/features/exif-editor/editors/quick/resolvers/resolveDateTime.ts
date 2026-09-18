@@ -16,7 +16,6 @@ const resolveDateTime: QuickEditorResolver = (
   ) {
     return {
       kind: "datetime",
-      exifEntryObject,
       value: parseDateTime(exifEntryObject.formattedValue ?? ""),
       onValueChange: (value) => onValueChange(formatDateTime(value)),
     };

@@ -30,7 +30,6 @@ const resolveTimeStamp: AddEditorResolver = (
 
     return {
       kind: "timeStamp",
-      exifEntryObject,
       value,
       onValueChange: (nextValue) =>
         onValueChange(

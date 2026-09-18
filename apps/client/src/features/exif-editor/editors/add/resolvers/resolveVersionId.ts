@@ -11,7 +11,6 @@ const resolveVersionId: AddEditorResolver = (
   ) {
     return {
       kind: "versionId",
-      exifEntryObject,
       value: exifEntryObject.value,
       onValueChange: (value) => onValueChange(value),
     };

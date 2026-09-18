@@ -29,7 +29,6 @@ const resolveEnumAscii: QuickEditorResolver = (
 
   return {
     kind: "enumAscii",
-    exifEntryObject,
     value: asciiEntry[0],
     values: Object.keys(asciiValues),
     onValueChange: (value) => {

@@ -12,7 +12,6 @@ const resolveXp: AddEditorResolver = (exifEntryObject, onValueChange) => {
   ) {
     return {
       kind: "xp",
-      exifEntryObject,
       value:
         exifEntryObject.value.length === 0
           ? undefined

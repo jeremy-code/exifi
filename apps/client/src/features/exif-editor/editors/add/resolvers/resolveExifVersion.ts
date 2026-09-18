@@ -13,7 +13,6 @@ const resolveExifVersion: AddEditorResolver = (
   ) {
     return {
       kind: "exifVersion",
-      exifEntryObject,
       value: parseExifVersion(exifEntryObject.value) ?? undefined,
       onValueChange: (value) =>
         onValueChange(Array.from(formatExifVersion(value))),

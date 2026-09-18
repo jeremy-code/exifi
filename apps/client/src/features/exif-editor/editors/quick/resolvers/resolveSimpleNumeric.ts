@@ -20,7 +20,6 @@ const resolveSimpleNumeric: QuickEditorResolver = (
   ) {
     return {
       kind: "simpleNumeric",
-      exifEntryObject,
       value: exifEntryObject.value[0],
       onValueChange: (value) => onValueChange([value]),
     };

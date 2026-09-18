@@ -34,7 +34,6 @@ const resolveEnumAscii: AddEditorResolver = (
 
   return {
     kind: "enumAscii",
-    exifEntryObject,
     value: asciiValue,
     values: Object.keys(asciiValues),
     onValueChange: (value) => {

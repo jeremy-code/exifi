@@ -15,7 +15,6 @@ const resolveDateStamp: AddEditorResolver = (
   ) {
     return {
       kind: "dateStamp",
-      exifEntryObject,
       value:
         exifEntryObject.value.length !== 0
           ? parseDateStamp(exifEntryObject.value)

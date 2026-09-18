@@ -12,7 +12,6 @@ const resolveVersionId: QuickEditorResolver = (
   ) {
     return {
       kind: "versionId",
-      exifEntryObject,
       value: exifEntryObject.value,
       onValueChange: (value) => onValueChange(value),
     };

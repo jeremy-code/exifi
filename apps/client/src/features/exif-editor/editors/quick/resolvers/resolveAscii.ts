@@ -4,7 +4,6 @@ const resolveAscii: QuickEditorResolver = (exifEntryObject, onValueChange) => {
   if (exifEntryObject.format === "ASCII") {
     return {
       kind: "ascii",
-      exifEntryObject,
       value: exifEntryObject.formattedValue ?? "",
       onValueChange,
     };

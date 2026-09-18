@@ -13,7 +13,6 @@ const resolveUserComment: AddEditorResolver = (
   ) {
     return {
       kind: "userComment",
-      exifEntryObject,
       value:
         exifEntryObject.value.length !== 0
           ? parseUserComment(exifEntryObject.value)
