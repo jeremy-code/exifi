@@ -54,6 +54,15 @@ const isAnalyzerEnabled =
   process.env.ANALYZE !== undefined &&
   z.stringbool().parse(process.env.ANALYZE);
 
+const url = z
+  .string()
+  .default(
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:5173"
+      : "http://localhost:4173",
+  )
+  .parse(process.env.URL);
+
 const viteConfig = defineConfig({
   plugins: [
     tanstackStart({
@@ -67,10 +76,7 @@ const viteConfig = defineConfig({
       },
       sitemap: {
         enabled: true,
-        host:
-          process.env.URL !== undefined
-            ? process.env.URL
-            : "http://localhost:4173/",
+        host: url,
       },
     }),
     react({ compiler: true }),
@@ -98,7 +104,7 @@ const viteConfig = defineConfig({
         .version,
     ),
     "import.meta.env.COMMIT_REF": JSON.stringify(process.env.COMMIT_REF),
-    "import.meta.env.URL": JSON.stringify(process.env.URL),
+    "import.meta.env.URL": JSON.stringify(url),
   },
   css: {
     transformer: "lightningcss",
