@@ -53,8 +53,7 @@ const StatusComponent = () => {
           <DataListItem className="max-sm:flex-col!">
             <DataListItemLabel className="min-w-40">Commit</DataListItemLabel>
             <DataListItemValue>
-              {import.meta.env.COMMIT_REF !== undefined &&
-              import.meta.env.COMMIT_REF !== "" ? (
+              {import.meta.env.COMMIT_REF !== null ? (
                 <Link
                   isExternal
                   href={`https://www.github.com/jeremy-code/exifi/commit/${import.meta.env.COMMIT_REF}`}

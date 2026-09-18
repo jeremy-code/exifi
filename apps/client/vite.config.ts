@@ -98,12 +98,14 @@ const viteConfig = defineConfig({
     ...(isAnalyzerEnabled ? [analyzer({ analyzerPort: "auto" })] : []),
   ],
   define: {
-    __BUILD_TIMESTAMP__: JSON.stringify(new Date().getTime()),
+    __BUILD_TIMESTAMP__: new Date().getTime(),
     __LIBEXIF_WASM_VERSION__: JSON.stringify(
       (await import("libexif-wasm/package.json", { with: { type: "json" } }))
         .version,
     ),
-    "import.meta.env.COMMIT_REF": JSON.stringify(process.env.COMMIT_REF),
+    "import.meta.env.COMMIT_REF": JSON.stringify(
+      process.env.COMMIT_REF ?? null,
+    ),
     "import.meta.env.URL": JSON.stringify(url),
   },
   css: {

@@ -6,7 +6,7 @@ declare const __BUILD_TIMESTAMP__: number;
 
 interface ImportMetaEnv {
   readonly URL: string;
-  readonly COMMIT_REF: string;
+  readonly COMMIT_REF: string | null;
 }
 
 interface ImportMeta {
