@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
 
-import { createFileRoute, Link as RouterLink } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Cog, Lock, Zap } from "lucide-react";
 
+import { Link as RouterLink } from "#components/common/Link";
 import { getBaseUrl } from "#utils/getBaseUrl";
 import {
   Accordion,
@@ -232,31 +233,20 @@ const FAQS = [
     answer: (
       <span>
         {"You can open a link with a URL search parameter like this: "}
-        <Link
+        <RouterLink
+          to="/viewer"
           className="inline"
-          href=""
-          render={(props) => {
-            if (!("href" in props)) {
-              throw new Error("Not an anchor element!");
-            }
-            return (
-              <RouterLink
-                to="/viewer"
-                search={{
-                  url: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg",
-                }}
-                {...props}
-              >
-                {
-                  new URL(
-                    `viewer?url=https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg`,
-                    getBaseUrl(),
-                  ).href
-                }
-              </RouterLink>
-            );
+          search={{
+            url: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg",
           }}
-        />
+        >
+          {
+            new URL(
+              `viewer?url=https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg`,
+              getBaseUrl(),
+            ).href
+          }
+        </RouterLink>
         {"."}
       </span>
     ),
@@ -302,21 +292,9 @@ const FAQS = [
             }
           </li>
         </ol>
-        <Link
-          color="link"
-          href=""
-          render={(props) => {
-            if (!("href" in props)) {
-              throw new Error("Link is not an anchor element");
-            }
-
-            return (
-              <RouterLink to="/tags" {...props}>
-                A full list of tags can be found here.
-              </RouterLink>
-            );
-          }}
-        />
+        <RouterLink color="link" to="/tags">
+          A full list of tags can be found here.
+        </RouterLink>
       </span>
     ),
   },
@@ -475,46 +453,24 @@ const HomeComponent = () => {
           View and edit Exif data locally
         </Heading>
         <div className="flex items-center justify-start gap-2 md:justify-center">
-          <Link
-            href=""
-            render={(props, renderProps) => {
-              if (!("href" in props)) {
-                throw new Error("Not an anchor element!");
-              }
-              return (
-                <RouterLink
-                  {...props}
-                  to="/viewer"
-                  className={buttonVariants({
-                    color: "accent",
-                    ...renderProps,
-                  })}
-                />
-              );
-            }}
+          <RouterLink
+            to="/viewer"
+            underline={false}
+            className={(renderProps) =>
+              buttonVariants({ color: "accent", ...renderProps })
+            }
           >
             View
-          </Link>
-          <Link
-            href=""
-            render={(props, renderProps) => {
-              if (!("href" in props)) {
-                throw new Error("Not an anchor element!");
-              }
-              return (
-                <RouterLink
-                  {...props}
-                  to="/editor"
-                  className={buttonVariants({
-                    variant: "ghost",
-                    ...renderProps,
-                  })}
-                />
-              );
-            }}
+          </RouterLink>
+          <RouterLink
+            to="/editor"
+            underline={false}
+            className={(renderProps) =>
+              buttonVariants({ variant: "ghost", ...renderProps })
+            }
           >
             Edit
-          </Link>
+          </RouterLink>
         </div>
       </div>
       <div className="pt-16">

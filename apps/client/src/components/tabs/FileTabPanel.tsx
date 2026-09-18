@@ -1,13 +1,11 @@
 import type { ComponentPropsWithRef, ReactNode } from "react";
 
-import { Link as RouterLink } from "@tanstack/react-router";
-
+import { Link as RouterLink } from "#components/common/Link";
 import { Dropzone } from "#components/file/Dropzone";
 import { FileUrlInput } from "#components/file/FileUrlInput";
 import { FileProvider } from "#contexts/FileContext";
 import { useDropzoneStore } from "#stores/dropzoneStore";
 import { Heading } from "@exifi/ui/components/Heading";
-import { Link } from "@exifi/ui/components/Link";
 import { TabPanel } from "@exifi/ui/components/Tabs";
 
 type FileTabPanelProps = {
@@ -37,27 +35,16 @@ const FileTabPanel = ({
           </Heading>
           <p className="mb-4">
             {"For a quick demo, "}
-            <Link
-              href=""
+            <RouterLink
               color="link"
-              render={(linkProps) => {
-                if (!("href" in linkProps)) {
-                  throw new Error("Link is not an anchor element");
-                }
-
-                return (
-                  <RouterLink
-                    to="."
-                    search={{
-                      url: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg",
-                    }}
-                    {...linkProps}
-                  >
-                    click here
-                  </RouterLink>
-                );
+              to="."
+              search={{
+                url: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg",
               }}
-            ></Link>
+            >
+              click here
+            </RouterLink>
+
             {"."}
           </p>
 

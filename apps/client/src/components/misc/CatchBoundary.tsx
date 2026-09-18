@@ -1,12 +1,12 @@
 import {
   ErrorComponent,
   type ErrorComponentProps,
-  Link as RouterLink,
   rootRouteId,
   useMatch,
 } from "@tanstack/react-router";
 import { ChevronLeft, TriangleAlert } from "lucide-react";
 
+import { Link as RouterLink } from "#/components/common/Link";
 import { Button, buttonVariants } from "@exifi/ui/components/Button";
 import {
   Card,
@@ -15,7 +15,6 @@ import {
   CardHeader,
 } from "@exifi/ui/components/Card";
 import { Heading } from "@exifi/ui/components/Heading";
-import { Link } from "@exifi/ui/components/Link";
 
 const CatchBoundary = ({ error, reset }: ErrorComponentProps) => {
   const isRoot = useMatch({
@@ -47,26 +46,17 @@ const CatchBoundary = ({ error, reset }: ErrorComponentProps) => {
             Try Again
           </Button>
           {isRoot ? (
-            <Link
-              href=""
-              render={(props, renderProps) => {
-                if (!("href" in props)) {
-                  throw new Error("Not an anchor element!");
-                }
-                return (
-                  <RouterLink
-                    {...props}
-                    to="/"
-                    className={buttonVariants({
-                      variant: "ghost",
-                      ...renderProps,
-                    })}
-                  />
-                );
-              }}
+            <RouterLink
+              to="/"
+              className={(renderProps) =>
+                buttonVariants({
+                  variant: "ghost",
+                  ...renderProps,
+                })
+              }
             >
               Home
-            </Link>
+            </RouterLink>
           ) : (
             <Button variant="ghost" onPress={() => window.history.back()}>
               <ChevronLeft size={16} />
