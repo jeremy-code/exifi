@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg fill="none" version="1.1" width="680" height="800" viewBox="0 0 680 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- https://undraw.co/illustration/taken_mshk, licensed under https://undraw.co/license -->
+  <style>
+    :root {
+      --color-blue-600: #155dfc;
+      --color-gray-300: #cad5e2;
+      --color-gray-500: #62748e;
+      --color-gray-600: #45556c;
+      --color-gray-700: #314158;
+      --color-gray-800: #1d293d;
+      --color-white: #fff;
+    }
+  </style>
+  <g>
+    <path id="ufo__orb" d="m340 0c81.5 0 147.7 65.4 149 146.6-44.3-6.8-95-10.6-149-10.6s-104.7 3.8-149 10.6c1.3-81.2 67.5-146.6 149-146.6z" fill="var(--color-blue-600)" />
+    <path id="ufo__orbhighlight" d="m340 0c6.8 0 13.5 0.5 20 1.3-70.4 9.5-125.2 68.1-128.8 140.2-13.9 1.4-27.3 3.1-40.2 5.1 1.3-81.2 67.5-146.6 149-146.6z" fill="var(--color-white)" fill-opacity=".1" />
+    <path id="ufo__outline" d="m340 137c85.7 0 163.3 9.6555 219.5 25.245 28.1 7.7445 50.9 17.098 66.7 27.458 9.1 6.0347 16 12.371 20.2 19.11 3 4.9283 4.6 9.9572 4.6 15.187 0 12.371-9 23.938-24.8 34.297s-38.6 19.713-66.7 27.458c-56.2 15.59-133.8 25.245-219.5 25.245s-163.3-9.6555-219.5-25.245c-28.1-7.7445-50.9-17.098-66.7-27.458s-24.8-21.926-24.8-34.297 9-23.938 24.8-34.297 38.6-19.713 66.7-27.458c56.2-15.59 133.8-25.245 219.5-25.245z" stroke="var(--color-gray-700)" stroke-width="2" />
+    <ellipse id="ufo__body" cx="340" cy="223.5" rx="312" ry="87.5" fill="var(--color-gray-500)" fill-opacity=".8" />
+    <path id="ufo__edge" d="m649.6 212.7c1.6 3.5 2.4 7.1 2.4 10.8 0 48.3-139.7 87.5-312 87.5s-312-39.2-312-87.5c0-2.6 0.4-5.1 1.2-7.6 13.7 42.7 147.1 76.2 309.8 76.2 166.7 0 302.8-35.2 310.6-79.4z" fill="var(--color-gray-700)" />
+    <g id="ufo__disks" fill="var(--color-gray-700)">
+      <ellipse cx="340" cy="272" rx="34.5" ry="11" />
+      <ellipse cx="489" cy="250" rx="34.5" ry="11" />
+      <ellipse cx="191" cy="250" rx="34.5" ry="11" />
+      <ellipse cx="120" cy="203" rx="34.5" ry="11" />
+      <ellipse cx="560" cy="203" rx="34.5" ry="11" />
+    </g>
+  </g>
+  <g id="victim">
+    <circle id="victim__body" cx="365" cy="450" r="42" fill="var(--color-gray-800)" />
+    <circle id="victim__eyeball" cx="362" cy="440" r="14.5" fill="var(--color-white)" />
+    <circle id="victim__pupil" cx="362" cy="434" r="5" fill="var(--color-gray-800)" />
+    <path id="victim__mouth" d="m376 470c-0.495 3.75-4.21 8-9.41 8s-8.42-3.75-9.37-8.01c-0.783-5.24 2.44-7.99 12.8-8.24 5.45 0.25 6.44 4.25 5.94 8.25z" fill="var(--color-white)" />
+    <g fill="var(--color-gray-800)">
+      <path id="victim__right-leg" d="m328 488 20.2-10.5 5.78 11.1-17.4 9.89-8.54-10.5z" />
+      <path id="victim__left-leg" d="m401 488-20.2-10.5-5.77 11.1 17.4 9.89 8.53-10.5z" />
+      <ellipse id="victim__right-foot" transform="rotate(30 328 493)" cx="328" cy="493" rx="10.8" ry="4.25" />
+      <ellipse id="victim__left-foot" transform="matrix(-.866 .5 .5 .866 408 484)" cx="10.8" cy="4.25" rx="10.8" ry="4.25" />
+      <ellipse id="victim__right-arm" transform="rotate(40 321 457)" cx="321" cy="457" rx="6.25" ry="21" />
+      <ellipse id="victim__left-arm" transform="rotate(-40 409 457)" cx="409" cy="457" rx="6.25" ry="21" />
+    </g>
+  </g>
+  <g id="beams" stroke="var(--color-gray-300)" stroke-linecap="round" stroke-width="4">
+    <path d="m264 600v-87" />
+    <path d="m294 494v-119" />
+    <path d="m253 389v-49" />
+    <path d="m353 368v-49" />
+    <path d="m427 394v-49" />
+    <path d="m391 448v-119" />
+    <path d="m341 529v-119" />
+    <path d="m383 595v-88" />
+    <path d="m423 544v-59" />
+    <path d="m312 614v-49" />
+  </g>
+  <g id="observer">
+    <circle id="observer__body" cx="580" cy="738" r="43.5" fill="var(--color-gray-800)" />
+    <circle id="observer__eyeball" cx="574" cy="730" r="14.5" fill="var(--color-white)" />
+    <circle id="observer__pupil" cx="568" cy="724" r="5" fill="var(--color-gray-800)" />
+    <circle id="observer__mouth" cx="574" cy="759" r="6" fill="var(--color-white)" />
+    <g fill="var(--color-gray-800)">
+      <rect id="observer__right-leg" x="560" y="772" width="13" height="23" />
+      <rect id="observer__left-leg" x="586" y="772" width="13" height="23" />
+      <ellipse id="observer__right-foot" cx="562" cy="795" rx="11" ry="4" />
+      <ellipse id="observer__left-foot" cx="588" cy="796" rx="11" ry="4" />
+      <path id="observer__right-arm" d="m512 710c-0.7 8.5 32.5 23.6 38.5 18.5 9.5-7.6-38.5-28.6-38.5-18.5z" />
+      <ellipse id="observer__left-arm" transform="rotate(-40 626 746)" cx="626" cy="746" rx="7" ry="22" />
+    </g>
+    <path id="observer__ground" d="m459 799h220" stroke="var(--color-gray-600)" stroke-linecap="round" stroke-width="2" />
+  </g>
+</svg>

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './../routes/__root'
 import { Route as IndexRouteImport } from './../routes/index'
 import { Route as AppRouteRouteImport } from './../routes/_app/route'
+import { Route as R404IndexRouteImport } from './../routes/404/index'
 import { Route as StatusIndexRouteImport } from './../routes/status/index'
 import { Route as TagsIndexRouteImport } from './../routes/tags/index'
 import { Route as AppEditorIndexRouteImport } from './../routes/_app/editor/index'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 } as any)
 const AppRouteRoute = AppRouteRouteImport.update({
   id: '/_app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const R404IndexRoute = R404IndexRouteImport.update({
+  id: '/404/',
+  path: '/404/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StatusIndexRoute = StatusIndexRouteImport.update({
@@ -48,6 +54,7 @@ const AppViewerIndexRoute = AppViewerIndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/404/': typeof R404IndexRoute
   '/status/': typeof StatusIndexRoute
   '/tags/': typeof TagsIndexRoute
   '/editor/': typeof AppEditorIndexRoute
@@ -55,6 +62,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/404': typeof R404IndexRoute
   '/status': typeof StatusIndexRoute
   '/tags': typeof TagsIndexRoute
   '/editor': typeof AppEditorIndexRoute
@@ -64,6 +72,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_app': typeof AppRouteRouteWithChildren
+  '/404/': typeof R404IndexRoute
   '/status/': typeof StatusIndexRoute
   '/tags/': typeof TagsIndexRoute
   '/_app/editor/': typeof AppEditorIndexRoute
@@ -71,13 +80,14 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/status/' | '/tags/' | '/editor/' | '/viewer/'
+  fullPaths: '/' | '/404/' | '/status/' | '/tags/' | '/editor/' | '/viewer/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/status' | '/tags' | '/editor' | '/viewer'
+  to: '/' | '/404' | '/status' | '/tags' | '/editor' | '/viewer'
   id:
     | '__root__'
     | '/'
     | '/_app'
+    | '/404/'
     | '/status/'
     | '/tags/'
     | '/_app/editor/'
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRouteRoute: typeof AppRouteRouteWithChildren
+  R404IndexRoute: typeof R404IndexRoute
   StatusIndexRoute: typeof StatusIndexRoute
   TagsIndexRoute: typeof TagsIndexRoute
 }
@@ -105,6 +116,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AppRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/404/': {
+      id: '/404/'
+      path: '/404'
+      fullPath: '/404/'
+      preLoaderRoute: typeof R404IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/status/': {
@@ -155,6 +173,7 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRouteRoute: AppRouteRouteWithChildren,
+  R404IndexRoute: R404IndexRoute,
   StatusIndexRoute: StatusIndexRoute,
   TagsIndexRoute: TagsIndexRoute,
 }
