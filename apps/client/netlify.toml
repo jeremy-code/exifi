@@ -28,3 +28,9 @@ Cache-Control = "public, max-age=0, must-revalidate"
 for = "/manifest.json"
 [headers.values]
 Cache-Control = "public, max-age=0, must-revalidate"
+
+# https://docs.netlify.com/manage/routing/redirects/redirect-options/#custom-404-page-handling
+[[redirects]]
+from = "/*"
+to = "/404/index.html"
+status = 404
