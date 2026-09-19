@@ -16,6 +16,7 @@ import {
   addFormSchema,
   type AddFieldValues,
 } from "#features/exif-editor/forms/addEntryForm";
+import { m } from "#paraglide/messages";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
 import {
   GEOLOCATION_TAGS,
@@ -268,7 +269,7 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
                   className="data-[pending=true]:invisible"
                   data-pending={isSubmitting}
                 >
-                  Submit
+                  {m["common.submit"]()}
                 </span>
               </Button>
             )}

@@ -10,15 +10,15 @@ type NavigationItem = {
 const NAVIGATION_ITEMS = [
   {
     href: "/",
-    name: m.nav_home,
+    name: m["navigation.home"],
   },
   {
     href: "/viewer",
-    name: m.nav_viewer,
+    name: m["navigation.viewer"],
   },
   {
     href: "/editor",
-    name: m.nav_editor,
+    name: m["navigation.editor"],
   },
 ] satisfies NavigationItem[];
 

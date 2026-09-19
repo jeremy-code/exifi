@@ -7,6 +7,7 @@ import {
 import { ChevronLeft, TriangleAlert } from "lucide-react";
 
 import { Link as RouterLink } from "#/components/common/Link";
+import { m } from "#paraglide/messages";
 import { Button, buttonVariants } from "@exifi/ui/components/Button";
 import {
   Card,
@@ -32,9 +33,9 @@ const CatchBoundary = ({ error, reset }: ErrorComponentProps) => {
             <TriangleAlert className="size-8" />
           </div>
           <Heading level={1} size="2xl">
-            An error occurred!
+            {m["catchBoundary.title"]()}
           </Heading>
-          <p>An unexpected error occurred while the application was running.</p>
+          <p>{m["catchBoundary.title"]()}</p>
         </CardHeader>
         <CardContent>
           <div className="rounded-md border bg-bg-muted">
@@ -43,24 +44,21 @@ const CatchBoundary = ({ error, reset }: ErrorComponentProps) => {
         </CardContent>
         <CardFooter className="gap-2">
           <Button variant="surface" onPress={() => reset()}>
-            Try Again
+            {m["common.retry"]()}
           </Button>
           {isRoot ? (
             <RouterLink
               to="/"
               className={(renderProps) =>
-                buttonVariants({
-                  variant: "ghost",
-                  ...renderProps,
-                })
+                buttonVariants({ variant: "ghost", ...renderProps })
               }
             >
-              Home
+              {m["navigation.home"]()}
             </RouterLink>
           ) : (
             <Button variant="ghost" onPress={() => window.history.back()}>
               <ChevronLeft size={16} />
-              Go Back
+              {m["common.goBack"]()}
             </Button>
           )}
         </CardFooter>

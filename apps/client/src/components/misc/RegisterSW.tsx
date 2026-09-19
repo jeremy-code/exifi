@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import type { Serwist } from "@serwist/window";
 import { getSerwist } from "virtual:serwist";
 
+import { m } from "#paraglide/messages";
 import { toastQueue } from "@exifi/ui/components/Toast";
 
 const RegisterSW = () => {
@@ -17,9 +18,8 @@ const RegisterSW = () => {
           serwist.addEventListener("installed", () => {
             toastQueue.add(
               {
-                title: "Ready to work offline",
-                description:
-                  "exifi has been cached and can now be used without an internet connection.",
+                title: m["serviceWorkerInstalled.title"](),
+                description: m["serviceWorkerInstalled.description"](),
               },
               { timeout: 5_000 /* 5 seconds */ },
             );

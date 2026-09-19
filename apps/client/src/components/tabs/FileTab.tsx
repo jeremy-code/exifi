@@ -1,6 +1,7 @@
 import { useSortable } from "@dnd-kit/react/sortable";
 import { X } from "lucide-react";
 
+import { m } from "#paraglide/messages";
 import { Button } from "@exifi/ui/components/Button";
 import { Tab, type TabProps } from "@exifi/ui/components/Tabs";
 import { composeTailwindRenderProps } from "@exifi/ui/utils/composeTailwindRenderProps";
@@ -39,15 +40,15 @@ const FileTab = ({
         {file !== null
           ? file.name !== ""
             ? file.name
-            : "Unnamed File"
-          : "New Tab"}
+            : m["tabs.unnamedFile"]()
+          : m["tabs.newTab"]()}
       </span>
       <Button
         className="absolute right-1 group-not-selected/tabs-trigger:hover:bg-border"
         variant="ghost"
         size="icon-xs"
         onPress={() => removeTab()}
-        aria-label="Close tab"
+        aria-label={m["tabs.closeTab"]()}
       >
         <X size={16} />
       </Button>

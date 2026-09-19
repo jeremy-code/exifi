@@ -5,6 +5,7 @@ import { ChevronDown, Save } from "lucide-react";
 import { useShallow } from "zustand/react/shallow";
 
 import { useFile } from "#contexts/FileContext";
+import { m } from "#paraglide/messages";
 import { isMobileWebKit } from "#utils/platform";
 import { saveFile } from "#utils/saveFile";
 import { setExifData } from "@exifi/core/exif/utils/setExifData";
@@ -68,7 +69,11 @@ const ExifDownload = () => {
         }}
       >
         <Save size={16} />
-        {!isDirty ? "Saved" : isPending ? "Saving..." : "Save"}
+        {!isDirty
+          ? m["editor.saveSuccess"]()
+          : isPending
+            ? m["editor.saveLoading"]()
+            : m["editor.saveSuccess"]()}
       </Button>
       <MenuTrigger
         // @ts-expect-error -- Not sure why TypeScript can't find the right types

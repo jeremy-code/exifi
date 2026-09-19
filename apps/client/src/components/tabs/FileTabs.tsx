@@ -5,6 +5,7 @@ import { DropZone } from "react-aria-components/DropZone";
 import { useShallow } from "zustand/react/shallow";
 
 import { SortableList } from "#components/dnd/SortableList";
+import { m } from "#paraglide/messages";
 import { useFileTabsStore } from "#stores/fileTabsStore";
 import { Button } from "@exifi/ui/components/Button";
 import { ScrollArea } from "@exifi/ui/components/ScrollArea";
@@ -97,7 +98,7 @@ const FileTabs = ({ children, ...props }: FileTabsProps) => {
                   size="icon"
                   variant="muted"
                   onPress={() => createNewTab()}
-                  aria-label="New tab"
+                  aria-label={m["tabs.newTab"]()}
                 >
                   <Plus size={16} />
                 </Button>

@@ -3,6 +3,8 @@ import type { ComponentPropsWithRef, CSSProperties } from "react";
 import { type RowData, type Header as HeaderType } from "@tanstack/react-table";
 import { cn } from "tailwind-variants";
 
+import { m } from "#paraglide/messages";
+
 import type { Features } from "./tableFeatures";
 
 type ColumnResizerProps<TData extends RowData, TValue> = {
@@ -51,11 +53,12 @@ const ColumnResizer = <TData extends RowData, TValue>({
         type="range"
         className="sr-only"
         aria-orientation="horizontal"
-        aria-label="Resizer"
+        aria-label={m["common.resize"]()}
         min={header.column.columnDef.minSize}
         max={header.column.columnDef.maxSize}
         value={header.column.getSize()}
-        aria-valuetext={`${header.column.getSize()} pixels`}
+        aria-valuetext={m["units.pixel"]({ count: header.column.getSize() })}
+        // aria-valuetext={`${header.column.getSize()} pixels`}
         readOnly
       />
       {children}

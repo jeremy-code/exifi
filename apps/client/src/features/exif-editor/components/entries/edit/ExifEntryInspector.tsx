@@ -4,6 +4,7 @@ import { cn } from "tailwind-variants";
 
 import { ExifEntryDraftContext } from "#features/exif-editor/contexts/ExifEntryDraftContext";
 import { useExifEntryDraft } from "#features/exif-editor/hooks/useExifEntryDraft";
+import { m } from "#paraglide/messages";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { Button } from "@exifi/ui/components/Button";
@@ -50,7 +51,7 @@ const ExifEntryInspector = ({
         </div>
         <ExifEntryByteEditor />
         <Button isDisabled={!isChanged} onPress={() => save()}>
-          {isChanged ? "Save changes" : "Saved"}
+          {isChanged ? m["editor.saveLoading"] : m["editor.saveSuccess"]}
         </Button>
       </ExifEntryDraftContext>
     </div>

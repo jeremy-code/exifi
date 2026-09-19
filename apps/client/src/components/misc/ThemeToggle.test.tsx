@@ -2,6 +2,8 @@ import type { UseThemeProps } from "next-themes";
 import { describe, expect, vi, test, beforeEach } from "vitest";
 import { render } from "vitest-browser-react";
 
+import { m } from "#paraglide/messages";
+
 import { ThemeToggle } from "./ThemeToggle";
 
 let mockResolvedTheme = "light";
@@ -24,7 +26,9 @@ describe("ThemeToggle", () => {
 
     const screen = await render(<ThemeToggle data-testid="theme-toggle" />);
 
-    expect(screen.getByLabelText("Switch to dark theme")).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(m["themeToggle.lightThemeLabel"]()),
+    ).toBeInTheDocument();
     expect(screen.getByTestId("theme-toggle")).not.toHaveAttribute(
       "data-selected",
       "true",
@@ -36,7 +40,9 @@ describe("ThemeToggle", () => {
 
     const screen = await render(<ThemeToggle data-testid="theme-toggle" />);
 
-    expect(screen.getByLabelText("Switch to light theme")).toBeInTheDocument();
+    expect(
+      screen.getByLabelText(m["themeToggle.darkThemeLabel"]()),
+    ).toBeInTheDocument();
     expect(screen.getByTestId("theme-toggle")).toHaveAttribute(
       "data-selected",
       "true",

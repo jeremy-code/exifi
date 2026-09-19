@@ -9,6 +9,7 @@ import { useShallow } from "zustand/react/shallow";
 
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
 import { addGpsEntriesFormOptions } from "#features/exif-editor/forms/addGpsEntriesForm";
+import { m } from "#paraglide/messages";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
 import { getCurrentPosition } from "#utils/getCurrentPosition";
 import { initializeGpsEntries } from "@exifi/core/exif/actions/initializeGpsEntries";
@@ -221,7 +222,7 @@ const ExifEntryAddGpsForm = ({
                   className="data-[pending=true]:invisible"
                   data-pending={isSubmitting}
                 >
-                  Submit
+                  {m["common.submit"]()}
                 </span>
               </Button>
             )}

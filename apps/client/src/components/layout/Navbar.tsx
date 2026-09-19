@@ -4,6 +4,7 @@ import { Link as RouterLink } from "@tanstack/react-router";
 import { cn } from "tailwind-variants";
 
 import { ThemeToggle } from "#components/misc/ThemeToggle";
+import { m } from "#paraglide/messages";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -28,7 +29,7 @@ const Navbar = ({ className, ...props }: NavbarProps) => {
       <div className="container flex h-full items-center justify-between">
         <RouterLink className="flex items-center gap-1 font-semibold" to="/">
           <img width="32" height="32" src="/favicon.svg" />
-          exifi
+          {m.siteTitle()}
         </RouterLink>
         <div className="flex items-center gap-2">
           <NavigationMenu className="grow max-sm:hidden">

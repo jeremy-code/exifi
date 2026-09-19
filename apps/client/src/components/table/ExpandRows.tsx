@@ -7,6 +7,7 @@ import {
 import { composeRenderProps } from "react-aria-components/composeRenderProps";
 import { cn } from "tailwind-variants";
 
+import { m } from "#paraglide/messages";
 import { composeTailwindRenderProps } from "@exifi/ui/utils/composeTailwindRenderProps";
 
 import type { Features } from "./tableFeatures";
@@ -23,7 +24,9 @@ const ExpandRows = <TData extends RowData>({
     <AriaButton
       data-state={row.getIsExpanded() ? "open" : "closed"}
       onPress={row.getToggleExpandedHandler()}
-      aria-label={row.getIsExpanded() ? "Collapse" : "Expand"}
+      aria-label={
+        row.getIsExpanded() ? m["common.collapse"]() : m["common.expand"]()
+      }
       {...props}
       className={composeTailwindRenderProps(
         props.className,

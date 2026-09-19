@@ -1,9 +1,11 @@
 import type { ReactNode } from "react";
 
+import { ParaglideMessage } from "@inlang/paraglide-js-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Cog, Lock, Zap } from "lucide-react";
 
 import { Link as RouterLink } from "#components/common/Link";
+import { m } from "#paraglide/messages";
 import { getBaseUrl } from "#utils/getBaseUrl";
 import {
   Accordion,
@@ -18,7 +20,8 @@ import { Link } from "@exifi/ui/components/Link";
 
 type FeatureCardProps = {
   icon: ReactNode;
-  title: string;
+  key: string;
+  title: ReactNode;
   description: ReactNode;
 };
 
@@ -63,40 +66,42 @@ const FEATURES = [
         />
       </svg>
     ),
-    title: "Private",
+    key: "overview.feature1",
+    title: <ParaglideMessage message={m["overview.feature1.title"]} />,
     description: (
-      <span>
-        {"Images never leave your browser and are "}
-        <em>never</em>
-        {" uploaded to someone else's server"}
-      </span>
+      <ParaglideMessage
+        message={m["overview.feature1.description"]}
+        markup={{ em: (props) => <em {...props} /> }}
+      />
     ),
   },
   {
     icon: <Cog className="size-5" />,
-    title: "Standardized",
+    key: "overview.feature2",
+    title: <ParaglideMessage message={m["overview.feature2.title"]} />,
     description: (
-      <>
-        {"Uses the WebAssembly library "}
-        <Link
-          href="https://www.npmjs.com/package/libexif-wasm"
-          color="link"
-          underline="hover"
-        >
-          libexif-wasm
-        </Link>
-        {" based on the "}
-        <Link href="https://libexif.github.io/" color="link" underline="hover">
-          libexif
-        </Link>
-        {" C library, which supports all of Exif standard 2.1 and most of 2.2"}
-      </>
+      <ParaglideMessage
+        message={m["overview.feature2.description"]}
+        markup={{
+          link: (props) => (
+            <Link
+              color="link"
+              underline="hover"
+              {...props.options}
+              {...props}
+            />
+          ),
+        }}
+      />
     ),
   },
   {
     icon: <Zap className="size-5 fill-current stroke-0" />,
-    title: "Convenient",
-    description: "Read and write Exif data directly in the browser",
+    key: "overview.feature3",
+    title: <ParaglideMessage message={m["overview.feature3.title"]} />,
+    description: (
+      <ParaglideMessage message={m["overview.feature3.description"]} />
+    ),
   },
 ] satisfies FeatureCardProps[];
 
@@ -450,7 +455,7 @@ const HomeComponent = () => {
     <main className="container py-8">
       <div className="grid max-h-dvh min-h-80 place-content-center gap-8">
         <Heading level={1} size="4xl">
-          View and edit Exif data locally
+          {m["hero.title"]()}
         </Heading>
         <div className="flex items-center justify-start gap-2 md:justify-center">
           <RouterLink
@@ -460,7 +465,7 @@ const HomeComponent = () => {
               buttonVariants({ color: "accent", ...renderProps })
             }
           >
-            View
+            {m["hero.ctaViewer"]()}
           </RouterLink>
           <RouterLink
             to="/editor"
@@ -469,20 +474,20 @@ const HomeComponent = () => {
               buttonVariants({ variant: "ghost", ...renderProps })
             }
           >
-            Edit
+            {m["hero.ctaEditor"]()}
           </RouterLink>
         </div>
       </div>
       <div className="pt-16">
         <div className="text-center">
           <Heading level={2} size="3xl" id="features">
-            Features
+            {m["overview.title"]()}
           </Heading>
         </div>
         <div className="mt-12">
           <dl className="grid gap-6 md:grid-cols-3">
             {FEATURES.map((informationItem) => (
-              <FeatureCard key={informationItem.title} {...informationItem} />
+              <FeatureCard {...informationItem} key={informationItem.key} />
             ))}
           </dl>
         </div>
@@ -490,7 +495,7 @@ const HomeComponent = () => {
       <div className="py-16">
         <div className="text-center">
           <Heading level={2} size="3xl" id="faq">
-            FAQ
+            {m["faq.title"]()}
           </Heading>
         </div>
         <div className="mt-12">

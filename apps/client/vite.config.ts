@@ -71,8 +71,7 @@ const viteConfig = defineConfig({
       project: "./project.inlang",
       outdir: "./src/paraglide",
       emitTsDeclarations: true,
-      cookieName: "PARAGLIDE_LOCALE",
-      strategy: ["cookie", "baseLocale"],
+      strategy: ["localStorage", "preferredLanguage", "url", "baseLocale"],
     }),
     tanstackStart({
       router: {

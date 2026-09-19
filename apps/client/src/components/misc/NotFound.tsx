@@ -20,10 +20,10 @@ const NotFound = (props: NotFoundRouteProps) => {
       />
       <div className="flex flex-col items-start justify-center gap-2 sm:items-center">
         <Heading level={1} size="4xl">
-          {m.not_found_title()}
+          {m["notFound.title"]()}
         </Heading>
         <p className="text-muted-foreground mb-4">
-          {m.not_found_description()}
+          {m["notFound.description"]()}
         </p>
         <div role="group" className="flex gap-2">
           <Link
@@ -37,11 +37,11 @@ const NotFound = (props: NotFoundRouteProps) => {
             }
             to="/"
           >
-            {m.not_found_go_home()}
+            {m["navigation.home"]()}
           </Link>
           <Button variant="ghost" onClick={() => window.history.back()}>
             <ChevronLeft className="size-4" />
-            {m.not_found_go_back()}
+            {m["common.goBack"]()}
           </Button>
         </div>
       </div>

@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useListFormatter } from "react-aria/useListFormatter";
 import { z } from "zod";
 
+import { m } from "#paraglide/messages";
 import { useDropzoneStore } from "#stores/dropzoneStore";
 import { getFileFromResponse } from "#utils/getFileFromResponse";
 import { Button, type ButtonProps } from "@exifi/ui/components/Button";
@@ -124,12 +125,17 @@ const FileUrlInput = ({
                 "rounded-l-none",
               )}
             >
-              {isSubmitting && <Spinner className="absolute" />}
+              {isSubmitting && (
+                <Spinner
+                  aria-label={m["common.loading"]()}
+                  className="absolute"
+                />
+              )}
               <span
                 className="data-[pending=true]:invisible"
                 data-pending={isSubmitting}
               >
-                Upload
+                {m["common.upload"]()}
               </span>
             </Button>
           )}

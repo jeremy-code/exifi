@@ -28,6 +28,8 @@ const baseConfig = defineConfig({
     // TypeScript does not know that. Use `.flat()` to always get an array
     ...[turbo.configs?.["flat/recommended"]].flat()[0]?.rules,
 
+    "import/namespace": "allow",
+
     /**
      * Prefer TypeScript's `noImplicitReturns`
      *

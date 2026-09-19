@@ -71,8 +71,8 @@ const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       ...seo({
-        title: m.app_title(),
-        description: m.app_description(),
+        title: m.siteTitle(),
+        description: m.siteDescription(),
         keywords: ["exif", "local", "image", "metadata", "editor", "viewer"],
       }),
     ],

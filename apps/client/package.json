@@ -25,6 +25,7 @@
     "@exifi/schemas": "workspace:*",
     "@exifi/ui": "workspace:*",
     "@exifi/utils": "workspace:*",
+    "@inlang/paraglide-js-react": "^1.0.3",
     "@internationalized/date": "^3.12.4",
     "@internationalized/number": "^3.6.8",
     "@noble/hashes": "^2.4.0",

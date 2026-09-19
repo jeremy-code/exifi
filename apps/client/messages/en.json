@@ -1,12 +1,106 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
-  "app_title": "exifi",
-  "app_description": "Local Exif viewer and editor",
-  "nav_home": "Home",
-  "nav_viewer": "Viewer",
-  "nav_editor": "Editor",
-  "not_found_title": "Not Found",
-  "not_found_description": "The page you are looking for does not exist.",
-  "not_found_go_home": "Go Home",
-  "not_found_go_back": "Go Back"
+  "siteTitle": "exifi",
+  "siteDescription": "Local Exif viewer and editor",
+  "common": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "home": "Home",
+    "upload": "Upload",
+    "loading": "Loading...",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "delete": "Delete",
+    "retry": "Try again",
+    "notFound": "Page not found",
+    "goBack": "Go back",
+    "resize": "Resize"
+  },
+  "units": {
+    "pixel": [
+      {
+        "declarations": ["input count", "local countPlural = count: plural"],
+        "selectors": ["countPlural"],
+        "match": {
+          "countPlural=one": "{count} pixel",
+          "countPlural=other": "{count} pixels"
+        }
+      }
+    ]
+  },
+  "exif": {
+    "entry": [
+      {
+        "declarations": ["input count", "local countPlural = count: plural"],
+        "selectors": ["countPlural"],
+        "match": {
+          "countPlural=one": "{count} entry",
+          "countPlural=other": "{count} entries"
+        }
+      }
+    ]
+  },
+  "tabs": {
+    "newTab": "New tab",
+    "closeTab": "Close tab",
+    "unnamedFile": "Unnamed File"
+  },
+  "navigation": {
+    "home": "Home",
+    "viewer": "Viewer",
+    "editor": "Editor"
+  },
+  "serviceWorkerInstalled": {
+    "title": "Ready to work offline",
+    "description": "exifi has been cached and can now be used without an internet connection."
+  },
+  "notFound": {
+    "title": "Not found",
+    "description": "The page you are looking for does not exist."
+  },
+  "catchBoundary": {
+    "title": "An error occurred!",
+    "description": "An unexpected error occurred while the application was running."
+  },
+  "hero": {
+    "title": "View and edit Exif data locally",
+    "ctaViewer": "View",
+    "ctaEditor": "Edit"
+  },
+  "overview": {
+    "title": "Features",
+    "feature1": {
+      "title": "Private",
+      "description": "Images never leave your browser and are {#em}never{/em} uploaded to someone else's server"
+    },
+    "feature2": {
+      "title": "Standardized",
+      "description": "Uses the WebAssembly library {#link href=|https://www.npmjs.com/package/libexif-wasm|}libexif-wasm{/link} based on the {#link href=|https://libexif.github.io/|}libexif{/link} C library, which supports all of Exif standard 2.1 and most of 2.2"
+    },
+    "feature3": {
+      "title": "Convenient",
+      "description": "Read and write Exif data directly in the browser"
+    }
+  },
+  "faq": {
+    "title": "FAQ"
+  },
+  "editor": {
+    "save": "Save",
+    "saveLoading": "Saving...",
+    "saveSuccess": "Saved"
+  },
+  "dropzone": {
+    "label": "Upload file",
+    "description": "Drag a file here or {#button}upload a file{/button}",
+    "dragActive": "Drop a file here",
+    "removeFile": "Remove file"
+  },
+  "themeToggle": {
+    "darkThemeLabel": "Switch to light theme",
+    "lightThemeLabel": "Switch to dark theme"
+  },
+  "footer": {
+    "content": "Made with 🧋 by {#link}Jeremy Nguyen{/link}"
+  }
 }

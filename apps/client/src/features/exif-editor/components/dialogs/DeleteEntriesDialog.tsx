@@ -1,6 +1,7 @@
 import { Trash2 } from "lucide-react";
 import { useLocale } from "react-aria/I18nProvider";
 
+import { m } from "#paraglide/messages";
 import { formatPlural } from "#utils/formatPlural";
 import { Button } from "@exifi/ui/components/Button";
 import {
@@ -28,9 +29,9 @@ const DeleteEntriesDialog = ({
 
   return (
     <DialogTrigger {...props}>
-      <Button aria-label="Delete entries">
+      <Button>
         <Trash2 size={16} />
-        Delete
+        {m["common.delete"]()}
       </Button>
       <Modal
         aria-description="Delete Exif entries alert dialog"
@@ -51,7 +52,7 @@ const DeleteEntriesDialog = ({
           </DialogBody>
           <DialogFooter closeButton>
             <Button onPress={() => deleteRows()} className="ml-3">
-              Delete
+              {m["common.delete"]()}
             </Button>
           </DialogFooter>
         </Dialog>

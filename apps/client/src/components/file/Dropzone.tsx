@@ -1,5 +1,6 @@
 import type { ComponentPropsWithRef, RefObject } from "react";
 
+import { ParaglideMessage } from "@inlang/paraglide-js-react";
 import { Clapperboard, File, FileUp, Image, Music, X } from "lucide-react";
 import { Button as AriaButton } from "react-aria-components/Button";
 import { useLocale } from "react-aria/I18nProvider";
@@ -11,6 +12,7 @@ import {
 import { cn } from "tailwind-variants";
 import { useShallow } from "zustand/react/shallow";
 
+import { m } from "#paraglide/messages";
 import { useDropzoneStore } from "#stores/dropzoneStore";
 import { formatBytes } from "#utils/formatBytes";
 import { Button } from "@exifi/ui/components/Button";
@@ -62,7 +64,7 @@ const AcceptedFile = ({
         <Button
           size="icon"
           onPress={() => removeFile()}
-          aria-label="Remove file"
+          aria-label={m["dropzone.removeFile"]()}
         >
           <X className="size-4" />
         </Button>
@@ -125,26 +127,32 @@ const Dropzone = ({
       })}
     >
       <div className="inline-flex grow flex-row items-center justify-normal gap-2 max-sm:text-sm">
-        <FileUp aria-label="Upload file" />
+        <FileUp aria-label={m["dropzone.label"]()} />
         {isDragActive ? (
-          "Drop a file here"
+          m["dropzone.dragActive"]()
         ) : (
           <div>
-            {"Drag a file here or "}
-            <AriaButton
-              type="button"
-              className={(renderProps) =>
-                linkVariants({
-                  ...renderProps,
-                  underline: "hover",
-                  color: "link",
-                  className: "cursor-pointer appearance-none select-text",
-                })
-              }
-              onPress={open}
-            >
-              upload a file
-            </AriaButton>
+            <ParaglideMessage
+              message={m["dropzone.description"]}
+              markup={{
+                // oxlint-disable-next-line react/no-unstable-nested-components
+                button: (props) => (
+                  <AriaButton
+                    type="button"
+                    className={(renderProps) =>
+                      linkVariants({
+                        ...renderProps,
+                        underline: "hover",
+                        color: "link",
+                        className: "cursor-pointer appearance-none select-text",
+                      })
+                    }
+                    onPress={open}
+                    {...props}
+                  />
+                ),
+              }}
+            />
           </div>
         )}
       </div>
