@@ -69,7 +69,7 @@ const MobileNav = (props: Omit<MobileNavProps, "children">) => {
                   // a <NavigationMenu>
                   className={navigationMenuTriggerVariants({ variant: "link" })}
                 >
-                  {item.name}
+                  {item.name()}
                 </RouterLink>
               </li>
             ))}

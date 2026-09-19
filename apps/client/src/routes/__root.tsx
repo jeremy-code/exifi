@@ -11,11 +11,13 @@ import {
   Scripts,
   useLocation,
 } from "@tanstack/react-router";
-import { useLocale } from "react-aria/I18nProvider";
+import { I18nProvider } from "react-aria/I18nProvider";
 
 import { Footer } from "#components/layout/Footer";
 import { Navbar } from "#components/layout/Navbar";
 import { AppProvider } from "#components/misc/AppProvider";
+import { m } from "#paraglide/messages";
+import { getLocale, getTextDirection } from "#paraglide/runtime";
 import { getBaseUrl } from "#utils/getBaseUrl";
 import { seo } from "#utils/seo";
 import uiCss from "@exifi/ui/globals.css?url";
@@ -23,7 +25,8 @@ import uiCss from "@exifi/ui/globals.css?url";
 const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
   const pathname = useLocation({ select: (location) => location.pathname });
   const canonicalUrl = new URL(pathname, getBaseUrl()).toString();
-  const { locale, direction } = useLocale();
+  const locale = getLocale();
+  const direction = getTextDirection(locale);
 
   return (
     /**
@@ -51,11 +54,13 @@ const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
 const RootComponent = () => {
   return (
     <RootDocument>
-      <AppProvider>
-        <Navbar />
-        <Outlet />
-        <Footer />
-      </AppProvider>
+      <I18nProvider locale={getLocale()}>
+        <AppProvider>
+          <Navbar />
+          <Outlet />
+          <Footer />
+        </AppProvider>
+      </I18nProvider>
     </RootDocument>
   );
 };
@@ -66,8 +71,8 @@ const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       ...seo({
-        title: "exifi",
-        description: "Local Exif viewer and editor",
+        title: m.app_title(),
+        description: m.app_description(),
         keywords: ["exif", "local", "image", "metadata", "editor", "viewer"],
       }),
     ],

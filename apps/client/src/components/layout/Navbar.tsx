@@ -36,7 +36,7 @@ const Navbar = ({ className, ...props }: NavbarProps) => {
               {NAVIGATION_ITEMS.map((item) => (
                 <NavigationMenuItem key={item.href}>
                   <NavigationMenuLink asChild variant="trigger">
-                    <RouterLink to={item.href}>{item.name}</RouterLink>
+                    <RouterLink to={item.href}>{item.name()}</RouterLink>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               ))}

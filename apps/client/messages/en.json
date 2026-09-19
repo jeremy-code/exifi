@@ -1,0 +1,12 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "app_title": "exifi",
+  "app_description": "Local Exif viewer and editor",
+  "nav_home": "Home",
+  "nav_viewer": "Viewer",
+  "nav_editor": "Editor",
+  "not_found_title": "Not Found",
+  "not_found_description": "The page you are looking for does not exist.",
+  "not_found_go_home": "Go Home",
+  "not_found_go_back": "Go Back"
+}

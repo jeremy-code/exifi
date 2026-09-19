@@ -65,6 +65,7 @@
   "devDependencies": {
     "@exifi/test-fixtures": "workspace:*",
     "@hey-api/openapi-ts": "^0.99.0",
+    "@inlang/paraglide-js": "^2.25.4",
     "@serwist/vite": "^9.5.12",
     "@tailwindcss/vite": "^4.3.3",
     "@tanstack/devtools-vite": "^0.8.5",

@@ -1,22 +1,24 @@
 import type { FileRoutesByPath } from "@tanstack/react-router";
 
+import { m } from "#paraglide/messages";
+
 type NavigationItem = {
   href: FileRoutesByPath[keyof FileRoutesByPath]["path"];
-  name: string;
+  name: () => string;
 };
 
 const NAVIGATION_ITEMS = [
   {
     href: "/",
-    name: "Home",
+    name: m.nav_home,
   },
   {
     href: "/viewer",
-    name: "Viewer",
+    name: m.nav_viewer,
   },
   {
     href: "/editor",
-    name: "Editor",
+    name: m.nav_editor,
   },
 ] satisfies NavigationItem[];
 

@@ -8,6 +8,9 @@
   },
   "js/ts.tsdk.path": "./node_modules/typescript/lib",
   "js/ts.tsdk.promptToUseWorkspaceVersion": true, // Use the workspace TypeScript version
+  "json.schemaDownload.trustedDomains": {
+    "https://inlang.com": true
+  },
 
   "tailwindCSS.classFunctions": ["cx", "cn", "cnMerge", "tv", "twMerge"],
   "[json][jsonc][typescript][typescriptreact]": {

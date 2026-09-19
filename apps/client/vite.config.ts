@@ -1,3 +1,4 @@
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 import {
   createApi,
   createContext,
@@ -65,6 +66,14 @@ const url = z
 
 const viteConfig = defineConfig({
   plugins: [
+    // https://paraglidejs.com/docs/build-tools/vite
+    paraglideVitePlugin({
+      project: "./project.inlang",
+      outdir: "./src/paraglide",
+      emitTsDeclarations: true,
+      cookieName: "PARAGLIDE_LOCALE",
+      strategy: ["cookie", "baseLocale"],
+    }),
     tanstackStart({
       router: {
         generatedRouteTree: "generated/routeTree.gen.ts",
