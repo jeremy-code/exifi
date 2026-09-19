@@ -12,6 +12,8 @@ import {
   useLocation,
 } from "@tanstack/react-router";
 import { I18nProvider } from "react-aria/I18nProvider";
+import * as z from "zod";
+import { en } from "zod/locales";
 
 import { Footer } from "#components/layout/Footer";
 import { Navbar } from "#components/layout/Navbar";
@@ -21,6 +23,9 @@ import { getLocale, getTextDirection } from "#paraglide/runtime";
 import { getBaseUrl } from "#utils/getBaseUrl";
 import { seo } from "#utils/seo";
 import uiCss from "@exifi/ui/globals.css?url";
+
+// Only important supported languages
+z.config(en());
 
 const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
   const pathname = useLocation({ select: (location) => location.pathname });

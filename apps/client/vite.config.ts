@@ -1,4 +1,5 @@
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
+import optimizeLocales from "@react-aria/optimize-locales-plugin";
 import {
   createApi,
   createContext,
@@ -90,6 +91,7 @@ const viteConfig = defineConfig({
     }),
     react({ compiler: true }),
     tailwindcss({ optimize: { minify: true } }),
+    optimizeLocales.vite({ locales: ["en-US"] }),
     fontless(),
     devtools(),
     serwist({
