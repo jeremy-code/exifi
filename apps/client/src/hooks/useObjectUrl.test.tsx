@@ -3,16 +3,18 @@ import { renderHook } from "vitest-browser-react";
 
 import { useObjectUrl } from "./useObjectUrl";
 
+const renderUseObjectUrl = (obj: Blob | MediaSource) =>
+  renderHook((initialProps) => useObjectUrl(initialProps!), {
+    initialProps: obj,
+  });
+
 describe("useObjectUrl", () => {
   test("should create and revoke object URL only once after initial render", async () => {
     const blob = new Blob(["Hello, world!"], { type: "text/plain" });
 
     using createObjectUrlSpy = vi.spyOn(URL, "createObjectURL");
     using revokeObjectUrlSpy = vi.spyOn(URL, "revokeObjectURL");
-    const { result, unmount } = await renderHook(
-      (initialProps) => useObjectUrl(initialProps!),
-      { initialProps: blob },
-    );
+    const { result, unmount } = await renderUseObjectUrl(blob);
     expect(createObjectUrlSpy).toHaveBeenCalledExactlyOnceWith(blob);
     expect(revokeObjectUrlSpy).not.toHaveBeenCalled();
     const objectUrl = result.current;
@@ -31,10 +33,7 @@ describe("useObjectUrl", () => {
     using createObjectUrlSpy = vi.spyOn(URL, "createObjectURL");
     using revokeObjectUrlSpy = vi.spyOn(URL, "revokeObjectURL");
 
-    const { rerender, result, unmount } = await renderHook(
-      (initialProps) => useObjectUrl(initialProps!),
-      { initialProps: blob1 },
-    );
+    const { rerender, result, unmount } = await renderUseObjectUrl(blob1);
     expect(createObjectUrlSpy).toHaveBeenCalledExactlyOnceWith(blob1);
     expect(revokeObjectUrlSpy).not.toHaveBeenCalled();
     const objectUrl1 = result.current;
@@ -61,10 +60,7 @@ describe("useObjectUrl", () => {
     using createObjectUrlSpy = vi.spyOn(URL, "createObjectURL");
     using revokeObjectUrlSpy = vi.spyOn(URL, "revokeObjectURL");
 
-    const { rerender, result, unmount } = await renderHook(
-      (initialProps) => useObjectUrl(initialProps!),
-      { initialProps: blob },
-    );
+    const { rerender, result, unmount } = await renderUseObjectUrl(blob);
     expect(createObjectUrlSpy).toHaveBeenCalledExactlyOnceWith(blob);
     expect(revokeObjectUrlSpy).not.toHaveBeenCalled();
     const objectUrl = result.current;

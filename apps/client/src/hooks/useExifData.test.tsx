@@ -14,11 +14,10 @@ const test = baseTest
   .extend("plainJpgWithExif", () => getFixture("plain-jpg-with-exif"));
 
 const renderUseExifData = (file: File) =>
-  renderHook(
-    // @ts-expect-error -- think the types are wrong
-    useExifData,
-    { initialProps: file, wrapper: AppProvider },
-  );
+  renderHook((initialProps) => useExifData(initialProps!), {
+    initialProps: file,
+    wrapper: AppProvider,
+  });
 
 describe("useExifData", () => {
   test("returns ExifData with Exif data", async ({ plainJpgWithExif }) => {

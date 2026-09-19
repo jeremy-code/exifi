@@ -10,6 +10,11 @@ const SHA256 = {
   foo: "2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae",
 } as const;
 
+const renderUseBlobHash = (blob: Blob) =>
+  renderHook((initialProps) => useBlobHash(initialProps!), {
+    initialProps: blob,
+  });
+
 describe("useBlobHash", () => {
   afterEach(() => {
     vi.restoreAllMocks();
@@ -22,10 +27,7 @@ describe("useBlobHash", () => {
   ] as const)(
     "returns the correct SHA-256 digest for a blob with content %s",
     async ([, blob, expectedHash]) => {
-      const { result } = await renderHook(
-        (initialProps) => useBlobHash(initialProps!),
-        { initialProps: blob },
-      );
+      const { result } = await renderUseBlobHash(blob);
       // result.current may be null while suspending (more noticable in CI)
       await expect.poll(() => result.current).toBe(expectedHash);
     },
@@ -34,10 +36,7 @@ describe("useBlobHash", () => {
   test("produces distinct hashes for files with different content", async () => {
     const file1 = new Blob(["hello"]);
     const file2 = new Blob(["world"]);
-    const { rerender, result } = await renderHook(
-      (initialProps) => useBlobHash(initialProps!),
-      { initialProps: file1 },
-    );
+    const { rerender, result } = await renderUseBlobHash(file1);
 
     await expect.poll(() => result.current).toBe(SHA256.hello);
     await rerender(file2);
@@ -47,10 +46,7 @@ describe("useBlobHash", () => {
   test("produces the same hash for two different Blob instances", async () => {
     const blob1 = new Blob(["foo"]);
     const blob2 = new Blob(["foo"]);
-    const { rerender, result } = await renderHook(
-      (initialProps) => useBlobHash(initialProps!),
-      { initialProps: blob1 },
-    );
+    const { rerender, result } = await renderUseBlobHash(blob1);
 
     await expect.poll(() => result.current).toBe(SHA256.foo);
     await rerender(blob2);
@@ -61,10 +57,7 @@ describe("useBlobHash", () => {
     const blob = new Blob(["cached"]);
     const arrayBufferSpy = vi.spyOn(blob, "arrayBuffer");
 
-    const { rerender } = await renderHook(
-      (initialProps) => useBlobHash(initialProps!),
-      { initialProps: blob },
-    );
+    const { rerender } = await renderUseBlobHash(blob);
 
     expect(arrayBufferSpy).toHaveBeenCalledOnce();
     await rerender(blob);
@@ -77,10 +70,7 @@ describe("useBlobHash", () => {
     const spy1 = vi.spyOn(blob1, "arrayBuffer");
     const spy2 = vi.spyOn(blob2, "arrayBuffer");
 
-    const { rerender } = await renderHook(
-      (initialProps) => useBlobHash(initialProps!),
-      { initialProps: blob1 },
-    );
+    const { rerender } = await renderUseBlobHash(blob1);
 
     expect(spy1).toHaveBeenCalledOnce();
     await rerender(blob2);

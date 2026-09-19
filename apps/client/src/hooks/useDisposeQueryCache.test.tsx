@@ -7,6 +7,11 @@ import { useDisposeQueryCache } from "./useDisposeQueryCache";
 const createMockDisposable = () =>
   ({ [Symbol.dispose]: vi.fn<() => void>() }) satisfies Disposable;
 
+const renderUseDisposeQueryCache = (queryClient: QueryClient) =>
+  renderHook((initialProps) => useDisposeQueryCache(initialProps!), {
+    initialProps: queryClient,
+  });
+
 describe("useDisposeQueryCache", () => {
   let queryClient: QueryClient;
 
@@ -24,9 +29,7 @@ describe("useDisposeQueryCache", () => {
   test("disposes a disposable when a query is removed", async () => {
     const disposable = createMockDisposable();
 
-    await renderHook((initialProps) => useDisposeQueryCache(initialProps!), {
-      initialProps: queryClient,
-    });
+    await renderUseDisposeQueryCache(queryClient);
 
     queryClient.setQueryData(["test"], disposable);
 
@@ -42,9 +45,7 @@ describe("useDisposeQueryCache", () => {
   test("does not dispose when the same disposable instance is set again", async () => {
     const disposable = createMockDisposable();
 
-    await renderHook((initialProps) => useDisposeQueryCache(initialProps!), {
-      initialProps: queryClient,
-    });
+    await renderUseDisposeQueryCache(queryClient);
 
     queryClient.setQueryData(["test"], disposable);
     queryClient.setQueryData(["test"], disposable);
@@ -53,9 +54,7 @@ describe("useDisposeQueryCache", () => {
   });
 
   test("ignores non-disposable query data", async () => {
-    await renderHook((initialProps) => useDisposeQueryCache(initialProps!), {
-      initialProps: queryClient,
-    });
+    await renderUseDisposeQueryCache(queryClient);
 
     queryClient.setQueryData(["test"], { hello: "world" });
 
@@ -68,9 +67,7 @@ describe("useDisposeQueryCache", () => {
     const disposable1 = createMockDisposable();
     const disposable2 = createMockDisposable();
 
-    await renderHook((initialProps) => useDisposeQueryCache(initialProps!), {
-      initialProps: queryClient,
-    });
+    await renderUseDisposeQueryCache(queryClient);
 
     queryClient.setQueryData(["query-1"], disposable1);
     queryClient.setQueryData(["query-2"], disposable2);
@@ -98,9 +95,7 @@ describe("useDisposeQueryCache", () => {
       }),
     };
 
-    await renderHook((initialProps) => useDisposeQueryCache(initialProps!), {
-      initialProps: queryClient,
-    });
+    await renderUseDisposeQueryCache(queryClient);
 
     queryClient.setQueryData(["test"], disposable);
 
@@ -130,10 +125,7 @@ describe("useDisposeQueryCache", () => {
       };
     });
 
-    const { unmount } = await renderHook(
-      (initialProps) => useDisposeQueryCache(initialProps!),
-      { initialProps: queryClient },
-    );
+    const { unmount } = await renderUseDisposeQueryCache(queryClient);
 
     await unmount();
 
