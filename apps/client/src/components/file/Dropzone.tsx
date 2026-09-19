@@ -135,7 +135,6 @@ const Dropzone = ({
             <ParaglideMessage
               message={m["dropzone.description"]}
               markup={{
-                // oxlint-disable-next-line react/no-unstable-nested-components
                 button: (props) => (
                   <AriaButton
                     type="button"

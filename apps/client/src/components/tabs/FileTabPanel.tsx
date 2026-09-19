@@ -40,7 +40,6 @@ const FileTabPanel = ({
             <ParaglideMessage
               message={m.curly_spicy_cougar_feast}
               markup={{
-                // oxlint-disable-next-line react/no-unstable-nested-components
                 link: (linkProps) => (
                   <RouterLink
                     {...linkProps}

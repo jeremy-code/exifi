@@ -1,7 +1,6 @@
 import { exifIfdGetName, ExifTagInfo, type ExifContent } from "libexif-wasm";
-import { useLocale } from "react-aria/I18nProvider";
 
-import { formatPlural } from "#utils/formatPlural";
+import { m } from "#paraglide/messages";
 import {
   AccordionItem,
   AccordionHeader,
@@ -21,8 +20,6 @@ import {
 } from "@exifi/ui/components/Tooltip";
 
 const IfdAccordionItem = ({ exifContent }: { exifContent: ExifContent }) => {
-  const { locale } = useLocale();
-
   const ifdName = exifContent.ifd;
   if (ifdName === null) {
     throw new Error("Invalid IFD");
@@ -36,11 +33,9 @@ const IfdAccordionItem = ({ exifContent }: { exifContent: ExifContent }) => {
         <div className="flex gap-2 text-sm in-data-[disabled=true]:opacity-50">
           {exifIfdGetName(ifdName)}
           <Badge>
-            {formatPlural(
-              exifContent.count,
-              { one: " tag", other: " tags" },
-              locale,
-            )}
+            {m.wise_curly_mallard_embrace({
+              count: exifContent.count,
+            })}
           </Badge>
         </div>
       </AccordionHeader>

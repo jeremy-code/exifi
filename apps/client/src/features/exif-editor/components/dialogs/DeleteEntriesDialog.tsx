@@ -1,8 +1,6 @@
 import { Trash2 } from "lucide-react";
-import { useLocale } from "react-aria/I18nProvider";
 
 import { m } from "#paraglide/messages";
-import { formatPlural } from "#utils/formatPlural";
 import { Button } from "@exifi/ui/components/Button";
 import {
   Dialog,
@@ -25,8 +23,6 @@ const DeleteEntriesDialog = ({
   deleteRows,
   ...props
 }: DeleteEntriesDialogProps) => {
-  const { locale } = useLocale();
-
   return (
     <DialogTrigger {...props}>
       <Button>
@@ -44,11 +40,7 @@ const DeleteEntriesDialog = ({
             <DialogTitle>{m.lower_watery_oryx_pride()}</DialogTitle>
           </DialogHeader>
           <DialogBody>
-            {`This action will delete ${formatPlural(
-              rows.length,
-              { one: " Exif entry", other: " Exif entries" },
-              locale,
-            )}`}
+            {m.shy_dark_snail_trip({ count: rows.length })}
           </DialogBody>
           <DialogFooter closeButton>
             <Button onPress={() => deleteRows()} className="ml-3">

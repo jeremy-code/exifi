@@ -1,5 +1,6 @@
 {
   "$schema": "https://inlang.com/schema/inlang-message-format",
+  "aloof_flaky_gazelle_work": "component",
   "siteTitle": "exifi",
   "siteDescription": "Local Exif viewer and editor",
   "common": {
@@ -19,13 +20,8 @@
   "units": {
     "pixel": [
       {
-        "declarations": [
-          "input count",
-          "local countPlural = count: plural"
-        ],
-        "selectors": [
-          "countPlural"
-        ],
+        "declarations": ["input count", "local countPlural = count: plural"],
+        "selectors": ["countPlural"],
         "match": {
           "countPlural=one": "{count} pixel",
           "countPlural=other": "{count} pixels"
@@ -36,13 +32,8 @@
   "exif": {
     "entry": [
       {
-        "declarations": [
-          "input count",
-          "local countPlural = count: plural"
-        ],
-        "selectors": [
-          "countPlural"
-        ],
+        "declarations": ["input count", "local countPlural = count: plural"],
+        "selectors": ["countPlural"],
         "match": {
           "countPlural=one": "{count} entry",
           "countPlural=other": "{count} entries"
@@ -196,11 +187,20 @@
   "blue_only_mule_fall": "Add GPS Exif entries",
   "front_level_lionfish_stab": "Add image dimensions",
   "patchy_slimy_crow_empower": "See more",
-  "green_caring_albatross_blend": "Initialize with default entries?",
+  "green_caring_albatross_blend": "There doesn't seem to be any Exif entries. {#button}Initialize with default entries?{/button}",
   "next_trick_shrike_slurp": "Value",
   "weak_zippy_koala_surge": "Support level",
   "best_legal_shell_enrich": "Add GPS Exif entries here. Click submit when you&apos;re done.",
-  "yummy_safe_haddock_compose": "Makernote",
+  "yummy_safe_haddock_compose": [
+    {
+      "declarations": ["input count", "local countPlural = count: plural"],
+      "selectors": ["countPlural"],
+      "match": {
+        "countPlural=one": "{count} Makernote tag",
+        "countPlural=other": "{count} Makernote tags"
+      }
+    }
+  ],
   "bold_happy_giraffe_talk": "Tag description",
   "calm_inclusive_platypus_climb": "Add component",
   "late_teary_myna_sway": "Add Image Unique ID",
@@ -210,5 +210,35 @@
   "fair_livid_llama_support": "Tag",
   "known_acidic_tuna_snip": "Value",
   "large_new_grebe_dart": "Remove component",
-  "short_giant_myna_snip": "Set Date and Time Digitized to current time"
+  "short_giant_myna_snip": "Set Date and Time Digitized to current time",
+  "wise_curly_mallard_embrace": [
+    {
+      "declarations": ["input count", "local countPlural = count: plural"],
+      "selectors": ["countPlural"],
+      "match": {
+        "countPlural=one": "{count} tag",
+        "countPlural=other": "{count} tags"
+      }
+    }
+  ],
+  "shy_dark_snail_trip": [
+    {
+      "declarations": ["input count", "local countPlural = count: plural"],
+      "selectors": ["countPlural"],
+      "match": {
+        "countPlural=one": "{count} Exif entry",
+        "countPlural=other": "{count} Exif entries"
+      }
+    }
+  ],
+  "slow_warm_racoon_pave": [
+    {
+      "declarations": ["input count", "local countPlural = count: plural"],
+      "selectors": ["countPlural"],
+      "match": {
+        "countPlural=one": "{count} components",
+        "countPlural=other": "{count} components"
+      }
+    }
+  ]
 }

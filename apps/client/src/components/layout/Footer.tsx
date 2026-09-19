@@ -16,7 +16,6 @@ const Footer = ({ className, ...props }: ComponentPropsWithRef<"footer">) => {
           <ParaglideMessage
             message={m["footer.content"]}
             markup={{
-              // oxlint-disable-next-line react/no-unstable-nested-components
               link: (linkProps) => (
                 <Link
                   className="inline"

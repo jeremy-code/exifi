@@ -6,6 +6,7 @@ import {
   type CSSProperties,
 } from "react";
 
+import { ParaglideMessage } from "@inlang/paraglide-js-react";
 import {
   flexRender,
   useTable,
@@ -15,14 +16,12 @@ import {
 } from "@tanstack/react-table";
 import type { Ifd } from "libexif-wasm";
 import { Button as AriaButton } from "react-aria-components/Button";
-import { useLocale } from "react-aria/I18nProvider";
 import { useShallow } from "zustand/react/shallow";
 
 import { ColumnResizer } from "#components/table/ColumnResizer";
 import { ExpandRows } from "#components/table/ExpandRows";
 import { features } from "#components/table/tableFeatures";
 import { m } from "#paraglide/messages";
-import { formatPlural } from "#utils/formatPlural";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { Badge } from "@exifi/ui/components/Badge";
 import { linkVariants } from "@exifi/ui/components/Link";
@@ -54,7 +53,6 @@ const fallbackData: ExifEntryObject[] = [];
 type ExifTableProps = TableProps;
 
 const ExifTable = (props: ExifTableProps) => {
-  const { locale } = useLocale();
   const { exifDataObject, exifData, updateExifDataObject } = useExifEditor(
     useShallow((state) => ({
       exifDataObject: state.exifDataObject,
@@ -133,18 +131,27 @@ const ExifTable = (props: ExifTableProps) => {
   ) {
     return (
       <div className="mb-2 text-base">
-        {"There doesn't seem to be any Exif entries. "}
-        <AriaButton
-          className={(renderProps) =>
-            linkVariants({ ...renderProps, color: "blue", underline: true })
-          }
-          onPress={() => {
-            exifData.fix();
-            updateExifDataObject();
+        <ParaglideMessage
+          message={m["green_caring_albatross_blend"]}
+          markup={{
+            button: (buttonProps) => (
+              <AriaButton
+                className={(renderProps) =>
+                  linkVariants({
+                    ...renderProps,
+                    color: "blue",
+                    underline: true,
+                  })
+                }
+                onPress={() => {
+                  exifData.fix();
+                  updateExifDataObject();
+                }}
+                {...buttonProps}
+              />
+            ),
           }}
-        >
-          {m.green_caring_albatross_blend()}
-        </AriaButton>
+        />
       </div>
     );
   }
@@ -205,14 +212,9 @@ const ExifTable = (props: ExifTableProps) => {
                         cell.getContext(),
                       )}
                       <Badge>
-                        {formatPlural(
-                          row.subRows.length,
-                          {
-                            one: " tag",
-                            other: " tags",
-                          },
-                          locale,
-                        )}
+                        {m.wise_curly_mallard_embrace({
+                          count: row.subRows.length,
+                        })}
                       </Badge>
                     </ExpandRows>
                   ) : cell.getIsAggregated() ? (

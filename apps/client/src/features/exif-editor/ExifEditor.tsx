@@ -27,7 +27,6 @@ const ExifEditor = ({ file, className, ...props }: ExifEditorProps) => {
               <ParaglideMessage
                 message={m["less_front_cod_thrive"]}
                 markup={{
-                  // oxlint-disable-next-line react/no-unstable-nested-components
                   link: (linkProps) => (
                     <Link
                       color="blue"

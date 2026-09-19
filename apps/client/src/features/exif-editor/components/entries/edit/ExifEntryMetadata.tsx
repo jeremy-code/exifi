@@ -12,11 +12,9 @@ import {
   DisclosurePanel,
   Heading,
 } from "react-aria-components/Disclosure";
-import { useLocale } from "react-aria/I18nProvider";
 import { useNumberFormatter } from "react-aria/useNumberFormatter";
 
 import { m } from "#paraglide/messages";
-import { formatPlural } from "#utils/formatPlural";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { getEntryObjectLabel } from "@exifi/core/exif/utils/getEntryObjectLabel";
 import { Button } from "@exifi/ui/components/Button";
@@ -35,7 +33,6 @@ const ExifEntryMetadata = ({
   exifEntryObject,
   ...props
 }: ExifEntryMetadataProps) => {
-  const { locale } = useLocale();
   const byteNumberFormatter = useNumberFormatter({
     style: "unit",
     unit: "byte",
@@ -110,13 +107,8 @@ const ExifEntryMetadata = ({
                 {m.aware_slow_wren_dart()}
               </DataListItemLabel>
               <DataListItemValue>
-                {`${formatPlural(
-                  exifEntryObject.components,
-                  { one: " component", other: " components" },
-                  locale,
-                )} (${byteNumberFormatter.format(
-                  exifEntryObject.size,
-                )} in total)`}
+                {m.slow_warm_racoon_pave({ count: exifEntryObject.components })}
+                {` (${byteNumberFormatter.format(exifEntryObject.size)})`}
               </DataListItemValue>
             </DataListItem>
           </DataList>
