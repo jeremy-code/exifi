@@ -28,10 +28,7 @@ import { ExifDateTimeInformation } from "./ExifDateTimeInformation";
 import { ImageDimensions } from "./ImageDimensions";
 
 const ExifThumbnailInformation = ({ thumbnail }: { thumbnail: Uint8Array }) => {
-  const blob = useMemo(
-    () => new Blob([new Uint8Array(thumbnail)]),
-    [thumbnail],
-  );
+  const blob = useMemo(() => new Blob([thumbnail.slice()]), [thumbnail]);
   const blobUrl = useObjectUrl(blob);
   const imageDimensionsPromise = useMemo(
     () => imageDimensionsFromStream(blob.stream()),
@@ -39,14 +36,11 @@ const ExifThumbnailInformation = ({ thumbnail }: { thumbnail: Uint8Array }) => {
   );
 
   return (
-    <>
-      <Link href={blobUrl} color="blue">
-        Exists
-      </Link>{" "}
-      <Suspense fallback={<Skeleton className="h-[1em] w-15" />}>
-        (<ImageDimensions imageDimensionsPromise={imageDimensionsPromise} />)
-      </Suspense>
-    </>
+    <Suspense fallback={<Skeleton className="h-[1em] w-15" />}>
+      <Link className="inline" href={blobUrl} color="blue">
+        <ImageDimensions imageDimensionsPromise={imageDimensionsPromise} />
+      </Link>
+    </Suspense>
   );
 };
 
@@ -115,7 +109,7 @@ const ExifInformation = ({
             <DataListItemLabel className="min-w-unset">
               Thumbnail
             </DataListItemLabel>
-            <DataListItemValue className="inline">
+            <DataListItemValue>
               {exifData.data.length !== 0 ? (
                 <ExifThumbnailInformation thumbnail={exifData.data} />
               ) : (
