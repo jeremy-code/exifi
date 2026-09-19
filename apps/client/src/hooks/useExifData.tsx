@@ -3,7 +3,7 @@ import { ExifData } from "libexif-wasm";
 
 import { getExifData } from "@exifi/core/exif/utils/getExifData";
 
-import { useFileHash } from "./useFileHash";
+import { useBlobHash } from "./useBlobHash";
 
 /**
  * Since File objects cannot easily be serialized for caching in react-query,
@@ -12,7 +12,7 @@ import { useFileHash } from "./useFileHash";
  * file with different contents is provided
  */
 const useExifData = (file: File): ExifData | null => {
-  const fileHash = useFileHash(file);
+  const fileHash = useBlobHash(file);
   const { data: exifData } = useSuspenseQuery({
     queryKey: ["useExifData", file, fileHash],
     queryFn: async () => getExifData(file),

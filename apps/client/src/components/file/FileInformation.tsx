@@ -6,7 +6,7 @@ import { useDateFormatter } from "react-aria/useDateFormatter";
 import { useNumberFormatter } from "react-aria/useNumberFormatter";
 import { cn } from "tailwind-variants";
 
-import { useFileHash } from "#hooks/useFileHash";
+import { useBlobHash } from "#hooks/useBlobHash";
 import { useObjectUrl } from "#hooks/useObjectUrl";
 import { formatBytes } from "#utils/formatBytes";
 import { Badge } from "@exifi/ui/components/Badge";
@@ -37,7 +37,7 @@ const FileHashInformation = ({
   file,
   ...props
 }: { file: File } & DataListItemValueProps) => {
-  const fileHash = useFileHash(file);
+  const fileHash = useBlobHash(file);
   return (
     <DataListItemValue {...props}>{fileHash ?? "Unknown"}</DataListItemValue>
   );
