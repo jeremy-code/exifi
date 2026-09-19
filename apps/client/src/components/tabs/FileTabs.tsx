@@ -99,7 +99,7 @@ const FileTabs = ({ children, ...props }: FileTabsProps) => {
                   onPress={() => createNewTab()}
                   aria-label="New tab"
                 >
-                  <Plus size={16} />
+                  <Plus className="size-4" />
                 </Button>
               </div>
             </div>

@@ -67,7 +67,7 @@ const ExifDownload = () => {
           }
         }}
       >
-        <Save size={16} />
+        <Save className="size-4" />
         {!isDirty ? "Saved" : isPending ? "Saving..." : "Save"}
       </Button>
       <MenuTrigger

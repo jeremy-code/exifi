@@ -103,7 +103,7 @@ const CalendarHeader = ({ className, ...props }: CalendarHeaderProps) => {
         className="hover:bg-gray-200 dark:hover:bg-gray-700"
         slot="previous"
       >
-        <PreviousIcon aria-hidden size={18} />
+        <PreviousIcon aria-hidden className="size-4" />
       </Button>
       <Heading className="mx-2 my-0 flex-1 text-center text-base font-semibold text-fg-boldest [font-variation-settings:normal]" />
       <Button
@@ -112,7 +112,7 @@ const CalendarHeader = ({ className, ...props }: CalendarHeaderProps) => {
         className="hover:bg-gray-200 dark:hover:bg-gray-700"
         slot="next"
       >
-        <NextIcon aria-hidden size={18} />
+        <NextIcon aria-hidden className="size-4" />
       </Button>
     </header>
   );

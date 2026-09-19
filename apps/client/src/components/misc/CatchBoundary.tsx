@@ -59,7 +59,7 @@ const CatchBoundary = ({ error, reset }: ErrorComponentProps) => {
             </RouterLink>
           ) : (
             <Button variant="ghost" onPress={() => window.history.back()}>
-              <ChevronLeft size={16} />
+              <ChevronLeft className="size-4" />
               Go Back
             </Button>
           )}

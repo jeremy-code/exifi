@@ -121,10 +121,7 @@ const ExifEntryMetadata = ({
           className="group/collapsible-trigger mt-4"
           variant="muted"
         >
-          <ChevronDown
-            size={16}
-            className="transition-transform group-aria-expanded/collapsible-trigger:rotate-180"
-          />
+          <ChevronDown className="size-4 transition-transform group-aria-expanded/collapsible-trigger:rotate-180" />
           <span className="group-aria-[expanded=false]/collapsible-trigger:hidden">
             See less
           </span>

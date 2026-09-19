@@ -29,7 +29,7 @@ const DeleteEntriesDialog = ({
   return (
     <DialogTrigger {...props}>
       <Button aria-label="Delete entries">
-        <Trash2 size={16} />
+        <Trash2 className="size-4" />
         Delete
       </Button>
       <Modal

@@ -49,7 +49,7 @@ const FileTab = ({
         onPress={() => removeTab()}
         aria-label="Close tab"
       >
-        <X size={16} />
+        <X className="size-4" />
       </Button>
     </Tab>
   );

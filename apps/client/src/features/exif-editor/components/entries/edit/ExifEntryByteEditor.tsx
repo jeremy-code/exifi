@@ -96,7 +96,7 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
                   onPress={() => setDraft((prev) => prev.slice(0, -1))}
                   aria-label="Remove component"
                 >
-                  <Minus size={16} />
+                  <Minus className="size-4" />
                 </Button>
               )}
             {exifEntryObject.components <
@@ -118,7 +118,7 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
                 }}
                 aria-label="Add component"
               >
-                <Plus size={16} />
+                <Plus className="size-4" />
               </Button>
             )}
           </div>

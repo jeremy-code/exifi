@@ -31,9 +31,9 @@ const SortingHandlerToggle = <TData extends RowData, TValue>({
         <>
           {children}
           {column.getIsSorted() === "asc" ? (
-            <ArrowDownWideNarrow size={16} />
+            <ArrowDownWideNarrow className="size-4" />
           ) : column.getIsSorted() === "desc" ? (
-            <ArrowUpNarrowWide size={16} />
+            <ArrowUpNarrowWide className="size-4" />
           ) : null}
         </>
       ))}
