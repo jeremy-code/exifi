@@ -1,4 +1,4 @@
-import { Suspense, useMemo, type ComponentPropsWithRef } from "react";
+import { Suspense, type ComponentPropsWithRef } from "react";
 
 import { imageDimensionsFromStream } from "image-dimensions";
 import { type ExifData } from "libexif-wasm";
@@ -26,29 +26,6 @@ import { assertNever } from "@exifi/utils/assertNever";
 import { ExifDateTimeInformation } from "./ExifDateTimeInformation";
 import { ImageDimensions } from "./ImageDimensions";
 
-const ExifThumbnailInformation = ({ thumbnail }: { thumbnail: Uint8Array }) => {
-  const blob = useMemo(
-    () => new Blob([new Uint8Array(thumbnail)]),
-    [thumbnail],
-  );
-  const blobUrl = useObjectUrl(blob);
-  const imageDimensionsPromise = useMemo(
-    () => imageDimensionsFromStream(blob.stream()),
-    [blob],
-  );
-
-  return (
-    <>
-      <Link href={blobUrl} color="blue">
-        {m.whole_minor_ape_coax()}
-      </Link>{" "}
-      <Suspense fallback={<Skeleton className="h-[1em] w-15" />}>
-        (<ImageDimensions imageDimensionsPromise={imageDimensionsPromise} />)
-      </Suspense>
-    </>
-  );
-};
-
 type ExifInformationProps = {
   exifData: ExifData;
 } & ComponentPropsWithRef<typeof Card>;
@@ -58,6 +35,10 @@ const ExifInformation = ({
   className,
   ...props
 }: ExifInformationProps) => {
+  const blob = new Blob([new Uint8Array(exifData.data)]);
+  const blobUrl = useObjectUrl(blob);
+  const imageDimensionsPromise = imageDimensionsFromStream(blob.stream());
+
   return (
     <Card className={cn("max-w-full min-w-0", className)} {...props}>
       <CardHeader>
@@ -107,7 +88,13 @@ const ExifInformation = ({
             </DataListItemLabel>
             <DataListItemValue className="inline">
               {exifData.data.length !== 0 ? (
-                <ExifThumbnailInformation thumbnail={exifData.data} />
+                <Link href={blobUrl} color="blue">
+                  <Suspense fallback={<Skeleton className="h-[1em] w-15" />}>
+                    <ImageDimensions
+                      imageDimensionsPromise={imageDimensionsPromise}
+                    />
+                  </Suspense>
+                </Link>
               ) : (
                 m["exifInformation.thumbnailNotFound"]()
               )}
