@@ -4,8 +4,8 @@ import { Link as RouterLink } from "@tanstack/react-router";
 import { Disclosure, DisclosurePanel } from "react-aria-components/Disclosure";
 
 import { Button, type ButtonProps } from "@exifi/ui/components/Button";
-import { navigationMenuTriggerVariants } from "@exifi/ui/components/NavigationMenu";
 
+import { navigationMenuTriggerVariants } from "./Navbar";
 import { NAVIGATION_ITEMS } from "./constants";
 
 const MobileNavButton = (props: ButtonProps) => {
@@ -65,8 +65,6 @@ const MobileNav = (props: Omit<MobileNavProps, "children">) => {
               <li key={item.href}>
                 <RouterLink
                   to={item.href}
-                  // Using <NavigationMenuLink> would error due to not being in
-                  // a <NavigationMenu>
                   className={navigationMenuTriggerVariants({ variant: "link" })}
                 >
                   {item.name}
