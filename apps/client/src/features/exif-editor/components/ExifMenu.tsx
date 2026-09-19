@@ -5,6 +5,7 @@ import { useShallow } from "zustand/react/shallow";
 
 import { useFile } from "#contexts/FileContext";
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
+import { m } from "#paraglide/messages";
 import { getCurrentPosition } from "#utils/getCurrentPosition";
 import { addImageUniqueId } from "@exifi/core/exif/actions/addImageUniqueId";
 import { updateDateAndTimeDigitized } from "@exifi/core/exif/actions/updateDateAndTimeDigitized";
@@ -33,7 +34,7 @@ const ExifMenu = (props: ExifMenuProps) => {
             updateExifDataObject();
           }}
         >
-          Fix
+          {m.slimy_key_albatross_succeed()}
         </MenuItem>
         <MenuItem
           onAction={async () => {
@@ -49,7 +50,7 @@ const ExifMenu = (props: ExifMenuProps) => {
             updateExifDataObject();
           }}
         >
-          Add image dimensions
+          {m.front_level_lionfish_stab()}
         </MenuItem>
         <MenuItem
           onAction={async () => {
@@ -58,7 +59,7 @@ const ExifMenu = (props: ExifMenuProps) => {
             updateExifDataObject();
           }}
         >
-          Set Exif to current GPS position
+          {m.key_soft_swallow_jest()}
         </MenuItem>
         <MenuItem
           onAction={() => {
@@ -66,7 +67,7 @@ const ExifMenu = (props: ExifMenuProps) => {
             updateExifDataObject();
           }}
         >
-          Set Date and Time Digitized to current time
+          {m.short_giant_myna_snip()}
         </MenuItem>
         <MenuItem
           onAction={() => {
@@ -74,7 +75,7 @@ const ExifMenu = (props: ExifMenuProps) => {
             updateExifDataObject();
           }}
         >
-          Add Image Unique ID
+          {m.late_teary_myna_sway()}
         </MenuItem>
       </Menu>
     </MenuTrigger>

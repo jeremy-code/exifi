@@ -12,6 +12,7 @@ import {
 } from "react-aria-components/Disclosure";
 
 import { useExifEntryDraftContext } from "#features/exif-editor/contexts/ExifEntryDraftContext";
+import { m } from "#paraglide/messages";
 import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
 import { XP_TAGS } from "@exifi/core/exif/xp/constants";
 import { Button } from "@exifi/ui/components/Button";
@@ -57,10 +58,10 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
             variant="outline"
           >
             <span className="group-aria-[expanded=false]/collapsible-trigger:hidden">
-              Close byte editor
+              {m.game_moving_elk_jump()}
             </span>
             <span className="group-aria-expanded/collapsible-trigger:hidden">
-              Open byte editor
+              {m.top_bland_herring_shine()}
             </span>
           </Button>
         </Heading>
@@ -94,7 +95,7 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
                 <Button
                   size="icon"
                   onPress={() => setDraft((prev) => prev.slice(0, -1))}
-                  aria-label="Remove component"
+                  aria-label={m.large_new_grebe_dart()}
                 >
                   <Minus size={16} />
                 </Button>
@@ -116,7 +117,7 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
                     return (prev as number[]).concat([0]);
                   });
                 }}
-                aria-label="Add component"
+                aria-label={m.calm_inclusive_platypus_climb()}
               >
                 <Plus size={16} />
               </Button>

@@ -5,6 +5,7 @@ import { RationalInput } from "#components/editor/RationalInput";
 import { UserCommentSelect } from "#components/editor/UserCommentSelect";
 import { UserCommentTextarea } from "#components/editor/UserCommentTextarea";
 import type { AddEditor } from "#features/exif-editor/editors/add/interfaces";
+import { m } from "#paraglide/messages";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { getEntryObjectLabel } from "@exifi/core/exif/utils/getEntryObjectLabel";
 import { DateField } from "@exifi/ui/components/DateField";
@@ -52,7 +53,7 @@ const ExifEntryAddEditorFields = ({
     case "versionId":
       return (
         <>
-          <Label>Value</Label>
+          <Label>{m.helpful_small_pug_offer()}</Label>
           <GpsTagVersionInput aria-label={label} {...exifAddEditor} />
         </>
       );
@@ -97,7 +98,7 @@ const ExifEntryAddEditorFields = ({
     case "exifVersion":
       return (
         <>
-          <Label>Value</Label>
+          <Label>{m.known_acidic_tuna_snip()}</Label>
           <ExifVersionInput
             inputProps={{ "aria-label": label }}
             {...exifAddEditor}
@@ -107,7 +108,7 @@ const ExifEntryAddEditorFields = ({
     case "rational":
       return (
         <>
-          <Label>Value</Label>
+          <Label>{m.next_trick_shrike_slurp()}</Label>
           <RationalInput
             aria-label={label}
             placeholderRational={{ numerator: 0, denominator: 1 }}

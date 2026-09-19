@@ -1,6 +1,7 @@
 import type { ExifMnoteData } from "libexif-wasm";
 import { useLocale } from "react-aria/I18nProvider";
 
+import { m } from "#paraglide/messages";
 import { formatPlural } from "#utils/formatPlural";
 import {
   AccordionItem,
@@ -30,7 +31,7 @@ const MakerNoteAccordionItem = ({
     <AccordionItem id="MAKERNOTE">
       <AccordionHeader>
         <div className="flex gap-2">
-          Makernote
+          {m.yummy_safe_haddock_compose()}
           <Badge>
             {formatPlural(
               mnoteData.dataCount,

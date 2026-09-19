@@ -15,6 +15,7 @@ import {
 import { useLocale } from "react-aria/I18nProvider";
 import { useNumberFormatter } from "react-aria/useNumberFormatter";
 
+import { m } from "#paraglide/messages";
 import { formatPlural } from "#utils/formatPlural";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { getEntryObjectLabel } from "@exifi/core/exif/utils/getEntryObjectLabel";
@@ -45,13 +46,17 @@ const ExifEntryMetadata = ({
     <Disclosure {...props}>
       <DataList orientation="horizontal" variant="bold">
         <DataListItem>
-          <DataListItemLabel className="min-w-50">Tag</DataListItemLabel>
+          <DataListItemLabel className="min-w-50">
+            {m.fair_livid_llama_support()}
+          </DataListItemLabel>
           <DataListItemValue>
             {getEntryObjectLabel(exifEntryObject)}
           </DataListItemValue>
         </DataListItem>
         <DataListItem>
-          <DataListItemLabel className="min-w-50">Value</DataListItemLabel>
+          <DataListItemLabel className="min-w-50">
+            {m.silly_close_chipmunk_twirl()}
+          </DataListItemLabel>
           <DataListItemValue>
             {exifEntryObject.formattedValue}
           </DataListItemValue>
@@ -60,7 +65,7 @@ const ExifEntryMetadata = ({
           <DataList>
             <DataListItem>
               <DataListItemLabel className="min-w-50">
-                Tag description
+                {m.bold_happy_giraffe_talk()}
               </DataListItemLabel>
               <DataListItemValue>
                 {ExifTagInfo.getDescriptionInIfd(
@@ -71,7 +76,7 @@ const ExifEntryMetadata = ({
             </DataListItem>
             <DataListItem>
               <DataListItemLabel className="min-w-50">
-                Image File Directory
+                {m.maroon_front_flea_pick()}
               </DataListItemLabel>
               <DataListItemValue>
                 {exifIfdGetName(exifEntryObject.ifd)}
@@ -79,7 +84,7 @@ const ExifEntryMetadata = ({
             </DataListItem>
             <DataListItem>
               <DataListItemLabel className="min-w-50">
-                Support level
+                {m.weak_zippy_koala_surge()}
               </DataListItemLabel>
               <DataListItemValue>
                 {exifSupportLevelGetName(
@@ -91,7 +96,9 @@ const ExifEntryMetadata = ({
               </DataListItemValue>
             </DataListItem>
             <DataListItem>
-              <DataListItemLabel className="min-w-50">Format</DataListItemLabel>
+              <DataListItemLabel className="min-w-50">
+                {m.grassy_kind_mantis_propel()}
+              </DataListItemLabel>
               <DataListItemValue>
                 {`${exifFormatGetName(exifEntryObject.format)} (${byteNumberFormatter.format(
                   exifFormatGetSize(exifEntryObject.format),
@@ -100,7 +107,7 @@ const ExifEntryMetadata = ({
             </DataListItem>
             <DataListItem>
               <DataListItemLabel className="min-w-50">
-                Components
+                {m.aware_slow_wren_dart()}
               </DataListItemLabel>
               <DataListItemValue>
                 {`${formatPlural(
@@ -126,10 +133,10 @@ const ExifEntryMetadata = ({
             className="transition-transform group-aria-expanded/collapsible-trigger:rotate-180"
           />
           <span className="group-aria-[expanded=false]/collapsible-trigger:hidden">
-            See less
+            {m.vivid_quiet_lobster_leap()}
           </span>
           <span className="group-aria-expanded/collapsible-trigger:hidden">
-            See more
+            {m.patchy_slimy_crow_empower()}
           </span>
         </Button>
       </Heading>

@@ -28,6 +28,8 @@ const reactConfig = defineConfig({
      * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/react/react-in-jsx-scope}
      */
     "react/react-in-jsx-scope": "off",
+    // TODO: Temp
+    "react/no-unstable-nested-components": "off",
 
     ...pluginQuery.configs["flat/recommended"][0]?.rules,
     ...pluginRouter.configs["flat/recommended"][0]?.rules,

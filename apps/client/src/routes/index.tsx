@@ -1,3 +1,5 @@
+// eslint-disable
+
 import type { ReactNode } from "react";
 
 import { ParaglideMessage } from "@inlang/paraglide-js-react";

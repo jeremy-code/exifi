@@ -98,7 +98,7 @@ const ExifDownload = () => {
               void saveFile(exifDataFile);
             }}
           >
-            Download Exif data
+            {m.teary_teal_samuel_twirl()}
           </MenuItem>
           <MenuItem
             isDisabled={makerNoteEntryObject === undefined}
@@ -113,7 +113,7 @@ const ExifDownload = () => {
               }
             }}
           >
-            Download MakerNote data
+            {m.sad_left_rabbit_find()}
           </MenuItem>
         </Menu>
       </MenuTrigger>

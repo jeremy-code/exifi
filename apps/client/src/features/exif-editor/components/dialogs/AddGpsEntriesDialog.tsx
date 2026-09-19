@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { MapPin } from "lucide-react";
 
 import { useDialogState } from "#hooks/useDialogState";
+import { m } from "#paraglide/messages";
 import { Button } from "@exifi/ui/components/Button";
 import {
   Dialog,
@@ -19,8 +20,8 @@ import { Skeleton } from "@exifi/ui/components/Skeleton";
 type AddGpsEntriesDialogProps = Omit<DialogTriggerProps, "children">;
 
 const ExifEntryAddGpsForm = lazy(() =>
-  import("../entries/add/ExifEntryAddGpsForm").then((m) => ({
-    default: m.ExifEntryAddGpsForm,
+  import("../entries/add/ExifEntryAddGpsForm").then((mod) => ({
+    default: mod.ExifEntryAddGpsForm,
   })),
 );
 
@@ -33,12 +34,10 @@ const AddGpsEntriesDialog = (props: AddGpsEntriesDialogProps) => {
         <MapPin size="16" />
       </Button>
       <Modal isDismissable>
-        <Dialog aria-description="Add GPS Exif entries dialog">
+        <Dialog aria-description={m.blue_only_mule_fall()}>
           <DialogHeader>
-            <DialogTitle>Add GPS Exif entries</DialogTitle>
-            <DialogDescription>
-              Add GPS Exif entries here. Click submit when you&apos;re done.
-            </DialogDescription>
+            <DialogTitle>{m.blue_only_mule_fall()}</DialogTitle>
+            <DialogDescription>{m.best_legal_shell_enrich()}</DialogDescription>
           </DialogHeader>
           <DialogBody>
             <Suspense fallback={<Skeleton className="h-50 w-full" />}>

@@ -35,7 +35,7 @@ const Footer = ({ className, ...props }: ComponentPropsWithRef<"footer">) => {
           href="https://github.com/jeremy-code/exifi"
         >
           <Github aria-hidden className="size-4 fill-current stroke-0" />
-          GitHub
+          {m.spare_each_poodle_push()}
         </Link>
       </div>
     </footer>

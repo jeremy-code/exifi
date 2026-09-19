@@ -19,8 +19,13 @@
   "units": {
     "pixel": [
       {
-        "declarations": ["input count", "local countPlural = count: plural"],
-        "selectors": ["countPlural"],
+        "declarations": [
+          "input count",
+          "local countPlural = count: plural"
+        ],
+        "selectors": [
+          "countPlural"
+        ],
         "match": {
           "countPlural=one": "{count} pixel",
           "countPlural=other": "{count} pixels"
@@ -31,8 +36,13 @@
   "exif": {
     "entry": [
       {
-        "declarations": ["input count", "local countPlural = count: plural"],
-        "selectors": ["countPlural"],
+        "declarations": [
+          "input count",
+          "local countPlural = count: plural"
+        ],
+        "selectors": [
+          "countPlural"
+        ],
         "match": {
           "countPlural=one": "{count} entry",
           "countPlural=other": "{count} entries"
@@ -110,7 +120,7 @@
     "fileSize": "File size",
     "lastModified": "Last modified",
     "dimensions": "Dimensions",
-    "dimensionsPx": "{width}px \u00d7 {height}",
+    "dimensionsPx": "{width}px × {height}",
     "dimensionsUnknown": "Unknown",
     "fileHashSha256": "File hash (SHA-256)"
   },
@@ -136,5 +146,69 @@
       "title": "Fetching from URL failed",
       "description": "Fetching {url} failed with error {message}"
     }
-  }
+  },
+  "viewer": {
+    "noDataFound": "No Exif data was found in this file. Would you like to <link>open it in the editor</link> to add some?",
+    "noGpsDataFound": "The GPS IFD was found in the image EXIF metadata, but valid longitude and latitude coordinates were not found."
+  },
+  "trick_jolly_gopher_foster": "Upload file to view Exif metadata",
+  "wacky_close_bear_stop": "Exif tags",
+  "curly_spicy_cougar_feast": "For a quick demo, {#link}click here{/link}.",
+  "whole_minor_ape_coax": "Exists",
+  "less_front_cod_thrive": "Are you trying to edit a HEIF/HEIC/AVIF image? For now, exifi does not support updating Exif data for those images. For more information, see {#link}jeremy-code/exifi#13{/link}.",
+  "patient_odd_lizard_edit": "The GPS IFD was found in the image EXIF metadata, but valid longitude and latitude coordinates were not found.",
+  "noble_watery_panther_commend": "No Exif data was found in this file. Would you like to {#link}open it in the editor{/link} to add some?",
+  "teary_teal_samuel_twirl": "Download Exif data",
+  "sad_left_rabbit_find": "Download MakerNote data",
+  "weird_left_lobster_urge": "{count} selected",
+  "mad_soft_duck_persist": "View Exif data diff",
+  "only_last_lark_roam": "Licenses of bundled JavaScript dependencies can be found at {#link}/license.md{/link}.",
+  "super_away_robin_boil": "View the Exif data diff here.",
+  "acidic_formal_nils_spark": "Unknown commit",
+  "wacky_aloof_rooster_nourish": "Diff",
+  "lost_minor_ocelot_foster": "libexif-wasm version",
+  "plane_caring_sawfish_advise": "Build time",
+  "key_ideal_crab_push": "View Exif data diff",
+  "gray_lucky_cobra_tear": "Status",
+  "minor_wide_alligator_find": "Stay on page",
+  "tense_green_ant_find": "Leave page",
+  "nice_ago_vole_swim": "Add an Exif entry here. Click submit when you're done.",
+  "clean_that_penguin_file": "OR",
+  "spare_each_poodle_push": "GitHub",
+  "male_slimy_antelope_expand": "This page is asking you to confirm that you want to leave — information you've entered may not be saved",
+  "extra_vexed_starfish_mend": "Unsaved Exif data",
+  "clear_ideal_midge_feast": "Add Exif entry",
+  "best_slow_lobster_dream": "Edit Exif data",
+  "keen_each_octopus_vent": "Make changes to the Exif entry here. Click save when you're done.",
+  "maroon_front_flea_pick": "Image File Directory",
+  "key_soft_swallow_jest": "Set Exif to current GPS position",
+  "white_extra_duck_buy": "no changes",
+  "noisy_stout_eagle_twist": "Set latitude/longitude to current position",
+  "vivid_quiet_lobster_leap": "See less",
+  "lower_watery_oryx_pride": "Are you sure?",
+  "game_moving_elk_jump": "Close byte editor",
+  "silly_close_chipmunk_twirl": "Value",
+  "slimy_key_albatross_succeed": "Fix",
+  "helpful_small_pug_offer": "Value",
+  "grassy_kind_mantis_propel": "Format",
+  "aware_slow_wren_dart": "Components",
+  "gaudy_misty_ape_pat": "OpenStreetMap",
+  "blue_only_mule_fall": "Add GPS Exif entries",
+  "front_level_lionfish_stab": "Add image dimensions",
+  "patchy_slimy_crow_empower": "See more",
+  "green_caring_albatross_blend": "Initialize with default entries?",
+  "next_trick_shrike_slurp": "Value",
+  "weak_zippy_koala_surge": "Support level",
+  "best_legal_shell_enrich": "Add GPS Exif entries here. Click submit when you&apos;re done.",
+  "yummy_safe_haddock_compose": "Makernote",
+  "bold_happy_giraffe_talk": "Tag description",
+  "calm_inclusive_platypus_climb": "Add component",
+  "late_teary_myna_sway": "Add Image Unique ID",
+  "petty_noble_whale_tap": "Commit",
+  "top_bland_herring_shine": "Open byte editor",
+  "elegant_top_ladybug_agree": "geo URI",
+  "fair_livid_llama_support": "Tag",
+  "known_acidic_tuna_snip": "Value",
+  "large_new_grebe_dart": "Remove component",
+  "short_giant_myna_snip": "Set Date and Time Digitized to current time"
 }

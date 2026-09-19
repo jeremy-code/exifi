@@ -107,7 +107,7 @@ const ExifEntryAddGpsForm = ({
           );
         }}
       >
-        Set latitude/longitude to current position
+        {m.noisy_stout_eagle_twist()}
       </Button>
       <gpsForm.Subscribe selector={(state) => state.values}>
         {(values) => (

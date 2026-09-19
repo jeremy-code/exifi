@@ -1,8 +1,10 @@
 import { Suspense, type ComponentPropsWithRef } from "react";
 
+import { ParaglideMessage } from "@inlang/paraglide-js-react";
 import { cn } from "tailwind-variants";
 
 import { FileInformation } from "#components/file/FileInformation";
+import { m } from "#paraglide/messages";
 import { Callout, CalloutText } from "@exifi/ui/components/Callout";
 import { Link } from "@exifi/ui/components/Link";
 import { Skeleton } from "@exifi/ui/components/Skeleton";
@@ -22,16 +24,19 @@ const ExifEditor = ({ file, className, ...props }: ExifEditorProps) => {
         <Callout variant="warning" className="mb-2 w-full">
           <CalloutText>
             <span>
-              {
-                "Are you trying to edit a HEIF/HEIC/AVIF image? For now, exifi does not support updating Exif data for those images. For more information, see "
-              }
-              <Link
-                color="blue"
-                href="https://github.com/jeremy-code/exifi/issues/13"
-              >
-                jeremy-code/exifi#13
-              </Link>
-              {"."}
+              <ParaglideMessage
+                message={m["less_front_cod_thrive"]}
+                markup={{
+                  // oxlint-disable-next-line react/no-unstable-nested-components
+                  link: (linkProps) => (
+                    <Link
+                      color="blue"
+                      href="https://github.com/jeremy-code/exifi/issues/13"
+                      {...linkProps}
+                    />
+                  ),
+                }}
+              />
             </span>
           </CalloutText>
         </Callout>

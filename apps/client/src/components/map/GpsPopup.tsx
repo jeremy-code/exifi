@@ -8,6 +8,7 @@ import { useNominatimApiReverse } from "#hooks/useNominatimApiReverse";
 import { formatLatLng } from "#lib/leaflet/formatLatLng";
 import { formatLatLngAsGeoUri } from "#lib/leaflet/formatLatLngAsGeoUri";
 import { formatLatLngAsOsmUrl } from "#lib/leaflet/formatLatLngAsOsmUrl";
+import { m } from "#paraglide/messages";
 import {
   HorizontalList,
   HorizontalListItem,
@@ -46,12 +47,12 @@ const GpsPopup = ({ coordinate, label, ...props }: GpsPopupProps) => {
           <HorizontalList>
             <HorizontalListItem>
               <a href={formatLatLngAsOsmUrl(coordinate).href} target="_blank">
-                OpenStreetMap
+                {m.gaudy_misty_ape_pat()}
               </a>
             </HorizontalListItem>
             <HorizontalListItem>
               <a href={formatLatLngAsGeoUri(coordinate)} target="_blank">
-                geo URI
+                {m.elegant_top_ladybug_agree()}
               </a>
             </HorizontalListItem>
           </HorizontalList>

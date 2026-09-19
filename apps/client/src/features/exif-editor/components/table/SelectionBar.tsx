@@ -6,6 +6,7 @@ import { IFD_NAMES } from "libexif-wasm";
 
 import type { Features } from "#components/table/tableFeatures";
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
+import { m } from "#paraglide/messages";
 
 import { DeleteEntriesDialog } from "../dialogs/DeleteEntriesDialog";
 import type { ExifTableRow } from "./columns";
@@ -50,7 +51,7 @@ const SelectionBar = ({
     <div className="pointer-events-none fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+--spacing(4))] flex justify-center">
       <div className="pointer-events-auto flex items-center gap-3 rounded-[0.375rem] bg-surface px-3 py-2.5 shadow-md">
         <button className="inline-flex items-center gap-2 self-stretch rounded rounded-[0.25rem] border border-dashed px-4 py-1 text-sm">
-          {selectedRowIds.length} selected
+          {m.weird_left_lobster_urge({ count: selectedRowIds.length })}
         </button>
         <div className="h-5 w-px bg-border" />
         <DeleteEntriesDialog rows={selectedRowIds} deleteRows={deleteRows} />

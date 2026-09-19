@@ -1,7 +1,8 @@
+import { ParaglideMessage } from "@inlang/paraglide-js-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useDateFormatter } from "react-aria/useDateFormatter";
 
-import { getBaseUrl } from "#utils/getBaseUrl";
+import { m } from "#paraglide/messages";
 import { seo } from "#utils/seo";
 import { Card } from "@exifi/ui/components/Card";
 import {
@@ -22,21 +23,24 @@ const StatusComponent = () => {
     <main className="container flex flex-col gap-8 py-8">
       <div>
         <Heading level={1} size="2xl" className="mb-4">
-          Status
+          {m.gray_lucky_cobra_tear()}
         </Heading>
         <p className="text-fg-muted">
-          Licenses of bundled JavaScript dependencies can be found at{" "}
-          <Link color="link" href="/license.md">
-            {`${getBaseUrl()}/license.md`}
-          </Link>
-          {"."}
+          <ParaglideMessage
+            message={m["only_last_lark_roam"]}
+            markup={{
+              link: (props) => (
+                <Link color="link" href="/license.md" {...props} />
+              ),
+            }}
+          />
         </p>
       </div>
       <Card className="p-6">
         <DataList>
           <DataListItem className="max-sm:flex-col!">
             <DataListItemLabel className="min-w-40">
-              Build time
+              {m.plane_caring_sawfish_advise()}
             </DataListItemLabel>
             <DataListItemValue>
               <time dateTime={buildTimestampInstant.toString()}>
@@ -46,12 +50,14 @@ const StatusComponent = () => {
           </DataListItem>
           <DataListItem className="max-sm:flex-col!">
             <DataListItemLabel className="min-w-40">
-              libexif-wasm version
+              {m.lost_minor_ocelot_foster()}
             </DataListItemLabel>
             <DataListItemValue>{__LIBEXIF_WASM_VERSION__}</DataListItemValue>
           </DataListItem>
           <DataListItem className="max-sm:flex-col!">
-            <DataListItemLabel className="min-w-40">Commit</DataListItemLabel>
+            <DataListItemLabel className="min-w-40">
+              {m.petty_noble_whale_tap()}
+            </DataListItemLabel>
             <DataListItemValue>
               {import.meta.env.COMMIT_REF !== null ? (
                 <Link
@@ -61,7 +67,7 @@ const StatusComponent = () => {
                   {import.meta.env.COMMIT_REF}
                 </Link>
               ) : (
-                "Unknown commit"
+                m.acidic_formal_nils_spark()
               )}
             </DataListItemValue>
           </DataListItem>

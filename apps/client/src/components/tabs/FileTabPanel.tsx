@@ -1,9 +1,12 @@
 import type { ComponentPropsWithRef, ReactNode } from "react";
 
+import { ParaglideMessage } from "@inlang/paraglide-js-react";
+
 import { Link as RouterLink } from "#components/common/Link";
 import { Dropzone } from "#components/file/Dropzone";
 import { FileUrlInput } from "#components/file/FileUrlInput";
 import { FileProvider } from "#contexts/FileContext";
+import { m } from "#paraglide/messages";
 import { useDropzoneStore } from "#stores/dropzoneStore";
 import { Heading } from "@exifi/ui/components/Heading";
 import { TabPanel } from "@exifi/ui/components/Tabs";
@@ -31,21 +34,25 @@ const FileTabPanel = ({
       {file === null ? (
         <div className="flex flex-col gap-2">
           <Heading level={1} size="2xl" className="mb-1">
-            Upload file to view Exif metadata
+            {m.trick_jolly_gopher_foster()}
           </Heading>
           <p className="mb-4">
-            {"For a quick demo, "}
-            <RouterLink
-              color="link"
-              to="."
-              search={{
-                url: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg",
+            <ParaglideMessage
+              message={m.curly_spicy_cougar_feast}
+              markup={{
+                // oxlint-disable-next-line react/no-unstable-nested-components
+                link: (linkProps) => (
+                  <RouterLink
+                    {...linkProps}
+                    color="link"
+                    to="."
+                    search={{
+                      url: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg",
+                    }}
+                  />
+                ),
               }}
-            >
-              click here
-            </RouterLink>
-
-            {"."}
+            />
           </p>
 
           <Dropzone
@@ -69,7 +76,7 @@ const FileTabPanel = ({
           />
 
           <div className="flex items-center gap-4 text-fg-muted before:h-px before:grow before:bg-bg-muted after:h-px after:grow after:bg-bg-muted">
-            OR
+            {m.clean_that_penguin_file()}
           </div>
           <FileUrlInput
             onSuccess={(nextFile) => {

@@ -41,7 +41,7 @@ const DeleteEntriesDialog = ({
       >
         <Dialog role="alertdialog">
           <DialogHeader>
-            <DialogTitle>Are you sure?</DialogTitle>
+            <DialogTitle>{m.lower_watery_oryx_pride()}</DialogTitle>
           </DialogHeader>
           <DialogBody>
             {`This action will delete ${formatPlural(

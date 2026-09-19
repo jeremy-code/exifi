@@ -21,6 +21,7 @@ import { useShallow } from "zustand/react/shallow";
 import { ColumnResizer } from "#components/table/ColumnResizer";
 import { ExpandRows } from "#components/table/ExpandRows";
 import { features } from "#components/table/tableFeatures";
+import { m } from "#paraglide/messages";
 import { formatPlural } from "#utils/formatPlural";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { Badge } from "@exifi/ui/components/Badge";
@@ -142,7 +143,7 @@ const ExifTable = (props: ExifTableProps) => {
             updateExifDataObject();
           }}
         >
-          Initialize with default entries?
+          {m.green_caring_albatross_blend()}
         </AriaButton>
       </div>
     );

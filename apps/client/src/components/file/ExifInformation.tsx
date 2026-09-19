@@ -40,7 +40,7 @@ const ExifThumbnailInformation = ({ thumbnail }: { thumbnail: Uint8Array }) => {
   return (
     <>
       <Link href={blobUrl} color="blue">
-        Exists
+        {m.whole_minor_ape_coax()}
       </Link>{" "}
       <Suspense fallback={<Skeleton className="h-[1em] w-15" />}>
         (<ImageDimensions imageDimensionsPromise={imageDimensionsPromise} />)

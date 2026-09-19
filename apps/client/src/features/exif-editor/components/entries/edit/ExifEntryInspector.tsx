@@ -46,7 +46,9 @@ const ExifEntryInspector = ({
               }
             />
           ) : (
-            <span className="text-fg-muted italic">no changes</span>
+            <span className="text-fg-muted italic">
+              {m.white_extra_duck_buy()}
+            </span>
           )}
         </div>
         <ExifEntryByteEditor />
