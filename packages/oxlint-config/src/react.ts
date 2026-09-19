@@ -19,6 +19,11 @@ const reactConfig = defineConfig({
   ignorePatterns: ["src/generated/"],
   rules: {
     /**
+     * Temporarily enabled for help in finding strings to localize
+     * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/react/jsx-no-literals}
+     */
+    "react/jsx-no-literals": "warn",
+    /**
      * Not necessary, since using JSX runtime
      * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/react/react-in-jsx-scope}
      */
