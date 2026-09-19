@@ -8,6 +8,7 @@ import { cn } from "tailwind-variants";
 
 import { useFileHash } from "#hooks/useFileHash";
 import { useObjectUrl } from "#hooks/useObjectUrl";
+import { m } from "#paraglide/messages";
 import { formatBytes } from "#utils/formatBytes";
 import { Badge } from "@exifi/ui/components/Badge";
 import {
@@ -88,12 +89,14 @@ const FileInformation = ({
       </Card>
       <Card className="max-w-full min-w-0">
         <CardHeader>
-          <CardTitle>File information</CardTitle>
+          <CardTitle>{m["fileInformation.label"]()}</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
           <DataList orientation="vertical" variant="bold">
             <DataListItem>
-              <DataListItemLabel>File</DataListItemLabel>
+              <DataListItemLabel>
+                {m["fileInformation.file"]()}
+              </DataListItemLabel>
               <DataListItemValue className="flex-wrap gap-2">
                 <Link
                   className="line-clamp-1 cursor-pointer wrap-break-word break-all"
@@ -108,7 +111,9 @@ const FileInformation = ({
               </DataListItemValue>
             </DataListItem>
             <DataListItem>
-              <DataListItemLabel>File size</DataListItemLabel>
+              <DataListItemLabel>
+                {m["fileInformation.fileSize"]()}
+              </DataListItemLabel>
               <DataListItemValue>
                 <TooltipTrigger>
                   <TooltipTarget>
@@ -123,7 +128,9 @@ const FileInformation = ({
               </DataListItemValue>
             </DataListItem>
             <DataListItem>
-              <DataListItemLabel>Last modified</DataListItemLabel>
+              <DataListItemLabel>
+                {m["fileInformation.lastModified"]()}
+              </DataListItemLabel>
               <DataListItemValue>
                 <time dateTime={lastModified.toString()}>
                   {dateFormatter.format(lastModified)}
@@ -131,7 +138,9 @@ const FileInformation = ({
               </DataListItemValue>
             </DataListItem>
             <DataListItem>
-              <DataListItemLabel>Dimensions</DataListItemLabel>
+              <DataListItemLabel>
+                {m["fileInformation.dimensions"]()}
+              </DataListItemLabel>
               <DataListItemValue {...props}>
                 <Suspense fallback={<Skeleton className="h-5 w-20" />}>
                   <ImageDimensions
@@ -141,7 +150,9 @@ const FileInformation = ({
               </DataListItemValue>
             </DataListItem>
             <DataListItem>
-              <DataListItemLabel>File hash (SHA-256)</DataListItemLabel>
+              <DataListItemLabel>
+                {m["fileInformation.fileHashSha256"]()}
+              </DataListItemLabel>
               <Suspense fallback={<Skeleton className="h-5 w-60" />}>
                 <FileHashInformation
                   className="block overflow-hidden text-ellipsis"

@@ -102,5 +102,39 @@
   },
   "footer": {
     "content": "Made with 🧋 by {#link}Jeremy Nguyen{/link}"
+  },
+  "fileInformation": {
+    "label": "File information",
+    "file": "File",
+    "unknownFileType": "Unknown",
+    "fileSize": "File size",
+    "lastModified": "Last modified",
+    "dimensions": "Dimensions",
+    "dimensionsPx": "{width}px \u00d7 {height}",
+    "dimensionsUnknown": "Unknown",
+    "fileHashSha256": "File hash (SHA-256)"
+  },
+  "exifInformation": {
+    "label": "Exif information",
+    "byteOrder": "Byte order",
+    "byteOrderBE": "Big-endian",
+    "byteOrderLE": "Little-endian",
+    "dataType": "Data type",
+    "makernote": "Makernote",
+    "makernoteUnparsed": "Unable to parse",
+    "makernoteNotFound": "Does not exist",
+    "thumbnail": "Thumbnail",
+    "thumbnailNotFound": "Does not exist",
+    "numberOfEntries": "Number of entries",
+    "dateAndTime": "Date and time",
+    "dateAndTimeOriginal": "Date and time (original)",
+    "dateAndTimeDigitized": "Date and time (digitized)",
+    "dateAndTimeGps": "Data and time (GPS)"
+  },
+  "fileUrlInput": {
+    "error": {
+      "title": "Fetching from URL failed",
+      "description": "Fetching {url} failed with error {message}"
+    }
   }
 }

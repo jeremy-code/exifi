@@ -2,11 +2,10 @@ import { Suspense, useMemo, type ComponentPropsWithRef } from "react";
 
 import { imageDimensionsFromStream } from "image-dimensions";
 import { type ExifData } from "libexif-wasm";
-import { useLocale } from "react-aria/I18nProvider";
 import { cn } from "tailwind-variants";
 
 import { useObjectUrl } from "#hooks/useObjectUrl";
-import { formatPlural } from "#utils/formatPlural";
+import { m } from "#paraglide/messages";
 import { DATA_TYPE_MAP } from "@exifi/core/exif/constants";
 import {
   Card,
@@ -59,12 +58,10 @@ const ExifInformation = ({
   className,
   ...props
 }: ExifInformationProps) => {
-  const { locale } = useLocale();
-
   return (
     <Card className={cn("max-w-full min-w-0", className)} {...props}>
       <CardHeader>
-        <CardTitle>Exif information</CardTitle>
+        <CardTitle>{m["exifInformation.label"]()}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         <DataList
@@ -74,19 +71,19 @@ const ExifInformation = ({
         >
           <DataListItem>
             <DataListItemLabel className="min-w-unset!">
-              Byte order
+              {m["exifInformation.byteOrder"]()}
             </DataListItemLabel>
             <DataListItemValue>
               {exifData.byteOrder === "MOTOROLA"
-                ? "Big-endian"
+                ? m["exifInformation.byteOrderBE"]()
                 : exifData.byteOrder === "INTEL"
-                  ? "Little-endian"
+                  ? m["exifInformation.byteOrderLE"]()
                   : assertNever(exifData.byteOrder)}
             </DataListItemValue>
           </DataListItem>
           <DataListItem>
             <DataListItemLabel className="min-w-unset">
-              Data type
+              {m["exifInformation.dataType"]()}
             </DataListItemLabel>
             <DataListItemValue>
               {DATA_TYPE_MAP[exifData.dataType]}
@@ -94,38 +91,31 @@ const ExifInformation = ({
           </DataListItem>
           <DataListItem>
             <DataListItemLabel className="min-w-unset">
-              Makernote
+              {m["exifInformation.makernote"]()}
             </DataListItemLabel>
             <DataListItemValue>
               {exifData.mnoteData !== null
-                ? formatPlural(
-                    exifData.mnoteData.dataCount,
-                    {
-                      one: " entry",
-                      other: " entries",
-                    },
-                    locale,
-                  )
+                ? m["exif.entry"]({ count: exifData.mnoteData.dataCount })
                 : exifData.getEntry("MAKER_NOTE") !== null
-                  ? "Unable to parse"
-                  : "Does not exist"}
+                  ? m["exifInformation.makernoteUnparsed"]()
+                  : m["exifInformation.makernoteNotFound"]()}
             </DataListItemValue>
           </DataListItem>
           <DataListItem>
             <DataListItemLabel className="min-w-unset">
-              Thumbnail
+              {m["exifInformation.thumbnail"]()}
             </DataListItemLabel>
             <DataListItemValue className="inline">
               {exifData.data.length !== 0 ? (
                 <ExifThumbnailInformation thumbnail={exifData.data} />
               ) : (
-                "Does not exist"
+                m["exifInformation.thumbnailNotFound"]()
               )}
             </DataListItemValue>
           </DataListItem>
           <DataListItem>
             <DataListItemLabel className="min-w-unset">
-              Number of entries
+              {m["exifInformation.numberOfEntries"]()}
             </DataListItemLabel>
             <DataListItemValue>
               {exifData.ifd.reduce(

@@ -47,8 +47,11 @@ const FileUrlInput = ({
     onError: (error, variables) => {
       toastQueue.add(
         {
-          title: "Fetching from URL failed",
-          description: `Fetching ${variables} failed with error ${error.message}.`,
+          title: m["fileUrlInput.error.title"](),
+          description: m["fileUrlInput.error.description"]({
+            url: variables,
+            message: error.message,
+          }),
           toastProps: {
             color: "destructive",
           },
