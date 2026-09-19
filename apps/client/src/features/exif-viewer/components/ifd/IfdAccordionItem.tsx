@@ -73,7 +73,7 @@ const IfdAccordionItem = ({ exifContent }: { exifContent: ExifContent }) => {
                         title
                       )}
                     </DataListItemLabel>
-                    <DataListItemValue className="relative before:relative before:left-0 before:pr-1.5 before:text-fg-muted before:content-['=']">
+                    <DataListItemValue className="relative wrap-anywhere before:relative before:left-0 before:pr-1.5 before:text-fg-muted before:content-['=']">
                       {entry.toString()}
                     </DataListItemValue>
                   </DataListItem>
