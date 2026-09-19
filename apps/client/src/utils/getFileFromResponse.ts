@@ -67,11 +67,13 @@ const getFileFromResponse = async (response: Response): Promise<File> => {
   const blob = await response.blob();
 
   const contentType: string | undefined =
-    response.headers.get("Content-Type") ?? lookup(fileName) ?? blob.type;
+    response.headers.get("Content-Type") ??
+    lookup(fileName) ??
+    (await fileTypeFromBlob(blob))?.mime ??
+    blob.type;
 
   const file = new File([blob], fileName, {
-    type:
-      contentType !== "" ? contentType : (await fileTypeFromBlob(blob))?.mime,
+    type: contentType,
     lastModified: getLastModifiedFromResponse(response),
   });
 
