@@ -17,6 +17,7 @@ import {
   getEntryFromEntryObject,
   getOrInsertEntry,
   typedArrayInFormat,
+  serializeExifEntry,
 } from "@exifi/core/exif/utils";
 import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
@@ -82,10 +83,30 @@ const createExifEditorStore = (exifData: ExifData) =>
 
           exifEntry.fromTypedArray(typedArray);
 
-          const exifDataObject = serializeExifData(state.exifData);
+          const nextExifEntryObject = serializeExifEntry(exifEntry);
+
+          if (nextExifEntryObject === null) {
+            throw new Error("Somehow, exifEntryObject was null");
+          }
+
+          // Avoid reserializing ExifData as an optimization
+          const nextExifDataObject = {
+            ...state.exifDataObject,
+            ifd: {
+              ...state.exifDataObject.ifd,
+              [nextExifEntryObject.ifd]: state.exifDataObject.ifd[
+                nextExifEntryObject.ifd
+              ].map((entry) =>
+                entry.tag === nextExifEntryObject.tag
+                  ? nextExifEntryObject
+                  : entry,
+              ),
+            },
+          };
+
           return {
-            exifDataObject,
-            isDirty: !dequal(exifDataObject, state.initialExifDataObject),
+            exifDataObject: nextExifDataObject,
+            isDirty: !dequal(nextExifDataObject, state.initialExifDataObject),
           };
         });
       },
