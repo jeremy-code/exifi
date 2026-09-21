@@ -10,6 +10,6 @@
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.103.1",
     "@tanstack/eslint-plugin-router": "^1.162.0",
-    "eslint-plugin-turbo": "^2.10.13"
+    "eslint-plugin-turbo": "^2.11.2"
   }
 }

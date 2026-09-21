@@ -16,7 +16,7 @@
     "@exifi/utils": "workspace:*",
     "@internationalized/date": "^3.12.4",
     "decimal.js": "^10.6.0",
-    "file-type": "^22.1.0",
+    "file-type": "^22.1.1",
     "iconv-tiny": "^1.4.1",
     "libexif-wasm": "^0.5.5",
     "uuid": "^14.0.2"
@@ -24,8 +24,8 @@
   "devDependencies": {
     "@exifi/test-fixtures": "workspace:*",
     "@std/path": "jsr:^1.1.6",
-    "image-dimensions": "^2.5.1",
+    "image-dimensions": "^2.6.0",
     "mrmime": "^2.0.1",
-    "type-fest": "^5.9.0"
+    "type-fest": "^5.10.0"
   }
 }
