@@ -76,6 +76,11 @@ const ExifTable = (props: ExifTableProps) => {
     getSubRows: (originalRow) =>
       "entries" in originalRow ? originalRow.entries : undefined,
     columnResizeMode: "onChange",
+    // Since table rows are keyed by row ID, this optimizes React rendering
+    getRowId: (originalRow) =>
+      "entries" in originalRow
+        ? originalRow.ifd
+        : originalRow.ifd + "." + originalRow.tag,
     data: exifContentObjects ?? fallbackData,
     onRowSelectionChange: setRowSelection,
     initialState: {

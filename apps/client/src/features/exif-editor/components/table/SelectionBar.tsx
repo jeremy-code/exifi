@@ -2,7 +2,6 @@ import { useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
 
 import type { RowSelectionState, Table } from "@tanstack/react-table";
-import { IFD_NAMES } from "libexif-wasm";
 
 import type { Features } from "#components/table/tableFeatures";
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
@@ -20,10 +19,7 @@ const SelectionBar = ({
   const selectedRowIds = useMemo(
     () =>
       Object.entries(rowSelection)
-        .filter(
-          ([key, value]) =>
-            !IFD_NAMES.map((_, index) => String(index)).includes(key) && value,
-        )
+        .filter(([, value]) => value)
         .map(([rowId]) => rowId),
     [rowSelection],
   );
@@ -33,11 +29,10 @@ const SelectionBar = ({
       const selectedRow = table.getRow(selectedRowId).original;
       return !("entries" in selectedRow) ? [selectedRow] : [];
     });
-    if (selectedEntries.length === 0) {
-      throw new Error("Zero entries somehow selected");
+    if (selectedEntries.length !== 0) {
+      removeExifEntries(selectedEntries);
     }
 
-    removeExifEntries(selectedEntries);
     table.resetRowSelection();
   }, [selectedRowIds, removeExifEntries, table]);
 
