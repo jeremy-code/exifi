@@ -1,12 +1,9 @@
 #include <png.h>
 
+#include "../constants.hpp"
 #include "png.h"
 
 using namespace emscripten;
-
-// Equivalent to "Exif\0\0". Necessary for libexif to parse Exif data by itself
-// https://github.com/libexif/libexif/blob/aebe2a7b61a2fcd95f8d72e2d317027faf73fdc1/libexif/exif-data.c#L871-L881
-constexpr unsigned char ExifHeader[6] = {0x45, 0x78, 0x69, 0x66, 0x00, 0x00};
 
 struct PngReadBuffer {
   const unsigned char *data;
@@ -90,17 +87,18 @@ std::optional<Uint8Array> png_get_exif_data(const std::string png_data) {
   if (png_get_eXIf_1(png_ptr, info_ptr, &exif_data_len, &exif_data_ptr) != 0 &&
       exif_data_ptr != nullptr && exif_data_len > 0) {
     auto *output = static_cast<unsigned char *>(
-        malloc(std::size(ExifHeader) + exif_data_len));
+        malloc(std::size(constants::ExifHeader) + exif_data_len));
     if (output == nullptr) {
       png_destroy_read_struct(&png_ptr, &info_ptr, nullptr);
       return std::nullopt;
     }
 
-    memcpy(output, ExifHeader, std::size(ExifHeader));
-    memcpy(output + std::size(ExifHeader), exif_data_ptr, exif_data_len);
+    memcpy(output, constants::ExifHeader, std::size(constants::ExifHeader));
+    memcpy(output + std::size(constants::ExifHeader), exif_data_ptr,
+           exif_data_len);
     png_destroy_read_struct(&png_ptr, &info_ptr, nullptr);
-    return std::optional<Uint8Array>{Uint8Array(
-        val(typed_memory_view(std::size(ExifHeader) + exif_data_len, output)))};
+    return std::optional<Uint8Array>{Uint8Array(val(typed_memory_view(
+        std::size(constants::ExifHeader) + exif_data_len, output)))};
   }
 #endif
 
@@ -146,13 +144,13 @@ Uint8Array png_set_exif_data(const std::string png_data,
   png_read_png(read_png_ptr, info_ptr, PNG_TRANSFORM_IDENTITY, NULL);
 
 #ifdef PNG_eXIf_SUPPORTED
-  bool has_exif_header =
-      memcmp(exif_data.data(), ExifHeader, std::size(ExifHeader)) == 0;
+  bool has_exif_header = memcmp(exif_data.data(), constants::ExifHeader,
+                                std::size(constants::ExifHeader)) == 0;
   auto png_exif_data = reinterpret_cast<png_bytep>(const_cast<char *>(
-      has_exif_header ? exif_data.data() + std::size(ExifHeader)
+      has_exif_header ? exif_data.data() + std::size(constants::ExifHeader)
                       : exif_data.data()));
   auto png_exif_data_size = static_cast<png_uint_32>(
-      has_exif_header ? exif_data.size() - std::size(ExifHeader)
+      has_exif_header ? exif_data.size() - std::size(constants::ExifHeader)
                       : exif_data.size());
 
   png_set_eXIf_1(read_png_ptr, info_ptr, png_exif_data_size, png_exif_data);

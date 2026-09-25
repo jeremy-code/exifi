@@ -1,11 +1,9 @@
 #include <heic.h>
 
+#include "../constants.hpp"
 #include "heic.h"
 
 using namespace emscripten;
-
-// "Exif\0\0"
-constexpr unsigned char ExifHeader[6] = {0x45, 0x78, 0x69, 0x66, 0x00, 0x00};
 
 std::optional<Uint8Array> heic_get_exif_data(const std::string heic_data) {
   heic_init();
@@ -20,16 +18,17 @@ std::optional<Uint8Array> heic_get_exif_data(const std::string heic_data) {
   size_t exif_data_size;
   if (heic_doc_exif(doc, &exif_data, &exif_data_size)) {
     auto *output = static_cast<unsigned char *>(
-        malloc(std::size(ExifHeader) + exif_data_size));
+        malloc(std::size(constants::ExifHeader) + exif_data_size));
 
-    memcpy(output, ExifHeader, std::size(ExifHeader));
-    memcpy(output + std::size(ExifHeader), exif_data, exif_data_size);
+    memcpy(output, constants::ExifHeader, std::size(constants::ExifHeader));
+    memcpy(output + std::size(constants::ExifHeader), exif_data,
+           exif_data_size);
 
     heic_free(ctx, exif_data);
     heic_doc_close(doc);
     heic_ctx_free(ctx);
-    return std::optional<Uint8Array>{Uint8Array(val(
-        typed_memory_view(std::size(ExifHeader) + exif_data_size, output)))};
+    return std::optional<Uint8Array>{Uint8Array(val(typed_memory_view(
+        std::size(constants::ExifHeader) + exif_data_size, output)))};
   }
   heic_doc_close(doc);
   heic_ctx_free(ctx);

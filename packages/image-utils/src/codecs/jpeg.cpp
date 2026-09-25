@@ -2,12 +2,10 @@
 
 #include <jpeglib.h>
 
+#include "../constants.hpp"
 #include "jpeg.h"
 
 using namespace emscripten;
-
-// "Exif\0\0"
-constexpr unsigned char ExifHeader[6] = {0x45, 0x78, 0x69, 0x66, 0x00, 0x00};
 
 // "JFIF\0"
 constexpr unsigned char JfifHeader[5] = {0x4A, 0x46, 0x49, 0x46, 0x00};
@@ -69,8 +67,9 @@ Uint8Array jpeg_set_exif_data(const std::string jpeg_data,
   for (jpeg_saved_marker_ptr marker = srcinfo.marker_list; marker != NULL;
        marker = marker->next) {
     if (marker->marker == JPEG_APP1 &&
-        marker->data_length >= std::size(ExifHeader) &&
-        memcmp(marker->data, ExifHeader, std::size(ExifHeader)) == 0) {
+        marker->data_length >= std::size(constants::ExifHeader) &&
+        memcmp(marker->data, constants::ExifHeader,
+               std::size(constants::ExifHeader)) == 0) {
       is_exif_marker_found = true;
       marker->data = reinterpret_cast<unsigned char *>(
           const_cast<char *>(exif_data.data()));

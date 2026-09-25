@@ -1,11 +1,10 @@
 #include <webp/demux.h>
 #include <webp/mux.h>
 
+#include "../constants.hpp"
 #include "webp.h"
 
 using namespace emscripten;
-
-constexpr unsigned char ExifHeader[6] = {0x45, 0x78, 0x69, 0x66, 0x00, 0x00};
 
 std::optional<Uint8Array> webp_get_exif_data(const std::string webp_data) {
   WebPData input_data = {reinterpret_cast<const uint8_t *>(webp_data.data()),
@@ -21,17 +20,18 @@ std::optional<Uint8Array> webp_get_exif_data(const std::string webp_data) {
   if (flags & EXIF_FLAG) {
     WebPDemuxGetChunk(demux, "EXIF", 1, &chunk_iter);
     auto *output = static_cast<unsigned char *>(
-        malloc(std::size(ExifHeader) + chunk_iter.chunk.size));
+        malloc(std::size(constants::ExifHeader) + chunk_iter.chunk.size));
     if (output == nullptr) {
       WebPDemuxReleaseChunkIterator(&chunk_iter);
       WebPDemuxDelete(demux);
       return std::nullopt;
     }
 
-    memcpy(output, ExifHeader, std::size(ExifHeader));
-    memcpy(output + std::size(ExifHeader), chunk_iter.chunk.bytes,
+    memcpy(output, constants::ExifHeader, std::size(constants::ExifHeader));
+    memcpy(output + std::size(constants::ExifHeader), chunk_iter.chunk.bytes,
            chunk_iter.chunk.size);
-    size_t output_size = std::size(ExifHeader) + chunk_iter.chunk.size;
+    size_t output_size =
+        std::size(constants::ExifHeader) + chunk_iter.chunk.size;
 
     WebPDemuxReleaseChunkIterator(&chunk_iter);
     WebPDemuxDelete(demux);
@@ -54,15 +54,16 @@ Uint8Array webp_set_exif_data(const std::string webp_data,
         "An error occurred while creating the WebP mux object");
   }
 
-  bool has_exif_header =
-      exif_data.size() >= std::size(ExifHeader) &&
-      memcmp(exif_data.data(), ExifHeader, std::size(ExifHeader)) == 0;
+  bool has_exif_header = exif_data.size() >= std::size(constants::ExifHeader) &&
+                         memcmp(exif_data.data(), constants::ExifHeader,
+                                std::size(constants::ExifHeader)) == 0;
 
-  const char *exif_ptr = has_exif_header
-                             ? exif_data.data() + std::size(ExifHeader)
-                             : exif_data.data();
-  size_t exif_size = has_exif_header ? exif_data.size() - std::size(ExifHeader)
-                                     : exif_data.size();
+  const char *exif_ptr =
+      has_exif_header ? exif_data.data() + std::size(constants::ExifHeader)
+                      : exif_data.data();
+  size_t exif_size = has_exif_header
+                         ? exif_data.size() - std::size(constants::ExifHeader)
+                         : exif_data.size();
 
   WebPData exif_chunk = {reinterpret_cast<const uint8_t *>(exif_ptr),
                          exif_size};
