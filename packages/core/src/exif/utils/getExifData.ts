@@ -30,9 +30,6 @@ const getExifData = async (file: File): Promise<ExifData | null> => {
   } else if (mimeType === "image/tiff" && file.size <= MAX_APP1_SEGMENT_SIZE) {
     // Raw Exif also uses the TIFF header
     const fileBytes = await file.bytes();
-    if (EXIF_HEADER.every((value, index) => fileBytes.at(index) === value)) {
-      return ExifData.newFromData(fileBytes);
-    }
     return ExifData.newFromData(concatUint8Arrays([EXIF_HEADER, fileBytes]));
   } else if (mimeType === undefined && file.size <= MAX_APP1_SEGMENT_SIZE) {
     const fileBytes = await file.bytes();
