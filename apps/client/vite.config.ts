@@ -92,7 +92,7 @@ const viteConfig = defineConfig({
       swDest: new URL("dist/client/sw.js", import.meta.url).pathname,
       swUrl: "/sw.js",
       globDirectory: "dist/client",
-      globPatterns: ["**/*.{js,css,html,png,svg,json,xml,txt,ico,woff2,wasm}"],
+      globPatterns: ["**/*.{js,css,html,png,svg,json,md,txt,ico,woff2,wasm}"],
       rollupFormat: "es",
       type: "module",
     }),
