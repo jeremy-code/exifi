@@ -10,7 +10,7 @@
       "-enable-emscripten-sjlj",
       "-mllvm",
       "-disable-lsr",
-      "--sysroot=/opt/homebrew/Cellar/emscripten/6.0.8/libexec/cache/sysroot",
+      "--sysroot=/opt/homebrew/opt/emscripten/libexec/cache/sysroot",
       "-DEMSCRIPTEN",
       "-Xclang",
       "-iwithsysroot/include/fakesdl",
