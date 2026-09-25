@@ -17,6 +17,6 @@
   },
   "scripts": {
     "build": "./scripts/build.sh",
-    "format": "find src -name \"*.cpp\" -o -name \"*.h\" | xargs clang-format -i"
+    "format": "find -E src -regex '.*\\.(cpp|h|hpp)' | xargs clang-format -i"
   }
 }
