@@ -19,7 +19,7 @@ const StatusComponent = () => {
     Temporal.Instant.fromEpochMilliseconds(__BUILD_TIMESTAMP__);
 
   return (
-    <main className="container flex flex-col gap-8 py-8">
+    <div className="container flex flex-col gap-8 py-8">
       <div>
         <Heading level={1} size="2xl" className="mb-4">
           Status
@@ -67,7 +67,7 @@ const StatusComponent = () => {
           </DataListItem>
         </DataList>
       </Card>
-    </main>
+    </div>
   );
 };
 

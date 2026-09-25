@@ -447,7 +447,7 @@ const FAQS = [
 
 const HomeComponent = () => {
   return (
-    <main className="container py-8">
+    <div className="container py-8">
       <div className="grid max-h-dvh min-h-80 place-content-center gap-8">
         <Heading level={1} size="4xl">
           View and edit Exif data locally
@@ -506,7 +506,7 @@ const HomeComponent = () => {
           </Accordion>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 

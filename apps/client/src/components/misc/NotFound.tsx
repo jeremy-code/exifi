@@ -11,7 +11,7 @@ const NotFound = (props: NotFoundRouteProps) => {
   );
 
   return (
-    <main className="container flex flex-col justify-center gap-8 py-4">
+    <div className="container flex flex-col justify-center gap-8 py-4">
       <img
         alt="Illustration of a flying saucer beaming up a cyclopean alien while another alien watches from the ground."
         className="mx-auto aspect-[auto_17/20] max-w-[min(100%,36svh)]"
@@ -44,7 +44,7 @@ const NotFound = (props: NotFoundRouteProps) => {
           </Button>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 export { NotFound };

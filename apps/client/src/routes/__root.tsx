@@ -2,7 +2,7 @@
 import "temporal-polyfill/global";
 import "zod/compile";
 // oxlint-enable import/no-unassigned-import
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 import {
   Outlet,
@@ -53,7 +53,9 @@ const RootComponent = () => {
     <RootDocument>
       <AppProvider>
         <Navbar />
-        <Outlet />
+        <main className="grid">
+          <Outlet />
+        </main>
         <Footer />
       </AppProvider>
     </RootDocument>
