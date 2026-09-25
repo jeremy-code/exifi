@@ -13,7 +13,7 @@ const EXIF_HEADER = new Uint8Array([0x45, 0x78, 0x69, 0x66, 0x00, 0x00]); // Exi
 // For a JPEG, the maximum size for a marker in a JPEG file is 65,533 bytes (64
 // KiB - 2) because the segment length field uses a 16-bit integer (and is
 // counted in the size)
-// https://github.com/winlibs/libjpeg/blob/66ef88ad97f3c47eb1c7b85f2637ff1073ebce9b/doc/libjpeg.txt#L2691
+// https://github.com/libjpeg-turbo/ijg/blob/bf8b31c1dcec2eac7583b86b3a4695d8efc5a7de/libjpeg.txt#L2434
 const MAX_APP1_SEGMENT_SIZE = 65_535;
 
 const getExifData = async (file: File): Promise<ExifData | null> => {
