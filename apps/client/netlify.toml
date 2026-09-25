@@ -10,7 +10,7 @@ pretty_urls = true
 [[plugins]]
 package = "netlify-plugin-emsdk"
 [plugins.inputs]
-version = "6.0.9"
+version = "6.0.10"
 
 # Vite emits fingerprinted files under /assets, so they can be cached until the
 # filename changes on a later build.

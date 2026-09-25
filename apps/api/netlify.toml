@@ -7,4 +7,4 @@ ignore = "pnpm --workspace-root exec turbo query affected --packages @exifi/api 
 [[plugins]]
 package = "netlify-plugin-emsdk"
 [plugins.inputs]
-version = "6.0.9"
+version = "6.0.10"
