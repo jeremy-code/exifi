@@ -16,7 +16,7 @@
     "@exifi/schemas": "workspace:*",
     "@exifi/utils": "workspace:*",
     "file-type": "^22.1.1",
-    "hono": "^4.13.8",
+    "hono": "^4.13.9",
     "hono-openapi": "^1.3.3",
     "hono-rate-limiter": "^0.5.4",
     "libexif-wasm": "^0.5.5",
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "netlify-plugin-emsdk": "^0.0.3",
-    "vite": "^8.3.0",
+    "vite": "^8.3.1",
     "vite-plugin-static-copy": "^4.1.1"
   }
 }
