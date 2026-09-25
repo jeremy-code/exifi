@@ -79,8 +79,16 @@ const FileTabPanel = ({
             textFieldProps={{
               placeholder:
                 "https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg",
+              inputProps: {
+                list: "example-image-urls",
+              },
             }}
           />
+          <datalist id="example-image-urls">
+            <option value="https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg"></option>
+            <option value="https://upload.wikimedia.org/wikipedia/commons/2/20/Liquid_Crystal_Phase_Transition.png"></option>
+            <option value="https://upload.wikimedia.org/wikipedia/commons/a/a9/Darling_%281965_film%29.webp"></option>
+          </datalist>
         </div>
       ) : (
         <FileProvider initialFile={file}>{children}</FileProvider>
