@@ -37,7 +37,7 @@ const ExifThumbnailInformation = ({ thumbnail }: { thumbnail: Uint8Array }) => {
 
   return (
     <Suspense fallback={<Skeleton className="h-[1em] w-15" />}>
-      <Link className="inline" href={blobUrl} color="blue">
+      <Link className="inline" href={blobUrl} underline>
         <ImageDimensions imageDimensionsPromise={imageDimensionsPromise} />
       </Link>
     </Suspense>
