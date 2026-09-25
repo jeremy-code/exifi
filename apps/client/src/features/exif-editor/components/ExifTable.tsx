@@ -54,11 +54,10 @@ type ExifTableProps = TableProps;
 
 const ExifTable = (props: ExifTableProps) => {
   const { locale } = useLocale();
-  const { exifDataObject, exifData, updateExifDataObject } = useExifEditor(
+  const { exifDataObject, act } = useExifEditor(
     useShallow((state) => ({
       exifDataObject: state.exifDataObject,
-      exifData: state.exifData,
-      updateExifDataObject: state.updateExifDataObject,
+      act: state.act,
     })),
   );
   const exifContentObjects = useMemo(
@@ -142,10 +141,7 @@ const ExifTable = (props: ExifTableProps) => {
           className={(renderProps) =>
             linkVariants({ ...renderProps, color: "blue", underline: true })
           }
-          onPress={() => {
-            exifData.fix();
-            updateExifDataObject();
-          }}
+          onPress={() => act((exifData) => exifData.fix())}
         >
           Initialize with default entries?
         </AriaButton>

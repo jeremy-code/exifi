@@ -29,7 +29,7 @@ type ExifEditorStoreState = {
 };
 
 type ExifEditorStoreActions = {
-  updateExifDataObject: () => void;
+  act: (exifDataCb: (exifData: ExifData) => void) => void;
   updateExifEntry: (
     exifEntryObject: ExifEntryObject,
     value: ExifEntryObject["value"],
@@ -55,8 +55,9 @@ const createExifEditorStore = (exifData: ExifData) =>
       // efficient and only compares the necessary entries
       isDirty: false,
       initialExifDataObject,
-      updateExifDataObject: () => {
+      act: (exifDataCb) => {
         set((state) => {
+          exifDataCb(state.exifData);
           const exifDataObject = serializeExifData(state.exifData);
           return {
             exifDataObject,

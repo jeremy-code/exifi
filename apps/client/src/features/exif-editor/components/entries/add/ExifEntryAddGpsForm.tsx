@@ -33,11 +33,10 @@ const ExifEntryAddGpsForm = ({
     style: "short",
     type: "conjunction",
   });
-  const { exifData, exifDataObject, updateExifDataObject } = useExifEditor(
+  const { exifDataObject, act } = useExifEditor(
     useShallow((state) => ({
-      exifData: state.exifData,
       exifDataObject: state.exifDataObject,
-      updateExifDataObject: state.updateExifDataObject,
+      act: state.act,
     })),
   );
   const gpsEntries = exifDataObject.ifd.GPS.reduce<
@@ -53,19 +52,19 @@ const ExifEntryAddGpsForm = ({
     !gpsEntries.LONGITUDE_REF ||
     !gpsEntries.LATITUDE_REF
   ) {
-    initializeGpsEntries(exifData);
-    updateExifDataObject();
+    act((exifData) => initializeGpsEntries(exifData));
   }
 
   const gpsForm = useForm({
     ...addGpsEntriesFormOptions(exifDataObject),
     onSubmit: ({ value }) => {
       if (value.latitude !== undefined && value.longitude !== undefined) {
-        updateLatLng(
-          exifData,
-          new LatLng(value.latitude, value.longitude, value.altitude),
+        act((exifData) =>
+          updateLatLng(
+            exifData,
+            new LatLng(value.latitude!, value.longitude!, value.altitude),
+          ),
         );
-        updateExifDataObject();
         gpsForm.reset();
         setIsDialogBlocked(false);
       }

@@ -1,7 +1,6 @@
 import { imageDimensionsFromStream } from "image-dimensions";
 import { Ellipsis } from "lucide-react";
 import type { MenuTriggerProps } from "react-aria-components/Menu";
-import { useShallow } from "zustand/react/shallow";
 
 import { useFile } from "#contexts/FileContext";
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
@@ -17,9 +16,7 @@ type ExifMenuProps = Omit<MenuTriggerProps, "children">;
 
 const ExifMenu = (props: ExifMenuProps) => {
   const { file } = useFile();
-  const [exifData, updateExifDataObject] = useExifEditor(
-    useShallow((state) => [state.exifData, state.updateExifDataObject]),
-  );
+  const act = useExifEditor((state) => state.act);
 
   return (
     <MenuTrigger {...props}>
@@ -27,12 +24,7 @@ const ExifMenu = (props: ExifMenuProps) => {
         <Ellipsis className="size-4" />
       </Button>
       <Menu>
-        <MenuItem
-          onAction={() => {
-            exifData.fix();
-            updateExifDataObject();
-          }}
-        >
+        <MenuItem onAction={() => act((exifData) => exifData.fix())}>
           Fix
         </MenuItem>
         <MenuItem
@@ -45,8 +37,7 @@ const ExifMenu = (props: ExifMenuProps) => {
               console.warn("Failed to get image dimensions");
               return;
             }
-            updatePixelDimensions(exifData, imageDimensions);
-            updateExifDataObject();
+            act((exifData) => updatePixelDimensions(exifData, imageDimensions));
           }}
         >
           Add image dimensions
@@ -54,25 +45,22 @@ const ExifMenu = (props: ExifMenuProps) => {
         <MenuItem
           onAction={async () => {
             const currentPosition = await getCurrentPosition();
-            updateGeolocationPosition(exifData, currentPosition);
-            updateExifDataObject();
+            act((exifData) =>
+              updateGeolocationPosition(exifData, currentPosition),
+            );
           }}
         >
           Set Exif to current GPS position
         </MenuItem>
         <MenuItem
-          onAction={() => {
-            updateDateAndTimeDigitized(exifData);
-            updateExifDataObject();
-          }}
+          onAction={() =>
+            act((exifData) => updateDateAndTimeDigitized(exifData))
+          }
         >
           Set Date and Time Digitized to current time
         </MenuItem>
         <MenuItem
-          onAction={() => {
-            addImageUniqueId(exifData);
-            updateExifDataObject();
-          }}
+          onAction={() => act((exifData) => addImageUniqueId(exifData))}
         >
           Add Image Unique ID
         </MenuItem>
