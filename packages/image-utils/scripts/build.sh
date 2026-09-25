@@ -16,12 +16,12 @@ ENVIRONMENTS=(
 # https://emscripten.org/docs/tools_reference/settings_reference.html
 COMPILE_FLAGS=(
   -Oz # https://clang.llvm.org/docs/CommandGuide/clang.html#cmdoption-O0
-  -g0 # Do not generate debug information
-  --minify 0 # Do not minify JavaScript glue code
+  -g1 # Do not generate debug information, but preserve whitespace in JavaScript
   -lembind
   --emit-tsd "${OUTPUT_DIR}/imageUtils.d.ts"
   --use-port="${PWD}/ports/heicdec.py"
   --use-port=contrib.libwebp
+  -fwasm-exceptions
   -sSTACK_SIZE=$((2 ** 16))
   -sALLOW_MEMORY_GROWTH=1
   -sFILESYSTEM=0
@@ -36,6 +36,7 @@ COMPILE_FLAGS=(
 wasm_files=()
 for environment in "${ENVIRONMENTS[@]}"; do
   em++ \
+    -fwasm-exceptions \
     "${COMPILE_FLAGS[@]}" \
     -sENVIRONMENT="$environment" \
     src/main.cpp \
