@@ -24,7 +24,7 @@ static void png_read_from_memory(png_structp png_ptr, png_bytep data,
 }
 
 struct PngWriteBuffer {
-  char *buffer;
+  unsigned char *data;
   size_t size;
   size_t capacity;
 };
@@ -35,21 +35,23 @@ static void png_write_to_memory(png_structp png_ptr, png_bytep data,
   size_t new_size = io_ptr->size + length;
 
   if (new_size > io_ptr->capacity) {
+    // Set the new capacity to either double the original capacity or enough to
+    // fit the new data
     size_t new_capacity = io_ptr->capacity * 2;
-    while (new_capacity < new_size) {
-      new_capacity *= 2;
+    if (new_capacity < io_ptr->size + length) {
+      new_capacity = io_ptr->size + length;
     }
-    auto *new_buffer =
-        static_cast<char *>(realloc(io_ptr->buffer, new_capacity));
-    if (new_buffer == nullptr) {
-      png_error(png_ptr, "Failed to allocate memory for PNG buffer");
+    auto *new_data =
+        static_cast<unsigned char *>(realloc(io_ptr->data, new_capacity));
+    if (new_data == nullptr) {
+      png_error(png_ptr, "failed to allocate memory for PNG buffer");
       return;
     }
-    io_ptr->buffer = new_buffer;
+    io_ptr->data = new_data;
     io_ptr->capacity = new_capacity;
   }
 
-  memcpy(io_ptr->buffer + io_ptr->size, data, length);
+  memcpy(io_ptr->data + io_ptr->size, data, length);
   io_ptr->size += length;
 }
 
@@ -157,10 +159,10 @@ Uint8Array png_set_exif_data(const std::string png_data,
 #endif
 
   size_t rowbytes = png_get_rowbytes(read_png_ptr, info_ptr);
-  PngWriteBuffer write_buffer = {.buffer =
-                                     static_cast<char *>(malloc(rowbytes)),
-                                 .size = 0,
-                                 .capacity = rowbytes};
+  PngWriteBuffer write_buffer = {
+      .data = static_cast<unsigned char *>(malloc(rowbytes)),
+      .size = 0,
+      .capacity = rowbytes};
   png_set_write_fn(write_png_ptr, &write_buffer, png_write_to_memory,
                    png_flush_memory);
 
@@ -176,5 +178,5 @@ Uint8Array png_set_exif_data(const std::string png_data,
   png_destroy_write_struct(&write_png_ptr, nullptr);
 
   return Uint8Array(
-      val(typed_memory_view(write_buffer.size, write_buffer.buffer)));
+      val(typed_memory_view(write_buffer.size, write_buffer.data)));
 }
