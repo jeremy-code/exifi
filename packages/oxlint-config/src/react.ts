@@ -10,6 +10,7 @@ const reactConfig = defineConfig({
   jsPlugins: [
     "@tanstack/eslint-plugin-query",
     "@tanstack/eslint-plugin-router",
+    "oxlint-tailwindcss",
   ],
   env: {
     browser: true,
@@ -24,12 +25,22 @@ const reactConfig = defineConfig({
      */
     "react/react-in-jsx-scope": "off",
 
+    // Correctness
+    "tailwindcss/no-unknown-classes": "error",
+    "tailwindcss/no-duplicate-classes": "error",
+    "tailwindcss/no-conflicting-classes": "error",
+    "tailwindcss/no-deprecated-classes": "error",
+    "tailwindcss/no-unnecessary-whitespace": "error",
+
     ...pluginQuery.configs["flat/recommended"][0]?.rules,
     ...pluginRouter.configs["flat/recommended"][0]?.rules,
   },
   settings: {
     react: {
       version: "19.2.8",
+    },
+    tailwindcss: {
+      entryPoint: "packages/ui/src/globals.css",
     },
   },
 });

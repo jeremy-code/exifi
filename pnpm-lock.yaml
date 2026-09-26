@@ -543,6 +543,9 @@ importers:
       eslint-plugin-turbo:
         specifier: ^2.11.4
         version: 2.11.4(eslint@10.9.1(jiti@2.7.0)(supports-color@11.0.0))(turbo@2.11.4)
+      oxlint-tailwindcss:
+        specifier: ^1.13.0
+        version: 1.13.0
 
   packages/schemas:
     dependencies:
@@ -4010,6 +4013,10 @@ packages:
         optional: true
       vite-plus:
         optional: true
+
+  oxlint-tailwindcss@1.13.0:
+    resolution: {integrity: sha512-S6Dp9K1olUgPIAcQp3SQa+dZDJeZzoI9hE4Bp/fFYW43AMV0kPiDWpqm8JCXPHyHuMXvRWvdvS9J7KEQhTciBw==}
+    engines: {node: '>=20'}
 
   oxlint-tsgolint@7.0.2003:
     resolution: {integrity: sha512-VnK4zlqgmgq/7ZcjzCk/WpN8kKFsYGcB85Io9qT3wL4K8Un3RKmJkp793crNETieMusPMKOA4a+Mw2wbteI6TQ==}
@@ -7923,6 +7930,11 @@ snapshots:
       '@oxfmt/binding-win32-arm64-msvc': 0.70.0
       '@oxfmt/binding-win32-ia32-msvc': 0.70.0
       '@oxfmt/binding-win32-x64-msvc': 0.70.0
+
+  oxlint-tailwindcss@1.13.0:
+    dependencies:
+      '@tailwindcss/node': 4.3.3
+      tailwindcss: 4.3.3
 
   oxlint-tsgolint@7.0.2003:
     optionalDependencies:
