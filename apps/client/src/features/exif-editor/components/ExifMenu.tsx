@@ -9,8 +9,10 @@ import { addImageUniqueId } from "@exifi/core/exif/actions/addImageUniqueId";
 import { updateDateAndTimeDigitized } from "@exifi/core/exif/actions/updateDateAndTimeDigitized";
 import { updateGeolocationPosition } from "@exifi/core/exif/actions/updateGeolocationPosition";
 import { updatePixelDimensions } from "@exifi/core/exif/actions/updatePixelDimensions";
+import { resizeImage } from "@exifi/core/image/resizeImage";
 import { Button } from "@exifi/ui/components/Button";
 import { Menu, MenuItem, MenuTrigger } from "@exifi/ui/components/Menu";
+import { toastQueue } from "@exifi/ui/components/Toast";
 
 type ExifMenuProps = Omit<MenuTriggerProps, "children">;
 
@@ -63,6 +65,41 @@ const ExifMenu = (props: ExifMenuProps) => {
           onAction={() => act((exifData) => addImageUniqueId(exifData))}
         >
           Add Image Unique ID
+        </MenuItem>
+        <MenuItem
+          onAction={async () => {
+            try {
+              const thumbnail = await resizeImage(file, {
+                width: 160,
+                height: 120,
+              }).then((blob) => blob.bytes());
+              act((exifData) => {
+                if (exifData.data.length > 0) {
+                  toastQueue.add(
+                    {
+                      title: "Thumbnail already exists",
+                      description:
+                        "A thumbnail already exists in the Exif metadata for this image",
+                      toastProps: { color: "destructive" },
+                    },
+                    { timeout: 5_000 /* 5 seconds */ },
+                  );
+                }
+                exifData.data = thumbnail;
+              });
+            } catch (e) {
+              toastQueue.add(
+                {
+                  title: "unable to create thumbnail",
+                  description: e instanceof Error ? e.message : undefined,
+                  toastProps: { color: "destructive" },
+                },
+                { timeout: 5_000 /* 5 seconds */ },
+              );
+            }
+          }}
+        >
+          Add Image Thumbnail
         </MenuItem>
       </Menu>
     </MenuTrigger>
