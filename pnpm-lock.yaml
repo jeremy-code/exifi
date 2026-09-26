@@ -287,6 +287,9 @@ importers:
       '@exifi/core':
         specifier: workspace:*
         version: link:../../packages/core
+      '@exifi/image-utils':
+        specifier: workspace:*
+        version: link:../../packages/image-utils
       '@exifi/schemas':
         specifier: workspace:*
         version: link:../../packages/schemas
