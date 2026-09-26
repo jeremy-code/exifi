@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef } from "react";
+import type { AnyRouteMatch } from "@tanstack/react-router";
 
 type SeoOptions = {
   title: string;
@@ -21,7 +21,7 @@ const seo = ({
   keywords,
   image,
   noindex,
-}: SeoOptions): ComponentPropsWithoutRef<"meta">[] => {
+}: SeoOptions): Exclude<AnyRouteMatch["meta"], undefined> => {
   const tags = [
     { title },
     { name: "description", content: description },
