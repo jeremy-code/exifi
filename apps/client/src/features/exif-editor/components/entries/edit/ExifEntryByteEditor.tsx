@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   mapRationalFromObject,
   mapRationalToObject,
@@ -22,6 +24,7 @@ import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 type ExifEntryEditorProps = DisclosureProps;
 
 const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const { exifEntryObject, draft, setDraft } = useExifEntryDraftContext();
 
   const isRationalOrSRational =
@@ -37,19 +40,25 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
       XP_TAGS.includes(exifEntryObject.tag)) ||
     exifEntryObject.tag === "USER_COMMENT"
   ) {
-    const numberArray = isRationalOrSRational
-      ? Array.from(
-          mapRationalFromObject(
-            draft as RationalObject[],
-            exifEntryObject.format,
-          ),
-        )
-      : isAscii
-        ? Array.from(encodeStringToUtf8(draft as string))
-        : (draft as number[]);
+    const numberArray = !isExpanded
+      ? []
+      : isRationalOrSRational
+        ? Array.from(
+            mapRationalFromObject(
+              draft as RationalObject[],
+              exifEntryObject.format,
+            ),
+          )
+        : isAscii
+          ? Array.from(encodeStringToUtf8(draft as string))
+          : (draft as number[]);
 
     return (
-      <Disclosure {...props}>
+      <Disclosure
+        isExpanded={isExpanded}
+        onExpandedChange={(nextIsExpanded) => setIsExpanded(nextIsExpanded)}
+        {...props}
+      >
         <Heading>
           <Button
             slot="trigger"
@@ -65,63 +74,67 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
           </Button>
         </Heading>
         <DisclosurePanel className="mt-4">
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(--spacing(20),1fr))] gap-2">
-            {numberArray.map((value, index) => (
-              <NumberField
-                key={index}
-                value={value}
-                onChange={(newValue) => {
-                  const newNumberArray = numberArray.with(index, newValue);
-                  const newEntryValue = isAscii
-                    ? decodeStringFromUtf8(new Uint8Array(newNumberArray))
-                    : isRationalOrSRational
-                      ? mapRationalToObject(
-                          exifEntryObject.format === "SRATIONAL"
-                            ? new Int32Array(newNumberArray)
-                            : new Uint32Array(newNumberArray),
-                        )
-                      : newNumberArray;
+          {isExpanded ? (
+            <>
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(--spacing(20),1fr))] gap-2">
+                {numberArray.map((value, index) => (
+                  <NumberField
+                    key={index}
+                    value={value}
+                    onChange={(newValue) => {
+                      const newNumberArray = numberArray.with(index, newValue);
+                      const newEntryValue = isAscii
+                        ? decodeStringFromUtf8(new Uint8Array(newNumberArray))
+                        : isRationalOrSRational
+                          ? mapRationalToObject(
+                              exifEntryObject.format === "SRATIONAL"
+                                ? new Int32Array(newNumberArray)
+                                : new Uint32Array(newNumberArray),
+                            )
+                          : newNumberArray;
 
-                  setDraft(newEntryValue);
-                }}
-                aria-label={`${exifEntryObject.tag} component ${index + 1}`}
-              />
-            ))}
-          </div>
-          <div className="mt-4 flex gap-2">
-            {exifEntryObject.components !== 1 &&
-              exifEntryObject.format !== "ASCII" && (
-                <Button
-                  size="icon"
-                  onPress={() => setDraft((prev) => prev.slice(0, -1))}
-                  aria-label="Remove component"
-                >
-                  <Minus className="size-4" />
-                </Button>
-              )}
-            {exifEntryObject.components <
-              (EXIF_TAG_MAP[exifEntryObject.tag]?.maxNumberOfComponents ??
-                Infinity) && (
-              <Button
-                size="icon"
-                onPress={() => {
-                  setDraft((prev) => {
-                    if (isAscii) {
-                      return (prev as string) + "\u0000";
-                    } else if (isRationalOrSRational) {
-                      return (prev as RationalObject[]).concat([
-                        { numerator: 0, denominator: 1 },
-                      ]);
-                    }
-                    return (prev as number[]).concat([0]);
-                  });
-                }}
-                aria-label="Add component"
-              >
-                <Plus className="size-4" />
-              </Button>
-            )}
-          </div>
+                      setDraft(newEntryValue);
+                    }}
+                    aria-label={`${exifEntryObject.tag} component ${index + 1}`}
+                  />
+                ))}
+              </div>
+              <div className="mt-4 flex gap-2">
+                {exifEntryObject.components !== 1 &&
+                  exifEntryObject.format !== "ASCII" && (
+                    <Button
+                      size="icon"
+                      onPress={() => setDraft((prev) => prev.slice(0, -1))}
+                      aria-label="Remove component"
+                    >
+                      <Minus className="size-4" />
+                    </Button>
+                  )}
+                {exifEntryObject.components <
+                  (EXIF_TAG_MAP[exifEntryObject.tag]?.maxNumberOfComponents ??
+                    Infinity) && (
+                  <Button
+                    size="icon"
+                    onPress={() => {
+                      setDraft((prev) => {
+                        if (isAscii) {
+                          return (prev as string) + "\u0000";
+                        } else if (isRationalOrSRational) {
+                          return (prev as RationalObject[]).concat([
+                            { numerator: 0, denominator: 1 },
+                          ]);
+                        }
+                        return (prev as number[]).concat([0]);
+                      });
+                    }}
+                    aria-label="Add component"
+                  >
+                    <Plus className="size-4" />
+                  </Button>
+                )}
+              </div>
+            </>
+          ) : null}
         </DisclosurePanel>
       </Disclosure>
     );
