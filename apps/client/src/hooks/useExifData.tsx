@@ -17,6 +17,8 @@ const useExifData = (file: File): ExifData | null => {
     queryKey: ["useExifData", file, fileHash],
     queryFn: async () => getExifData(file),
     gcTime: 30_000, // By default, it is 300,000
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 
   return exifData;
