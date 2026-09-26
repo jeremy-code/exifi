@@ -80,7 +80,7 @@ const ExifMenu = (props: ExifMenuProps) => {
                       title: "Thumbnail already exists",
                       description:
                         "A thumbnail already exists in the Exif metadata for this image",
-                      toastProps: { color: "destructive" },
+                      toastProps: { color: "red" },
                     },
                     { timeout: 5_000 /* 5 seconds */ },
                   );
@@ -92,7 +92,7 @@ const ExifMenu = (props: ExifMenuProps) => {
                 {
                   title: "unable to create thumbnail",
                   description: e instanceof Error ? e.message : undefined,
-                  toastProps: { color: "destructive" },
+                  toastProps: { color: "red" },
                 },
                 { timeout: 5_000 /* 5 seconds */ },
               );

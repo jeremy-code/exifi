@@ -30,7 +30,7 @@ const useDialogState = () => {
             description:
               "You have unsaved changes that will be lost if you proceed.",
             toastProps: {
-              color: "destructive",
+              color: "red",
             },
           });
         }

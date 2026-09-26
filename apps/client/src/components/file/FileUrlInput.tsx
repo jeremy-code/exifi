@@ -49,7 +49,7 @@ const FileUrlInput = ({
           title: "Fetching from URL failed",
           description: `Fetching ${variables} failed with error ${error.message}.`,
           toastProps: {
-            color: "destructive",
+            color: "red",
           },
         },
         { timeout: 5_000 /* 5 seconds */ },

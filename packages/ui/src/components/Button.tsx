@@ -16,7 +16,7 @@ const buttonVariants = tv({
   ],
   variants: {
     color: {
-      default: null,
+      gray: null,
       accent: null,
     },
     variant: {
@@ -37,7 +37,7 @@ const buttonVariants = tv({
   },
   compoundVariants: [
     {
-      color: "default",
+      color: "gray",
       variant: "muted",
       className: "bg-bg-muted hover:bg-border pressed:bg-fg-subtle",
     },
@@ -48,13 +48,13 @@ const buttonVariants = tv({
         "bg-accent text-white hover:bg-accent-hover pressed:bg-accent-pressed",
     },
     {
-      color: "default",
+      color: "gray",
       variant: "surface",
       className:
         "border-border bg-bg-muted hover:bg-border pressed:bg-fg-subtle",
     },
     {
-      color: "default",
+      color: "gray",
       variant: "ghost",
       className: "bg-transparent hover:bg-bg-muted pressed:bg-border",
     },
@@ -65,14 +65,14 @@ const buttonVariants = tv({
         "bg-transparent hover:bg-accent hover:text-accent-fg pressed:bg-accent-pressed pressed:text-accent-fg",
     },
     {
-      color: "default",
+      color: "gray",
       variant: "outline",
       className:
         "border-border bg-transparent hover:bg-bg-muted pressed:bg-border",
     },
   ],
   defaultVariants: {
-    color: "default",
+    color: "gray",
     variant: "muted",
     size: "md",
   },

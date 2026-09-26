@@ -111,13 +111,13 @@ const toastRootVariants = tv({
   ],
   variants: {
     color: {
-      default: "bg-bg-muted text-fg",
+      gray: "bg-bg-muted text-fg",
       accent: "bg-accent text-accent-fg",
-      destructive: "bg-destructive text-destructive-fg",
+      red: "bg-destructive text-destructive-fg",
     },
   },
   defaultVariants: {
-    color: "default",
+    color: "gray",
   },
 });
 
