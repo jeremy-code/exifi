@@ -3,7 +3,7 @@ import { exifTagTableCount } from "libexif-wasm";
 import type { DistributedPick } from "type-fest";
 import * as z from "zod";
 
-import { MAX_INT32_VALUE, MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
+import { exifEntryObjectSchema } from "@exifi/schemas/exif";
 import { ifdSchema, tagEntrySchema } from "@exifi/schemas/libexif";
 
 const addFormBaseSchema = z.object({
@@ -16,43 +16,10 @@ const addFormBaseSchema = z.object({
   }),
 });
 
-const addFormSchema = z.discriminatedUnion("format", [
-  addFormBaseSchema.extend({ format: z.literal("ASCII"), value: z.string() }),
-  addFormBaseSchema.extend({
-    format: z.enum(["RATIONAL", "SRATIONAL"]),
-    value: z.array(
-      z.strictObject({
-        numerator: z
-          .number()
-          .min(-1 * (MAX_INT32_VALUE + 1))
-          .max(MAX_UINT32_VALUE),
-        denominator: z
-          .number()
-          .min(-1 * (MAX_INT32_VALUE + 1))
-          .max(MAX_UINT32_VALUE),
-      }),
-    ),
-  }),
-  addFormBaseSchema.extend({
-    format: z.enum([
-      "BYTE",
-      "SHORT",
-      "LONG",
-      "SBYTE",
-      "UNDEFINED",
-      "SSHORT",
-      "SLONG",
-      "FLOAT",
-      "DOUBLE",
-    ] as const),
-    value: z.array(
-      z
-        .int()
-        .min(-1 * (MAX_INT32_VALUE + 1))
-        .max(MAX_UINT32_VALUE),
-    ),
-  }),
-]);
+const addFormSchema = z.intersection(
+  addFormBaseSchema,
+  exifEntryObjectSchema.def.right,
+);
 
 type AddFieldValues = (
   | DistributedPick<z.infer<typeof addFormSchema>, "format" | "value">
@@ -70,7 +37,7 @@ const DEFAULT_FORM_VALUES: AddFieldValues = {
 
 const addEntryFormOptions = () =>
   formOptions({
-    // oxlint-disable-next-line typescript/no-unnecessary-type-assertion -- Otherwise, TanStack form is unable to infer the correct type and chooses the more narrow type
+    // oxlint-disable-next-line type`script/no-unnecessary-type-assertion -- Otherwise, TanStack form is unable to infer the correct type and chooses the more narrow type
     defaultValues: DEFAULT_FORM_VALUES as AddFieldValues,
     validators: { onSubmit: addFormSchema },
   });
