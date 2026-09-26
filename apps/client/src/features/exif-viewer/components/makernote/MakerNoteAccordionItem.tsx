@@ -31,7 +31,7 @@ const MakerNoteAccordionItem = ({
       <AccordionHeader>
         <div className="flex gap-2">
           Makernote
-          <Badge>
+          <Badge variant="muted">
             {formatPlural(
               mnoteData.dataCount,
               { one: " tag", other: " tags" },

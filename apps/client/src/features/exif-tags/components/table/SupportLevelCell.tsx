@@ -17,6 +17,7 @@ const SupportLevelCell = ({
 
   return (
     <Badge
+      variant="muted"
       className="select-text"
       color={value === "MANDATORY" ? "green" : "gray"}
     >

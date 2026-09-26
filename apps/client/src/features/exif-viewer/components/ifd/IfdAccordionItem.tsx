@@ -35,7 +35,7 @@ const IfdAccordionItem = ({ exifContent }: { exifContent: ExifContent }) => {
       <AccordionHeader>
         <div className="flex gap-2 text-sm in-data-[disabled=true]:opacity-50">
           {exifIfdGetName(ifdName)}
-          <Badge>
+          <Badge variant="muted">
             {formatPlural(
               exifContent.count,
               { one: " tag", other: " tags" },

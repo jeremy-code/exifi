@@ -179,7 +179,7 @@ const ExifTableInner = (props: ExifTableProps) => {
                         cell.column.columnDef.cell,
                         cell.getContext(),
                       )}
-                      <Badge>
+                      <Badge variant="muted">
                         {formatPlural(
                           row.subRows.length,
                           {
