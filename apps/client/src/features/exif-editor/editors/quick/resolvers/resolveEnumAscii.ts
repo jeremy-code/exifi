@@ -13,14 +13,15 @@ const resolveEnumAscii: QuickEditorResolver = (
     // ASCII enum values are single characters; components = 1 char + null terminator
     exifEntryObject.components !== 2 ||
     mappedTag.asciiValues === undefined ||
-    exifEntryObject.formattedValue === null
+    exifEntryObject.format !== "ASCII" ||
+    exifEntryObject.value === ""
   ) {
     return null;
   }
 
   const asciiValues = mappedTag.asciiValues;
   const asciiEntry = Object.entries(asciiValues).find(
-    ([, value]) => value === exifEntryObject.formattedValue,
+    ([, value]) => value === exifEntryObject.value,
   );
 
   if (asciiEntry === undefined) {

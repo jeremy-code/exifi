@@ -12,11 +12,12 @@ const resolveDateTime: QuickEditorResolver = (
 ) => {
   if (
     DATETIME_TAGS.includes(exifEntryObject.tag) &&
-    EXIF_DATETIME_REGEX.test(exifEntryObject.formattedValue ?? "")
+    exifEntryObject.format === "ASCII" &&
+    EXIF_DATETIME_REGEX.test(exifEntryObject.value)
   ) {
     return {
       kind: "datetime",
-      value: parseDateTime(exifEntryObject.formattedValue ?? ""),
+      value: parseDateTime(exifEntryObject.value),
       onValueChange: (value) => onValueChange(formatDateTime(value)),
     };
   }

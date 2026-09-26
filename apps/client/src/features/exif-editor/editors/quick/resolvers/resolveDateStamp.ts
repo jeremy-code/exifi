@@ -12,11 +12,12 @@ const resolveDateStamp: QuickEditorResolver = (
 ) => {
   if (
     exifEntryObject.tag === "DATE_STAMP" &&
-    EXIF_DATESTAMP_REGEX.test(exifEntryObject.formattedValue ?? "")
+    exifEntryObject.format === "ASCII" &&
+    EXIF_DATESTAMP_REGEX.test(exifEntryObject.value)
   ) {
     return {
       kind: "dateStamp",
-      value: parseDateStamp(exifEntryObject.formattedValue ?? ""),
+      value: parseDateStamp(exifEntryObject.value),
       onValueChange: (value) => onValueChange(formatDateStamp(value)),
     };
   }

@@ -19,6 +19,10 @@ const resolveEnum: QuickEditorResolver = (entry, onValueChange) => {
 
   return {
     kind: "enum",
+    // TODO: For now, resolveEnum uses formattedValue as its value instead of
+    // value. This is slightly more convenient, and doesn't really matter in
+    // terms of performance, since unlike ASCII, you can't exactly repeatedly
+    // update a Select input
     value: entry.formattedValue,
     values: Object.keys(values),
     onValueChange: (value) => {
