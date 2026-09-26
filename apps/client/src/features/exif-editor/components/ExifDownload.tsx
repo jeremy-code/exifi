@@ -1,4 +1,4 @@
-import { useTransition } from "react";
+import { useState, startTransition } from "react";
 
 import { parse } from "@std/path";
 import { ChevronDown, Save } from "lucide-react";
@@ -28,7 +28,53 @@ const ExifDownload = () => {
       isDirty: state.isDirty,
     })),
   );
-  const [isPending, startTransition] = useTransition();
+  // Using state to store pending state instead of useTransition because
+  // Chrome's Save dialog occludes the browser window, resulting in transitions
+  // failing to update correctly due to being deprioritized
+  // https://chromeenterprise.google/policies/window-occlusion-enabled/
+  const [isSaving, setIsSaving] = useState(false);
+
+  const handleSave = () => {
+    setIsSaving(true);
+    // Immediately update file
+    const newFilePromise = setExifData(file, exifData).then((newFile) => {
+      startTransition(() => setFile(newFile ?? file));
+      return newFile;
+    });
+
+    // For an unfathomable reason, Mobile iOS specifically seems to have
+    // issues with saveFile(), returning a NotReadableError "The I/O read
+    // operation failed." afterwards. For more information, see
+    // jeremy-code/exifi#7.
+    if (isMobileWebKit()) {
+      // Safari seemingly blocks asynchronous calls to window.open:
+      // https://stackoverflow.com/a/39387533/18551960
+      const windowProxy = window.open(undefined, "_blank");
+      if (windowProxy !== null) {
+        void newFilePromise
+          .then((newFile) => {
+            const blobUrl = URL.createObjectURL(newFile ?? file);
+            windowProxy.location.assign(blobUrl);
+            URL.revokeObjectURL(blobUrl);
+            return;
+          })
+          .catch((e) =>
+            console.error(
+              "An error occurred while saving the file on iOS Safari: ",
+              e,
+            ),
+          )
+          .finally(() => setIsSaving(false));
+      }
+    } else {
+      void newFilePromise
+        .then((newFile) => saveFile(newFile ?? file))
+        .catch((e) =>
+          console.error("An error occurred while saving the file: ", e),
+        )
+        .finally(() => setIsSaving(false));
+    }
+  };
 
   return (
     <div className="flex" role="group">
@@ -36,43 +82,10 @@ const ExifDownload = () => {
         variant="surface"
         isDisabled={!isDirty}
         className="rounded-r-none border-r-0"
-        onPress={() => {
-          // For an unfathomable reason, Mobile iOS specifically seems to have
-          // issues with saveFile(), returning a NotReadableError "The I/O read
-          // operation failed." afterwards. For more information, see
-          // jeremy-code/exifi#7.
-          if (isMobileWebKit()) {
-            // Safari seemingly blocks asynchronous calls to window.open:
-            // https://stackoverflow.com/a/39387533/18551960
-            const windowProxy = window.open(undefined, "_blank");
-
-            // https://react.dev/reference/react/useTransition#react-doesnt-treat-my-state-update-after-await-as-a-transition
-            startTransition(async () => {
-              const newFile = await setExifData(file, exifData);
-
-              if (windowProxy !== null) {
-                const blobUrl = URL.createObjectURL(file);
-                windowProxy.location.assign(blobUrl);
-                URL.revokeObjectURL(blobUrl);
-              }
-              startTransition(() => setFile(newFile ?? file));
-            });
-          } else {
-            startTransition(async () => {
-              const newFile = await setExifData(file, exifData);
-
-              startTransition(() => {
-                // If I move this outside of the startTransition callback, React
-                // gets stuck on isPending for much longer than it should be.
-                void saveFile(newFile ?? file);
-                setFile(newFile ?? file);
-              });
-            });
-          }
-        }}
+        onPress={() => handleSave()}
       >
         <Save className="size-4" />
-        {!isDirty ? "Saved" : isPending ? "Saving..." : "Save"}
+        {!isDirty ? "Saved" : isSaving ? "Saving..." : "Save"}
       </Button>
       <MenuTrigger
         // @ts-expect-error -- Not sure why TypeScript can't find the right types
