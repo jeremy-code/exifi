@@ -15,6 +15,7 @@ const initializeExifData = () => {
   toastQueue.add(
     {
       title: "No Exif data was found. Initializing with default Exif data...",
+      toastProps: { variant: "subtle" },
     },
     { timeout: 5_000 /* 5 seconds */ },
   );

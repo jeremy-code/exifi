@@ -20,6 +20,7 @@ const RegisterSW = () => {
                 title: "Ready to work offline",
                 description:
                   "exifi has been cached and can now be used without an internet connection.",
+                toastProps: { variant: "subtle" },
               },
               { timeout: 5_000 /* 5 seconds */ },
             );

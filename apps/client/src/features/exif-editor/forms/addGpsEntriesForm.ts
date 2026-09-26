@@ -39,6 +39,7 @@ const getInitialGpsFieldValues = (
       {
         title: "No GPS Exif entries found",
         description: "Initializing default values...",
+        toastProps: { variant: "surface" },
       },
       { timeout: 5_000 /* 5 seconds */ },
     );

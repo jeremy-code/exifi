@@ -80,7 +80,7 @@ const ExifMenu = (props: ExifMenuProps) => {
                       title: "Thumbnail already exists",
                       description:
                         "A thumbnail already exists in the Exif metadata for this image",
-                      toastProps: { color: "red" },
+                      toastProps: { color: "gray", variant: "surface" },
                     },
                     { timeout: 5_000 /* 5 seconds */ },
                   );
