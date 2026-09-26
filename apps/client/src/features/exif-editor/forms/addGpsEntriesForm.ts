@@ -9,6 +9,7 @@ import type {
   ExifEntryObject,
 } from "@exifi/core/exif/interfaces";
 import { latitudeSchema, longitudeSchema } from "@exifi/schemas/geo";
+import { toastQueue } from "@exifi/ui/components/Toast";
 
 const gpsFormSchema = z.strictObject({
   latitude: latitudeSchema,
@@ -27,6 +28,32 @@ const getInitialGpsFieldValues = (
     acc[prevValue.tag] = prevValue;
     return acc;
   }, {});
+
+  if (
+    gpsEntries.LONGITUDE === undefined &&
+    gpsEntries.LATITUDE === undefined &&
+    gpsEntries.LONGITUDE_REF === undefined &&
+    gpsEntries.LATITUDE_REF === undefined
+  ) {
+    toastQueue.add(
+      {
+        title: "No GPS Exif entries found",
+        description: "Initializing default values...",
+      },
+      { timeout: 5_000 /* 5 seconds */ },
+    );
+    /**
+     * This defaults to the geographic center of the United States (including
+     * Alaska, Hawaii): 44° 58′ 2.08″ N, 103° 46′ 17.6″ W.
+     *
+     * @see {@link https://www.ngs.noaa.gov/cgi-bin/ds_mark.prl?PidBox=PU2386}
+     * @see {@link https://geohack.toolforge.org/geohack.php?pagename=Geographic_center_of_the_United_States&params=44_58_2.08_N_103_46_17.60_W_}
+     */
+    return {
+      longitude: -103.77155634166667,
+      latitude: 44.967243394444445,
+    };
+  }
 
   if (
     gpsEntries.LONGITUDE?.format !== "RATIONAL" ||

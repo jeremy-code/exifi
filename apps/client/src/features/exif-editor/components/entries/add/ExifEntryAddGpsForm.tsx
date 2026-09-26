@@ -2,7 +2,6 @@ import { useCallback, type ComponentPropsWithRef } from "react";
 
 import { useForm } from "@tanstack/react-form";
 import { LatLng } from "leaflet";
-import type { Tag } from "libexif-wasm";
 import { useListFormatter } from "react-aria/useListFormatter";
 import { cn } from "tailwind-variants";
 import { useShallow } from "zustand/react/shallow";
@@ -11,9 +10,7 @@ import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext"
 import { addGpsEntriesFormOptions } from "#features/exif-editor/forms/addGpsEntriesForm";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
 import { getCurrentPosition } from "#utils/getCurrentPosition";
-import { initializeGpsEntries } from "@exifi/core/exif/actions/initializeGpsEntries";
 import { updateLatLng } from "@exifi/core/exif/actions/updateLatLng";
-import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { Button } from "@exifi/ui/components/Button";
 import { NumberField } from "@exifi/ui/components/NumberField";
 import { Spinner } from "@exifi/ui/components/Spinner";
@@ -39,21 +36,6 @@ const ExifEntryAddGpsForm = ({
       act: state.act,
     })),
   );
-  const gpsEntries = exifDataObject.ifd.GPS.reduce<
-    Partial<Record<Tag, ExifEntryObject>>
-  >((acc, prevValue) => {
-    acc[prevValue.tag] = prevValue;
-    return acc;
-  }, {});
-
-  if (
-    !gpsEntries.LATITUDE ||
-    !gpsEntries.LONGITUDE ||
-    !gpsEntries.LONGITUDE_REF ||
-    !gpsEntries.LATITUDE_REF
-  ) {
-    act((exifData) => initializeGpsEntries(exifData));
-  }
 
   const gpsForm = useForm({
     ...addGpsEntriesFormOptions(exifDataObject),
