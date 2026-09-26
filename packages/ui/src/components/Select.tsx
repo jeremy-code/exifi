@@ -72,7 +72,7 @@ const Select = <T extends object = {}, M extends SelectionMode = "single">({
     >
       {label && <Label>{label}</Label>}
       <Button className={selectVariants}>
-        <SelectValue className="basis-content line-clamp-1 block truncate text-sm data-[placeholder=true]:text-fg-muted">
+        <SelectValue className="line-clamp-1 truncate text-sm data-[placeholder=true]:text-fg-muted">
           {({ selectedText, defaultChildren }) =>
             selectedText || defaultChildren
           }

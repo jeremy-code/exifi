@@ -44,7 +44,7 @@ const SelectionBar = ({
   return createPortal(
     <div className="pointer-events-none fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+--spacing(4))] flex justify-center">
       <div className="pointer-events-auto flex items-center gap-3 rounded-[0.375rem] bg-surface px-3 py-2.5 shadow-md">
-        <button className="inline-flex items-center gap-2 self-stretch rounded rounded-[0.25rem] border border-dashed px-4 py-1 text-sm">
+        <button className="inline-flex items-center gap-2 self-stretch rounded-[0.25rem] border border-dashed px-4 py-1 text-sm">
           {selectedRowIds.length} selected
         </button>
         <div className="h-5 w-px bg-border" />

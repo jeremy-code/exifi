@@ -70,7 +70,7 @@ const ExifInformation = ({
           className="grid grid-cols-[repeat(auto-fit,minmax(--spacing(35),1fr))]"
         >
           <DataListItem>
-            <DataListItemLabel className="min-w-unset!">
+            <DataListItemLabel className="min-w-[unset]">
               Byte order
             </DataListItemLabel>
             <DataListItemValue>
@@ -82,7 +82,7 @@ const ExifInformation = ({
             </DataListItemValue>
           </DataListItem>
           <DataListItem>
-            <DataListItemLabel className="min-w-unset">
+            <DataListItemLabel className="min-w-[unset]">
               Data type
             </DataListItemLabel>
             <DataListItemValue>
@@ -90,7 +90,7 @@ const ExifInformation = ({
             </DataListItemValue>
           </DataListItem>
           <DataListItem>
-            <DataListItemLabel className="min-w-unset">
+            <DataListItemLabel className="min-w-[unset]">
               Makernote
             </DataListItemLabel>
             <DataListItemValue>
@@ -109,7 +109,7 @@ const ExifInformation = ({
             </DataListItemValue>
           </DataListItem>
           <DataListItem>
-            <DataListItemLabel className="min-w-unset">
+            <DataListItemLabel className="min-w-[unset]">
               Thumbnail
             </DataListItemLabel>
             <DataListItemValue>
@@ -121,7 +121,7 @@ const ExifInformation = ({
             </DataListItemValue>
           </DataListItem>
           <DataListItem>
-            <DataListItemLabel className="min-w-unset">
+            <DataListItemLabel className="min-w-[unset]">
               Number of entries
             </DataListItemLabel>
             <DataListItemValue>

@@ -55,7 +55,7 @@ const accordionVariants = tv({
       },
       md: {
         base: "[--accordion-padding-x:--spacing(4)] [--accordion-padding-y:--spacing(2)]",
-        header: "text-md",
+        header: "text-base",
       },
       lg: {
         base: "[--accordion-padding-x:--spacing(4.5)] [--accordion-padding-y:--spacing(3)]",

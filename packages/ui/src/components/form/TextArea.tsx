@@ -15,8 +15,8 @@ const textAreaVariants = tv({
       xs: "scroll-pb-1.5 px-2 py-1.5 text-xs",
       sm: "scroll-pb-2 px-2.5 py-2 text-sm",
       md: "scroll-pb-2 px-3 py-2 text-sm",
-      lg: "text-md scroll-pb-3 px-4 py-3",
-      xl: "text-md scroll-pb-3.5 px-4.5 py-3.5",
+      lg: "scroll-pb-3 px-4 py-3 text-base",
+      xl: "scroll-pb-3.5 px-4.5 py-3.5 text-base",
     },
     variant: {
       outline: "border border-border bg-surface",

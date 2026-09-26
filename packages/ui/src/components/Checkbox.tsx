@@ -43,7 +43,7 @@ const boxVariants = tv({
   variants: {
     isSelected: {
       false: [
-        "border-(--color) bg-(--color-surface)",
+        "border-(--color) bg-surface",
         "[--color:var(--color-border)] group-hover/checkbox:[--color:var(--color-fg-subtle)] group-pressed/checkbox:[--color:var(--color-fg-muted)]",
       ],
       true: [

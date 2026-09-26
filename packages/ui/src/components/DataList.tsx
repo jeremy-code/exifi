@@ -48,7 +48,7 @@ const DataListItem = ({ className, ...props }: DataListItemProps) => {
         "group-orientation-horizontal/data-list:flex-row group-orientation-vertical/data-list:flex-col",
         "group-data-[size=sm]/data-list:text-xs/4",
         "group-data-[size=md]/data-list:text-sm/5",
-        "group-data-[size=lg]/data-list:text-md/6",
+        "group-data-[size=lg]/data-list:text-base/6",
         className,
       )}
       {...props}

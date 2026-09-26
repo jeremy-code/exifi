@@ -122,8 +122,8 @@ const tabListVariants = tv({
         ],
         tab: [
           "border border-transparent text-fg-muted selected:bg-bg selected:text-fg",
-          "group-orientation-horizontal/tabs:border-t-rounded-(--tabs-tab-radius) group-orientation-horizontal/tabs:mb-(--line-offset) group-orientation-horizontal/tabs:not-last:mr-(--line-offset) group-orientation-horizontal/tabs:selected:border-border group-orientation-horizontal/tabs:selected:border-b-transparent",
-          "group-orientation-vertical/tabs:border-l-rounded-(--tabs-tab-radius) group-orientation-vertical/tabs:mr-(--line-offset) group-orientation-vertical/tabs:not-last:mb-(--line-offset) group-orientation-vertical/tabs:selected:border-border group-orientation-vertical/tabs:selected:border-r-transparent",
+          "group-orientation-horizontal/tabs:mb-(--line-offset) group-orientation-horizontal/tabs:rounded-t-(--tabs-tab-radius) group-orientation-horizontal/tabs:not-last:mr-(--line-offset) group-orientation-horizontal/tabs:selected:border-border group-orientation-horizontal/tabs:selected:border-b-transparent",
+          "group-orientation-vertical/tabs:mr-(--line-offset) group-orientation-vertical/tabs:rounded-l-(--tabs-tab-radius) group-orientation-vertical/tabs:not-last:mb-(--line-offset) group-orientation-vertical/tabs:selected:border-border group-orientation-vertical/tabs:selected:border-r-transparent",
         ],
         selectionIndicator: "hidden",
       },

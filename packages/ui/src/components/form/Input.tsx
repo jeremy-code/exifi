@@ -7,7 +7,7 @@ import { tv, type VariantProps } from "tailwind-variants";
 
 const inputVariants = tv({
   base: [
-    "[-webkit-tap-highlight-color:transparent]' flex h-9 w-full appearance-none rounded border-0 border-border bg-surface px-3 py-1 text-start text-sm outline-0 transition-opacity",
+    "flex h-9 w-full appearance-none rounded border-0 border-border bg-surface px-3 py-1 text-start text-sm outline-0 transition-opacity [-webkit-tap-highlight-color:transparent]",
     "file:border-0 file:bg-transparent file:text-sm file:font-medium",
     "placeholder:text-fg-muted",
   ],

@@ -82,7 +82,7 @@ const closeToastButtonVariants = tv({
       true: "bg-white/20",
     },
     isFocusVisible: {
-      true: "outline-2 outline-offset-2 outline-current outline-solid forced-colors:outline-[Highlight]",
+      true: "outline-2 outline-offset-2 outline-current [--tw-outline-style:solid] forced-colors:outline-[Highlight]",
     },
   },
 });
