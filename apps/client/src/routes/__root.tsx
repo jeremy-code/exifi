@@ -71,6 +71,13 @@ const Route = createRootRoute({
         title: "exifi",
         description: "Local Exif viewer and editor",
         keywords: ["exif", "local", "image", "metadata", "editor", "viewer"],
+        image: {
+          url: `${getBaseUrl()}/og-image.png`,
+          type: "image/png",
+          width: 1200,
+          height: 600,
+          alt: "Jeremy Nguyen",
+        },
       }),
     ],
     links: [
