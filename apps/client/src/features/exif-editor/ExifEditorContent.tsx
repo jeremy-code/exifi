@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useState } from "react";
 
 import { ExifData } from "libexif-wasm";
 
@@ -22,8 +22,6 @@ const initializeExifData = () => {
   return ExifData.new();
 };
 
-const NOOP = (prevState: ExifData) => prevState;
-
 // TODO: emptyExifData is a module level variable. This does mean there will be
 // one minimal leak, but given the size of an empty Exif data and that this is
 // only instantiated when a file with no Exif data is found (ideally rare), I
@@ -32,16 +30,17 @@ let emptyExifData: ExifData | null = null;
 
 const ExifEditorContent = ({ file }: { file: File }) => {
   const exifDataFromFile = useExifData(file);
-  const [exifData] = useReducer(NOOP, exifDataFromFile, (initialArg) => {
-    if (initialArg === null) {
-      return (emptyExifData ??= initializeExifData());
-    }
-    return initialArg;
-  });
+  const [exifData, setExifData] = useState(exifDataFromFile);
+
+  if (exifData === null) {
+    setExifData((emptyExifData ??= initializeExifData()));
+  } else if (exifDataFromFile !== null && exifData !== exifDataFromFile) {
+    setExifData(exifDataFromFile);
+  }
 
   return (
-    <ExifEditorProvider exifData={exifData}>
-      <ExifInformation exifData={exifData} />
+    <ExifEditorProvider exifData={exifData!}>
+      <ExifInformation exifData={exifData!} />
       <ExifToolbar />
       <ExifTable />
       <UnsavedDialog />
