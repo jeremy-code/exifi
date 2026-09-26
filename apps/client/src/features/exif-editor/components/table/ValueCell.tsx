@@ -1,3 +1,6 @@
+import { useMemo, useState } from "react";
+
+import { useDebouncedCallback } from "@tanstack/react-pacer/debouncer";
 import type { CellContext } from "@tanstack/react-table";
 import { ExifTagInfo } from "libexif-wasm";
 
@@ -16,29 +19,48 @@ import { assertNever } from "@exifi/utils/assertNever";
 import { getExifQuickEditor } from "../../editors/quick/getExifQuickEditor";
 import type { ExifTableRow } from "./columns";
 
-type ValueCellProps = CellContext<
-  Features,
-  ExifTableRow,
-  ExifEntryObject["formattedValue"]
->;
+type ValueCellInnerProps = {
+  exifEntryObject: ExifEntryObject;
+  updateExifEntry?: (
+    exifEntryObject: ExifEntryObject,
+    value: ExifEntryObject["value"],
+  ) => void;
+};
 
-const ValueCell = ({ row, getValue, table }: ValueCellProps) => {
-  const originalRow = row.original;
-
-  if ("entries" in originalRow) {
-    return null;
-  }
-
-  const quickEditor = getExifQuickEditor(originalRow, (value) =>
-    table.options.meta?.updateExifEntry(originalRow, value),
+const ValueCellInner = ({
+  exifEntryObject,
+  updateExifEntry,
+}: ValueCellInnerProps) => {
+  const [value, setValue] = useState(() => exifEntryObject.value);
+  const nextExifEntryObject = useMemo(
+    () => ({ ...exifEntryObject, value }) as ExifEntryObject,
+    [exifEntryObject, value],
+  );
+  const debouncedOnChange = useDebouncedCallback(
+    (nextValue: ExifEntryObject["value"]) => {
+      updateExifEntry?.(nextExifEntryObject, nextValue);
+    },
+    { leading: true, wait: 200 },
   );
 
+  const quickEditor = getExifQuickEditor(nextExifEntryObject, (nextValue) => {
+    setValue(nextValue);
+    debouncedOnChange(nextValue);
+  });
+
   if (quickEditor === null) {
-    return <span className="block truncate">{getValue() ?? ""}</span>;
+    return (
+      <span className="block truncate">
+        {exifEntryObject.formattedValue ?? ""}
+      </span>
+    );
   }
 
-  const title = ExifTagInfo.getTitleInIfd(originalRow.tag, originalRow.ifd);
-  const label = title !== "" ? title : originalRow.tag;
+  const title = ExifTagInfo.getTitleInIfd(
+    exifEntryObject.tag,
+    exifEntryObject.ifd,
+  );
+  const label = title !== "" ? title : exifEntryObject.tag;
 
   switch (quickEditor.kind) {
     case "enum":
@@ -55,9 +77,9 @@ const ValueCell = ({ row, getValue, table }: ValueCellProps) => {
         <DateField
           {...quickEditor}
           aria-label={label}
-          onChange={(value) => {
-            if (value !== null) {
-              quickEditor.onValueChange(value);
+          onChange={(nextValue) => {
+            if (nextValue !== null) {
+              quickEditor.onValueChange(nextValue);
             }
           }}
         />
@@ -70,9 +92,9 @@ const ValueCell = ({ row, getValue, table }: ValueCellProps) => {
           {...quickEditor}
           aria-label={label}
           granularity="second"
-          onChange={(value) => {
-            if (value !== null) {
-              quickEditor.onValueChange(value);
+          onChange={(nextValue) => {
+            if (nextValue !== null) {
+              quickEditor.onValueChange(nextValue);
             }
           }}
         />
@@ -83,9 +105,9 @@ const ValueCell = ({ row, getValue, table }: ValueCellProps) => {
           granularity="second"
           {...quickEditor}
           aria-label={label}
-          onChange={(value) => {
-            if (value !== null) {
-              quickEditor.onValueChange(value);
+          onChange={(nextValue) => {
+            if (nextValue !== null) {
+              quickEditor.onValueChange(nextValue);
             }
           }}
         />
@@ -96,7 +118,7 @@ const ValueCell = ({ row, getValue, table }: ValueCellProps) => {
         <TextField
           aria-label={label}
           {...quickEditor}
-          onChange={(value) => quickEditor.onValueChange(value)}
+          onChange={(nextValue) => quickEditor.onValueChange(nextValue)}
         />
       );
     case "exifVersion":
@@ -111,12 +133,33 @@ const ValueCell = ({ row, getValue, table }: ValueCellProps) => {
         <NumberField
           {...quickEditor}
           aria-label={label}
-          onChange={(value) => quickEditor.onValueChange(value)}
+          onChange={(nextValue) => quickEditor.onValueChange(nextValue)}
         />
       );
     default:
       assertNever(quickEditor);
   }
+};
+
+type ValueCellProps = CellContext<
+  Features,
+  ExifTableRow,
+  ExifEntryObject["formattedValue"]
+>;
+
+const ValueCell = ({ row, table }: ValueCellProps) => {
+  const originalRow = row.original;
+
+  if ("entries" in originalRow) {
+    return null;
+  }
+
+  return (
+    <ValueCellInner
+      exifEntryObject={originalRow}
+      updateExifEntry={table.options.meta?.updateExifEntry}
+    />
+  );
 };
 
 export { ValueCell, type ValueCellProps };
