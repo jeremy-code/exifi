@@ -52,14 +52,9 @@ const fallbackData: ExifEntryObject[] = [];
 
 type ExifTableProps = TableProps;
 
-const ExifTable = (props: ExifTableProps) => {
+const ExifTableInner = (props: ExifTableProps) => {
   const { locale } = useLocale();
-  const { exifDataObject, act } = useExifEditor(
-    useShallow((state) => ({
-      exifDataObject: state.exifDataObject,
-      act: state.act,
-    })),
-  );
+  const exifDataObject = useExifEditor((state) => state.exifDataObject);
   const exifContentObjects = useMemo(
     () =>
       (Object.entries(exifDataObject.ifd) as [Ifd, ExifEntryObject[]][]).map(
@@ -128,26 +123,6 @@ const ExifTable = (props: ExifTableProps) => {
     // oxlint-disable-next-line react-hooks/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
     [],
   );
-
-  if (
-    exifContentObjects.every(
-      (exifContentObject) => exifContentObject.entries.length === 0,
-    )
-  ) {
-    return (
-      <div className="mb-2 text-base">
-        {"There doesn't seem to be any Exif entries. "}
-        <AriaButton
-          className={(renderProps) =>
-            linkVariants({ ...renderProps, color: "blue", underline: true })
-          }
-          onPress={() => act((exifData) => exifData.fix())}
-        >
-          Initialize with default entries?
-        </AriaButton>
-      </div>
-    );
-  }
 
   return (
     <TableScrollArea>
@@ -233,6 +208,35 @@ const ExifTable = (props: ExifTableProps) => {
       <SelectionBar rowSelection={rowSelection} table={table} />
     </TableScrollArea>
   );
+};
+
+const ExifTable = (props: ExifTableProps) => {
+  const { isEmpty, act } = useExifEditor(
+    useShallow((state) => ({
+      isEmpty: Object.values(state.exifDataObject.ifd).every(
+        (entries) => entries.length === 0,
+      ),
+      act: state.act,
+    })),
+  );
+
+  if (isEmpty) {
+    return (
+      <div className="mb-2 text-base">
+        {"There doesn't seem to be any Exif entries. "}
+        <AriaButton
+          className={(renderProps) =>
+            linkVariants({ ...renderProps, color: "blue", underline: true })
+          }
+          onPress={() => act((exifData) => exifData.fix())}
+        >
+          Initialize with default entries?
+        </AriaButton>
+      </div>
+    );
+  }
+
+  return <ExifTableInner {...props} />;
 };
 
 export { ExifTable, type ExifTableProps };
