@@ -1,6 +1,6 @@
 import { formOptions } from "@tanstack/react-form";
 import type { Tag } from "libexif-wasm";
-import { z } from "zod";
+import * as z from "zod";
 
 import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
 import { parseCoordinateEntry } from "@exifi/core/exif/gps/parseCoordinateEntry";

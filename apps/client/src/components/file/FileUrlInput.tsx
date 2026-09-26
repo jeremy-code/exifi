@@ -3,7 +3,7 @@ import type { ComponentPropsWithRef } from "react";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
 import { useListFormatter } from "react-aria/useListFormatter";
-import { z } from "zod";
+import * as z from "zod";
 
 import { useDropzoneStore } from "#stores/dropzoneStore";
 import { getFileFromResponse } from "#utils/getFileFromResponse";

@@ -15,7 +15,7 @@ import { fontless } from "fontless";
 import { Features } from "lightningcss";
 import { defineConfig, type Plugin } from "vite";
 import { analyzer } from "vite-bundle-analyzer";
-import { z } from "zod";
+import * as z from "zod";
 
 // https://github.com/serwist/serwist/blob/adf0d79ae8ba7d87cce2251ffc29526955511a2b/packages/vite/src/plugins/build.ts
 const serwistBuild = (ctx: SerwistViteContext, api: SerwistViteApi): Plugin => {

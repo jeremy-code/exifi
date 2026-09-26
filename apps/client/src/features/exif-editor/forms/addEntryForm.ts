@@ -1,7 +1,7 @@
 import { formOptions } from "@tanstack/react-form";
 import { exifTagTableCount } from "libexif-wasm";
 import type { DistributedPick } from "type-fest";
-import { z } from "zod";
+import * as z from "zod";
 
 import { MAX_INT32_VALUE, MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
 import { ifdSchema, tagEntrySchema } from "@exifi/schemas/libexif";
