@@ -512,6 +512,34 @@ const HomeComponent = () => {
 
 const Route = createFileRoute("/")({
   component: HomeComponent,
+  head: () => ({
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebSite",
+              "@id": `${getBaseUrl()}/#website`,
+              url: getBaseUrl(),
+              name: "exifi",
+            },
+            {
+              "@type": "WebPage",
+              name: "exifi",
+              url: getBaseUrl(),
+              description: "Local Exif viewer and editor",
+              inLanguage: "en-US",
+              isPartOf: {
+                "@id": `${getBaseUrl()}/#website`,
+              },
+            },
+          ],
+        }),
+      },
+    ],
+  }),
 });
 
 export { Route };
