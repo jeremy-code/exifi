@@ -2,7 +2,7 @@
 base = "apps/api"
 publish = "dist"
 command = "pnpm --workspace-root exec turbo run build --filter=@exifi/api..."
-ignore = "corepack pnpm --workspace-root exec turbo query affected --packages @exifi/api --base \"$CACHED_COMMIT_REF\" --exit-code"
+ignore = "corepack pnpm --workspace-root exec turbo query affected --packages @exifi/api --base=$CACHED_COMMIT_REF --head=$COMMIT_REF --exit-code"
 
 [[plugins]]
 package = "netlify-plugin-emsdk"

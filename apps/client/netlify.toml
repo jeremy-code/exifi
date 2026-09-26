@@ -3,7 +3,7 @@ base = "apps/client"
 publish = "dist/client"
 command = "pnpm --workspace-root exec turbo run build --filter=@exifi/client..."
 # When using pnpm in the ignore command, it simply responds with "pnpm: command not found"
-ignore = "corepack pnpm --workspace-root exec turbo query affected --packages @exifi/client --base \"$CACHED_COMMIT_REF\" --exit-code"
+ignore = "corepack pnpm --workspace-root exec turbo query affected --packages @exifi/client --base=$CACHED_COMMIT_REF --head=$COMMIT_REF --exit-code"
 
 [build.processing.html]
 pretty_urls = true
