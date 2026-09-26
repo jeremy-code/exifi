@@ -11,6 +11,7 @@
     "@tanstack/eslint-plugin-query": "^5.103.2",
     "@tanstack/eslint-plugin-router": "^1.162.0",
     "eslint-plugin-turbo": "^2.11.4",
+    "eslint-plugin-zod": "^4.14.2",
     "oxlint-tailwindcss": "^1.13.0"
   }
 }
