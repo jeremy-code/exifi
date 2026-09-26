@@ -28,7 +28,10 @@ import { ExifDateTimeInformation } from "./ExifDateTimeInformation";
 import { ImageDimensions } from "./ImageDimensions";
 
 const ExifThumbnailInformation = ({ thumbnail }: { thumbnail: Uint8Array }) => {
-  const blob = useMemo(() => new Blob([thumbnail.slice()]), [thumbnail]);
+  const blob = useMemo(
+    () => new Blob([thumbnail.slice()], { type: "image/jpeg" }),
+    [thumbnail],
+  );
   const blobUrl = useObjectUrl(blob);
   const imageDimensionsPromise = useMemo(
     () => imageDimensionsFromStream(blob.stream()),
