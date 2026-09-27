@@ -5,7 +5,7 @@ import { getSerwist } from "virtual:serwist";
 
 import { toastQueue } from "@exifi/ui/components/Toast";
 
-const RegisterSW = () => {
+const SwRegistrar = () => {
   useEffect(() => {
     const abortController = new AbortController();
 
@@ -41,4 +41,4 @@ const RegisterSW = () => {
   return null;
 };
 
-export { RegisterSW };
+export { SwRegistrar };

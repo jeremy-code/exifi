@@ -6,7 +6,7 @@ import { ThemeProvider } from "next-themes";
 import { useDisposeQueryCache } from "#hooks/useDisposeQueryCache";
 import { ToastRegion } from "@exifi/ui/components/Toast";
 
-import { RegisterSW } from "./RegisterSW";
+import { SwRegistrar } from "./SwRegistrar";
 
 const Devtools = import.meta.env.DEV
   ? await import("./Devtools").then((mod) => mod.Devtools)
@@ -32,7 +32,7 @@ const AppProvider = ({ children }: { children: Readonly<ReactNode> }) => {
         {children}
         <Devtools />
         <ToastRegion />
-        <RegisterSW />
+        <SwRegistrar />
       </ThemeProvider>
     </QueryClientProvider>
   );
