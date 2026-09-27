@@ -45,6 +45,17 @@ const reactConfig = defineConfig({
      * @see {@link https://github.com/marcalexiei/eslint-zod/blob/HEAD/plugins/eslint-plugin-zod/docs/rules/prefer-string-schema-with-trim.md}
      */
     "zod/prefer-string-schema-with-trim": "off",
+
+    /**
+     * Use subpath imports for react-aria packages for smaller bundles
+     *
+     * @see {@link https://react-aria.adobe.com/releases/v1-17-0#using-sub-paths}
+     * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/eslint/no-restricted-imports.html}
+     */
+    "no-restricted-imports": [
+      "error",
+      { paths: ["react-aria", "react-aria-components"] },
+    ],
   },
   settings: {
     react: {
