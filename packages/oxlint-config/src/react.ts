@@ -7,7 +7,7 @@ import baseConfig from "@exifi/oxlint-config";
 
 const reactConfig = defineConfig({
   extends: [baseConfig],
-  plugins: ["react"],
+  plugins: ["react", "react-perf"],
   jsPlugins: [
     "@tanstack/eslint-plugin-query",
     "@tanstack/eslint-plugin-router",
