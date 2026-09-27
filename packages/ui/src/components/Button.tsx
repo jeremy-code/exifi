@@ -16,14 +16,32 @@ const buttonVariants = tv({
   ],
   variants: {
     color: {
-      gray: null,
-      accent: null,
+      gray: "[--color-50:var(--color-gray-50)] [--color-100:var(--color-gray-100)] [--color-200:var(--color-gray-200)] [--color-300:var(--color-gray-300)] [--color-400:var(--color-gray-400)] [--color-500:var(--color-gray-500)] [--color-600:var(--color-gray-600)] [--color-700:var(--color-gray-700)] [--color-800:var(--color-gray-800)] [--color-900:var(--color-gray-900)] [--color-950:var(--color-gray-950)]",
+      accent:
+        "[--color-50:var(--color-accent-50)] [--color-100:var(--color-accent-100)] [--color-200:var(--color-accent-200)] [--color-300:var(--color-accent-300)] [--color-400:var(--color-accent-400)] [--color-500:var(--color-accent-500)] [--color-600:var(--color-accent-600)] [--color-700:var(--color-accent-700)] [--color-800:var(--color-accent-800)] [--color-900:var(--color-accent-900)] [--color-950:var(--color-accent-950)]",
+      blue: "[--color-50:var(--color-blue-50)] [--color-100:var(--color-blue-100)] [--color-200:var(--color-blue-200)] [--color-300:var(--color-blue-300)] [--color-400:var(--color-blue-400)] [--color-500:var(--color-blue-500)] [--color-600:var(--color-blue-600)] [--color-700:var(--color-blue-700)] [--color-800:var(--color-blue-800)] [--color-900:var(--color-blue-900)] [--color-950:var(--color-blue-950)]",
+      red: "[--color-50:var(--color-red-50)] [--color-100:var(--color-red-100)] [--color-200:var(--color-red-200)] [--color-300:var(--color-red-300)] [--color-400:var(--color-red-400)] [--color-500:var(--color-red-500)] [--color-600:var(--color-red-600)] [--color-700:var(--color-red-700)] [--color-800:var(--color-red-800)] [--color-900:var(--color-red-900)] [--color-950:var(--color-red-950)]",
     },
     variant: {
-      muted: null,
-      ghost: null,
-      surface: "border",
-      outline: "border",
+      muted: [
+        "bg-(--color-200) text-(--color-800) hover:bg-(--color-300) pressed:bg-(--color-400)",
+        "dark:bg-(--color-800) dark:text-(--color-50) dark:hover:bg-(--color-700) dark:pressed:bg-(--color-600)",
+      ],
+      ghost: [
+        "bg-transparent",
+        "text-(--color-800) hover:bg-(--color-200) pressed:bg-(--color-300)",
+        "dark:text-(--color-200) dark:hover:bg-(--color-800) dark:pressed:bg-(--color-700)",
+      ],
+      surface: [
+        "border",
+        "border-(--color-300) bg-(--color-200) text-(--color-800) hover:bg-(--color-300) pressed:bg-(--color-400)",
+        "dark:border-(--color-700) dark:bg-(--color-800) dark:text-(--color-50) dark:hover:bg-(--color-700) dark:pressed:bg-(--color-600)",
+      ],
+      outline: [
+        "border bg-transparent",
+        "border-(--color-300) text-(--color-800) hover:bg-(--color-100) pressed:bg-(--color-200)",
+        "dark:border-(--color-700) dark:text-(--color-200) dark:hover:bg-(--color-900) dark:pressed:bg-(--color-800)",
+      ],
     },
     size: {
       xs: "h-8 min-w-8 gap-1 px-2.5 text-xs/4",
@@ -35,42 +53,6 @@ const buttonVariants = tv({
       "icon-xs": "h-8 min-w-8 gap-1 text-xs/4",
     },
   },
-  compoundVariants: [
-    {
-      color: "gray",
-      variant: "muted",
-      className: "bg-bg-muted hover:bg-border pressed:bg-fg-subtle",
-    },
-    {
-      color: "accent",
-      variant: "muted",
-      className:
-        "bg-accent text-white hover:bg-accent-hover pressed:bg-accent-pressed",
-    },
-    {
-      color: "gray",
-      variant: "surface",
-      className:
-        "border-border bg-bg-muted hover:bg-border pressed:bg-fg-subtle",
-    },
-    {
-      color: "gray",
-      variant: "ghost",
-      className: "bg-transparent hover:bg-bg-muted pressed:bg-border",
-    },
-    {
-      color: "accent",
-      variant: "ghost",
-      className:
-        "bg-transparent hover:bg-accent hover:text-accent-fg pressed:bg-accent-pressed pressed:text-accent-fg",
-    },
-    {
-      color: "gray",
-      variant: "outline",
-      className:
-        "border-border bg-transparent hover:bg-bg-muted pressed:bg-border",
-    },
-  ],
   defaultVariants: {
     color: "gray",
     variant: "muted",

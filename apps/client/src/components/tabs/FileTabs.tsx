@@ -93,9 +93,8 @@ const FileTabs = ({ children, ...props }: FileTabsProps) => {
               </ScrollArea>
               <div className="pt-1 pr-1">
                 <Button
-                  className="bg-transparent text-fg-muted"
                   size="icon"
-                  variant="muted"
+                  variant="ghost"
                   onPress={() => createNewTab()}
                   aria-label="New tab"
                 >

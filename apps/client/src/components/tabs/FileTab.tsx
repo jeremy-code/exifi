@@ -1,5 +1,6 @@
 import { useSortable } from "@dnd-kit/react/sortable";
 import { X } from "lucide-react";
+import { cn } from "tailwind-variants";
 
 import { Button } from "@exifi/ui/components/Button";
 import { Tab, type TabProps } from "@exifi/ui/components/Tabs";
@@ -43,7 +44,10 @@ const FileTab = ({
           : "New Tab"}
       </span>
       <Button
-        className="absolute right-1 group-not-selected/tabs-trigger:hover:bg-border"
+        className={cn("absolute right-1", [
+          "hover:bg-gray-200 pressed:bg-gray-300",
+          "dark:hover:bg-gray-600 dark:pressed:bg-gray-500",
+        ])}
         variant="ghost"
         size="icon-xs"
         onPress={() => removeTab()}
