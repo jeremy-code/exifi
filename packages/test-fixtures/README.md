@@ -379,6 +379,8 @@ int main(void) {
 
 ## Notes
 
+Exif data for `plain-jpg-with-mnote-exif` is from [Sumo Museum.jpg](https://www.flickr.com/photos/sodaigomi/26569147426/) from [sodai gomi](https://www.flickr.com/photos/sodaigomi/).
+
 Exif data for `plain-heic-with-exif` is from [IMG_5195.HEIC](https://github.com/ianare/exif-samples/blob/master/heic/IMG_5195.HEIC) from [ianare/exif-samples](https://github.com/ianare/exif-samples).
 
 Exif data for `plain-avif-with-exif` is from [colors_hdr_rec2020.avif](https://github.com/AOMediaCodec/libavif/blob/main/tests/data/colors_hdr_rec2020.avif) from [AOMediaCodec/libavif](https://github.com/AOMediaCodec/libavif).

@@ -1,0 +1,573 @@
+{
+  "data": [],
+  "ifd": {
+    "IFD_0": [
+      {
+        "ifd": "IFD_0",
+        "tag": "IMAGE_DESCRIPTION",
+        "format": "ASCII",
+        "components": 12,
+        "data": [83, 117, 109, 111, 32, 77, 117, 115, 101, 117, 109, 0],
+        "size": 12,
+        "formattedValue": "Sumo Museum",
+        "byteOrder": "MOTOROLA",
+        "value": "Sumo Museum"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "MAKE",
+        "format": "ASCII",
+        "components": 6,
+        "data": [67, 97, 110, 111, 110, 0],
+        "size": 6,
+        "formattedValue": "Canon",
+        "byteOrder": "MOTOROLA",
+        "value": "Canon"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "MODEL",
+        "format": "ASCII",
+        "components": 20,
+        "data": [
+          67, 97, 110, 111, 110, 32, 80, 111, 119, 101, 114, 83, 104, 111, 116,
+          32, 65, 55, 48, 0
+        ],
+        "size": 20,
+        "formattedValue": "Canon PowerShot A70",
+        "byteOrder": "MOTOROLA",
+        "value": "Canon PowerShot A70"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "ORIENTATION",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 1],
+        "size": 2,
+        "formattedValue": "Top-left",
+        "byteOrder": "MOTOROLA",
+        "value": [1]
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "X_RESOLUTION",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [0, 0, 0, 72, 0, 0, 0, 1],
+        "size": 8,
+        "formattedValue": "72",
+        "byteOrder": "MOTOROLA",
+        "value": [
+          {
+            "numerator": 72,
+            "denominator": 1
+          }
+        ]
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "Y_RESOLUTION",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [0, 0, 0, 72, 0, 0, 0, 1],
+        "size": 8,
+        "formattedValue": "72",
+        "byteOrder": "MOTOROLA",
+        "value": [
+          {
+            "numerator": 72,
+            "denominator": 1
+          }
+        ]
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "RESOLUTION_UNIT",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 2],
+        "size": 2,
+        "formattedValue": "Inch",
+        "byteOrder": "MOTOROLA",
+        "value": [2]
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "SOFTWARE",
+        "format": "ASCII",
+        "components": 14,
+        "data": [100, 97, 114, 107, 116, 97, 98, 108, 101, 32, 49, 46, 52, 0],
+        "size": 14,
+        "formattedValue": "darktable 1.4",
+        "byteOrder": "MOTOROLA",
+        "value": "darktable 1.4"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "DATE_TIME",
+        "format": "ASCII",
+        "components": 20,
+        "data": [
+          50, 48, 49, 54, 58, 48, 52, 58, 50, 50, 32, 50, 50, 58, 52, 49, 58,
+          51, 49, 0
+        ],
+        "size": 20,
+        "formattedValue": "2016:04:22 22:41:31",
+        "byteOrder": "MOTOROLA",
+        "value": "2016:04:22 22:41:31"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "YCBCR_POSITIONING",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 1],
+        "size": 2,
+        "formattedValue": "Centered",
+        "byteOrder": "MOTOROLA",
+        "value": [1]
+      }
+    ],
+    "IFD_1": [],
+    "EXIF": [
+      {
+        "ifd": "EXIF",
+        "tag": "EXPOSURE_TIME",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [0, 0, 0, 1, 0, 0, 0, 15],
+        "size": 8,
+        "formattedValue": "1/15 sec.",
+        "byteOrder": "MOTOROLA",
+        "value": [
+          {
+            "numerator": 1,
+            "denominator": 15
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FNUMBER",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [0, 0, 0, 14, 0, 0, 0, 5],
+        "size": 8,
+        "formattedValue": "f/2.8",
+        "byteOrder": "MOTOROLA",
+        "value": [
+          {
+            "numerator": 14,
+            "denominator": 5
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "EXIF_VERSION",
+        "format": "UNDEFINED",
+        "components": 4,
+        "data": [48, 50, 50, 48],
+        "size": 4,
+        "formattedValue": "Exif Version 2.2",
+        "byteOrder": "MOTOROLA",
+        "value": [48, 50, 50, 48]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "DATE_TIME_ORIGINAL",
+        "format": "ASCII",
+        "components": 20,
+        "data": [
+          50, 48, 48, 53, 58, 48, 54, 58, 50, 52, 32, 49, 51, 58, 48, 54, 58,
+          50, 53, 0
+        ],
+        "size": 20,
+        "formattedValue": "2005:06:24 13:06:25",
+        "byteOrder": "MOTOROLA",
+        "value": "2005:06:24 13:06:25"
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "DATE_TIME_DIGITIZED",
+        "format": "ASCII",
+        "components": 20,
+        "data": [
+          50, 48, 48, 53, 58, 48, 54, 58, 50, 52, 32, 49, 51, 58, 48, 54, 58,
+          50, 53, 0
+        ],
+        "size": 20,
+        "formattedValue": "2005:06:24 13:06:25",
+        "byteOrder": "MOTOROLA",
+        "value": "2005:06:24 13:06:25"
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "COMPONENTS_CONFIGURATION",
+        "format": "UNDEFINED",
+        "components": 4,
+        "data": [1, 2, 3, 0],
+        "size": 4,
+        "formattedValue": "Y Cb Cr -",
+        "byteOrder": "MOTOROLA",
+        "value": [1, 2, 3, 0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SHUTTER_SPEED_VALUE",
+        "format": "SRATIONAL",
+        "components": 1,
+        "data": [0, 0, 61, 203, 0, 0, 15, 209],
+        "size": 8,
+        "formattedValue": "3.91 EV (1/15 sec.)",
+        "byteOrder": "MOTOROLA",
+        "value": [
+          {
+            "numerator": 15819,
+            "denominator": 4049
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "APERTURE_VALUE",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [0, 0, 95, 41, 0, 0, 32, 8],
+        "size": 8,
+        "formattedValue": "2.97 EV (f/2.8)",
+        "byteOrder": "MOTOROLA",
+        "value": [
+          {
+            "numerator": 24361,
+            "denominator": 8200
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "EXPOSURE_BIAS_VALUE",
+        "format": "SRATIONAL",
+        "components": 1,
+        "data": [0, 0, 0, 0, 0, 0, 0, 1],
+        "size": 8,
+        "formattedValue": "0.00 EV",
+        "byteOrder": "MOTOROLA",
+        "value": [
+          {
+            "numerator": 0,
+            "denominator": 1
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "MAX_APERTURE_VALUE",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [0, 0, 95, 41, 0, 0, 32, 8],
+        "size": 8,
+        "formattedValue": "2.97 EV (f/2.8)",
+        "byteOrder": "MOTOROLA",
+        "value": [
+          {
+            "numerator": 24361,
+            "denominator": 8200
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "METERING_MODE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 5],
+        "size": 2,
+        "formattedValue": "Pattern",
+        "byteOrder": "MOTOROLA",
+        "value": [5]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FLASH",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 16],
+        "size": 2,
+        "formattedValue": "Flash did not fire, compulsory flash mode",
+        "byteOrder": "MOTOROLA",
+        "value": [16]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FOCAL_LENGTH",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [0, 0, 0, 27, 0, 0, 0, 5],
+        "size": 8,
+        "formattedValue": "5.4 mm",
+        "byteOrder": "MOTOROLA",
+        "value": [
+          {
+            "numerator": 27,
+            "denominator": 5
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "MAKER_NOTE",
+        "format": "UNDEFINED",
+        "components": 574,
+        "data": [
+          0, 14, 0, 1, 0, 3, 0, 0, 0, 46, 0, 0, 3, 90, 0, 2, 0, 3, 0, 0, 0, 4,
+          0, 0, 3, 182, 0, 3, 0, 3, 0, 0, 0, 4, 0, 0, 3, 190, 0, 4, 0, 3, 0, 0,
+          0, 34, 0, 0, 3, 198, 0, 0, 0, 3, 0, 0, 0, 6, 0, 0, 4, 10, 0, 0, 0, 3,
+          0, 0, 0, 4, 0, 0, 4, 22, 0, 18, 0, 3, 0, 0, 0, 20, 0, 0, 4, 30, 0, 19,
+          0, 3, 0, 0, 0, 4, 0, 0, 4, 70, 0, 6, 0, 2, 0, 0, 0, 32, 0, 0, 4, 78,
+          0, 7, 0, 2, 0, 0, 0, 24, 0, 0, 4, 110, 0, 8, 0, 4, 0, 0, 0, 1, 0, 23,
+          30, 172, 0, 9, 0, 2, 0, 0, 0, 32, 0, 0, 4, 134, 0, 16, 0, 4, 0, 0, 0,
+          1, 1, 37, 0, 0, 0, 13, 0, 3, 0, 0, 0, 34, 0, 0, 4, 166, 0, 0, 0, 0, 0,
+          92, 0, 2, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 3, 0, 1, 64, 1, 0, 0, 255, 255, 255,
+          255, 2, 7, 0, 173, 0, 32, 0, 98, 0, 192, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 255, 255, 0, 0, 8, 0, 8, 0, 0, 0, 0, 1, 0, 0, 0, 0, 127, 255, 0,
+          0, 0, 0, 0, 0, 0, 2, 0, 173, 0, 213, 0, 159, 4, 0, 0, 0, 0, 0, 0, 0,
+          0, 68, 0, 0, 0, 128, 0, 92, 0, 95, 0, 125, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 95, 0, 0, 0, 98,
+          0, 122, 0, 0, 0, 0, 0, 0, 0, 250, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          5, 0, 5, 8, 0, 6, 0, 8, 0, 1, 0, 1, 113, 0, 42, 0, 0, 254, 142, 0, 0,
+          1, 114, 0, 0, 255, 208, 0, 0, 0, 0, 0, 0, 0, 48, 0, 1, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 73, 77, 71, 58, 80, 111, 119, 101, 114, 83, 104, 111,
+          116, 32, 65, 55, 48, 32, 74, 80, 69, 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          70, 105, 114, 109, 119, 97, 114, 101, 32, 86, 101, 114, 115, 105, 111,
+          110, 32, 49, 46, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 68, 0,
+          9, 128, 1, 1, 58, 128, 1, 1, 57, 1, 55, 1, 56, 128, 1, 1, 55, 128, 1,
+          0, 64, 0, 0, 0, 0, 0, 221, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 10, 2,
+          139, 0, 186, 0, 5, 0, 0, 3, 174, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 167,
+          0, 0, 0, 0
+        ],
+        "size": 574,
+        "formattedValue": "574 bytes undefined data",
+        "byteOrder": "MOTOROLA",
+        "value": [
+          0, 14, 0, 1, 0, 3, 0, 0, 0, 46, 0, 0, 3, 90, 0, 2, 0, 3, 0, 0, 0, 4,
+          0, 0, 3, 182, 0, 3, 0, 3, 0, 0, 0, 4, 0, 0, 3, 190, 0, 4, 0, 3, 0, 0,
+          0, 34, 0, 0, 3, 198, 0, 0, 0, 3, 0, 0, 0, 6, 0, 0, 4, 10, 0, 0, 0, 3,
+          0, 0, 0, 4, 0, 0, 4, 22, 0, 18, 0, 3, 0, 0, 0, 20, 0, 0, 4, 30, 0, 19,
+          0, 3, 0, 0, 0, 4, 0, 0, 4, 70, 0, 6, 0, 2, 0, 0, 0, 32, 0, 0, 4, 78,
+          0, 7, 0, 2, 0, 0, 0, 24, 0, 0, 4, 110, 0, 8, 0, 4, 0, 0, 0, 1, 0, 23,
+          30, 172, 0, 9, 0, 2, 0, 0, 0, 32, 0, 0, 4, 134, 0, 16, 0, 4, 0, 0, 0,
+          1, 1, 37, 0, 0, 0, 13, 0, 3, 0, 0, 0, 34, 0, 0, 4, 166, 0, 0, 0, 0, 0,
+          92, 0, 2, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 0, 3, 0, 1, 64, 1, 0, 0, 255, 255, 255,
+          255, 2, 7, 0, 173, 0, 32, 0, 98, 0, 192, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 255, 255, 0, 0, 8, 0, 8, 0, 0, 0, 0, 1, 0, 0, 0, 0, 127, 255, 0,
+          0, 0, 0, 0, 0, 0, 2, 0, 173, 0, 213, 0, 159, 4, 0, 0, 0, 0, 0, 0, 0,
+          0, 68, 0, 0, 0, 128, 0, 92, 0, 95, 0, 125, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 95, 0, 0, 0, 98,
+          0, 122, 0, 0, 0, 0, 0, 0, 0, 250, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          5, 0, 5, 8, 0, 6, 0, 8, 0, 1, 0, 1, 113, 0, 42, 0, 0, 254, 142, 0, 0,
+          1, 114, 0, 0, 255, 208, 0, 0, 0, 0, 0, 0, 0, 48, 0, 1, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 73, 77, 71, 58, 80, 111, 119, 101, 114, 83, 104, 111,
+          116, 32, 65, 55, 48, 32, 74, 80, 69, 71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          70, 105, 114, 109, 119, 97, 114, 101, 32, 86, 101, 114, 115, 105, 111,
+          110, 32, 49, 46, 48, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+          0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 68, 0,
+          9, 128, 1, 1, 58, 128, 1, 1, 57, 1, 55, 1, 56, 128, 1, 1, 55, 128, 1,
+          0, 64, 0, 0, 0, 0, 0, 221, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 10, 2,
+          139, 0, 186, 0, 5, 0, 0, 3, 174, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 167,
+          0, 0, 0, 0
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "USER_COMMENT",
+        "format": "UNDEFINED",
+        "components": 8,
+        "data": [65, 83, 67, 73, 73, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "",
+        "byteOrder": "MOTOROLA",
+        "value": [65, 83, 67, 73, 73, 0, 0, 0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FLASH_PIX_VERSION",
+        "format": "UNDEFINED",
+        "components": 4,
+        "data": [48, 49, 48, 48],
+        "size": 4,
+        "formattedValue": "FlashPix Version 1.0",
+        "byteOrder": "MOTOROLA",
+        "value": [48, 49, 48, 48]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "COLOR_SPACE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 1],
+        "size": 2,
+        "formattedValue": "sRGB",
+        "byteOrder": "MOTOROLA",
+        "value": [1]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "PIXEL_X_DIMENSION",
+        "format": "SHORT",
+        "components": 1,
+        "data": [8, 0],
+        "size": 2,
+        "formattedValue": "2048",
+        "byteOrder": "MOTOROLA",
+        "value": [2048]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "PIXEL_Y_DIMENSION",
+        "format": "SHORT",
+        "components": 1,
+        "data": [6, 0],
+        "size": 2,
+        "formattedValue": "1536",
+        "byteOrder": "MOTOROLA",
+        "value": [1536]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FOCAL_PLANE_X_RESOLUTION",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [0, 1, 244, 0, 0, 0, 0, 13],
+        "size": 8,
+        "formattedValue": "9846.15",
+        "byteOrder": "MOTOROLA",
+        "value": [
+          {
+            "numerator": 128000,
+            "denominator": 13
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FOCAL_PLANE_Y_RESOLUTION",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [0, 1, 244, 0, 0, 0, 0, 13],
+        "size": 8,
+        "formattedValue": "9846.15",
+        "byteOrder": "MOTOROLA",
+        "value": [
+          {
+            "numerator": 128000,
+            "denominator": 13
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FOCAL_PLANE_RESOLUTION_UNIT",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 2],
+        "size": 2,
+        "formattedValue": "Inch",
+        "byteOrder": "MOTOROLA",
+        "value": [2]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SENSING_METHOD",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 2],
+        "size": 2,
+        "formattedValue": "One-chip color area sensor",
+        "byteOrder": "MOTOROLA",
+        "value": [2]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FILE_SOURCE",
+        "format": "UNDEFINED",
+        "components": 1,
+        "data": [3],
+        "size": 1,
+        "formattedValue": "DSC",
+        "byteOrder": "MOTOROLA",
+        "value": [3]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "CUSTOM_RENDERED",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Normal process",
+        "byteOrder": "MOTOROLA",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "EXPOSURE_MODE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Auto exposure",
+        "byteOrder": "MOTOROLA",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "WHITE_BALANCE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Auto white balance",
+        "byteOrder": "MOTOROLA",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "DIGITAL_ZOOM_RATIO",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [0, 0, 0, 1, 0, 0, 0, 1],
+        "size": 8,
+        "formattedValue": " 1",
+        "byteOrder": "MOTOROLA",
+        "value": [
+          {
+            "numerator": 1,
+            "denominator": 1
+          }
+        ]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SCENE_CAPTURE_TYPE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Standard",
+        "byteOrder": "MOTOROLA",
+        "value": [0]
+      }
+    ],
+    "GPS": [],
+    "INTEROPERABILITY": []
+  },
+  "dataType": "UNKNOWN",
+  "byteOrder": "MOTOROLA"
+}
