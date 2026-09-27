@@ -15,11 +15,9 @@ const appLayoutSearchSchema = z.object({
 
 const AppLayoutComponent = () => {
   return (
-    <>
-      <FileTabs>
-        <Outlet />
-      </FileTabs>
-    </>
+    <FileTabs>
+      <Outlet />
+    </FileTabs>
   );
 };
 
