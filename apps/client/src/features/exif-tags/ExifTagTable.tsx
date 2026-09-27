@@ -139,7 +139,7 @@ const ExifTagTable = () => {
                           cell.column.columnDef.cell,
                           cell.getContext(),
                         )}
-                        <Badge>
+                        <Badge variant="muted">
                           {formatPlural(
                             row.subRows.length,
                             {

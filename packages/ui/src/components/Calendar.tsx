@@ -35,7 +35,7 @@ const calendarCellVariants = tv({
         "dark:text-gray-200 dark:hover:bg-gray-700 dark:pressed:bg-gray-600",
       ],
       true: [
-        "bg-accent text-accent-fg invalid:bg-destructive hover:bg-accent-hover",
+        "bg-accent text-accent-fg invalid:bg-red-600 hover:bg-accent-hover",
         "forced-colors:bg-[Highlight] forced-colors:text-[HighlightText] forced-colors:invalid:bg-[Mark]",
       ],
     },

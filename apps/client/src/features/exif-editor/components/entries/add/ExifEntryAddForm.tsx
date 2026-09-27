@@ -69,7 +69,7 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
         {(tag) => {
           if (tag !== undefined && GEOLOCATION_TAGS.includes(tag)) {
             return (
-              <Callout variant="warning" className="mb-4">
+              <Callout color="yellow" variant="surface" className="mb-4">
                 <CalloutText>
                   {`Are you trying to edit a geolocation field? Consider using the "Edit GPS" button instead in the toolbar to the right of the Add Exif Entry button.`}
                 </CalloutText>

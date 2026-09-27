@@ -43,7 +43,9 @@ const UnsavedDialog = () => {
         </DialogHeader>
         <DialogFooter>
           <Button onPress={reset}>Stay on page</Button>
-          <Button onPress={proceed}>Leave page</Button>
+          <Button variant="ghost" onPress={proceed}>
+            Leave page
+          </Button>
         </DialogFooter>
       </Dialog>
     </Modal>

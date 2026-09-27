@@ -6,22 +6,42 @@ import { twMerge } from "tailwind-merge";
 import { tv, type VariantProps } from "tailwind-variants";
 
 const calloutVariants = tv({
-  base: "mx-auto flex items-center gap-4 rounded border p-4",
+  base: "mx-auto flex items-center gap-4 rounded p-4",
   variants: {
     variant: {
-      destructive: "bg-red-100 text-red-400 dark:bg-red-950 dark:text-red-300",
-      warning:
-        "border-yellow-300 bg-yellow-100 text-yellow-600 dark:border-yellow-800 dark:bg-yellow-950 dark:text-yellow-200",
+      subtle: [
+        "bg-(--color-100) text-(--color-700)",
+        "dark:bg-(--color-900) dark:text-(--color-300)",
+      ],
+      surface: [
+        "border",
+        "border-(--color-200) bg-(--color-100) text-(--color-700)",
+        "dark:border-(--color-700) dark:bg-(--color-900) dark:text-(--color-300)",
+      ],
     },
+    color: {
+      red: "[--color-100:var(--color-red-100)] [--color-200:var(--color-red-200)] [--color-300:var(--color-red-300)] [--color-700:var(--color-red-700)] [--color-900:var(--color-red-900)]",
+      yellow:
+        "[--color-100:var(--color-yellow-100)] [--color-200:var(--color-yellow-300)] [--color-300:var(--color-yellow-300)] [--color-700:var(--color-yellow-700)] [--color-900:var(--color-yellow-900)]",
+    },
+  },
+  defaultVariants: {
+    variant: "subtle",
   },
 });
 
 type CalloutProps = ComponentPropsWithRef<"div"> &
   VariantProps<typeof calloutVariants>;
 
-const Callout = ({ children, className, variant, ...props }: CalloutProps) => {
+const Callout = ({
+  children,
+  className,
+  color,
+  variant,
+  ...props
+}: CalloutProps) => {
   return (
-    <div className={calloutVariants({ className, variant })} {...props}>
+    <div className={calloutVariants({ className, variant, color })} {...props}>
       <div className="w-8">
         <TriangleAlert aria-label="Alert" />
       </div>

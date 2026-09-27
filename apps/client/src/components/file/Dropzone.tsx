@@ -117,7 +117,7 @@ const Dropzone = ({
         className: cn(
           "flex flex-col items-center gap-6 rounded border border-dashed p-6 text-fg-muted",
           {
-            "border-destructive bg-destructive/10": fileRejections.length > 0,
+            "border-red-600 bg-red-600/10": fileRejections.length > 0,
             "border-accent bg-accent/10": isDragAccept,
           },
           rootProps?.className,

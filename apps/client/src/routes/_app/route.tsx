@@ -48,7 +48,7 @@ const Route = createFileRoute("/_app")({
             {
               title: "Fetching from URL failed",
               description: `Fetching ${deps.url} failed with error ${error.message}.`,
-              toastProps: { color: "destructive" },
+              toastProps: { color: "red" },
             },
             { timeout: 5_000 /* 5 seconds */ },
           );

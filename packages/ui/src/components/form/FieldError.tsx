@@ -16,7 +16,7 @@ const FieldError = ({ className, ...props }: FieldErrorProps) => {
       {...props}
       className={composeTailwindRenderProps(
         className,
-        "text-sm text-destructive forced-colors:text-[Mark]",
+        "text-sm text-red-600 forced-colors:text-[Mark]",
       )}
     />
   );

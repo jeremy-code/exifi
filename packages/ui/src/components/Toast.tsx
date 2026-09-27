@@ -76,10 +76,10 @@ const closeToastButtonVariants = tv({
   ],
   variants: {
     isHovered: {
-      true: "bg-white/15",
+      true: "bg-white/20",
     },
     isPressed: {
-      true: "bg-white/20",
+      true: "bg-white/30",
     },
     isFocusVisible: {
       true: "outline-2 outline-offset-2 outline-current [--tw-outline-style:solid] forced-colors:outline-[Highlight]",
@@ -110,14 +110,28 @@ const toastRootVariants = tv({
     "forced-colors:outline",
   ],
   variants: {
+    variant: {
+      solid: "bg-(--color-600) text-(--color-50)",
+      subtle: [
+        "bg-(--color-100) text-(--color-800)",
+        "dark:bg-(--color-900) dark:text-(--color-50)",
+      ],
+      surface: [
+        "border",
+        "border-(--color-300) bg-(--color-100) text-(--color-800)",
+        "dark:border-(--color-700) dark:bg-(--color-900) dark:text-(--color-50)",
+      ],
+    },
     color: {
-      default: "bg-bg-muted text-fg",
-      accent: "bg-accent text-accent-fg",
-      destructive: "bg-destructive text-destructive-fg",
+      gray: "[--color-50:var(--color-gray-50)] [--color-100:var(--color-gray-100)] [--color-300:var(--color-gray-300)] [--color-600:var(--color-gray-600)] [--color-700:var(--color-gray-700)] [--color-800:var(--color-gray-800)] [--color-900:var(--color-gray-900)]",
+      accent:
+        "[--color-50:var(--color-accent-50)] [--color-100:var(--color-accent-100)] [--color-300:var(--color-accent-300)] [--color-600:var(--color-accent-600)] [--color-700:var(--color-accent-700)] [--color-800:var(--color-accent-800)] [--color-900:var(--color-accent-900)]",
+      red: "[--color-50:var(--color-red-50)] [--color-100:var(--color-red-100)] [--color-300:var(--color-red-300)] [--color-600:var(--color-red-600)] [--color-700:var(--color-red-700)] [--color-800:var(--color-red-800)] [--color-900:var(--color-red-900)]",
     },
   },
   defaultVariants: {
-    color: "default",
+    variant: "solid",
+    color: "gray",
   },
 });
 
@@ -142,7 +156,7 @@ const Toast = ({ toast, ...props }: ToastProps) => {
   );
 };
 
-const ToastRoot = ({ color, ...props }: ToastProps) => {
+const ToastRoot = ({ color, variant, ...props }: ToastProps) => {
   return (
     <AriaToast
       {...props}
@@ -151,7 +165,7 @@ const ToastRoot = ({ color, ...props }: ToastProps) => {
         ...style,
       }))}
       className={composeRenderProps(props.className, (className, renderProps) =>
-        toastRootVariants({ className, color, ...renderProps }),
+        toastRootVariants({ className, color, variant, ...renderProps }),
       )}
     />
   );

@@ -102,7 +102,7 @@ const FileInformation = ({
                 >
                   {file.name}
                 </Link>
-                <Badge className="select-auto">
+                <Badge variant="muted" className="select-auto">
                   {file.type !== "" ? file.type : "Unknown"}
                 </Badge>
               </DataListItemValue>

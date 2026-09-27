@@ -19,7 +19,7 @@ const IfdCell = ({
     return (
       <ExpandRows row={row}>
         {exifIfdGetName(getValue())}
-        <Badge>
+        <Badge variant="muted">
           {formatPlural(
             row.getCanExpand() ? row.subRows.length : 0,
             { one: " tag", other: " tags" },

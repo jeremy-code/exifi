@@ -8,7 +8,7 @@ const ErrorMessage = ({ className, ...props }: ErrorMessageProps) => {
   return (
     <Text
       slot="errorMessage"
-      className={cn("text-sm text-destructive", className)}
+      className={cn("text-sm text-red-600", className)}
       {...props}
     />
   );

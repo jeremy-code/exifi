@@ -457,7 +457,11 @@ const HomeComponent = () => {
             to="/viewer"
             underline={false}
             className={(renderProps) =>
-              buttonVariants({ color: "accent", ...renderProps })
+              buttonVariants({
+                color: "accent",
+                variant: "surface",
+                ...renderProps,
+              })
             }
           >
             View

@@ -33,12 +33,12 @@ const linkVariants = tv({
          */
         "visited:text-purple-600 visited:hover:text-purple-700 dark:visited:text-purple-500 dark:visited:hover:text-purple-400",
       ],
-      default: "text-fg-bold",
+      gray: "text-fg-bold",
     },
   },
   defaultVariants: {
     underline: "hover",
-    color: "default",
+    color: "gray",
   },
 });
 
