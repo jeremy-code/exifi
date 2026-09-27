@@ -135,19 +135,19 @@ describe("ExifDateTimeInformation", () => {
     const { dateTime, dateTimeOriginal, dateTimeGps } =
       parseDateTimeEntryObjects(plainAvifWithExif.json as ExifDataObject);
 
-    await expect
-      .element(screen.getByTerm("Date and Time").first().getByRole("time"))
-      .toHaveAttribute("datetime", dateTime?.toString());
-    await expect
-      .element(screen.getByTerm("Date and Time (Original)").getByRole("time"))
-      .toHaveAttribute("datetime", dateTimeOriginal?.toString());
+    expect(
+      screen.getByTerm("Date and Time").first().getByRole("time"),
+    ).toHaveAttribute("datetime", dateTime?.toString());
+    expect(
+      screen.getByTerm("Date and Time (Original)").getByRole("time"),
+    ).toHaveAttribute("datetime", dateTimeOriginal?.toString());
     // While DATE_TIME_DIGITIZED exists, it is exactly the same as
     // DATE_TIME_ORIGINAL; hence, it shouldn't be included
-    await expect
-      .element(screen.getByTerm("Date and Time (Digitized)"))
-      .not.toBeInTheDocument();
-    await expect
-      .element(screen.getByTerm("Date and Time (GPS)").getByRole("time"))
-      .toHaveAttribute("datetime", dateTimeGps?.toString());
+    expect(
+      screen.getByTerm("Date and Time (Digitized)"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByTerm("Date and Time (GPS)").getByRole("time"),
+    ).toHaveAttribute("datetime", dateTimeGps?.toString());
   });
 });

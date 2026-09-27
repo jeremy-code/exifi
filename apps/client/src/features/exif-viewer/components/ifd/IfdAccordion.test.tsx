@@ -18,23 +18,15 @@ describe("IfdAccordion", () => {
 
     const screen = await render(<IfdAccordion exifData={exifData} />);
 
-    await expect
-      .element(screen.getByTerm("X-Resolution"))
-      .toMatchTextContent("72");
-    await expect
-      .element(screen.getByTerm("Y-Resolution"))
-      .toMatchTextContent("72");
-    await expect
-      .element(screen.getByTerm("Resolution Unit"))
-      .toMatchTextContent("Inch");
-    await expect
-      .element(screen.getByTerm("Exif Version"))
-      .toMatchTextContent("Exif Version 2.1");
-    await expect
-      .element(screen.getByTerm("FlashPixVersion"))
-      .toMatchTextContent("FlashPix Version 1.0");
-    await expect
-      .element(screen.getByTerm("Color Space"))
-      .toMatchTextContent("Uncalibrated");
+    expect(screen.getByTerm("X-Resolution")).toMatchTextContent("72");
+    expect(screen.getByTerm("Y-Resolution")).toMatchTextContent("72");
+    expect(screen.getByTerm("Resolution Unit")).toMatchTextContent("Inch");
+    expect(screen.getByTerm("Exif Version")).toMatchTextContent(
+      "Exif Version 2.1",
+    );
+    expect(screen.getByTerm("FlashPixVersion")).toMatchTextContent(
+      "FlashPix Version 1.0",
+    );
+    expect(screen.getByTerm("Color Space")).toMatchTextContent("Uncalibrated");
   });
 });

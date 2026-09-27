@@ -16,21 +16,11 @@ describe("ExifInformation", () => {
 
     const screen = await render(<ExifInformation exifData={exifData} />);
 
-    await expect
-      .element(screen.getByText("Exif information"))
-      .toBeInTheDocument();
-    await expect
-      .element(screen.getByTerm("Byte order"))
-      .toHaveTextContent("Big-endian");
-    await expect
-      .element(screen.getByTerm("Data type"))
-      .toHaveTextContent("Unknown");
-    await expect
-      .element(screen.getByTerm("Makernote"))
-      .toHaveTextContent("Does not exist");
-    await expect
-      .element(screen.getByTerm("Number of entries"))
-      .toHaveTextContent("6");
+    expect(screen.getByText("Exif information")).toBeInTheDocument();
+    expect(screen.getByTerm("Byte order")).toHaveTextContent("Big-endian");
+    expect(screen.getByTerm("Data type")).toHaveTextContent("Unknown");
+    expect(screen.getByTerm("Makernote")).toHaveTextContent("Does not exist");
+    expect(screen.getByTerm("Number of entries")).toHaveTextContent("6");
   });
 
   test("renders information with no Exif data", async () => {
@@ -38,21 +28,11 @@ describe("ExifInformation", () => {
 
     const screen = await render(<ExifInformation exifData={exifData} />);
 
-    await expect
-      .element(screen.getByText("Exif information"))
-      .toBeInTheDocument();
+    expect(screen.getByText("Exif information")).toBeInTheDocument();
 
-    await expect
-      .element(screen.getByTerm("Byte order"))
-      .toHaveTextContent("Big-endian");
-    await expect
-      .element(screen.getByTerm("Data type"))
-      .toHaveTextContent("Unknown");
-    await expect
-      .element(screen.getByTerm("Makernote"))
-      .toHaveTextContent("Does not exist");
-    await expect
-      .element(screen.getByTerm("Number of entries"))
-      .toHaveTextContent("0");
+    expect(screen.getByTerm("Byte order")).toHaveTextContent("Big-endian");
+    expect(screen.getByTerm("Data type")).toHaveTextContent("Unknown");
+    expect(screen.getByTerm("Makernote")).toHaveTextContent("Does not exist");
+    expect(screen.getByTerm("Number of entries")).toHaveTextContent("0");
   });
 });
