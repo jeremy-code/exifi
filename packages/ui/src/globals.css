@@ -93,11 +93,6 @@
   );
 
   --color-destructive: var(--color-red-600);
-  --color-destructive-fg: var(--color-red-50);
-  --color-destructive-hover: light-dark(
-    var(--color-red-700),
-    var(--color-red-500)
-  );
 }
 
 @layer base {
