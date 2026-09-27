@@ -10,6 +10,7 @@
   "js/ts.tsdk.promptToUseWorkspaceVersion": true, // Use the workspace TypeScript version
 
   "tailwindCSS.classFunctions": ["cx", "cn", "cnMerge", "tv", "twMerge"],
+  "tailwindCSS.experimental.configFile": "packages/ui/src/globals.css",
   "[json][jsonc][typescript][typescriptreact]": {
     "editor.defaultFormatter": "oxc.oxc-vscode"
   }
