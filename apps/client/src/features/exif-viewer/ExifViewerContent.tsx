@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 
+import { CatchBoundary } from "@tanstack/react-router";
 import { ExifIfd } from "libexif-wasm";
-import { ErrorBoundary } from "react-error-boundary";
 
 import { Link as RouterLink } from "#components/common/Link";
 import { ExifInformation } from "#components/file/ExifInformation";
@@ -21,6 +21,15 @@ const ExifGpsMap = lazy(() =>
   import("./components/gps/ExifGpsMap").then((m) => ({
     default: m.ExifGpsMap,
   })),
+);
+
+// Otherwise, if declared in prop, Oxlint will error with
+// react(no-unstable-nested-components)
+const ExifGpsMapErrorComponent = () => (
+  <p className="text-fg-muted">
+    The GPS IFD was found in the image EXIF metadata, but valid longitude and
+    latitude coordinates were not found.
+  </p>
 );
 
 const ExifViewerContent = ({ file }: { file: File }) => {
@@ -48,16 +57,12 @@ const ExifViewerContent = ({ file }: { file: File }) => {
       <IfdAccordion exifData={exifData} />
       <Suspense fallback={<Skeleton className="h-50 w-full" />}>
         {exifDataGps.count !== 0 && (
-          <ErrorBoundary
-            fallback={
-              <p className="text-fg-muted">
-                The GPS IFD was found in the image EXIF metadata, but valid
-                longitude and latitude coordinates were not found.
-              </p>
-            }
+          <CatchBoundary
+            getResetKey={() => ""}
+            errorComponent={ExifGpsMapErrorComponent}
           >
             <ExifGpsMap exifDataGps={exifDataGps} />
-          </ErrorBoundary>
+          </CatchBoundary>
         )}
       </Suspense>
 

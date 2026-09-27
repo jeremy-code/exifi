@@ -55,7 +55,6 @@
     "react-diff-viewer-continued": "^4.4.0",
     "react-dom": "catalog:",
     "react-dropzone": "^20.1.2",
-    "react-error-boundary": "^6.1.6",
     "react-leaflet": "^5.0.0",
     "serwist": "^9.5.12",
     "tailwind-variants": "^3.3.1",

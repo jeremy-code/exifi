@@ -386,9 +386,6 @@ importers:
       react-dropzone:
         specifier: ^20.1.2
         version: 20.1.2(@types/react@19.3.0)(react@19.3.0)
-      react-error-boundary:
-        specifier: ^6.1.6
-        version: 6.1.6(@types/react@19.3.0)(react@19.3.0)
       react-leaflet:
         specifier: ^5.0.0
         version: 5.0.0(leaflet@1.9.4)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -4237,15 +4234,6 @@ packages:
     peerDependencies:
       '@types/react': '*'
       react: '>= 18'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-
-  react-error-boundary@6.1.6:
-    resolution: {integrity: sha512-CDXPnXDGyFIbkwaaJ6u+xgsRmJhSi6YdgUDW1vnyKHfXp1a9pfAlM+ZET2CDu80/A+8iRcmXN0NSY9BCCoWP5A==}
-    peerDependencies:
-      '@types/react': ^18.0.0 || ^19.0.0
-      react: ^18.0.0 || ^19.0.0
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -8245,12 +8233,6 @@ snapshots:
     dependencies:
       attr-accept: 4.0.0
       file-selector: 5.0.1
-      react: 19.3.0
-    optionalDependencies:
-      '@types/react': 19.3.0
-
-  react-error-boundary@6.1.6(@types/react@19.3.0)(react@19.3.0):
-    dependencies:
       react: 19.3.0
     optionalDependencies:
       '@types/react': 19.3.0
