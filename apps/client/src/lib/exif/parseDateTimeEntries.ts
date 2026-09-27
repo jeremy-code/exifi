@@ -26,7 +26,7 @@ const DATE_TIME_ENTRIES_MAP = {
 const parseDateTimeEntries = (
   exifData: ExifData,
   dateTimeKey: keyof typeof DATE_TIME_ENTRIES_MAP,
-) => {
+): Temporal.ZonedDateTime | null => {
   const exifDataExifIfd = exifData.ifd[ExifIfd.EXIF];
   const { dateTime, offsetTime, subSecTime } =
     DATE_TIME_ENTRIES_MAP[dateTimeKey];
@@ -41,15 +41,16 @@ const parseDateTimeEntries = (
     return null;
   }
 
-  const dateTimeDate = parseDateTime(dateTimeValue);
+  const { year, month, day, hour, minute, second } =
+    parseDateTime(dateTimeValue);
 
   return Temporal.ZonedDateTime.from({
-    year: dateTimeDate.year,
-    month: dateTimeDate.month,
-    day: dateTimeDate.day,
-    hour: dateTimeDate.hour,
-    minute: dateTimeDate.minute,
-    second: dateTimeDate.second,
+    year,
+    month,
+    day,
+    hour,
+    minute,
+    second,
     millisecond:
       subSecTime !== undefined && !Number.isNaN(Number(subSecTimeValue))
         ? Number(subSecTimeValue)

@@ -3,7 +3,9 @@ import { ExifIfd, mapRationalToObject, type ExifData } from "libexif-wasm";
 import { parseDateStamp } from "@exifi/core/exif/date/dateStamp";
 import { parseTimeStamp } from "@exifi/core/exif/date/timeStamp";
 
-const parseGpsDateTimeEntries = (exifData: ExifData) => {
+const parseGpsDateTimeEntries = (
+  exifData: ExifData,
+): Temporal.ZonedDateTime | null => {
   const exifDataGpsIfd = exifData.ifd[ExifIfd.GPS];
 
   const gpsDateValue = exifDataGpsIfd.getEntry("DATE_STAMP");
@@ -13,19 +15,19 @@ const parseGpsDateTimeEntries = (exifData: ExifData) => {
     return null;
   }
 
-  const gpsDate = parseDateStamp(gpsDateValue.toString());
-  const gpsTime = parseTimeStamp(
+  const { year, month, day } = parseDateStamp(gpsDateValue.toString());
+  const { hour, minute, second, millisecond } = parseTimeStamp(
     mapRationalToObject(gpsTimeValue.toTypedArray()),
   );
 
   return Temporal.ZonedDateTime.from({
-    year: gpsDate.year,
-    month: gpsDate.month,
-    day: gpsDate.day,
-    hour: gpsTime.hour,
-    minute: gpsTime.minute,
-    second: gpsTime.second,
-    millisecond: gpsTime.millisecond,
+    year,
+    month,
+    day,
+    hour,
+    minute,
+    second,
+    millisecond,
     timeZone: "UTC",
   });
 };
