@@ -9,7 +9,7 @@ const labelVariants = tv({
     "mb-1 flex items-center gap-1 text-start text-sm/5 font-medium text-fg",
     "peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
     "data-disabled:cursor-not-allowed data-disabled:opacity-70",
-    "group-data-invalid:text-destructive",
+    "group-data-invalid:text-red-600",
   ],
 });
 

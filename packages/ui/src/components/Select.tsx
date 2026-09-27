@@ -30,7 +30,7 @@ const selectVariants = tv({
   variants: {
     isDisabled: {
       false: [
-        "text-fg-bold group-invalid/select:outline group-invalid/select:outline-destructive hover:border-fg-subtle pressed:border-fg-muted",
+        "text-fg-bold group-invalid/select:outline group-invalid/select:outline-red-600 hover:border-fg-subtle pressed:border-fg-muted",
         "forced-colors:group-invalid/select:outline-[Mark]",
       ],
       true: [

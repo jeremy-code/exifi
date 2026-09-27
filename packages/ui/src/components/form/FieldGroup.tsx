@@ -16,7 +16,7 @@ const fieldBorderVariants = tv({
       true: "border-fg-muted forced-colors:border-[Highlight]",
     },
     isInvalid: {
-      true: "border-destructive dark:border-destructive forced-colors:border-[Mark]",
+      true: "border-red-600 forced-colors:border-[Mark]",
     },
     isDisabled: {
       true: "border-bg-muted hover:border-bg-muted forced-colors:border-[GrayText]",
