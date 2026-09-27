@@ -71,6 +71,7 @@
     "@tanstack/devtools-vite": "^0.8.5",
     "@tanstack/react-devtools": "^0.10.13",
     "@tanstack/react-form-devtools": "^0.2.34",
+    "@tanstack/react-pacer-devtools": "^0.8.0",
     "@tanstack/react-query-devtools": "^5.103.3",
     "@tanstack/react-router-devtools": "^1.167.2",
     "@types/leaflet": "^1.9.22",

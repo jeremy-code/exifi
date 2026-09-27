@@ -4,24 +4,30 @@ import {
   type TanStackDevtoolsReactPlugin,
 } from "@tanstack/react-devtools";
 import { formDevtoolsPlugin } from "@tanstack/react-form-devtools";
+import { pacerDevtoolsPlugin } from "@tanstack/react-pacer-devtools";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 const devtoolsPlugins = [
   {
     name: "TanStack Query",
-    // https://github.com/TanStack/devtools/blob/main/packages/devtools-utils/src/react/plugin.tsx
-    render: (_el, props) => <ReactQueryDevtoolsPanel {...props} />,
+    render: <ReactQueryDevtoolsPanel />,
   },
   {
     name: "TanStack Router",
-    render: <TanStackRouterDevtools />,
+    render: <TanStackRouterDevtoolsPanel />,
   },
   formDevtoolsPlugin(),
+  pacerDevtoolsPlugin(),
 ] satisfies TanStackDevtoolsReactPlugin[];
 
-const Devtools = (props: TanStackDevtoolsReactInit) => {
-  return <TanStackDevtools plugins={devtoolsPlugins} {...props} />;
+const Devtools = ({ plugins, ...props }: TanStackDevtoolsReactInit) => {
+  return (
+    <TanStackDevtools
+      plugins={[...devtoolsPlugins, ...(plugins ?? [])]}
+      {...props}
+    />
+  );
 };
 
 export { Devtools };
