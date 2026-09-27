@@ -12,6 +12,7 @@ const vitestConfig = defineConfig({
     typecheck: {
       enabled: true,
     },
+    setupFiles: ["vitest.setup.ts"],
     browser: {
       enabled: true,
       instances: [{ browser: "chromium" }],

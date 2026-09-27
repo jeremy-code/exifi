@@ -7,7 +7,6 @@ import { toCalendarDateTime } from "@internationalized/date";
 import { ExifData, type RationalObject } from "libexif-wasm";
 import { describe, expect, test as baseTest } from "vitest";
 import { render } from "vitest-browser-react";
-import { locators } from "vitest/browser";
 
 import { parseDateStamp } from "@exifi/core/exif/date/dateStamp";
 import { parseDateTime } from "@exifi/core/exif/date/dateTime";
@@ -21,12 +20,6 @@ import { ExifDateTimeInformation } from "./ExifDateTimeInformation";
 const test = baseTest.extend("plainAvifWithExif", () =>
   getFixture("plain-avif-with-exif"),
 );
-
-locators.extend({
-  getByTerm(term) {
-    return `dt:has-text("${term}") + dd`;
-  },
-});
 
 const parseRawDateTimeEntryObjects = (
   dateTimeEntry?: CalendarDateTime,

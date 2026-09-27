@@ -1,7 +1,6 @@
 import { ExifData } from "libexif-wasm";
 import { describe, expect, test as baseTest } from "vitest";
 import { render } from "vitest-browser-react";
-import { locators } from "vitest/browser";
 
 import { getFixture } from "@exifi/test-fixtures";
 
@@ -10,12 +9,6 @@ import { ExifInformation } from "./ExifInformation";
 const test = baseTest.extend("plainJpgWithExif", () =>
   getFixture("plain-jpg-with-exif"),
 );
-
-locators.extend({
-  getByTerm(term) {
-    return `dt:has-text("${term}") + dd`;
-  },
-});
 
 describe("ExifInformation", () => {
   test("renders information with Exif data", async ({ plainJpgWithExif }) => {

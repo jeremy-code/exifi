@@ -1,6 +1,5 @@
 import { describe, expect, test as baseTest } from "vitest";
 import { render } from "vitest-browser-react";
-import { locators } from "vitest/browser";
 
 import { formatBytes } from "#utils/formatBytes";
 import { getFixture } from "@exifi/test-fixtures";
@@ -10,12 +9,6 @@ import { FileInformation } from "./FileInformation";
 const test = baseTest.extend("plainJpgWithExif", () =>
   getFixture("plain-jpg-with-exif"),
 );
-
-locators.extend({
-  getByTerm(term) {
-    return `dt:has-text("${term}") + dd`;
-  },
-});
 
 describe("FileInformation", () => {
   test("renders file information", async ({ plainJpgWithExif }) => {
