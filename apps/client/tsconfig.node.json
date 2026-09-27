@@ -1,7 +1,0 @@
-{
-  "extends": "@exifi/tsconfig/tsconfig-base",
-  "compilerOptions": {
-    "types": ["node"]
-  },
-  "include": ["vite.config.ts", "vitest.config.ts"]
-}

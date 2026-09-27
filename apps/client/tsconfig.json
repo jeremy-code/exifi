@@ -1,7 +1,12 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "extends": "@exifi/tsconfig/tsconfig-react",
+  "compilerOptions": {
+    "types": [
+      "vite/client",
+      "@tanstack/react-start",
+      "wicg-file-system-access",
+      "@serwist/vite/typings"
+    ]
+  },
+  "include": ["src", "__mocks__"]
 }
