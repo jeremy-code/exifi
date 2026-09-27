@@ -19,14 +19,15 @@ const ExifEditor = ({ file, className, ...props }: ExifEditorProps) => {
       {file.type === "image/heif" ||
       file.type === "image/heic" ||
       file.type === "image/avif" ? (
-        <Callout variant="warning" className="mb-2 w-full">
+        <Callout variant="surface" color="yellow" className="mb-2 w-full">
           <CalloutText>
             <span>
               {
                 "Are you trying to edit a HEIF/HEIC/AVIF image? For now, exifi does not support updating Exif data for those images. For more information, see "
               }
               <Link
-                color="blue"
+                className="text-current"
+                underline
                 href="https://github.com/jeremy-code/exifi/issues/13"
               >
                 jeremy-code/exifi#13
