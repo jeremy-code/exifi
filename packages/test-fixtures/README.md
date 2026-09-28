@@ -379,7 +379,7 @@ int main(void) {
 
 ## Notes
 
-Exif data for `plain-jpg-with-mnote-exif` is from [Sumo Museum.jpg](https://www.flickr.com/photos/sodaigomi/26569147426/) from [sodai gomi](https://www.flickr.com/photos/sodaigomi/).
+Exif data for `plain-jpg-with-mnote-exif` is from [fuji_makernote_variant_1.jpg](https://github.com/libexif/libexif/blob/master/test/testdata/fuji_makernote_variant_1.jpg) from [libexif/libexif](https://github.com/libexif/libexif/).
 
 Exif data for `plain-heic-with-exif` is from [IMG_5195.HEIC](https://github.com/ianare/exif-samples/blob/master/heic/IMG_5195.HEIC) from [ianare/exif-samples](https://github.com/ianare/exif-samples).
 
