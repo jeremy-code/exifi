@@ -30,20 +30,14 @@ const calendarCellVariants = tv({
       true: "relative after:absolute after:bottom-1 after:size-1 after:rounded-full after:bg-current",
     },
     isSelected: {
-      false: [
-        "text-gray-900 hover:bg-gray-200 pressed:bg-gray-300",
-        "dark:text-gray-200 dark:hover:bg-gray-700 dark:pressed:bg-gray-600",
-      ],
+      false: "text-fg-boldest hover:bg-bg-muted pressed:bg-border",
       true: [
         "bg-accent text-accent-fg invalid:bg-red-600 hover:bg-accent-hover",
         "forced-colors:bg-[Highlight] forced-colors:text-[HighlightText] forced-colors:invalid:bg-[Mark]",
       ],
     },
     isDisabled: {
-      true: [
-        "text-gray-300 dark:text-gray-600",
-        "forced-colors:text-[GrayText]",
-      ],
+      true: ["text-border", "forced-colors:text-[GrayText]"],
     },
   },
 });
@@ -97,21 +91,11 @@ const CalendarHeader = ({ className, ...props }: CalendarHeaderProps) => {
       className={cn("flex items-center gap-1 px-1 pb-4", className)}
       {...props}
     >
-      <Button
-        variant="ghost"
-        size="icon-xs"
-        className="hover:bg-gray-200 dark:hover:bg-gray-700"
-        slot="previous"
-      >
+      <Button variant="ghost" size="icon-xs" slot="previous">
         <PreviousIcon aria-hidden className="size-4" />
       </Button>
-      <Heading className="mx-2 my-0 flex-1 text-center text-base font-semibold text-fg-boldest [font-variation-settings:normal]" />
-      <Button
-        variant="ghost"
-        size="icon-xs"
-        className="hover:bg-gray-200 dark:hover:bg-gray-700"
-        slot="next"
-      >
+      <Heading className="mx-2 flex-1 text-center text-base font-semibold text-fg-boldest [font-variation-settings:normal]" />
+      <Button variant="ghost" size="icon-xs" slot="next">
         <NextIcon aria-hidden className="size-4" />
       </Button>
     </header>
