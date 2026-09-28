@@ -64,7 +64,7 @@ const ExifMenu = (props: ExifMenuProps) => {
         <MenuItem
           onAction={() => act((exifData) => addImageUniqueId(exifData))}
         >
-          Add Image Unique ID
+          Add image unique ID
         </MenuItem>
         <MenuItem
           onAction={async () => {
@@ -90,7 +90,7 @@ const ExifMenu = (props: ExifMenuProps) => {
             } catch (e) {
               toastQueue.add(
                 {
-                  title: "unable to create thumbnail",
+                  title: "Unable to create thumbnail",
                   description: e instanceof Error ? e.message : undefined,
                   toastProps: { color: "red" },
                 },
@@ -99,7 +99,7 @@ const ExifMenu = (props: ExifMenuProps) => {
             }
           }}
         >
-          Add Image Thumbnail
+          Add image thumbnail
         </MenuItem>
       </Menu>
     </MenuTrigger>
