@@ -4,8 +4,11 @@ import { cn, tv, type VariantProps } from "tailwind-variants";
 import { focusRing } from "../utils/focusRing";
 
 const scrollAreaViewportVariants = tv({
-  extend: focusRing,
-  base: "size-full rounded-[inherit]",
+  base: [
+    "size-full rounded-[inherit]",
+    focusRing.base,
+    "-outline-offset-2 focus-visible:outline-2",
+  ],
   variants: {
     maskImage: {
       x: "scroll-fade-mask-x",
@@ -48,7 +51,7 @@ const ScrollBar = ({
       )}
       {...props}
     >
-      <ScrollAreaPrimitive.Thumb className="relative flex-1 rounded-[10px] bg-fg-subtle" />
+      <ScrollAreaPrimitive.Thumb className="relative flex-1 rounded-[--spacing(2.5)] bg-fg-subtle" />
     </ScrollAreaPrimitive.Scrollbar>
   );
 };
