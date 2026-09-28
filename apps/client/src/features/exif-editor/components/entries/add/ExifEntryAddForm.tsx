@@ -2,13 +2,13 @@ import type { ComponentPropsWithRef } from "react";
 
 import { useForm } from "@tanstack/react-form";
 import {
-  ExifFormat,
   exifIfdGetName,
   getExifTagTable,
   mapRationalFromObject,
   mapRationalToObject,
 } from "libexif-wasm";
 import { IFD_NAMES } from "libexif-wasm/constants";
+import { ExifFormatBiMap } from "libexif-wasm/enums";
 
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
 import {
@@ -218,7 +218,7 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
                 onBlur={field.handleBlur}
                 isRequired
               >
-                {Array.from(ExifFormat).map(([format]) => (
+                {Array.from(ExifFormatBiMap.keys()).map((format) => (
                   <addForm.Subscribe
                     key={format}
                     selector={(state) => state.values.tagEntry?.tag}
