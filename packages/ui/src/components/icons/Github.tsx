@@ -9,8 +9,17 @@ import { createLucideIcon } from "lucide-react";
 const Github = createLucideIcon("GitHub", [
   [
     "path",
+    /**
+     * Apparently keys are needed; otherwise, the error "Each child in a list
+     * should have a unique "key" prop. Check the render method of `ForwardRef`.
+     * See https://react.dev/link/warning-keys for more information" occurs
+     *
+     * @see {@link https://github.com/lucide-icons/lucide/issues/2153}
+     * @see {@link https://github.com/lucide-icons/lucide/blob/66d8f9fc394b8530377e5f6112f0b8908ba01280/packages/lucide-react/tests/testIconNodes.ts}
+     */
     {
       d: "M10.303 16.921c-2.836-.344-4.834-2.384-4.834-5.027 0-1.075.386-2.235 1.031-3.008-.28-.708-.236-2.213.086-2.836.859-.107 2.02.345 2.707.966.816-.257 1.676-.386 2.729-.386 1.052 0 1.912.129 2.685.365.666-.601 1.848-1.052 2.707-.945.301.58.344 2.085.064 2.814.689.817 1.053 1.913 1.053 3.03 0 2.643-1.998 4.64-4.876 5.006.73.473 1.224 1.504 1.224 2.685v2.234c0 .645.537 1.01 1.181.752C19.95 21.09 23 17.201 23 12.388c0-6.08-4.941-11.043-11.021-11.043C5.897 1.345 1 6.308 1 12.388c0 4.77 3.03 8.724 7.112 10.205.58.216 1.138-.172 1.138-.752v-1.72a2.8 2.8 0 0 1-1.031.215c-1.419 0-2.257-.773-2.857-2.213-.237-.58-.495-.924-.99-.988-.258-.022-.343-.129-.343-.258 0-.258.43-.45.86-.45.623 0 1.16.386 1.718 1.18.43.624.881.903 1.419.903.536 0 .88-.193 1.374-.688.366-.364.645-.687.903-.902",
+      key: "larmp2",
     },
   ],
 ]);
