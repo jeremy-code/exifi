@@ -13,7 +13,7 @@ import { getCurrentPosition } from "#utils/getCurrentPosition";
 import { updateLatLng } from "@exifi/core/exif/actions/updateLatLng";
 import { Button } from "@exifi/ui/components/Button";
 import { NumberField } from "@exifi/ui/components/NumberField";
-import { Spinner } from "@exifi/ui/components/Spinner";
+import { ProgressCircle } from "@exifi/ui/components/ProgressCircle";
 
 import { ExifGpsMap } from "../../gps/ExifGpsMap";
 
@@ -197,7 +197,9 @@ const ExifEntryAddGpsForm = ({
           <gpsForm.Subscribe selector={(state) => state.isSubmitting}>
             {(isSubmitting) => (
               <Button type="submit" variant="surface" isDisabled={isSubmitting}>
-                {isSubmitting && <Spinner className="absolute" />}
+                {isSubmitting && (
+                  <ProgressCircle isIndeterminate className="absolute" />
+                )}
                 <span
                   className="data-[pending=true]:invisible"
                   data-pending={isSubmitting}

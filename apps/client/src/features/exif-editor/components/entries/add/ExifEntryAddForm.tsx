@@ -27,8 +27,8 @@ import { formatSchema } from "@exifi/schemas/libexif";
 import { Button } from "@exifi/ui/components/Button";
 import { Callout, CalloutText } from "@exifi/ui/components/Callout";
 import { ComboBox, ComboBoxItem } from "@exifi/ui/components/ComboBox";
+import { ProgressCircle } from "@exifi/ui/components/ProgressCircle";
 import { Select, SelectItem } from "@exifi/ui/components/Select";
-import { Spinner } from "@exifi/ui/components/Spinner";
 import { decodeStringFromUtf8 } from "@exifi/utils/decodeStringFromUtf8";
 import { encodeStringToUtf8 } from "@exifi/utils/encodeStringToUtf8";
 
@@ -263,7 +263,9 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
                 variant="surface"
                 isDisabled={isSubmitting}
               >
-                {isSubmitting && <Spinner className="absolute" />}
+                {isSubmitting && (
+                  <ProgressCircle isIndeterminate className="absolute" />
+                )}
                 <span
                   className="data-[pending=true]:invisible"
                   data-pending={isSubmitting}

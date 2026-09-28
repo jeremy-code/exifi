@@ -8,7 +8,7 @@ import * as z from "zod";
 import { useDropzoneStore } from "#stores/dropzoneStore";
 import { getFileFromResponse } from "#utils/getFileFromResponse";
 import { Button, type ButtonProps } from "@exifi/ui/components/Button";
-import { Spinner } from "@exifi/ui/components/Spinner";
+import { ProgressCircle } from "@exifi/ui/components/ProgressCircle";
 import { TextField, type TextFieldProps } from "@exifi/ui/components/TextField";
 import { toastQueue } from "@exifi/ui/components/Toast";
 import { composeTailwindRenderProps } from "@exifi/ui/utils/composeTailwindRenderProps";
@@ -122,7 +122,9 @@ const FileUrlInput = ({
                 "rounded-l-none",
               )}
             >
-              {isSubmitting && <Spinner className="absolute" />}
+              {isSubmitting && (
+                <ProgressCircle isIndeterminate className="absolute" />
+              )}
               <span
                 className="data-[pending=true]:invisible"
                 data-pending={isSubmitting}
