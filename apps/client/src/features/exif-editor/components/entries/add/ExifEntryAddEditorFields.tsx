@@ -2,7 +2,7 @@ import { EnumSelect } from "#components/editor/EnumSelect";
 import { ExifVersionInput } from "#components/editor/ExifVersionInput";
 import { GpsTagVersionInput } from "#components/editor/GpsTagVersionInput";
 import { RationalInput } from "#components/editor/RationalInput";
-import { UserCommentSelect } from "#components/editor/UserCommentSelect";
+import { UserCommentEncodingSelect } from "#components/editor/UserCommentEncodingSelect";
 import { UserCommentTextarea } from "#components/editor/UserCommentTextarea";
 import type { AddEditor } from "#features/exif-editor/editors/add/interfaces";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
@@ -43,7 +43,7 @@ const ExifEntryAddEditorFields = ({
           {...exifAddEditor}
           label="Value"
           onChange={(value) => {
-            if (value) {
+            if (value !== null) {
               exifAddEditor.onValueChange(value);
             }
           }}
@@ -64,8 +64,8 @@ const ExifEntryAddEditorFields = ({
           granularity="second"
           label="Value"
           onChange={(value) => {
-            if (value) {
-              exifAddEditor.onValueChange(value ?? undefined);
+            if (value !== null) {
+              exifAddEditor.onValueChange(value);
             }
           }}
         />
@@ -78,7 +78,7 @@ const ExifEntryAddEditorFields = ({
           label="Value"
           aria-label={label}
           onChange={(value) => {
-            if (value) {
+            if (value !== null) {
               exifAddEditor.onValueChange(value);
             }
           }}
@@ -151,7 +151,7 @@ const ExifEntryAddEditorFields = ({
     case "userComment":
       return (
         <div className="flex flex-col gap-2">
-          <UserCommentSelect
+          <UserCommentEncodingSelect
             label="Encoding"
             aria-label="Select a value for the user comment encoding"
             {...exifAddEditor}

@@ -1,5 +1,5 @@
 import { RationalInput } from "#components/editor/RationalInput";
-import { UserCommentSelect } from "#components/editor/UserCommentSelect";
+import { UserCommentEncodingSelect } from "#components/editor/UserCommentEncodingSelect";
 import { UserCommentTextarea } from "#components/editor/UserCommentTextarea";
 import { useExifEntryDraftContext } from "#features/exif-editor/contexts/ExifEntryDraftContext";
 import { getExifAdvancedEditor } from "#features/exif-editor/editors/advanced/getExifAdvancedEditor";
@@ -56,7 +56,10 @@ const ExifEntryEditor = () => {
     case "userComment":
       return (
         <div className="flex flex-col gap-2">
-          <UserCommentSelect aria-label={label} {...exifAdvancedEditor} />
+          <UserCommentEncodingSelect
+            aria-label={label}
+            {...exifAdvancedEditor}
+          />
           <UserCommentTextarea aria-label={label} {...exifAdvancedEditor} />
         </div>
       );

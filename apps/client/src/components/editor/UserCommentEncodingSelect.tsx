@@ -6,26 +6,26 @@ import type {
 
 import { EnumSelect, type EnumSelectProps } from "./EnumSelect";
 
-type UserCommentSelectProps = {
+type UserCommentEncodingSelectProps = {
   value?: UserComment;
   onValueChange?: (value: UserComment) => void;
 } & Omit<EnumSelectProps, "value" | "values" | "onValueChange">;
 
-const UserCommentSelect = ({
-  value,
-  onValueChange,
+const UserCommentEncodingSelect = ({
+  value: userComment,
+  onValueChange: onUserCommentChange,
   ...props
-}: UserCommentSelectProps) => {
+}: UserCommentEncodingSelectProps) => {
   return (
     <EnumSelect
       {...props}
-      value={value?.encoding}
+      value={userComment?.encoding}
       values={Object.keys(ENCODING_TO_HEADER_MAP)}
-      onValueChange={(selectedValue) => {
-        if (selectedValue in ENCODING_TO_HEADER_MAP && value !== undefined) {
-          onValueChange?.({
-            encoding: selectedValue as Encoding,
-            value: value.value,
+      onValueChange={(value) => {
+        if (value in ENCODING_TO_HEADER_MAP && userComment !== undefined) {
+          onUserCommentChange?.({
+            encoding: value as Encoding,
+            value: userComment.value,
           });
         }
       }}
@@ -33,4 +33,4 @@ const UserCommentSelect = ({
   );
 };
 
-export { UserCommentSelect, type UserCommentSelectProps };
+export { UserCommentEncodingSelect, type UserCommentEncodingSelectProps };

@@ -10,17 +10,17 @@ type UserCommentTextareaProps = {
 } & Omit<TextAreaFieldProps, "value" | "onChange">;
 
 const UserCommentTextarea = ({
-  value,
-  onValueChange,
+  value: userComment,
+  onValueChange: onUserCommentChange,
   ...props
 }: UserCommentTextareaProps) => {
   return (
     <TextAreaField
       {...props}
-      value={value?.value}
-      onChange={(target) => {
-        if (value !== undefined) {
-          onValueChange?.({ ...value, value: target });
+      value={userComment?.value}
+      onChange={(nextValue) => {
+        if (userComment !== undefined) {
+          onUserCommentChange?.({ ...userComment, value: nextValue });
         }
       }}
     />
