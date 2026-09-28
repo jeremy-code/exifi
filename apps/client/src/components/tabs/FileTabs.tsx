@@ -2,6 +2,7 @@ import { useRef, type ReactNode } from "react";
 
 import { Plus } from "lucide-react";
 import { DropZone } from "react-aria-components/DropZone";
+import { tv } from "tailwind-variants";
 import { useShallow } from "zustand/react/shallow";
 
 import { SortableList } from "#components/dnd/SortableList";
@@ -14,9 +15,24 @@ import {
   type TabsProps,
   TabPanels,
 } from "@exifi/ui/components/Tabs";
+import { focusRing } from "@exifi/ui/utils/focusRing";
 
 import { FileTab } from "./FileTab";
 import { FileTabPanel } from "./FileTabPanel";
+
+const dropZoneStyles = tv({
+  extend: focusRing,
+  base: "rounded-md outline-offset-0",
+  variants: {
+    isDropTarget: {
+      true: [
+        "bg-blue-200 outline-blue-600",
+        "dark:bg-blue-800 dark:outline-blue-500",
+        "forced-colors:outline-[Highlight]",
+      ],
+    },
+  },
+});
 
 type FileTabsProps = {
   children?: ReactNode;
@@ -62,6 +78,7 @@ const FileTabs = ({ children, ...props }: FileTabsProps) => {
         {/* Offset by height of Navbar */}
         <div className="sticky top-(--navbar-height) z-50 container p-4">
           <DropZone
+            className={dropZoneStyles}
             onDrop={async (event) => {
               const files = await Promise.all(
                 event.items
