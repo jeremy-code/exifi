@@ -131,9 +131,21 @@ const FileInformation = ({
             <DataListItem>
               <DataListItemLabel>Last modified</DataListItemLabel>
               <DataListItemValue>
-                <time dateTime={lastModified.toString()}>
-                  {dateFormatter.format(lastModified)}
-                </time>
+                <TooltipTrigger>
+                  <TooltipTarget>
+                    <span
+                      role="button"
+                      className={focusRing({
+                        className: "focus-visible:outline-2",
+                      })}
+                    >
+                      <time dateTime={lastModified.toString()}>
+                        {dateFormatter.format(lastModified)}
+                      </time>
+                    </span>
+                  </TooltipTarget>
+                  <Tooltip>{lastModified.toString()}</Tooltip>
+                </TooltipTrigger>
               </DataListItemValue>
             </DataListItem>
             <DataListItem>
