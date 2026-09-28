@@ -19,6 +19,7 @@ import {
   TooltipTarget,
   Tooltip,
 } from "@exifi/ui/components/Tooltip";
+import { focusRing } from "@exifi/ui/utils/focusRing";
 
 const IfdAccordionItem = ({ exifContent }: { exifContent: ExifContent }) => {
   const { locale } = useLocale();
@@ -65,7 +66,14 @@ const IfdAccordionItem = ({ exifContent }: { exifContent: ExifContent }) => {
                       {description !== "" ? (
                         <TooltipTrigger>
                           <TooltipTarget>
-                            <span role="button">{title}</span>
+                            <span
+                              role="button"
+                              className={focusRing({
+                                className: "focus-visible:outline-2",
+                              })}
+                            >
+                              {title}
+                            </span>
                           </TooltipTarget>
                           <Tooltip>{description}</Tooltip>
                         </TooltipTrigger>

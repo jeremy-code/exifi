@@ -8,6 +8,7 @@ import {
   TooltipTrigger,
   TooltipTarget,
 } from "@exifi/ui/components/Tooltip";
+import { focusRing } from "@exifi/ui/utils/focusRing";
 
 import type { ExifTableRow } from "./columns";
 
@@ -21,7 +22,12 @@ const TagCell = ({ row }: TagCellProps) => {
   return (
     <TooltipTrigger>
       <TooltipTarget>
-        <span role="button">{getEntryObjectLabel(row.original)}</span>
+        <span
+          role="button"
+          className={focusRing({ className: "focus-visible:outline-2" })}
+        >
+          {getEntryObjectLabel(row.original)}
+        </span>
       </TooltipTarget>
       <Tooltip>
         {ExifTagInfo.getDescriptionInIfd(row.original.tag, row.original.ifd)}

@@ -19,6 +19,7 @@ import {
   TooltipTarget,
   TooltipTrigger,
 } from "@exifi/ui/components/Tooltip";
+import { focusRing } from "@exifi/ui/utils/focusRing";
 
 const MakerNoteAccordionItem = ({
   mnoteData,
@@ -49,7 +50,14 @@ const MakerNoteAccordionItem = ({
                 mnoteDatum.description !== "" ? (
                   <TooltipTrigger>
                     <TooltipTarget>
-                      <span role="button">{mnoteDatum.title}</span>
+                      <span
+                        role="button"
+                        className={focusRing({
+                          className: "focus-visible:outline-2",
+                        })}
+                      >
+                        {mnoteDatum.title}
+                      </span>
                     </TooltipTarget>
                     <Tooltip>{mnoteDatum.description}</Tooltip>
                   </TooltipTrigger>

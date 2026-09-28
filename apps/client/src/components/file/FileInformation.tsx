@@ -30,6 +30,7 @@ import {
   TooltipTarget,
   TooltipTrigger,
 } from "@exifi/ui/components/Tooltip";
+import { focusRing } from "@exifi/ui/utils/focusRing";
 
 import { ImageDimensions } from "./ImageDimensions";
 
@@ -112,7 +113,12 @@ const FileInformation = ({
               <DataListItemValue>
                 <TooltipTrigger>
                   <TooltipTarget>
-                    <span role="button">
+                    <span
+                      role="button"
+                      className={focusRing({
+                        className: "focus-visible:outline-2",
+                      })}
+                    >
                       {formatBytes(file.size, locale, {
                         maximumFractionDigits: 1,
                       })}

@@ -7,6 +7,7 @@ import {
   TooltipTarget,
   TooltipTrigger,
 } from "@exifi/ui/components/Tooltip";
+import { focusRing } from "@exifi/ui/utils/focusRing";
 
 const NameCell = ({
   getValue,
@@ -22,7 +23,12 @@ const NameCell = ({
   return (
     <TooltipTrigger>
       <TooltipTarget>
-        <span role="button">{name}</span>
+        <span
+          role="button"
+          className={focusRing({ className: "focus-visible:outline-2" })}
+        >
+          {name}
+        </span>
       </TooltipTarget>
       <Tooltip>{row.original.description}</Tooltip>
     </TooltipTrigger>

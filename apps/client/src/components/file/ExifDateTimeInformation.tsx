@@ -13,6 +13,7 @@ import {
   TooltipTarget,
   TooltipTrigger,
 } from "@exifi/ui/components/Tooltip";
+import { focusRing } from "@exifi/ui/utils/focusRing";
 
 type ExifDateTimeInformationProps = {
   exifData: ExifData;
@@ -63,7 +64,10 @@ const ExifDateTimeInformation = ({
       <DataListItemValue>
         <TooltipTrigger>
           <TooltipTarget>
-            <span role="button">
+            <span
+              className={focusRing({ className: "focus-visible:outline-2" })}
+              role="button"
+            >
               <time dateTime={value.toString()}>
                 {dateFormatter.format(value.toInstant())}
               </time>
