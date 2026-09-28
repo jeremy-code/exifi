@@ -42,8 +42,10 @@ const ExifViewerContent = ({ file }: { file: File }) => {
         </CardHeader>
         <CardContent>
           No Exif data was found in this file. Would you like to{" "}
-          <RouterLink to="/editor">open it in the editor</RouterLink> to add
-          some?
+          <RouterLink underline to="/editor">
+            open it in the editor
+          </RouterLink>{" "}
+          to add some?
         </CardContent>
       </Card>
     );
