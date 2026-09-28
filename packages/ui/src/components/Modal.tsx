@@ -70,7 +70,6 @@ const Modal = ({
     <ModalOverlay {...props}>
       <ModalWrapper {...modalWrapperProps}>
         <AriaModal
-          {...props}
           {...modalProps}
           className={composeRenderProps(
             modalProps?.className,
