@@ -3,7 +3,9 @@ import type { ComponentPropsWithRef } from "react";
 import { Link as RouterLink } from "@tanstack/react-router";
 import { cn, tv } from "tailwind-variants";
 
+import { Link } from "#components/common/Link";
 import { ThemeToggle } from "#components/misc/ThemeToggle";
+import { focusRing } from "@exifi/ui/utils/focusRing";
 
 import { MobileNav } from "./MobileNav";
 import { NAVIGATION_ITEMS } from "./constants";
@@ -16,6 +18,8 @@ const navigationMenuTriggerVariants = tv({
     "hover:bg-bg-muted hover:text-fg",
     "focus:bg-bg-muted focus:text-fg",
     "disabled:pointer-events-none disabled:opacity-50",
+    focusRing.base,
+    "focus-visible:outline-2",
   ],
   variants: {
     variant: {
@@ -36,10 +40,10 @@ const Navbar = ({ className, ...props }: NavbarProps) => {
       {...props}
     >
       <div className="container flex h-full items-center justify-between">
-        <RouterLink className="flex items-center gap-1 font-semibold" to="/">
+        <Link className="flex items-center gap-1 font-semibold" to="/">
           <img width="32" height="32" src="/favicon.svg" />
           exifi
-        </RouterLink>
+        </Link>
         <div className="flex items-center gap-2">
           <nav className="relative z-10 flex grow justify-center max-sm:hidden">
             <ul className="flex justify-center gap-2 rounded-md p-1">
