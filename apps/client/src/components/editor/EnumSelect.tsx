@@ -11,7 +11,7 @@ type EnumItem = {
 
 type EnumSelectProps = {
   value?: string;
-  values?: string[];
+  values: string[];
   onValueChange?: (value: string) => void;
 } & Omit<
   SelectProps<EnumItem, "single">,
@@ -28,7 +28,7 @@ const EnumSelect = ({
     <Select
       {...props}
       value={value}
-      items={values?.map((v) => ({ id: v, value: v }))}
+      items={values.map((v) => ({ id: v, value: v }))}
       onChange={(nextValue) => {
         if (nextValue !== null && typeof nextValue === "string") {
           onValueChange?.(nextValue);

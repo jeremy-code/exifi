@@ -47,8 +47,8 @@ const GpsTagVersionInput = ({
             {...inputProps}
             aria-label={`${inputProps?.["aria-label"] ?? "GPS Tag Version"}+${index + 1}`}
             value={byte}
-            onChange={(number) => {
-              const nextGpsTagVersion = gpsTagVersion.with(index, number);
+            onChange={(nextValue) => {
+              const nextGpsTagVersion = gpsTagVersion.with(index, nextValue);
 
               setGpsTagVersion(nextGpsTagVersion as GpsTagVersionTuple);
               if (

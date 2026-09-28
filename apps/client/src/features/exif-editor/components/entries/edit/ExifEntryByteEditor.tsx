@@ -74,6 +74,7 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
           </Button>
         </Heading>
         <DisclosurePanel className="mt-4">
+          {/* Do not attempt to render if the byte editor is not open */}
           {isExpanded ? (
             <>
               <div className="grid grid-cols-[repeat(auto-fit,minmax(--spacing(20),1fr))] gap-2">

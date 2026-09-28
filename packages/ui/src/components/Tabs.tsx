@@ -59,7 +59,7 @@ const tabListVariants = tv({
       "orientation-vertical:flex-col",
     ],
     tab: [
-      "relative flex h-(--tabs-height) min-w-(--tabs-height) cursor-default items-center gap-2 font-medium outline-0 forced-color-adjust-none [-webkit-tap-highlight-color:transparent]",
+      "relative flex h-(--tabs-height) min-w-(--tabs-height) cursor-default items-center gap-2 font-medium forced-color-adjust-none [-webkit-tap-highlight-color:transparent]",
       "focus-visible:z-1",
       "[--tabs-tab-radius:--spacing(1)]",
       "group-data-[size=sm]/tabs:px-3 group-data-[size=sm]/tabs:py-1 group-data-[size=sm]/tabs:text-sm/5",

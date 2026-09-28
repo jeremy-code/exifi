@@ -124,7 +124,7 @@ const Dropzone = ({
         ),
       })}
     >
-      <div className="inline-flex grow flex-row items-center justify-normal gap-2 max-sm:text-sm">
+      <div className="inline-flex grow flex-row items-center justify-normal gap-2 text-base">
         <FileUp aria-label="Upload file" />
         {isDragActive ? (
           "Drop a file here"

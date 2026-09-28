@@ -65,7 +65,7 @@ const FileTabPanel = ({
                 }
               },
             }}
-            rootProps={{ className: "min-h-25" }}
+            rootProps={{ className: "min-h-30" }}
           />
 
           <div className="flex items-center gap-4 text-fg-muted before:h-px before:grow before:bg-bg-muted after:h-px after:grow after:bg-bg-muted">
