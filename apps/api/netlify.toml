@@ -1,7 +1,7 @@
 [build]
 base = "apps/api"
 publish = "dist"
-command = "pnpm --workspace-root exec turbo run build --filter=@exifi/api..."
+command = "pnpm --workspace-root exec turbo run build --filter=@exifi/api... --concurrency=1"
 ignore = "corepack pnpm --workspace-root exec turbo query affected --packages @exifi/api --base=$CACHED_COMMIT_REF --head=$COMMIT_REF --exit-code"
 
 [[plugins]]
