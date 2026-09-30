@@ -6,11 +6,9 @@
 #include "codecs/webp.h"
 #include "common.h"
 
-using namespace emscripten;
-
 EMSCRIPTEN_BINDINGS(image_utils) {
-  register_type<Uint8Array>("Uint8Array");
-  register_optional<Uint8Array>();
+  emscripten::register_type<Uint8Array>("Uint8Array");
+  emscripten::register_optional<Uint8Array>();
 
   function("jpeg_set_exif_data(jpeg_data, exif_data)", &jpeg_set_exif_data);
 

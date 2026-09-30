@@ -1,10 +1,20 @@
+#include "webp.h"
+
+#include <cstdint>
+#include <cstdlib>
+#include <cstring>
+
+#include <iterator>
+#include <optional>
+#include <stdexcept>
+#include <string>
+
+#include <emscripten/bind.h>
 #include <webp/demux.h>
 #include <webp/mux.h>
 
-#include "../constants.hpp"
-#include "webp.h"
-
-using namespace emscripten;
+#include "../common.h"
+#include "../constants.h"
 
 std::optional<Uint8Array> webp_get_exif_data(const std::string webp_data) {
   WebPData input_data = {reinterpret_cast<const uint8_t *>(webp_data.data()),
@@ -15,33 +25,31 @@ std::optional<Uint8Array> webp_get_exif_data(const std::string webp_data) {
     return std::nullopt;
   }
 
+  std::optional<Uint8Array> output = std::nullopt;
+
   uint32_t flags = WebPDemuxGetI(demux, WEBP_FF_FORMAT_FLAGS);
-  WebPChunkIterator chunk_iter;
   if (flags & EXIF_FLAG) {
-    WebPDemuxGetChunk(demux, "EXIF", 1, &chunk_iter);
-    auto *output = static_cast<unsigned char *>(
-        malloc(std::size(constants::ExifHeader) + chunk_iter.chunk.size));
-    if (output == nullptr) {
-      WebPDemuxReleaseChunkIterator(&chunk_iter);
-      WebPDemuxDelete(demux);
-      return std::nullopt;
+    WebPChunkIterator chunk_iter;
+    WebPDemuxGetChunk(demux, "EXIF", /* chunk_number */ 1, &chunk_iter);
+    size_t exif_data_size =
+        std::size(constants::kExifHeader) + chunk_iter.chunk.size;
+    auto *exif_data = static_cast<unsigned char *>(std::malloc(exif_data_size));
+
+    if (exif_data != nullptr) {
+      std::memcpy(exif_data, constants::kExifHeader,
+                  std::size(constants::kExifHeader));
+      std::memcpy(exif_data + std::size(constants::kExifHeader),
+                  chunk_iter.chunk.bytes, chunk_iter.chunk.size);
+
+      output = Uint8Array(emscripten::val(
+          emscripten::typed_memory_view(exif_data_size, exif_data)));
     }
 
-    memcpy(output, constants::ExifHeader, std::size(constants::ExifHeader));
-    memcpy(output + std::size(constants::ExifHeader), chunk_iter.chunk.bytes,
-           chunk_iter.chunk.size);
-    size_t output_size =
-        std::size(constants::ExifHeader) + chunk_iter.chunk.size;
-
     WebPDemuxReleaseChunkIterator(&chunk_iter);
-    WebPDemuxDelete(demux);
-
-    return std::optional<Uint8Array>{
-        Uint8Array(val(typed_memory_view(output_size, output)))};
   }
 
   WebPDemuxDelete(demux);
-  return std::nullopt;
+  return output;
 }
 
 Uint8Array webp_set_exif_data(const std::string webp_data,
@@ -54,19 +62,20 @@ Uint8Array webp_set_exif_data(const std::string webp_data,
         "An error occurred while creating the WebP mux object");
   }
 
-  bool has_exif_header = exif_data.size() >= std::size(constants::ExifHeader) &&
-                         memcmp(exif_data.data(), constants::ExifHeader,
-                                std::size(constants::ExifHeader)) == 0;
+  bool has_exif_header =
+      exif_data.size() >= std::size(constants::kExifHeader) &&
+      std::equal(std::begin(constants::kExifHeader),
+                 std::end(constants::kExifHeader), exif_data.data());
 
-  const char *exif_ptr =
-      has_exif_header ? exif_data.data() + std::size(constants::ExifHeader)
+  const char *webp_exif_data =
+      has_exif_header ? exif_data.data() + std::size(constants::kExifHeader)
                       : exif_data.data();
-  size_t exif_size = has_exif_header
-                         ? exif_data.size() - std::size(constants::ExifHeader)
-                         : exif_data.size();
+  size_t webp_exif_size =
+      has_exif_header ? exif_data.size() - std::size(constants::kExifHeader)
+                      : exif_data.size();
 
-  WebPData exif_chunk = {reinterpret_cast<const uint8_t *>(exif_ptr),
-                         exif_size};
+  WebPData exif_chunk = {reinterpret_cast<const uint8_t *>(webp_exif_data),
+                         webp_exif_size};
 
   WebPMuxError set_err = WebPMuxSetChunk(mux, "EXIF", &exif_chunk, 1);
   if (set_err != WEBP_MUX_OK) {
@@ -83,6 +92,6 @@ Uint8Array webp_set_exif_data(const std::string webp_data,
         "An error occurred while assembling the WebP data");
   }
 
-  return Uint8Array(
-      val(typed_memory_view(output_data.size, output_data.bytes)));
+  return Uint8Array(emscripten::val(
+      emscripten::typed_memory_view(output_data.size, output_data.bytes)));
 }

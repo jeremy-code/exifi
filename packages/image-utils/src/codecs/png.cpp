@@ -1,9 +1,17 @@
-#include <png.h>
-
-#include "../constants.hpp"
 #include "png.h"
 
-using namespace emscripten;
+#include <cstdlib>
+#include <cstring>
+
+#include <iterator>
+#include <optional>
+#include <stdexcept>
+#include <string>
+
+#include <png.h>
+
+#include "../common.h"
+#include "../constants.h"
 
 struct PngReadBuffer {
   const unsigned char *data;
@@ -19,7 +27,7 @@ static void png_read_from_memory(png_structp png_ptr, png_bytep data,
     png_error(png_ptr, "unexpected end of PNG data");
   }
 
-  memcpy(data, io_ptr->data + io_ptr->offset, length);
+  std::memcpy(data, io_ptr->data + io_ptr->offset, length);
   io_ptr->offset += length;
 }
 
@@ -42,7 +50,7 @@ static void png_write_to_memory(png_structp png_ptr, png_bytep data,
       new_capacity = io_ptr->size + length;
     }
     auto *new_data =
-        static_cast<unsigned char *>(realloc(io_ptr->data, new_capacity));
+        static_cast<unsigned char *>(std::realloc(io_ptr->data, new_capacity));
     if (new_data == nullptr) {
       png_error(png_ptr, "failed to allocate memory for PNG buffer");
       return;
@@ -51,7 +59,7 @@ static void png_write_to_memory(png_structp png_ptr, png_bytep data,
     io_ptr->capacity = new_capacity;
   }
 
-  memcpy(io_ptr->data + io_ptr->size, data, length);
+  std::memcpy(io_ptr->data + io_ptr->size, data, length);
   io_ptr->size += length;
 }
 
@@ -82,30 +90,29 @@ std::optional<Uint8Array> png_get_exif_data(const std::string png_data) {
 
   png_read_info(png_ptr, info_ptr);
 
+  std::optional<Uint8Array> output = std::nullopt;
+
 #ifdef PNG_eXIf_SUPPORTED
   png_uint_32 exif_data_len = 0;
   png_bytep exif_data_ptr = nullptr;
 
   if (png_get_eXIf_1(png_ptr, info_ptr, &exif_data_len, &exif_data_ptr) != 0 &&
       exif_data_ptr != nullptr && exif_data_len > 0) {
-    auto *output = static_cast<unsigned char *>(
-        malloc(std::size(constants::ExifHeader) + exif_data_len));
-    if (output == nullptr) {
-      png_destroy_read_struct(&png_ptr, &info_ptr, nullptr);
-      return std::nullopt;
+    auto *exif_data = static_cast<unsigned char *>(
+        std::malloc(std::size(constants::kExifHeader) + exif_data_len));
+    if (exif_data != nullptr) {
+      std::memcpy(exif_data, constants::kExifHeader,
+                  std::size(constants::kExifHeader));
+      std::memcpy(exif_data + std::size(constants::kExifHeader), exif_data_ptr,
+                  exif_data_len);
+      output = Uint8Array(emscripten::val(emscripten::typed_memory_view(
+          std::size(constants::kExifHeader) + exif_data_len, exif_data)));
     }
-
-    memcpy(output, constants::ExifHeader, std::size(constants::ExifHeader));
-    memcpy(output + std::size(constants::ExifHeader), exif_data_ptr,
-           exif_data_len);
-    png_destroy_read_struct(&png_ptr, &info_ptr, nullptr);
-    return std::optional<Uint8Array>{Uint8Array(val(typed_memory_view(
-        std::size(constants::ExifHeader) + exif_data_len, output)))};
   }
 #endif
 
   png_destroy_read_struct(&png_ptr, &info_ptr, nullptr);
-  return std::nullopt;
+  return output;
 }
 
 Uint8Array png_set_exif_data(const std::string png_data,
@@ -122,7 +129,7 @@ Uint8Array png_set_exif_data(const std::string png_data,
       png_destroy_write_struct(&write_png_ptr, nullptr);
     }
     throw std::runtime_error(
-        "An error occurred while creating read_png_ptr or write_png_ptr");
+        "An error occurred while creating read_png_ptr and/or write_png_ptr");
   }
 
   png_infop info_ptr = png_create_info_struct(read_png_ptr);
@@ -146,21 +153,23 @@ Uint8Array png_set_exif_data(const std::string png_data,
   png_read_png(read_png_ptr, info_ptr, PNG_TRANSFORM_IDENTITY, NULL);
 
 #ifdef PNG_eXIf_SUPPORTED
-  bool has_exif_header = memcmp(exif_data.data(), constants::ExifHeader,
-                                std::size(constants::ExifHeader)) == 0;
+  bool has_exif_header =
+      exif_data.size() >= std::size(constants::kExifHeader) &&
+      std::equal(std::begin(constants::kExifHeader),
+                 std::end(constants::kExifHeader), exif_data.data());
   auto png_exif_data = reinterpret_cast<png_bytep>(const_cast<char *>(
-      has_exif_header ? exif_data.data() + std::size(constants::ExifHeader)
+      has_exif_header ? exif_data.data() + std::size(constants::kExifHeader)
                       : exif_data.data()));
-  auto png_exif_data_size = static_cast<png_uint_32>(
-      has_exif_header ? exif_data.size() - std::size(constants::ExifHeader)
+  auto png_exif_size = static_cast<png_uint_32>(
+      has_exif_header ? exif_data.size() - std::size(constants::kExifHeader)
                       : exif_data.size());
 
-  png_set_eXIf_1(read_png_ptr, info_ptr, png_exif_data_size, png_exif_data);
+  png_set_eXIf_1(read_png_ptr, info_ptr, png_exif_size, png_exif_data);
 #endif
 
   size_t rowbytes = png_get_rowbytes(read_png_ptr, info_ptr);
   PngWriteBuffer write_buffer = {
-      .data = static_cast<unsigned char *>(malloc(rowbytes)),
+      .data = static_cast<unsigned char *>(std::malloc(rowbytes)),
       .size = 0,
       .capacity = rowbytes};
   png_set_write_fn(write_png_ptr, &write_buffer, png_write_to_memory,
@@ -177,6 +186,6 @@ Uint8Array png_set_exif_data(const std::string png_data,
   png_destroy_read_struct(&read_png_ptr, &info_ptr, nullptr);
   png_destroy_write_struct(&write_png_ptr, nullptr);
 
-  return Uint8Array(
-      val(typed_memory_view(write_buffer.size, write_buffer.data)));
+  return Uint8Array(emscripten::val(
+      emscripten::typed_memory_view(write_buffer.size, write_buffer.data)));
 }

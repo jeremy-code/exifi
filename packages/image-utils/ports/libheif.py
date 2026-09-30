@@ -173,8 +173,8 @@ def get(ports, settings, shared):
             # enable virtual-function-elimination, which also requires lto=full.
             #
             # `heif_context_read_from_memory_without_copy`
-            # -> `HeifContext::read` -> `HeifContext::interpret_heif_file`
-            # -> `HeifContext::interpret_heif_file_images`
+            # -> `HeifContext::read`
+            # -> `HeifContext::interpret_heif_file`
             # -> `HeifContext::interpret_heif_file_images`
             # -> `ImageItem::alloc_for_infe_box`
             #
