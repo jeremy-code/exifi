@@ -12,7 +12,7 @@ import { parseDateStamp } from "@exifi/core/exif/date/dateStamp";
 import { parseDateTime } from "@exifi/core/exif/date/dateTime";
 import { parseTimeStamp } from "@exifi/core/exif/date/timeStamp";
 import type { ExifDataObject } from "@exifi/core/exif/interfaces";
-import { heic_get_exif_data } from "@exifi/image-utils";
+import { heif_get_exif_data } from "@exifi/image-utils";
 import { getFixture } from "@exifi/test-fixtures";
 
 import { ExifDateTimeInformation } from "./ExifDateTimeInformation";
@@ -125,7 +125,7 @@ describe("ExifDateTimeInformation", () => {
     plainAvifWithExif,
   }) => {
     using exifData = ExifData.newFromData(
-      heic_get_exif_data(plainAvifWithExif.image)!,
+      heif_get_exif_data(plainAvifWithExif.image)!,
     );
 
     const screen = await render(

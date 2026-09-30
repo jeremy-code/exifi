@@ -17,11 +17,12 @@ ENVIRONMENTS=(
 COMPILE_FLAGS=(
   -Oz # https://clang.llvm.org/docs/CommandGuide/clang.html#cmdoption-O0
   -g1 # Do not generate debug information, but preserve whitespace in JavaScript
+  -flto # Necessary for -fvirtual-function-elimination in ports/libheif.py
+  -fwasm-exceptions
   -lembind
   --emit-tsd "${OUTPUT_DIR}/imageUtils.d.ts"
-  --use-port="${PWD}/ports/heicdec.py"
+  --use-port="${PWD}/ports/libheif.py"
   --use-port=contrib.libwebp
-  -fwasm-exceptions
   -sSTACK_SIZE=$((2 ** 16))
   -sALLOW_MEMORY_GROWTH=1
   -sFILESYSTEM=0
@@ -36,7 +37,6 @@ COMPILE_FLAGS=(
 wasm_files=()
 for environment in "${ENVIRONMENTS[@]}"; do
   em++ \
-    -fwasm-exceptions \
     "${COMPILE_FLAGS[@]}" \
     -sENVIRONMENT="$environment" \
     src/main.cpp \
