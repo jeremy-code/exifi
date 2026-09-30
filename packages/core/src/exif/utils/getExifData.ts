@@ -4,7 +4,7 @@ import { ExifData } from "libexif-wasm";
 import {
   png_get_exif_data,
   webp_get_exif_data,
-  heic_get_exif_data,
+  heif_get_exif_data,
 } from "@exifi/image-utils";
 import { concatUint8Arrays } from "@exifi/utils/concatUint8Arrays";
 
@@ -46,7 +46,7 @@ const getExifData = async (file: File): Promise<ExifData | null> => {
         : mimeType === "image/heif" ||
             mimeType === "image/heic" ||
             mimeType === "image/avif"
-          ? heic_get_exif_data(fileBytes)
+          ? heif_get_exif_data(fileBytes)
           : undefined;
 
   if (exifData !== undefined) {
