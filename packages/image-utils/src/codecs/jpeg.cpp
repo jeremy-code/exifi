@@ -12,10 +12,8 @@
 #include "../common.h"
 #include "../constants.h"
 
-// "JFIF\0"
-constexpr uint8_t kJfifHeader[5] = {0x4A, 0x46, 0x49, 0x46, 0x00};
-// "Adobe"
-constexpr uint8_t kAdobeHeader[5] = {0x41, 0x64, 0x6F, 0x62, 0x65};
+constexpr uint8_t kJfifHeader[5] = {'J', 'F', 'I', 'F', '\0'};
+constexpr uint8_t kAdobeHeader[5] = {'A', 'd', 'o', 'b', 'e'};
 
 constexpr int kApp1Marker = JPEG_APP0 + 1;
 constexpr int kApp14Marker = JPEG_APP0 + 14;
@@ -43,11 +41,11 @@ Uint8Array jpeg_set_exif_data(const std::string jpeg_data,
   jpeg_create_decompress(&srcinfo);
   jpeg_create_compress(&dstinfo);
 
-  unsigned char *output_data;
+  unsigned char *output;
   size_t output_size;
   jpeg_mem_src(&srcinfo, reinterpret_cast<const JOCTET *>(jpeg_data.data()),
                jpeg_data.size());
-  jpeg_mem_dest(&dstinfo, &output_data, &output_size);
+  jpeg_mem_dest(&dstinfo, &output, &output_size);
 
   // Save all APPn markers
   for (int index = 0; index < 16; index++) {
@@ -129,5 +127,5 @@ Uint8Array jpeg_set_exif_data(const std::string jpeg_data,
   jpeg_destroy_decompress(&srcinfo);
 
   return Uint8Array(
-      emscripten::val(emscripten::typed_memory_view(output_size, output_data)));
+      emscripten::val(emscripten::typed_memory_view(output_size, output)));
 }

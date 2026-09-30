@@ -65,7 +65,8 @@ static void png_write_to_memory(png_structp png_ptr, png_bytep data,
 
 static void png_flush_memory(png_structp png_ptr) { (void)png_ptr; }
 
-std::optional<Uint8Array> png_get_exif_data(const std::string png_data) {
+std::optional<Uint8Array>
+png_get_exif_data(const std::string png_data) noexcept {
   png_structp png_ptr =
       png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
   if (png_ptr == nullptr) {
@@ -93,20 +94,21 @@ std::optional<Uint8Array> png_get_exif_data(const std::string png_data) {
   std::optional<Uint8Array> output = std::nullopt;
 
 #ifdef PNG_eXIf_SUPPORTED
-  png_uint_32 exif_data_len = 0;
-  png_bytep exif_data_ptr = nullptr;
+  png_uint_32 png_exif_size = 0;
+  png_bytep png_exif_data = nullptr;
 
-  if (png_get_eXIf_1(png_ptr, info_ptr, &exif_data_len, &exif_data_ptr) != 0 &&
-      exif_data_ptr != nullptr && exif_data_len > 0) {
-    auto *exif_data = static_cast<unsigned char *>(
-        std::malloc(std::size(constants::kExifHeader) + exif_data_len));
+  if (png_get_eXIf_1(png_ptr, info_ptr, &png_exif_size, &png_exif_data) != 0 &&
+      png_exif_data != nullptr && png_exif_size > 0) {
+    size_t exif_size = (std::size(constants::kExifHeader) + png_exif_size);
+    auto *exif_data = static_cast<unsigned char *>(std::malloc(exif_size));
+
     if (exif_data != nullptr) {
       std::memcpy(exif_data, constants::kExifHeader,
                   std::size(constants::kExifHeader));
-      std::memcpy(exif_data + std::size(constants::kExifHeader), exif_data_ptr,
-                  exif_data_len);
-      output = Uint8Array(emscripten::val(emscripten::typed_memory_view(
-          std::size(constants::kExifHeader) + exif_data_len, exif_data)));
+      std::memcpy(exif_data + std::size(constants::kExifHeader), png_exif_data,
+                  png_exif_size);
+      output = Uint8Array(
+          emscripten::val(emscripten::typed_memory_view(exif_size, exif_data)));
     }
   }
 #endif
@@ -181,7 +183,8 @@ Uint8Array png_set_exif_data(const std::string png_data,
     throw std::runtime_error("An error occurred while writing the PNG");
   }
 
-  png_write_png(write_png_ptr, info_ptr, PNG_TRANSFORM_IDENTITY, nullptr);
+  png_write_png(write_png_ptr, info_ptr,
+                /* transforms */ PNG_TRANSFORM_IDENTITY, /* params */ nullptr);
 
   png_destroy_read_struct(&read_png_ptr, &info_ptr, nullptr);
   png_destroy_write_struct(&write_png_ptr, nullptr);

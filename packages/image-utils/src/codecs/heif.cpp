@@ -22,7 +22,8 @@ constexpr uint32_t read_be32(const uint8_t *data) noexcept {
          (static_cast<uint32_t>(data[2]) << 8) | static_cast<uint32_t>(data[3]);
 }
 
-std::optional<Uint8Array> heif_get_exif_data(const std::string heif_data) {
+std::optional<Uint8Array>
+heif_get_exif_data(const std::string heif_data) noexcept {
   struct heif_context *ctx = heif_context_alloc();
 
   struct heif_error read_err = heif_context_read_from_memory_without_copy(
