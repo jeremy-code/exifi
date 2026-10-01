@@ -35,9 +35,9 @@ describe("useDisposeQueryCache", () => {
 
     const query = queryClient.getQueryCache().find({ queryKey: ["test"] });
 
-    expect(query).toBeDefined();
+    expect.assert(query !== undefined);
 
-    queryClient.getQueryCache().remove(query!);
+    queryClient.getQueryCache().remove(query);
 
     expect(disposable[Symbol.dispose]).toHaveBeenCalledTimes(1);
   });

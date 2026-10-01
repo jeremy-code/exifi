@@ -11,14 +11,13 @@ const test = baseTest.extend("plainJpgWithExif", () =>
 
 describe("serializeExifData", () => {
   test("serializes ExifData into ExifDataObject", ({ plainJpgWithExif }) => {
-    const exifData = ExifData.newFromData(plainJpgWithExif.image);
+    using exifData = ExifData.newFromData(plainJpgWithExif.image);
     exifData.fix();
     const exifDataObject = serializeExifData(exifData);
     expect(exifDataObject).toStrictEqual(plainJpgWithExif.json);
-    exifData.free();
   });
   test("serializes empty ExifData into ExifDataObject", () => {
-    const exifData = ExifData.new();
+    using exifData = ExifData.new();
     const exifDataObject = serializeExifData(exifData);
     expect(exifDataObject).toStrictEqual({
       data: [],
@@ -26,6 +25,5 @@ describe("serializeExifData", () => {
       dataType: "UNKNOWN",
       byteOrder: "MOTOROLA",
     });
-    exifData.free();
   });
 });

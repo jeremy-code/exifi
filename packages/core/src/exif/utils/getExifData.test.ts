@@ -18,26 +18,23 @@ describe("getExifData", () => {
   test("gets Exif data from JPG", async ({ plainJpgWithExif }) => {
     const file = new File([plainJpgWithExif.image], "plain-jpg-with-exif.jpg");
 
-    const exifData = await getExifData(file);
+    using exifData = await getExifData(file);
 
-    expect(exifData).not.toBeNull();
-    expect(exifData!.saveData()).toStrictEqual(
+    expect.assert(exifData !== null);
+    expect(exifData.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainJpgWithExif.exifBytes!]),
     );
-
-    exifData!.free();
   });
 
   test("gets Exif data from PNG", async ({ plainPngWithExif }) => {
     const file = new File([plainPngWithExif.image], "plain-png-with-exif.png");
 
-    const exifData = await getExifData(file);
+    using exifData = await getExifData(file);
 
-    expect(exifData!.saveData()).toStrictEqual(
+    expect.assert(exifData !== null);
+    expect(exifData.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainPngWithExif.exifBytes!]),
     );
-
-    exifData!.free();
   });
 
   test("gets Exif data from raw Exif", async ({ plainJpgWithExif }) => {
@@ -46,13 +43,12 @@ describe("getExifData", () => {
       "plain-jpg-with-exif.exif",
     );
 
-    const exifData = await getExifData(file);
+    using exifData = await getExifData(file);
 
-    expect(exifData!.saveData()).toStrictEqual(
+    expect.assert(exifData !== null);
+    expect(exifData.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainJpgWithExif.exifBytes!]),
     );
-
-    exifData!.free();
   });
 
   test("gets Exif data from WebP", async ({ plainWebpWithExif }) => {
@@ -61,13 +57,12 @@ describe("getExifData", () => {
       "plain-webp-with-exif.webp",
     );
 
-    const exifData = await getExifData(file);
+    using exifData = await getExifData(file);
 
-    expect(exifData!.saveData()).toStrictEqual(
+    expect.assert(exifData !== null);
+    expect(exifData.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainWebpWithExif.exifBytes!]),
     );
-
-    exifData!.free();
   });
 
   test("gets Exif data from HEIC", async ({ plainHeicWithExif }) => {
@@ -76,13 +71,12 @@ describe("getExifData", () => {
       "plain-heic-with-exif.heic",
     );
 
-    const exifData = await getExifData(file);
+    using exifData = await getExifData(file);
 
-    expect(exifData!.saveData()).toStrictEqual(
+    expect.assert(exifData !== null);
+    expect(exifData.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainHeicWithExif.exifBytes!]),
     );
-
-    exifData!.free();
   });
 
   test("gets Exif data from AVIF", async ({ plainAvifWithExif }) => {
@@ -91,12 +85,11 @@ describe("getExifData", () => {
       "plain-avif-with-exif.avif",
     );
 
-    const exifData = await getExifData(file);
+    using exifData = await getExifData(file);
 
-    expect(exifData!.saveData()).toStrictEqual(
+    expect.assert(exifData !== null);
+    expect(exifData.saveData()).toStrictEqual(
       concatUint8Arrays([EXIF_HEADER, plainAvifWithExif.exifBytes!]),
     );
-
-    exifData!.free();
   });
 });

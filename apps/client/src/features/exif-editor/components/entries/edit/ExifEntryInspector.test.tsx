@@ -20,8 +20,9 @@ describe("ExifEntryInspector", () => {
     entry.fromTypedArray(encodeStringToUtf8(initialImageDescription));
 
     const exifEntryObject = serializeExifEntry(entry);
+    expect.assert(exifEntryObject !== null);
     const screen = await render(
-      <ExifEntryInspector exifEntryObject={exifEntryObject!} />,
+      <ExifEntryInspector exifEntryObject={exifEntryObject} />,
       {
         wrapper: ({ children }) => (
           <ExifEditorProvider exifData={exifData}>

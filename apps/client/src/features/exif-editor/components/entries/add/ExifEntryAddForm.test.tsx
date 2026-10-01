@@ -46,7 +46,7 @@ describe("ExifEntryAddForm", () => {
     await userEvent.click(screen.getByText("Submit"));
 
     const imageDescriptionEntry = exifData.ifd[0].getEntry("IMAGE_DESCRIPTION");
-    expect(imageDescriptionEntry).not.toBe(null);
-    expect(imageDescriptionEntry!.toString()).toBe(expectedImageDescription);
+    expect.assert(imageDescriptionEntry !== null);
+    expect(imageDescriptionEntry.toString()).toBe(expectedImageDescription);
   });
 });

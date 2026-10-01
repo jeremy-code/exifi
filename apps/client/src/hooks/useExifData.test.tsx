@@ -29,13 +29,12 @@ describe("useExifData", () => {
     const { result } = await renderUseExifData(exifDataFile);
 
     await expect.poll(() => result.current).not.toBeNull();
-    const exifData = result.current;
+    using exifData = result.current;
 
+    expect.assert(exifData !== null);
     expect(exifData).toBeInstanceOf(ExifData);
-    expect(exifData!.saveData()).toStrictEqual(await exifDataFile.bytes());
-    expect(serializeExifData(exifData!)).toStrictEqual(plainJpgWithExif.json);
-
-    result.current!.free();
+    expect(exifData.saveData()).toStrictEqual(await exifDataFile.bytes());
+    expect(serializeExifData(exifData)).toStrictEqual(plainJpgWithExif.json);
   });
 
   test("returns null with jpeg image with no Exif data", async ({
@@ -58,17 +57,16 @@ describe("useExifData", () => {
     const { result } = await renderUseExifData(exifDataFile);
     await expect.poll(() => result.current).not.toBeNull();
 
-    const exifData = result.current;
+    using exifData = result.current;
 
+    expect.assert(exifData !== null);
     expect(exifData).toBeInstanceOf(ExifData);
-    expect(exifData!.saveData()).toStrictEqual(
+    expect(exifData.saveData()).toStrictEqual(
       concatUint8Arrays([
         new TextEncoder().encode("Exif\0\0"),
         plainJpgWithExif.exifBytes!,
       ]),
     );
-    expect(serializeExifData(exifData!)).toStrictEqual(plainJpgWithExif.json);
-
-    exifData!.free();
+    expect(serializeExifData(exifData)).toStrictEqual(plainJpgWithExif.json);
   });
 });
