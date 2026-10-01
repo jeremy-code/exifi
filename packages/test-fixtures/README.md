@@ -243,7 +243,7 @@ int main(void) {
 }
 ```
 
-### plain-jpegxl.jxl
+### plain-jxl.jxl
 
 ```c
 // libjxl v0.12.0
@@ -329,7 +329,7 @@ int main(void) {
     return EXIT_FAILURE;
   }
 
-  FILE *file = fopen("plain-jpegxl.jxl", "wb");
+  FILE *file = fopen("plain-jxl.jxl", "wb");
   if (!file) {
     free(compressed_buffer);
     JxlEncoderDestroy(enc);
