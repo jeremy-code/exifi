@@ -82,7 +82,8 @@ Uint8Array webp_set_exif_data(const std::string webp_data,
       WebPMuxSetChunk(mux, "EXIF", &exif_chunk, /* copy_data */ 1);
   if (set_err != WEBP_MUX_OK) {
     WebPMuxDelete(mux);
-    throw std::runtime_error("An error occurred while setting the Exif chunk");
+    throw std::runtime_error("An error (" + std::to_string(set_err) +
+                             ") occurred while setting the Exif chunk");
   }
 
   WebPData output;
@@ -90,8 +91,8 @@ Uint8Array webp_set_exif_data(const std::string webp_data,
   WebPMuxDelete(mux);
 
   if (assemble_err != WEBP_MUX_OK) {
-    throw std::runtime_error(
-        "An error occurred while assembling the WebP data");
+    throw std::runtime_error("An error (" + std::to_string(assemble_err) +
+                             ") occurred while assembling the WebP data");
   }
 
   return Uint8Array(emscripten::val(
