@@ -1,8 +1,11 @@
 #pragma once
 
-#include "../common.h"
-#include <emscripten/val.h>
+#include <optional>
+#include <string>
 
-std::optional<Uint8Array> webp_get_exif_data(const std::string webp_data);
+#include "../common.h"
+
+std::optional<Uint8Array>
+webp_get_exif_data(const std::string webp_data) noexcept;
 Uint8Array webp_set_exif_data(const std::string webp_data,
                               const std::string exif_data);

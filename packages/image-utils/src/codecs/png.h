@@ -1,8 +1,11 @@
 #pragma once
 
-#include "../common.h"
-#include <emscripten/val.h>
+#include <optional>
+#include <string>
 
-std::optional<Uint8Array> png_get_exif_data(const std::string png_data);
+#include "../common.h"
+
+std::optional<Uint8Array>
+png_get_exif_data(const std::string png_data) noexcept;
 Uint8Array png_set_exif_data(const std::string png_data,
                              const std::string exif_data);

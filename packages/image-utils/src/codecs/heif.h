@@ -1,6 +1,9 @@
 #pragma once
 
-#include "../common.h"
-#include <emscripten/val.h>
+#include <optional>
+#include <string>
 
-std::optional<Uint8Array> heif_get_exif_data(const std::string heif_data);
+#include "../common.h"
+
+std::optional<Uint8Array>
+heif_get_exif_data(const std::string heif_data) noexcept;
