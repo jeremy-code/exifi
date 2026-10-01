@@ -1,5 +1,5 @@
 import type { UseThemeProps } from "next-themes";
-import { describe, expect, vi, test, beforeEach } from "vitest";
+import { describe, expect, vi, test } from "vitest";
 import { render } from "vitest-browser-react";
 
 import { ThemeToggle } from "./ThemeToggle";
@@ -15,10 +15,6 @@ vi.mock("next-themes", () => ({
 }));
 
 describe("ThemeToggle", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
   test("renders light theme correctly", async () => {
     mockResolvedTheme = "light";
 

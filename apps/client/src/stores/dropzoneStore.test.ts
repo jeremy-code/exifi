@@ -1,4 +1,4 @@
-import { describe, expect, test, vi, afterEach } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import { renderHook } from "vitest-browser-react";
 
 import { useDropzoneStore } from "./dropzoneStore";
@@ -6,10 +6,6 @@ import { useDropzoneStore } from "./dropzoneStore";
 vi.mock("zustand");
 
 describe("useDropzoneStore", () => {
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   test("initializes with an empty acceptedFiles array", async () => {
     const { result } = await renderHook(() => useDropzoneStore());
 

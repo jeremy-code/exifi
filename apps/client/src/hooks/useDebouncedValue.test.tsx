@@ -9,7 +9,6 @@ describe("useDebouncedValue", () => {
   });
 
   afterEach(() => {
-    vi.restoreAllMocks();
     vi.useRealTimers();
   });
 

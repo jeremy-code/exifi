@@ -1,4 +1,4 @@
-import { describe, test, expect, vi, afterEach } from "vitest";
+import { describe, test, expect, vi } from "vitest";
 import { renderHook } from "vitest-browser-react";
 
 import { useBlobHash } from "./useBlobHash";
@@ -16,10 +16,6 @@ const renderUseBlobHash = (blob: Blob) =>
   });
 
 describe("useBlobHash", () => {
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
   test.for([
     ["empty", new Blob([]), SHA256.empty],
     ["world", new Blob(["world"]), SHA256.world],

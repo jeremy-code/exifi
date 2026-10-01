@@ -23,7 +23,6 @@ describe("useDisposeQueryCache", () => {
 
   afterEach(() => {
     queryClient.clear();
-    vi.restoreAllMocks();
   });
 
   test("disposes a disposable when a query is removed", async () => {
