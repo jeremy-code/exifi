@@ -379,8 +379,7 @@ int main(void) {
 
 ## Notes
 
-Exif data for `plain-jpg-with-mnote-exif` is from [fuji_makernote_variant_1.jpg](https://github.com/libexif/libexif/blob/master/test/testdata/fuji_makernote_variant_1.jpg) from [libexif/libexif](https://github.com/libexif/libexif/).
-
-Exif data for `plain-heic-with-exif` is from [IMG_5195.HEIC](https://github.com/ianare/exif-samples/blob/master/heic/IMG_5195.HEIC) from [ianare/exif-samples](https://github.com/ianare/exif-samples).
-
-Exif data for `plain-avif-with-exif` is from [colors_hdr_rec2020.avif](https://github.com/AOMediaCodec/libavif/blob/main/tests/data/colors_hdr_rec2020.avif) from [AOMediaCodec/libavif](https://github.com/AOMediaCodec/libavif).
+- Exif data for `plain-jpg-with-exif` is from using `libexif-wasm` to create a new `ExifData` instance and then running `.fix` to get the default values
+- Exif data for `plain-jpg-with-mnote-exif` is from [fuji_makernote_variant_1.jpg](https://github.com/libexif/libexif/blob/master/test/testdata/fuji_makernote_variant_1.jpg) from [libexif/libexif](https://github.com/libexif/libexif/).
+- Exif data for `plain-heic-with-exif` is from [IMG_5195.HEIC](https://github.com/ianare/exif-samples/blob/master/heic/IMG_5195.HEIC) from [ianare/exif-samples](https://github.com/ianare/exif-samples).
+- Exif data for `plain-avif-with-exif` is from [colors_hdr_rec2020.avif](https://github.com/AOMediaCodec/libavif/blob/main/tests/data/colors_hdr_rec2020.avif) from [AOMediaCodec/libavif](https://github.com/AOMediaCodec/libavif).
