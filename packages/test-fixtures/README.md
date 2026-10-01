@@ -379,7 +379,9 @@ int main(void) {
 
 ## Notes
 
-- Exif data for `plain-jpg-with-exif` is from using `libexif-wasm` to create a new `ExifData` instance and then running `.fix` to get the default values
+- Exif data for `plain-jpg-with-exif` is from using `libexif-wasm` to create a new `ExifData` instance and then running `.fix` to get the default values.
 - Exif data for `plain-jpg-with-mnote-exif` is from [fuji_makernote_variant_1.jpg](https://github.com/libexif/libexif/blob/master/test/testdata/fuji_makernote_variant_1.jpg) from [libexif/libexif](https://github.com/libexif/libexif/).
+- Exif data for `plain-png-with-exif` is from [Liquid Crystal Phase Transition.png](https://commons.wikimedia.org/wiki/File:Liquid_Crystal_Phase_Transition.png) from [User:KarlGaff](https://commons.wikimedia.org/wiki/User:KarlGaff) after removing the thumbnail.
+- Exif data for `plain-webp-with-exif` is from [File:Darling (1965 film).webp](<https://commons.wikimedia.org/wiki/File:Darling_(1965_film).webp>) from [User:Cinemaniac86](https://commons.wikimedia.org/wiki/User:Cinemaniac86).
 - Exif data for `plain-heic-with-exif` is from [IMG_5195.HEIC](https://github.com/ianare/exif-samples/blob/master/heic/IMG_5195.HEIC) from [ianare/exif-samples](https://github.com/ianare/exif-samples).
 - Exif data for `plain-avif-with-exif` is from [colors_hdr_rec2020.avif](https://github.com/AOMediaCodec/libavif/blob/main/tests/data/colors_hdr_rec2020.avif) from [AOMediaCodec/libavif](https://github.com/AOMediaCodec/libavif).
