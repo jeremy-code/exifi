@@ -25,13 +25,12 @@ const serwistBuild = (ctx: SerwistViteContext, api: SerwistViteApi): Plugin => {
     apply: "build",
     // Only run in client environment
     applyToEnvironment(environment) {
-      return environment.name === "client";
+      return environment.config.consumer === "client";
     },
     closeBundle: {
       sequential: true,
       order: ctx.userOptions?.integration?.closeBundleOrder,
       async handler() {
-        // ctx.viteConfig.build.ssr is always true
         if (!ctx.options.disable) {
           await api.generateSW();
         }
@@ -50,9 +49,10 @@ const serwist = (userOptions: PluginOptions): Plugin[] => {
   return [serwistMain(ctx, api), serwistBuild(ctx, api), serwistDev(ctx, api)];
 };
 
-const isAnalyzerEnabled =
-  process.env.ANALYZE !== undefined &&
-  z.stringbool().parse(process.env.ANALYZE);
+const isAnalyzerEnabled = z
+  .stringbool()
+  .default(false)
+  .parse(process.env.ANALYZE);
 
 const url = z
   .string()
@@ -99,7 +99,7 @@ const viteConfig = defineConfig({
     ...(isAnalyzerEnabled ? [analyzer({ analyzerPort: "auto" })] : []),
   ],
   define: {
-    __BUILD_TIMESTAMP__: new Date().getTime(),
+    __BUILD_TIMESTAMP__: Date.now(),
     __LIBEXIF_WASM_VERSION__: JSON.stringify(
       (await import("libexif-wasm/package.json", { with: { type: "json" } }))
         .version,
