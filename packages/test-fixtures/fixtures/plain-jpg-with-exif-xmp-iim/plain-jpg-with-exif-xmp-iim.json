@@ -1,0 +1,598 @@
+{
+  "data": [],
+  "ifd": {
+    "IFD_0": [
+      {
+        "ifd": "IFD_0",
+        "tag": "IMAGE_DESCRIPTION",
+        "format": "ASCII",
+        "components": 563,
+        "data": [
+          40, 84, 104, 105, 115, 32, 99, 97, 112, 116, 105, 111, 110, 32, 105,
+          110, 32, 69, 120, 105, 102, 41, 32, 84, 104, 105, 115, 32, 105, 115,
+          32, 97, 32, 109, 101, 116, 97, 100, 97, 116, 97, 32, 116, 101, 115,
+          116, 32, 102, 105, 108, 101, 46, 32, 73, 116, 32, 104, 97, 115, 32,
+          118, 97, 108, 117, 101, 115, 32, 105, 110, 32, 109, 111, 115, 116, 32,
+          73, 80, 84, 67, 32, 32, 102, 105, 101, 108, 100, 115, 44, 32, 105,
+          110, 99, 108, 117, 100, 105, 110, 103, 32, 109, 97, 110, 121, 32, 101,
+          120, 116, 101, 110, 100, 101, 100, 32, 102, 105, 101, 108, 100, 115,
+          44, 32, 105, 110, 32, 98, 111, 116, 104, 32, 116, 104, 101, 32, 73,
+          73, 77, 32, 97, 110, 100, 32, 88, 77, 80, 32, 100, 97, 116, 97, 32,
+          98, 108, 111, 99, 107, 115, 46, 32, 65, 108, 115, 111, 32, 99, 111,
+          110, 116, 97, 105, 110, 115, 32, 69, 120, 105, 102, 32, 100, 97, 116,
+          97, 44, 32, 105, 110, 99, 46, 32, 115, 97, 109, 112, 108, 101, 32, 71,
+          80, 83, 32, 100, 97, 116, 97, 46, 32, 78, 79, 84, 69, 32, 116, 104,
+          97, 116, 32, 116, 104, 105, 115, 32, 102, 105, 108, 101, 32, 105, 115,
+          32, 111, 117, 116, 45, 111, 102, 45, 115, 121, 110, 99, 46, 32, 84,
+          104, 101, 32, 67, 97, 112, 116, 105, 111, 110, 47, 100, 101, 115, 99,
+          114, 105, 112, 116, 105, 111, 110, 44, 32, 67, 114, 101, 97, 116, 111,
+          114, 32, 97, 110, 100, 32, 67, 111, 112, 121, 114, 105, 103, 104, 116,
+          32, 102, 105, 101, 108, 100, 115, 32, 104, 97, 118, 101, 32, 100, 105,
+          102, 102, 101, 114, 101, 110, 116, 32, 118, 97, 108, 117, 101, 115,
+          32, 105, 110, 32, 116, 104, 101, 32, 73, 73, 77, 44, 32, 88, 77, 80,
+          44, 32, 97, 110, 100, 32, 69, 120, 105, 102, 32, 100, 97, 116, 97, 32,
+          98, 108, 111, 99, 107, 115, 46, 32, 84, 104, 105, 115, 32, 102, 105,
+          108, 101, 32, 97, 108, 115, 111, 32, 99, 111, 110, 116, 97, 105, 110,
+          115, 32, 80, 104, 111, 116, 111, 115, 104, 111, 112, 32, 108, 111,
+          103, 32, 105, 110, 102, 111, 44, 32, 76, 105, 103, 104, 116, 114, 111,
+          111, 109, 32, 68, 101, 118, 101, 108, 111, 112, 32, 105, 110, 102,
+          111, 44, 32, 97, 110, 100, 32, 98, 111, 116, 104, 32, 69, 120, 105,
+          102, 32, 97, 110, 100, 32, 80, 104, 111, 116, 111, 115, 104, 111, 112,
+          32, 116, 104, 117, 109, 98, 110, 97, 105, 108, 115, 46, 32, 84, 104,
+          101, 32, 111, 114, 105, 103, 105, 110, 97, 108, 32, 102, 105, 108,
+          101, 32, 99, 97, 110, 32, 98, 101, 32, 102, 111, 117, 110, 100, 32,
+          97, 116, 32, 119, 119, 119, 46, 99, 97, 114, 108, 115, 101, 105, 98,
+          101, 114, 116, 46, 99, 111, 109, 47, 99, 111, 109, 109, 111, 110, 115,
+          32, 32, 67, 97, 114, 108, 32, 83, 101, 105, 98, 101, 114, 116, 32, 47,
+          32, 67, 114, 101, 97, 116, 105, 118, 101, 32, 67, 111, 109, 109, 111,
+          110, 115, 32, 52, 46, 48, 0
+        ],
+        "size": 563,
+        "formattedValue": "(This caption in Exif) This is a metadata test file. It has values in most IPTC  fields, including many extended fields, in both the IIM and XMP data blocks. Also contains Exif data, inc. sample GPS data. NOTE that this file is out-of-sync. The Caption/description, Creator and Copyright fields have different values in the IIM, XMP, and Exif data blocks. This file also contains Photoshop log info, Lightroom Develop info, and both Exif and Photoshop thumbnails. The original file can be found at www.carlseibert.com/commons  Carl Seibert / Creative Commons 4.0",
+        "byteOrder": "INTEL",
+        "value": "(This caption in Exif) This is a metadata test file. It has values in most IPTC  fields, including many extended fields, in both the IIM and XMP data blocks. Also contains Exif data, inc. sample GPS data. NOTE that this file is out-of-sync. The Caption/description, Creator and Copyright fields have different values in the IIM, XMP, and Exif data blocks. This file also contains Photoshop log info, Lightroom Develop info, and both Exif and Photoshop thumbnails. The original file can be found at www.carlseibert.com/commons  Carl Seibert / Creative Commons 4.0"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "MAKE",
+        "format": "ASCII",
+        "components": 8,
+        "data": [115, 97, 109, 115, 117, 110, 103, 0],
+        "size": 8,
+        "formattedValue": "samsung",
+        "byteOrder": "INTEL",
+        "value": "samsung"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "MODEL",
+        "format": "ASCII",
+        "components": 9,
+        "data": [83, 77, 45, 71, 57, 51, 48, 80, 0],
+        "size": 9,
+        "formattedValue": "SM-G930P",
+        "byteOrder": "INTEL",
+        "value": "SM-G930P"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "X_RESOLUTION",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [44, 1, 0, 0, 1, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "300",
+        "byteOrder": "INTEL",
+        "value": [{ "numerator": 300, "denominator": 1 }]
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "Y_RESOLUTION",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [44, 1, 0, 0, 1, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "300",
+        "byteOrder": "INTEL",
+        "value": [{ "numerator": 300, "denominator": 1 }]
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "RESOLUTION_UNIT",
+        "format": "SHORT",
+        "components": 1,
+        "data": [2, 0],
+        "size": 2,
+        "formattedValue": "Inch",
+        "byteOrder": "INTEL",
+        "value": [2]
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "SOFTWARE",
+        "format": "ASCII",
+        "components": 45,
+        "data": [
+          65, 100, 111, 98, 101, 32, 80, 104, 111, 116, 111, 115, 104, 111, 112,
+          32, 76, 105, 103, 104, 116, 114, 111, 111, 109, 32, 54, 46, 49, 48,
+          46, 49, 32, 40, 77, 97, 99, 105, 110, 116, 111, 115, 104, 41, 0
+        ],
+        "size": 45,
+        "formattedValue": "Adobe Photoshop Lightroom 6.10.1 (Macintosh)",
+        "byteOrder": "INTEL",
+        "value": "Adobe Photoshop Lightroom 6.10.1 (Macintosh)"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "DATE_TIME",
+        "format": "ASCII",
+        "components": 20,
+        "data": [
+          50, 48, 49, 55, 58, 48, 55, 58, 49, 55, 32, 49, 50, 58, 49, 55, 58,
+          50, 53, 0
+        ],
+        "size": 20,
+        "formattedValue": "2017:07:17 12:17:25",
+        "byteOrder": "INTEL",
+        "value": "2017:07:17 12:17:25"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "ARTIST",
+        "format": "ASCII",
+        "components": 20,
+        "data": [
+          67, 97, 114, 108, 32, 83, 101, 105, 98, 101, 114, 116, 32, 40, 69,
+          120, 105, 102, 41, 0
+        ],
+        "size": 20,
+        "formattedValue": "Carl Seibert (Exif)",
+        "byteOrder": "INTEL",
+        "value": "Carl Seibert (Exif)"
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "YCBCR_POSITIONING",
+        "format": "SHORT",
+        "components": 1,
+        "data": [1, 0],
+        "size": 2,
+        "formattedValue": "Centered",
+        "byteOrder": "INTEL",
+        "value": [1]
+      },
+      {
+        "ifd": "IFD_0",
+        "tag": "COPYRIGHT",
+        "format": "ASCII",
+        "components": 60,
+        "data": [
+          194, 169, 32, 67, 111, 112, 121, 114, 105, 103, 104, 116, 32, 50, 48,
+          49, 55, 32, 67, 97, 114, 108, 32, 83, 101, 105, 98, 101, 114, 116, 32,
+          32, 109, 101, 116, 97, 100, 97, 116, 97, 109, 97, 116, 116, 101, 114,
+          115, 46, 98, 108, 111, 103, 32, 40, 69, 120, 105, 102, 41, 0
+        ],
+        "size": 60,
+        "formattedValue": "© Copyright 2017 Carl Seibert  metadatamatters.blog (Exif)",
+        "byteOrder": "INTEL",
+        "value": "© Copyright 2017 Carl Seibert  metadatamatters.blog (Exif)"
+      }
+    ],
+    "IFD_1": [],
+    "EXIF": [
+      {
+        "ifd": "EXIF",
+        "tag": "EXPOSURE_TIME",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [1, 0, 0, 0, 64, 6, 0, 0],
+        "size": 8,
+        "formattedValue": "1/1600 sec.",
+        "byteOrder": "INTEL",
+        "value": [{ "numerator": 1, "denominator": 1600 }]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FNUMBER",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [17, 0, 0, 0, 10, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "f/1.7",
+        "byteOrder": "INTEL",
+        "value": [{ "numerator": 17, "denominator": 10 }]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "EXPOSURE_PROGRAM",
+        "format": "SHORT",
+        "components": 1,
+        "data": [2, 0],
+        "size": 2,
+        "formattedValue": "Normal program",
+        "byteOrder": "INTEL",
+        "value": [2]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "ISO_SPEED_RATINGS",
+        "format": "SHORT",
+        "components": 1,
+        "data": [40, 0],
+        "size": 2,
+        "formattedValue": "40",
+        "byteOrder": "INTEL",
+        "value": [40]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "EXIF_VERSION",
+        "format": "UNDEFINED",
+        "components": 4,
+        "data": [48, 50, 51, 48],
+        "size": 4,
+        "formattedValue": "Exif Version 2.3",
+        "byteOrder": "INTEL",
+        "value": [48, 50, 51, 48]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "DATE_TIME_ORIGINAL",
+        "format": "ASCII",
+        "components": 20,
+        "data": [
+          50, 48, 49, 55, 58, 48, 53, 58, 50, 57, 32, 49, 49, 58, 49, 49, 58,
+          49, 54, 0
+        ],
+        "size": 20,
+        "formattedValue": "2017:05:29 11:11:16",
+        "byteOrder": "INTEL",
+        "value": "2017:05:29 11:11:16"
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "DATE_TIME_DIGITIZED",
+        "format": "ASCII",
+        "components": 20,
+        "data": [
+          50, 48, 49, 55, 58, 48, 53, 58, 50, 57, 32, 49, 49, 58, 49, 49, 58,
+          49, 54, 0
+        ],
+        "size": 20,
+        "formattedValue": "2017:05:29 11:11:16",
+        "byteOrder": "INTEL",
+        "value": "2017:05:29 11:11:16"
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "COMPONENTS_CONFIGURATION",
+        "format": "UNDEFINED",
+        "components": 4,
+        "data": [1, 2, 3, 0],
+        "size": 4,
+        "formattedValue": "Y Cb Cr -",
+        "byteOrder": "INTEL",
+        "value": [1, 2, 3, 0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SHUTTER_SPEED_VALUE",
+        "format": "SRATIONAL",
+        "components": 1,
+        "data": [61, 83, 0, 0, 210, 7, 0, 0],
+        "size": 8,
+        "formattedValue": "10.64 EV (1/1600 sec.)",
+        "byteOrder": "INTEL",
+        "value": [{ "numerator": 21309, "denominator": 2002 }]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "APERTURE_VALUE",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [43, 34, 0, 0, 81, 22, 0, 0],
+        "size": 8,
+        "formattedValue": "1.53 EV (f/1.7)",
+        "byteOrder": "INTEL",
+        "value": [{ "numerator": 8747, "denominator": 5713 }]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "BRIGHTNESS_VALUE",
+        "format": "SRATIONAL",
+        "components": 1,
+        "data": [42, 0, 0, 0, 5, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "8.40 EV (1157.37 cd/m^2)",
+        "byteOrder": "INTEL",
+        "value": [{ "numerator": 42, "denominator": 5 }]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "EXPOSURE_BIAS_VALUE",
+        "format": "SRATIONAL",
+        "components": 1,
+        "data": [0, 0, 0, 0, 1, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "0.00 EV",
+        "byteOrder": "INTEL",
+        "value": [{ "numerator": 0, "denominator": 1 }]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "MAX_APERTURE_VALUE",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [43, 34, 0, 0, 81, 22, 0, 0],
+        "size": 8,
+        "formattedValue": "1.53 EV (f/1.7)",
+        "byteOrder": "INTEL",
+        "value": [{ "numerator": 8747, "denominator": 5713 }]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "METERING_MODE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [2, 0],
+        "size": 2,
+        "formattedValue": "Center-weighted average",
+        "byteOrder": "INTEL",
+        "value": [2]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "LIGHT_SOURCE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Unknown",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FOCAL_LENGTH",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [21, 0, 0, 0, 5, 0, 0, 0],
+        "size": 8,
+        "formattedValue": "4.2 mm",
+        "byteOrder": "INTEL",
+        "value": [{ "numerator": 21, "denominator": 5 }]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "USER_COMMENT",
+        "format": "UNDEFINED",
+        "components": 9,
+        "data": [65, 83, 67, 73, 73, 0, 0, 0, 10],
+        "size": 9,
+        "formattedValue": "\n",
+        "byteOrder": "INTEL",
+        "value": [65, 83, 67, 73, 73, 0, 0, 0, 10]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FLASH_PIX_VERSION",
+        "format": "UNDEFINED",
+        "components": 4,
+        "data": [48, 49, 48, 48],
+        "size": 4,
+        "formattedValue": "FlashPix Version 1.0",
+        "byteOrder": "INTEL",
+        "value": [48, 49, 48, 48]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "COLOR_SPACE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [1, 0],
+        "size": 2,
+        "formattedValue": "sRGB",
+        "byteOrder": "INTEL",
+        "value": [1]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SENSING_METHOD",
+        "format": "SHORT",
+        "components": 1,
+        "data": [2, 0],
+        "size": 2,
+        "formattedValue": "One-chip color area sensor",
+        "byteOrder": "INTEL",
+        "value": [2]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SCENE_TYPE",
+        "format": "UNDEFINED",
+        "components": 1,
+        "data": [1],
+        "size": 1,
+        "formattedValue": "Directly photographed",
+        "byteOrder": "INTEL",
+        "value": [1]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "EXPOSURE_MODE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Auto exposure",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "WHITE_BALANCE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Auto white balance",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "FOCAL_LENGTH_IN_35MM_FILM",
+        "format": "SHORT",
+        "components": 1,
+        "data": [26, 0],
+        "size": 2,
+        "formattedValue": "26",
+        "byteOrder": "INTEL",
+        "value": [26]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SCENE_CAPTURE_TYPE",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Standard",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SATURATION",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Normal",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "SHARPNESS",
+        "format": "SHORT",
+        "components": 1,
+        "data": [0, 0],
+        "size": 2,
+        "formattedValue": "Normal",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "EXIF",
+        "tag": "LENS_MODEL",
+        "format": "ASCII",
+        "components": 30,
+        "data": [
+          83, 97, 109, 115, 117, 110, 103, 32, 71, 97, 108, 97, 120, 121, 32,
+          83, 55, 32, 82, 101, 97, 114, 32, 67, 97, 109, 101, 114, 97, 0
+        ],
+        "size": 30,
+        "formattedValue": "Samsung Galaxy S7 Rear Camera",
+        "byteOrder": "INTEL",
+        "value": "Samsung Galaxy S7 Rear Camera"
+      }
+    ],
+    "GPS": [
+      {
+        "ifd": "GPS",
+        "tag": "VERSION_ID",
+        "format": "BYTE",
+        "components": 4,
+        "data": [2, 2, 0, 0],
+        "size": 4,
+        "formattedValue": "2.2.0.0",
+        "byteOrder": "INTEL",
+        "value": [2, 2, 0, 0]
+      },
+      {
+        "ifd": "GPS",
+        "tag": "LATITUDE_REF",
+        "format": "ASCII",
+        "components": 2,
+        "data": [78, 0],
+        "size": 2,
+        "formattedValue": "N",
+        "byteOrder": "INTEL",
+        "value": "N"
+      },
+      {
+        "ifd": "GPS",
+        "tag": "LATITUDE",
+        "format": "RATIONAL",
+        "components": 3,
+        "data": [
+          26, 0, 0, 0, 1, 0, 0, 0, 34, 0, 0, 0, 1, 0, 0, 0, 37, 11, 0, 0, 50, 0,
+          0, 0
+        ],
+        "size": 24,
+        "formattedValue": "26, 34, 57.06",
+        "byteOrder": "INTEL",
+        "value": [
+          { "numerator": 26, "denominator": 1 },
+          { "numerator": 34, "denominator": 1 },
+          { "numerator": 2853, "denominator": 50 }
+        ]
+      },
+      {
+        "ifd": "GPS",
+        "tag": "LONGITUDE_REF",
+        "format": "ASCII",
+        "components": 2,
+        "data": [87, 0],
+        "size": 2,
+        "formattedValue": "W",
+        "byteOrder": "INTEL",
+        "value": "W"
+      },
+      {
+        "ifd": "GPS",
+        "tag": "LONGITUDE",
+        "format": "RATIONAL",
+        "components": 3,
+        "data": [
+          80, 0, 0, 0, 1, 0, 0, 0, 12, 0, 0, 0, 1, 0, 0, 0, 21, 0, 0, 0, 25, 0,
+          0, 0
+        ],
+        "size": 24,
+        "formattedValue": "80, 12, 0.84",
+        "byteOrder": "INTEL",
+        "value": [
+          { "numerator": 80, "denominator": 1 },
+          { "numerator": 12, "denominator": 1 },
+          { "numerator": 21, "denominator": 25 }
+        ]
+      },
+      {
+        "ifd": "GPS",
+        "tag": "ALTITUDE_REF",
+        "format": "BYTE",
+        "components": 1,
+        "data": [0],
+        "size": 1,
+        "formattedValue": "Sea level",
+        "byteOrder": "INTEL",
+        "value": [0]
+      },
+      {
+        "ifd": "GPS",
+        "tag": "ALTITUDE",
+        "format": "RATIONAL",
+        "components": 1,
+        "data": [0, 0, 0, 0, 1, 0, 0, 0],
+        "size": 8,
+        "formattedValue": " 0",
+        "byteOrder": "INTEL",
+        "value": [{ "numerator": 0, "denominator": 1 }]
+      }
+    ],
+    "INTEROPERABILITY": []
+  },
+  "dataType": "UNKNOWN",
+  "byteOrder": "INTEL"
+}

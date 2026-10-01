@@ -381,6 +381,7 @@ int main(void) {
 
 - Exif data for `plain-jpg-with-exif` is from using `libexif-wasm` to create a new `ExifData` instance and then running `.fix` to get the default values.
 - Exif data for `plain-jpg-with-mnote-exif` is from [fuji_makernote_variant_1.jpg](https://github.com/libexif/libexif/blob/master/test/testdata/fuji_makernote_variant_1.jpg) from [libexif/libexif](https://github.com/libexif/libexif/).
+- Exif, IIM, and XMP data for `plain-jpg-with-exif-xmp-iim` is from [File:Metadata test file - includes data in IIM, XMP, and Exif.jpg](https://commons.wikimedia.org/wiki/File:Metadata_test_file_-_includes_data_in_IIM,_XMP,_and_Exif.jpg) from [User:Carlseibert](https://commons.wikimedia.org/wiki/User:Carlseibert) after updating the IPTCDigest, removing the thumbnail, setting the IPTCCategory to ACE.
 - Exif data for `plain-png-with-exif` is from [Liquid Crystal Phase Transition.png](https://commons.wikimedia.org/wiki/File:Liquid_Crystal_Phase_Transition.png) from [User:KarlGaff](https://commons.wikimedia.org/wiki/User:KarlGaff) after removing the thumbnail.
 - Exif data for `plain-webp-with-exif` is from [File:Darling (1965 film).webp](<https://commons.wikimedia.org/wiki/File:Darling_(1965_film).webp>) from [User:Cinemaniac86](https://commons.wikimedia.org/wiki/User:Cinemaniac86).
 - Exif data for `plain-heic-with-exif` is from [IMG_5195.HEIC](https://github.com/ianare/exif-samples/blob/master/heic/IMG_5195.HEIC) from [ianare/exif-samples](https://github.com/ianare/exif-samples).
