@@ -50,11 +50,7 @@ jobs:
       - name: Get Playwright version
         id: playwright-version
         run: |
-          playwright_version=$(
-            pnpm why playwright --json \
-              | jq -r "first | .version"
-          )
-          echo "PLAYWRIGHT_VERSION=${playwright_version}" >> "$GITHUB_OUTPUT"
+          echo "PLAYWRIGHT_VERSION=$(pnpm view playwright version)" >> "$GITHUB_OUTPUT"
 
       - name: Cache Playwright browsers
         uses: actions/cache@v6
@@ -66,7 +62,7 @@ jobs:
             ${{ runner.os }}-playwright-
 
       - name: Install Playwright browsers
-        run: pnpm --filter @exifi/client exec playwright install --with-deps chromium
+        run: pnpm exec playwright install --with-deps chromium-headless-shell
 
       - name: Run tests
         run: pnpm run test
