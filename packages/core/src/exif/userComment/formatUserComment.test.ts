@@ -1,12 +1,9 @@
-import { SHIFT_JIS } from "iconv-tiny";
+import * as iconv from "iconv-nano";
 import { describe, expect, test } from "vitest";
 
 import { ENCODING_TO_HEADER_MAP } from "./constants";
 import { formatUserComment } from "./formatUserComment";
 import { parseUserComment } from "./parseUserComment";
-
-const textEncoder = new TextEncoder();
-const shiftJis = SHIFT_JIS.create();
 
 const ASCII_CHARS = Array.from({ length: 128 }, (_, i) =>
   String.fromCharCode(i),
@@ -22,7 +19,7 @@ describe("formatUserComment", () => {
     [{ encoding: "UNICODE", value: "" }],
   ] as const)("formats %s UserComment with correct header", ([userComment]) => {
     expect(formatUserComment(userComment)).toStrictEqual(
-      textEncoder.encode(ENCODING_TO_HEADER_MAP[userComment.encoding]),
+      iconv.utf8.encode(ENCODING_TO_HEADER_MAP[userComment.encoding]),
     );
   });
 
@@ -37,8 +34,8 @@ describe("formatUserComment", () => {
         formatUserComment(userComment).subarray(HEADER_LENGTH),
       ).toStrictEqual(
         userComment.encoding === "JIS"
-          ? shiftJis.encode(userComment.value)
-          : textEncoder.encode(userComment.value),
+          ? iconv.shift_jis.encode(userComment.value)
+          : iconv.utf8.encode(userComment.value),
       );
     });
     test("is parsed correctly by parseUserComment", () => {

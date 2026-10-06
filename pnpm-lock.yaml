@@ -507,9 +507,9 @@ importers:
       file-type:
         specifier: ^22.1.1
         version: 22.1.1(supports-color@11.0.0)
-      iconv-tiny:
-        specifier: ^1.4.1
-        version: 1.4.1
+      iconv-nano:
+        specifier: ^0.0.4
+        version: 0.0.4
       libexif-wasm:
         specifier: ^0.5.5
         version: 0.5.5
@@ -3529,8 +3529,9 @@ packages:
   httpxy@0.5.5:
     resolution: {integrity: sha512-uDjmnPyp1q4Sgzf3w+J/Fc6UqcCEj0x4Wjp7OqK5dGhNeDgpyrAmnS6ey8QWrX3SWDon2DMKf9sBa5X9+CVyMA==}
 
-  iconv-tiny@1.4.1:
-    resolution: {integrity: sha512-eKnsRAYNozI/vAYdr+kXxlPhU7K+1q/fjVwjBPXU5K8HD7ZZgfPqTp3wCqq89cmUnYitWRVMuYTKgZuVKhkrFg==}
+  iconv-nano@0.0.4:
+    resolution: {integrity: sha512-4mAnvP//q8XR/wE2FAseuRu/XcFYPye4bnsMa0ZUTZviZO0LX64lACDT44f+VYowm3FWrxpcIU9G9ZXSD2/6Ew==}
+    engines: {node: '>=11.0.0'}
 
   idb@8.0.3:
     resolution: {integrity: sha512-LtwtVyVYO5BqRvcsKuB2iUMnHwPVByPCXFXOpuU96IZPPoPN6xjOGxZQ74pgSVVLQWtUOYgyeL4GE98BY5D3wg==}
@@ -7740,7 +7741,7 @@ snapshots:
 
   httpxy@0.5.5: {}
 
-  iconv-tiny@1.4.1: {}
+  iconv-nano@0.0.4: {}
 
   idb@8.0.3: {}
 

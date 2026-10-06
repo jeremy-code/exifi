@@ -1,11 +1,8 @@
-import { SHIFT_JIS } from "iconv-tiny";
+import * as iconv from "iconv-nano";
 import { describe, expect, test } from "vitest";
 
 import { ENCODING_TO_HEADER_MAP } from "./constants";
 import { parseUserComment } from "./parseUserComment";
-
-const textEncoder = new TextEncoder();
-const shiftJis = SHIFT_JIS.create();
 
 describe("parseUserComment", () => {
   test.for([
@@ -16,8 +13,8 @@ describe("parseUserComment", () => {
   ] as const)("parses $encoding user comment", ({ encoding, value }) => {
     const userCommentBytes =
       encoding === "JIS"
-        ? shiftJis.encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`)
-        : textEncoder.encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`);
+        ? iconv.shift_jis.encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`)
+        : iconv.utf8.encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`);
 
     expect(parseUserComment(userCommentBytes)).toStrictEqual({
       encoding,
@@ -26,12 +23,12 @@ describe("parseUserComment", () => {
   });
 
   test("defaults to UNICODE when header is unknown", () => {
-    const unknownHeader = textEncoder.encode("INVALID!");
+    const unknownHeader = iconv.utf8.encode("INVALID!");
     const value = "Hello 🦖";
 
     const bytes = new Uint8Array([
       ...unknownHeader,
-      ...textEncoder.encode(value),
+      ...iconv.utf8.encode(value),
     ]);
 
     expect(parseUserComment(bytes)).toStrictEqual({
@@ -42,7 +39,7 @@ describe("parseUserComment", () => {
 
   test("supports generic iterable input", () => {
     const value = "Hello";
-    const bytes = textEncoder.encode(`${ENCODING_TO_HEADER_MAP.ASCII}${value}`);
+    const bytes = iconv.utf8.encode(`${ENCODING_TO_HEADER_MAP.ASCII}${value}`);
 
     function* iterable() {
       yield* bytes;
@@ -59,8 +56,8 @@ describe("parseUserComment", () => {
     ([encoding]) => {
       const bytes =
         encoding === "JIS"
-          ? shiftJis.encode(ENCODING_TO_HEADER_MAP[encoding])
-          : textEncoder.encode(ENCODING_TO_HEADER_MAP[encoding]);
+          ? iconv.shift_jis.encode(ENCODING_TO_HEADER_MAP[encoding])
+          : iconv.utf8.encode(ENCODING_TO_HEADER_MAP[encoding]);
 
       expect(parseUserComment(bytes)).toStrictEqual({ encoding, value: "" });
     },

@@ -1,31 +1,26 @@
-import { SHIFT_JIS, US_ASCII } from "iconv-tiny";
+import * as iconv from "iconv-nano";
 
 import { assertNever } from "@exifi/utils/assertNever";
 
 import { ENCODING_TO_HEADER_MAP } from "./constants";
 import type { UserComment } from "./interfaces";
 
-const usAscii = US_ASCII.create();
-const shiftJis = SHIFT_JIS.create();
-
-const textEncoder = new TextEncoder();
-
 const formatUserComment = (userComment: UserComment): Uint8Array => {
   switch (userComment.encoding) {
     case "ASCII": {
-      return usAscii.encode(
+      return iconv.ascii.encode(
         `${ENCODING_TO_HEADER_MAP[userComment.encoding]}${userComment.value}`,
       );
     }
     case "UNICODE":
     case "EMPTY":
-      return textEncoder.encode(
+      return iconv.utf8.encode(
         `${ENCODING_TO_HEADER_MAP[userComment.encoding]}${userComment.value}`,
       );
     case "JIS": {
       // Encoding header can be encoded with same encoder
       // 0x4a 0x49 0x53 0x00 0x00 0x00 0x00 0x00
-      return shiftJis.encode(
+      return iconv.shift_jis.encode(
         `${ENCODING_TO_HEADER_MAP[userComment.encoding]}${userComment.value}`,
       );
     }
