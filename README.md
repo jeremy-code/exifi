@@ -9,6 +9,7 @@
   <a aria-label="GitHub Actions" href="https://www.github.com/jeremy-code/exifi/actions/workflows/ci.yml"><img src="https://www.github.com/jeremy-code/exifi/actions/workflows/ci.yml/badge.svg"></a>
   <a aria-label="License" href="LICENSE"><img alt="" src="https://img.shields.io/github/license/jeremy-code/exifi"></a>
   <a aria-label="Netlify Status" href="https://exifi.io"><img alt="" src="https://api.netlify.com/api/v1/badges/027f759e-5e19-4417-9311-394ce8cd4bbc/deploy-status"></a>
+  <a aria-label="Code Coverage" href="https://codecov.io/gh/jeremy-code/exifi"><img alt="" src="https://codecov.io/gh/jeremy-code/exifi/graph/badge.svg"></a>
 </p>
 
 ## Installation

@@ -28,6 +28,7 @@
     "lint:fix": "oxlint --fix",
     "test": "vitest --run",
     "test:watch": "vitest",
+    "test:coverage": "vitest --run --coverage",
     "format": "oxfmt --write",
     "format:check": "oxfmt --check"
   },
@@ -38,6 +39,7 @@
     "@exifi/oxlint-config": "workspace:*",
     "@exifi/tsconfig": "workspace:*",
     "@types/node": "^24.19.0",
+    "@vitest/coverage-v8": "^5.0.3",
     "lefthook": "^2.1.14",
     "oxfmt": "^0.71.0",
     "oxlint": "^1.86.0",
