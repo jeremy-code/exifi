@@ -38,20 +38,20 @@
     "@commitlint/types": "^21.2.3",
     "@exifi/oxlint-config": "workspace:*",
     "@exifi/tsconfig": "workspace:*",
-    "@types/node": "^24.19.0",
+    "@types/node": "^24.19.1",
     "@vitest/coverage-v8": "^5.0.3",
-    "lefthook": "^2.1.14",
+    "lefthook": "^2.1.16",
     "oxfmt": "^0.71.0",
     "oxlint": "^1.86.0",
     "oxlint-tsgolint": "^7.0.2003",
-    "turbo": "^2.11.5",
+    "turbo": "^2.11.7",
     "typescript": "^6.0.3",
-    "vitest": "^5.0.1"
+    "vitest": "^5.0.3"
   },
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "12.8.1",
+      "version": "12.9.1",
       "onFail": "download"
     },
     "runtime": [
