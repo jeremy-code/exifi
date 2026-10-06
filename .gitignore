@@ -50,3 +50,6 @@ yarn-error.log*
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Only used in GitHub actions
+.emsdk-cache
