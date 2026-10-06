@@ -63,7 +63,7 @@ jobs:
             ${{ runner.os }}-playwright-
 
       - name: Install Playwright browsers
-        run: pnpm exec playwright install --with-deps chromium-headless-shell
+        run: pnpm --filter @exifi/client exec playwright install --with-deps chromium-headless-shell
 
       - name: Run tests
         run: pnpm run test
