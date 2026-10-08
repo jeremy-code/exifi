@@ -69,7 +69,7 @@ describe("setExifData", () => {
     const newFile = await setExifData(file, exifData);
 
     expect.assert(newFile !== null);
-    expect(await newFile?.bytes()).toStrictEqual(plainPngWithExif.image);
+    expect(await newFile.bytes()).toStrictEqual(plainPngWithExif.image);
 
     using newExifData = await getExifData(newFile);
 
@@ -93,7 +93,7 @@ describe("setExifData", () => {
     const newFile = await setExifData(file, exifData);
 
     expect.assert(newFile !== null);
-    expect(await newFile?.bytes()).toStrictEqual(plainPngWithExif.exifBytes!);
+    expect(await newFile.bytes()).toStrictEqual(plainPngWithExif.exifBytes!);
 
     using newExifData = await getExifData(newFile);
     expect.assert(newExifData !== null);

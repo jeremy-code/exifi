@@ -40,7 +40,7 @@ const serializeExifEntry = (entry: ExifEntry): ExifEntryObject | null => {
     return {
       ...baseExifEntry,
       format: baseExifEntry.format,
-      value: baseExifEntry.formattedValue ?? "",
+      value: baseExifEntry.formattedValue,
     };
   } else if (
     baseExifEntry.format === "RATIONAL" ||
