@@ -1,4 +1,5 @@
 import turbo from "eslint-plugin-turbo";
+import pluginZod from "eslint-plugin-zod";
 import { defineConfig } from "oxlint";
 
 const baseConfig = defineConfig({
@@ -22,11 +23,12 @@ const baseConfig = defineConfig({
     "promise",
     "vitest",
   ],
-  jsPlugins: ["eslint-plugin-turbo"],
+  jsPlugins: ["eslint-plugin-turbo", "eslint-plugin-zod"],
   rules: {
     // While in runtime, eslint-plugin-turbo always returns a single config,
     // TypeScript does not know that. Use `.flat()` to always get an array
     ...[turbo.configs?.["flat/recommended"]].flat()[0]?.rules,
+    ...pluginZod.configs.recommended.rules,
 
     /**
      * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/consistent-type-imports.html}
