@@ -21,11 +21,11 @@ const getFixture = async (fixtureName: string): Promise<Fixture> => {
   ).reduce<{ [Property in keyof Fixture]?: string }>((acc, fixturePath) => {
     const extension = extname(fixturePath).toLowerCase();
     if (extension === ".json") {
-      acc["json"] = fixturePath;
+      acc.json = fixturePath;
     } else if (extension === ".exif") {
-      acc["exifBytes"] = fixturePath;
+      acc.exifBytes = fixturePath;
     } else {
-      acc["image"] = fixturePath;
+      acc.image = fixturePath;
     }
     return acc;
   }, {});

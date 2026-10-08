@@ -50,11 +50,11 @@ const getFixture = async (fixtureName: string): Promise<Fixture> => {
   } = fixtureUrls.reduce<{ [Property in keyof Fixture]?: string }>(
     (acc, fixtureUrl) => {
       if (fixtureUrl.endsWith(".json")) {
-        acc["json"] = fixtureUrl;
+        acc.json = fixtureUrl;
       } else if (fixtureUrl.endsWith(".exif")) {
-        acc["exifBytes"] = fixtureUrl;
+        acc.exifBytes = fixtureUrl;
       } else {
-        acc["image"] = fixtureUrl;
+        acc.image = fixtureUrl;
       }
       return acc;
     },

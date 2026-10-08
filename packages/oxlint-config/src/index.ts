@@ -44,6 +44,10 @@ const baseConfig = defineConfig({
      */
     "typescript/consistent-return": "off",
     /**
+     * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/dot-notation.html}
+     */
+    "typescript/dot-notation": "warn",
+    /**
      * I intend to use TypeScript enums like "a namespaced bag of values"
      *
      * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/no-unsafe-enum-comparison.html}
