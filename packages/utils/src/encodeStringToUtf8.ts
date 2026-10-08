@@ -1,3 +1,6 @@
+/// <reference lib="DOM" />
+// https://github.com/microsoft/TypeScript/issues/31535
+
 const textEncoder = new TextEncoder();
 
 const encodeStringToUtf8 = (input: string) => {

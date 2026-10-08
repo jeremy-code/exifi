@@ -1,3 +1,6 @@
+/// <reference lib="DOM" />
+// https://github.com/microsoft/TypeScript/issues/31535
+
 const textDecoder = new TextDecoder("utf-8");
 
 const decodeStringFromUtf8 = (...params: Parameters<TextDecoder["decode"]>) => {

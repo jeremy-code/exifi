@@ -1,3 +1,6 @@
+/// <reference lib="ESNext.TypedArrays" />
+// Uint8Array.toBase64
+
 import type { Fixture } from "./interfaces";
 
 // The keys are the resolved globs and the values are promises that resolve to

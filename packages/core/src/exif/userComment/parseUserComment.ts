@@ -1,3 +1,6 @@
+/// <reference lib="DOM" />
+// https://github.com/microsoft/TypeScript/issues/31535
+
 import { arrayLikeEquals } from "@exifi/utils/arrayLikeEquals";
 
 import { ENCODING_TO_HEADER_MAP } from "./constants";

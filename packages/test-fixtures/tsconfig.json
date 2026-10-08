@@ -1,7 +1,6 @@
 {
   "extends": "@exifi/tsconfig/tsconfig-base",
   "compilerOptions": {
-    "lib": ["ESNext", "ESNext.Disposable"],
     "types": ["node", "vite/types/importMeta.d.ts"]
   },
   "include": ["src"]

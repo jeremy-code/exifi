@@ -1,3 +1,6 @@
+/// <reference lib="ESNext.Intl" />
+// Intl.FormattableTemporalObject
+
 // oxlint-disable-next-line import/no-unassigned-import
 import "@internationalized/date";
 

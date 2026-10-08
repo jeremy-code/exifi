@@ -1,3 +1,6 @@
+/// <reference lib="ESNext.Array" />
+// Array.fromAsync
+
 import { glob, readFile } from "node:fs/promises";
 import { extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
