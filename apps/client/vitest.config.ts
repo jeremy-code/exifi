@@ -8,7 +8,6 @@ const vitestConfig = defineConfig({
   test: {
     exclude: [...configDefaults.exclude, "./src/generated/**"],
     name: "@exifi/client",
-    clearMocks: true,
     typecheck: {
       enabled: true,
     },
