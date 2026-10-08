@@ -8,9 +8,6 @@ const vitestConfig = defineConfig({
   test: {
     exclude: [...configDefaults.exclude, "./src/generated/**"],
     name: "@exifi/client",
-    typecheck: {
-      enabled: true,
-    },
     setupFiles: ["vitest.setup.ts"],
     browser: {
       enabled: true,

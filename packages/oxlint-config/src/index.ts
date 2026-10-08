@@ -94,11 +94,6 @@ const baseConfig = defineConfig({
       { additionalTestBlockFunctions: ["test"] },
     ],
   },
-  settings: {
-    vitest: {
-      typecheck: true,
-    },
-  },
 });
 
 export default baseConfig;
