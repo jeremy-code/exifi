@@ -1,6 +1,4 @@
-// oxlint-disable-next-line import/no-unassigned-import
-import "vitest/browser";
-import type { Locator } from "vitest/browser";
+import type { Locator, LocatorSelectors } from "vitest/browser";
 
 declare module "vitest/browser" {
   interface LocatorSelectors {

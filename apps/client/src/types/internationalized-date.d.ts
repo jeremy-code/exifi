@@ -1,8 +1,7 @@
 /// <reference lib="ESNext.Intl" />
 // Intl.FormattableTemporalObject
 
-// oxlint-disable-next-line import/no-unassigned-import
-import "@internationalized/date";
+import type { DateFormatter } from "@internationalized/date";
 
 declare module "@internationalized/date" {
   type FormattableTemporalObject = Intl.FormattableTemporalObject;
