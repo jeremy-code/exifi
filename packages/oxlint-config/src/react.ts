@@ -1,5 +1,6 @@
 import pluginQuery from "@tanstack/eslint-plugin-query";
 import pluginRouter from "@tanstack/eslint-plugin-router";
+import pluginTailwindcss from "eslint-plugin-tailwindcss";
 import { defineConfig } from "oxlint";
 
 import baseConfig from "@exifi/oxlint-config";
@@ -10,7 +11,7 @@ const reactConfig = defineConfig({
   jsPlugins: [
     "@tanstack/eslint-plugin-query",
     "@tanstack/eslint-plugin-router",
-    "oxlint-tailwindcss",
+    "eslint-plugin-tailwindcss",
   ],
   env: {
     browser: true,
@@ -21,13 +22,7 @@ const reactConfig = defineConfig({
   rules: {
     ...pluginQuery.configs["flat/recommended"][0]?.rules,
     ...pluginRouter.configs["flat/recommended"][0]?.rules,
-
-    // Correctness
-    "tailwindcss/no-unknown-classes": "error",
-    "tailwindcss/no-duplicate-classes": "error",
-    "tailwindcss/no-conflicting-classes": "error",
-    "tailwindcss/no-deprecated-classes": "error",
-    "tailwindcss/no-unnecessary-whitespace": "error",
+    ...[pluginTailwindcss.configs.recommended].flat()[0]?.rules,
 
     /**
      * Not necessary, since using JSX runtime
@@ -51,7 +46,7 @@ const reactConfig = defineConfig({
       version: "19.2.8",
     },
     tailwindcss: {
-      entryPoint: "packages/ui/src/globals.css",
+      cssConfigPath: "../../packages/ui/src/globals.css",
     },
   },
 });
