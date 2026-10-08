@@ -17,6 +17,7 @@ import { defineConfig, type Plugin } from "vite";
 import { analyzer } from "vite-bundle-analyzer";
 import * as z from "zod";
 
+// https://github.com/serwist/serwist/pull/370
 // https://github.com/serwist/serwist/blob/adf0d79ae8ba7d87cce2251ffc29526955511a2b/packages/vite/src/plugins/build.ts
 const serwistBuild = (ctx: SerwistViteContext, api: SerwistViteApi): Plugin => {
   return {
@@ -116,7 +117,10 @@ const viteConfig = defineConfig({
     },
   },
   build: {
+    target: "baseline-widely-available",
+    cssCodeSplit: true,
     cssMinify: "lightningcss",
+    minify: "oxc",
     license: { fileName: "license.md" },
   },
   /**
