@@ -29,6 +29,13 @@ const baseConfig = defineConfig({
     ...[turbo.configs?.["flat/recommended"]].flat()[0]?.rules,
 
     /**
+     * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/consistent-type-imports.html}
+     */
+    "typescript/consistent-type-imports": [
+      "deny",
+      { disallowTypeAnnotations: false },
+    ],
+    /**
      * Prefer TypeScript's `noImplicitReturns`
      *
      * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/consistent-return.html}
@@ -47,7 +54,6 @@ const baseConfig = defineConfig({
      * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/no-unsafe-type-assertion}
      */
     "typescript/no-unsafe-type-assertion": "off",
-
     /**
      * Otherwise, the rule falsely errors when extending `test`
      *

@@ -13,7 +13,7 @@ import {
   Input,
   Label,
   fieldBorderVariants,
-  inputVariants as rootInputVariants,
+  type inputVariants as rootInputVariants,
   type FieldErrorMessage,
   type InputProps,
 } from "./form";

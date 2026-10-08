@@ -1,6 +1,6 @@
 import { useEffect, useEffectEvent, useState } from "react";
 
-import { LatLng, type Map as LeafletMap } from "leaflet";
+import { type LatLng, type Map as LeafletMap } from "leaflet";
 import { cn } from "tailwind-variants";
 
 import { DraggableMarker } from "#components/map/DraggableMarker";

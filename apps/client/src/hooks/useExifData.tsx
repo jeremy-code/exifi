@@ -1,5 +1,5 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ExifData } from "libexif-wasm";
+import type { ExifData } from "libexif-wasm";
 
 import { getExifData } from "@exifi/core/exif/utils/getExifData";
 

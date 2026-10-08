@@ -1,6 +1,6 @@
 import { extname } from "@std/path";
 import { fileTypeFromBlob } from "file-type";
-import { ExifData } from "libexif-wasm";
+import type { ExifData } from "libexif-wasm";
 import { lookup } from "mrmime";
 
 import {
