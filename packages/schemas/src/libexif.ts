@@ -20,7 +20,11 @@ import {
 import * as z from "zod";
 
 const tagSchema = z.toZod<Tag>()(
-  z.enum(Array.from(ExifTagUnifiedBiMap.keys())),
+  z.enum([
+    ...ExifTagUnifiedBiMap.keys(),
+    "INTEROPERABILITY_INDEX",
+    "INTEROPERABILITY_VERSION",
+  ]),
 );
 
 const supportLevelSchema = z.toZod<SupportLevel>()(
