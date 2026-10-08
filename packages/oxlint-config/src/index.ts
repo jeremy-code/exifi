@@ -55,6 +55,14 @@ const baseConfig = defineConfig({
      */
     "typescript/no-unsafe-type-assertion": "off",
     /**
+     * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/import/exports-last}
+     */
+    "import/exports-last": "deny",
+    /**
+     * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/import/group-exports}
+     */
+    "import/group-exports": "deny",
+    /**
      * Otherwise, the rule falsely errors when extending `test`
      *
      * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/vitest/no-standalone-expect}
