@@ -31,6 +31,10 @@ const baseConfig = defineConfig({
     ...pluginZod.configs.recommended.rules,
 
     /**
+     * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/consistent-type-exports.html}
+     */
+    "typescript/consistent-type-exports": "error",
+    /**
      * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/consistent-type-imports.html}
      */
     "typescript/consistent-type-imports": [
@@ -47,6 +51,18 @@ const baseConfig = defineConfig({
      * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/dot-notation.html}
      */
     "typescript/dot-notation": "warn",
+    /**
+     * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/no-explicit-any.html}
+     */
+    "typescript/no-explicit-any": "warn",
+    /**
+     * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/no-require-imports.html}
+     */
+    "typescript/no-require-imports": "error",
+    /**
+     * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/typescript/no-unsafe-function-type.html}
+     */
+    "typescript/no-unsafe-function-type": "error",
     /**
      * I intend to use TypeScript enums like "a namespaced bag of values"
      *
