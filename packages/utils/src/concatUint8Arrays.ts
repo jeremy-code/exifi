@@ -1,4 +1,4 @@
-const concatUint8Arrays = (arrays: Uint8Array[]): Uint8Array => {
+const concatUint8Arrays = (arrays: Uint8Array[]): Uint8Array<ArrayBuffer> => {
   const totalLength = arrays.reduce((acc, array) => acc + array.length, 0);
   const mergedArray = new Uint8Array(totalLength);
 
