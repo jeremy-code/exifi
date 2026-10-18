@@ -4,13 +4,14 @@ import { isDisposable } from "./isDisposable";
 
 describe("isDisposable", () => {
   describe("should return true for disposables", () => {
-    test.for([{ [Symbol.dispose]: () => {} }, new DisposableStack()] as const)(
-      "should return true for %s",
-      (value) => {
-        using disposable = value;
-        expect(isDisposable(disposable)).toBe(true);
-      },
-    );
+    test.for([
+      { [Symbol.dispose]: () => {} },
+      new DisposableStack(),
+      [].values(),
+    ] as const)("should return true for %s", (value) => {
+      using disposable = value;
+      expect(isDisposable(disposable)).toBe(true);
+    });
   });
 
   describe("should return false for non-disposables", () => {
