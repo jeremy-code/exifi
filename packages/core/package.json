@@ -18,7 +18,7 @@
     "@internationalized/date": "^3.12.4",
     "decimal.js": "^10.6.0",
     "file-type": "^22.2.0",
-    "iconv-nano": "^0.0.13",
+    "iconv-nano": "^0.0.14",
     "libexif-wasm": "^0.5.5",
     "uuid": "^14.0.3"
   },
