@@ -8,7 +8,9 @@ catalog:
   "@types/react": "^19.3.0"
   "@types/react-dom": "^19.3.0"
 
-# Dependency Resolution (https://pnpm.io/settings#dependency-resolution)
+# Dependency Resolution (https://pnpm.io/settings/dependency-resolution)
+update:
+  githubActions: true
 minimumReleaseAge: 1440 # 1 day in minutes
 minimumReleaseAgeStrict: true
 trustPolicy: no-downgrade
@@ -22,7 +24,7 @@ trustPolicyExclude:
   - semver@6.3.1
 blockExoticSubdeps: true
 
-# Build settings (https://pnpm.io/settings#build-settings)
+# Build settings (https://pnpm.io/settings/build)
 verifyDepsBeforeRun: install
 strictDepBuilds: true
 allowBuilds:
@@ -33,7 +35,7 @@ allowBuilds:
   unix-dgram: true
   unrs-resolver: true
 
-# Other Settings (https://pnpm.io/settings#other-settings)
+# Other Settings (https://pnpm.io/settings/other)
 shellEmulator: true
 
 # Settings documented elsewhere (https://pnpm.io/settings#settings-documented-elsewhere)
