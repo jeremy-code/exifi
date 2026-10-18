@@ -25,6 +25,7 @@ COMPILE_FLAGS=(
   --use-port=contrib.libwebp
   -sSTACK_SIZE=$((2 ** 16))
   -sALLOW_MEMORY_GROWTH=1
+  -sINCOMING_MODULE_JS_API="[]"
   -sFILESYSTEM=0
   -sMODULARIZE=1
   -sEXPORT_ES6=1
