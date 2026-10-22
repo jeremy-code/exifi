@@ -46,7 +46,7 @@
     "leaflet": "^1.9.4",
     "leaflet-geosearch": "^4.4.0",
     "libexif-wasm": "^0.5.5",
-    "lucide-react": "^1.59.0",
+    "lucide-react": "^1.60.0",
     "mrmime": "^2.0.1",
     "next-themes": "^0.4.6",
     "react": "catalog:",
