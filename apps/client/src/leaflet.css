@@ -1,11 +1,2 @@
 @import "leaflet/dist/leaflet.css";
 @import "leaflet-geosearch/assets/css/leaflet.css";
-
-/**
- * Match color of .leaflet-control-attribution, .leaflet-control-scale-line
- * since CSS is not dark mode compatible
- * @see {@link https://github.com/smeijer/leaflet-geosearch/pull/447}
- */
-.leaflet-control-geosearch {
-  color: #333;
-}
