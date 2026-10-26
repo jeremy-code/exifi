@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@exifi/core": "workspace:*",
-    "libexif-wasm": "^0.5.5",
+    "libexif-wasm": "^0.5.6",
     "zod": "^4.6.7"
   },
   "devDependencies": {
