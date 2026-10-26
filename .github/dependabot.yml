@@ -1,0 +1,14 @@
+---
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: "dependencies"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00" # 6:00 UTC
+    commit-message:
+      prefix: "chore"
+    assignees:
+      - "jeremy-code"
