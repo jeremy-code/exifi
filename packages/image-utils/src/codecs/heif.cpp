@@ -1,5 +1,6 @@
 #include "heif.h"
 
+#include <cstdint>
 #include <cstdlib>
 #include <cstring>
 
@@ -16,14 +17,15 @@
 #include "../constants.h"
 
 // Read the first four bytes as big-endian uint32_t
-constexpr uint32_t read_be32(const uint8_t *data) noexcept {
-  return (static_cast<uint32_t>(data[0]) << 24) |
-         (static_cast<uint32_t>(data[1]) << 16) |
-         (static_cast<uint32_t>(data[2]) << 8) | static_cast<uint32_t>(data[3]);
+constexpr auto read_be32(const uint8_t *data) noexcept {
+  return (static_cast<uint32_t>(data[0]) << 24U) |
+         (static_cast<uint32_t>(data[1]) << 16U) |
+         (static_cast<uint32_t>(data[2]) << 8U) |
+         static_cast<uint32_t>(data[3]);
 }
 
-std::optional<Uint8Array>
-heif_get_exif_data(const std::string heif_data) noexcept {
+auto heif_get_exif_data(const std::string heif_data) noexcept
+    -> std::optional<Uint8Array> {
   struct heif_context *ctx = heif_context_alloc();
 
   struct heif_error read_err = heif_context_read_from_memory_without_copy(
@@ -47,12 +49,12 @@ heif_get_exif_data(const std::string heif_data) noexcept {
   if (n == 1) {
     size_t heif_exif_size =
         heif_image_handle_get_metadata_size(image_handle, exif_item_id);
-    uint8_t *heif_exif_data =
+    const auto *heif_exif_data =
         static_cast<uint8_t *>(std::malloc(heif_exif_size));
 
     if (heif_exif_data != nullptr) {
       struct heif_error metadata_err = heif_image_handle_get_metadata(
-          image_handle, exif_item_id, heif_exif_data);
+          image_handle, exif_item_id, const_cast<uint8_t *>(heif_exif_data));
 
       if (metadata_err.code == heif_error_Ok && heif_exif_size >= 4) {
         // If tiff_offset is 10, then there is an Exif header (Exif\0\0). If
@@ -80,7 +82,7 @@ heif_get_exif_data(const std::string heif_data) noexcept {
           }
         }
       }
-      std::free(heif_exif_data);
+      std::free(const_cast<uint8_t *>(heif_exif_data));
     }
   }
 

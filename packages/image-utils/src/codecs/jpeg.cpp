@@ -1,5 +1,6 @@
 #include "jpeg.h"
 
+#include <cstdint>
 #include <cstring>
 
 #include <iterator>
@@ -20,14 +21,14 @@ constexpr int kApp14Marker = JPEG_APP0 + 14;
 
 // Does not include the two bytes needed for the data size
 // https://github.com/winlibs/libjpeg/blob/66ef88ad97f3c47eb1c7b85f2637ff1073ebce9b/src/jcicc.c#L37
-constexpr int kMaxBytesInMarker = 0xFFFF - 2;
+constexpr int kMaxBytesInMarker = UINT16_MAX - 2;
 
 /**
  * @see {@link
  * https://github.com/winlibs/libjpeg/blob/66ef88ad97f3c47eb1c7b85f2637ff1073ebce9b/src/jpegtran.c#L489}
  */
-Uint8Array jpeg_set_exif_data(const std::string jpeg_data,
-                              const std::string exif_data) {
+auto jpeg_set_exif_data(const std::string jpeg_data,
+                        const std::string exif_data) -> Uint8Array {
   if (exif_data.size() > kMaxBytesInMarker) {
     throw std::invalid_argument("Exif data is too big!");
   }
@@ -49,7 +50,8 @@ Uint8Array jpeg_set_exif_data(const std::string jpeg_data,
 
   // Save all APPn markers
   for (int index = 0; index < 16; index++) {
-    jpeg_save_markers(&srcinfo, JPEG_APP0 + index, /* length_limit */ 0xFFFF);
+    jpeg_save_markers(&srcinfo, JPEG_APP0 + index,
+                      /* length_limit */ UINT16_MAX);
   }
 
   const int header_result = jpeg_read_header(&srcinfo,

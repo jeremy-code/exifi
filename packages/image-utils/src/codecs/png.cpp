@@ -19,8 +19,15 @@ struct PngReadBuffer {
   size_t offset;
 };
 
-static void png_read_from_memory(png_structp png_ptr, png_bytep data,
-                                 png_size_t length) {
+struct PngWriteBuffer {
+  unsigned char *data;
+  size_t size;
+  size_t capacity;
+};
+
+namespace {
+void png_read_from_memory(png_structp png_ptr, png_bytep data,
+                          png_size_t length) {
   auto *io_ptr = static_cast<PngReadBuffer *>(png_get_io_ptr(png_ptr));
 
   if (io_ptr->offset + length > io_ptr->size) {
@@ -31,14 +38,8 @@ static void png_read_from_memory(png_structp png_ptr, png_bytep data,
   io_ptr->offset += length;
 }
 
-struct PngWriteBuffer {
-  unsigned char *data;
-  size_t size;
-  size_t capacity;
-};
-
-static void png_write_to_memory(png_structp png_ptr, png_bytep data,
-                                png_size_t length) {
+void png_write_to_memory(png_structp png_ptr, png_bytep data,
+                         png_size_t length) {
   auto *io_ptr = static_cast<PngWriteBuffer *>(png_get_io_ptr(png_ptr));
   size_t new_size = io_ptr->size + length;
 
@@ -63,10 +64,11 @@ static void png_write_to_memory(png_structp png_ptr, png_bytep data,
   io_ptr->size += length;
 }
 
-static void png_flush_memory(png_structp png_ptr) { (void)png_ptr; }
+void png_flush_memory(png_structp png_ptr) { (void)png_ptr; }
+} // namespace
 
-std::optional<Uint8Array>
-png_get_exif_data(const std::string png_data) noexcept {
+auto png_get_exif_data(const std::string png_data) noexcept
+    -> std::optional<Uint8Array> {
   png_structp png_ptr =
       png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
   if (png_ptr == nullptr) {
@@ -80,8 +82,10 @@ png_get_exif_data(const std::string png_data) noexcept {
   }
 
   PngReadBuffer read_buffer = {
-      reinterpret_cast<const unsigned char *>(png_data.data()), png_data.size(),
-      0};
+      reinterpret_cast<const unsigned char *>(png_data.data()),
+      png_data.size(),
+      0,
+  };
   png_set_read_fn(png_ptr, &read_buffer, png_read_from_memory);
 
   if (setjmp(png_jmpbuf(png_ptr))) {
@@ -117,8 +121,8 @@ png_get_exif_data(const std::string png_data) noexcept {
   return output;
 }
 
-Uint8Array png_set_exif_data(const std::string png_data,
-                             const std::string exif_data) {
+auto png_set_exif_data(const std::string png_data, const std::string exif_data)
+    -> Uint8Array {
   png_structp read_png_ptr =
       png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
   png_structp write_png_ptr =
@@ -142,8 +146,10 @@ Uint8Array png_set_exif_data(const std::string png_data,
   }
 
   PngReadBuffer read_buffer = {
-      reinterpret_cast<const unsigned char *>(png_data.data()), png_data.size(),
-      0};
+      reinterpret_cast<const unsigned char *>(png_data.data()),
+      png_data.size(),
+      0,
+  };
   png_set_read_fn(read_png_ptr, &read_buffer, png_read_from_memory);
 
   if (setjmp(png_jmpbuf(read_png_ptr))) {
@@ -173,7 +179,8 @@ Uint8Array png_set_exif_data(const std::string png_data,
   PngWriteBuffer write_buffer = {
       .data = static_cast<unsigned char *>(std::malloc(rowbytes)),
       .size = 0,
-      .capacity = rowbytes};
+      .capacity = rowbytes,
+  };
   png_set_write_fn(write_png_ptr, &write_buffer, png_write_to_memory,
                    png_flush_memory);
 

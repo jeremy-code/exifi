@@ -16,10 +16,12 @@
 #include "../common.h"
 #include "../constants.h"
 
-std::optional<Uint8Array>
-webp_get_exif_data(const std::string webp_data) noexcept {
-  WebPData input_data = {reinterpret_cast<const uint8_t *>(webp_data.data()),
-                         webp_data.size()};
+auto webp_get_exif_data(const std::string webp_data) noexcept
+    -> std::optional<Uint8Array> {
+  WebPData input_data = {
+      reinterpret_cast<const uint8_t *>(webp_data.data()),
+      webp_data.size(),
+  };
 
   WebPDemuxer *demux = WebPDemux(&input_data);
   if (demux == nullptr) {
@@ -34,12 +36,14 @@ webp_get_exif_data(const std::string webp_data) noexcept {
     WebPDemuxGetChunk(demux, "EXIF", /* chunk_number */ 1, &chunk_iter);
     size_t exif_size =
         std::size(constants::kExifHeader) + chunk_iter.chunk.size;
-    auto *exif_data = static_cast<unsigned char *>(std::malloc(exif_size));
+    const auto *exif_data =
+        static_cast<unsigned char *>(std::malloc(exif_size));
 
     if (exif_data != nullptr) {
-      std::memcpy(exif_data, constants::kExifHeader,
-                  std::size(constants::kExifHeader));
-      std::memcpy(exif_data + std::size(constants::kExifHeader),
+      std::memcpy(const_cast<unsigned char *>(exif_data),
+                  constants::kExifHeader, std::size(constants::kExifHeader));
+      std::memcpy(const_cast<unsigned char *>(exif_data) +
+                      std::size(constants::kExifHeader),
                   chunk_iter.chunk.bytes, chunk_iter.chunk.size);
 
       output = Uint8Array(
@@ -53,10 +57,12 @@ webp_get_exif_data(const std::string webp_data) noexcept {
   return output;
 }
 
-Uint8Array webp_set_exif_data(const std::string webp_data,
-                              const std::string exif_data) {
-  WebPData bitstream = {reinterpret_cast<const uint8_t *>(webp_data.data()),
-                        webp_data.size()};
+auto webp_set_exif_data(const std::string webp_data,
+                        const std::string exif_data) -> Uint8Array {
+  WebPData bitstream = {
+      reinterpret_cast<const uint8_t *>(webp_data.data()),
+      webp_data.size(),
+  };
   WebPMux *mux = WebPMuxCreate(&bitstream, /* copy_data */ 1);
   if (mux == nullptr) {
     throw std::runtime_error(
@@ -75,8 +81,10 @@ Uint8Array webp_set_exif_data(const std::string webp_data,
       has_exif_header ? exif_data.size() - std::size(constants::kExifHeader)
                       : exif_data.size();
 
-  WebPData exif_chunk = {reinterpret_cast<const uint8_t *>(webp_exif_data),
-                         webp_exif_size};
+  WebPData exif_chunk = {
+      reinterpret_cast<const uint8_t *>(webp_exif_data),
+      webp_exif_size,
+  };
 
   WebPMuxError set_err =
       WebPMuxSetChunk(mux, "EXIF", &exif_chunk, /* copy_data */ 1);
