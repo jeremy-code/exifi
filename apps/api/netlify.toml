@@ -7,4 +7,4 @@ ignore = "corepack pnpm --workspace-root exec turbo query affected --packages @e
 [[plugins]]
 package = "netlify-plugin-emsdk"
 [plugins.inputs]
-version = "6.0.10"
+version = "7.0.1"
