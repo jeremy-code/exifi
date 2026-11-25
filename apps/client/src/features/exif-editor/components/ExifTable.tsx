@@ -89,40 +89,37 @@ const ExifTableInner = (props: ExifTableProps) => {
   });
   const tableRef = useRef<HTMLTableElement>(null);
 
-  useLayoutEffect(
-    () => {
-      const setColumnSizeCssVars = () => {
-        const tableElement = tableRef.current;
+  useLayoutEffect(() => {
+    const setColumnSizeCssVars = () => {
+      const tableElement = tableRef.current;
 
-        if (tableElement !== null) {
-          table.getFlatHeaders().forEach((header) => {
-            tableElement.style.setProperty(
-              `--header-${header.id}-size`,
-              String(header.getSize()),
-            );
-            tableElement.style.setProperty(
-              `--col-${header.column.id}-size`,
-              String(header.column.getSize()),
-            );
-          });
+      if (tableElement !== null) {
+        table.getFlatHeaders().forEach((header) => {
           tableElement.style.setProperty(
-            `--table-width`,
-            `${table.getTotalSize()}px`,
+            `--header-${header.id}-size`,
+            String(header.getSize()),
           );
-        }
-      };
-      setColumnSizeCssVars();
+          tableElement.style.setProperty(
+            `--col-${header.column.id}-size`,
+            String(header.column.getSize()),
+          );
+        });
+        tableElement.style.setProperty(
+          `--table-width`,
+          `${table.getTotalSize()}px`,
+        );
+      }
+    };
+    setColumnSizeCssVars();
 
-      const { unsubscribe } =
-        table.atoms.columnSizing.subscribe(setColumnSizeCssVars);
+    const { unsubscribe } =
+      table.atoms.columnSizing.subscribe(setColumnSizeCssVars);
 
-      return () => {
-        unsubscribe();
-      };
-    },
-    // oxlint-disable-next-line react-hooks/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
-    [],
-  );
+    return () => {
+      unsubscribe();
+    };
+    // oxlint-disable-next-line react/exhaustive-effect-dependencies react-hooks/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
+  }, []);
 
   return (
     <TableScrollArea>

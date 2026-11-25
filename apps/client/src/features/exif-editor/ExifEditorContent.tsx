@@ -34,6 +34,7 @@ const ExifEditorContent = ({ file }: { file: File }) => {
   const [exifData, setExifData] = useState(exifDataFromFile);
 
   if (exifData === null) {
+    // oxlint-disable-next-line react/globals -- See above
     setExifData((emptyExifData ??= initializeExifData()));
   } else if (exifDataFromFile !== null && exifData !== exifDataFromFile) {
     setExifData(exifDataFromFile);

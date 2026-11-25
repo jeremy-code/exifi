@@ -15,17 +15,17 @@
     "@exifi/image-utils": "workspace:*",
     "@exifi/schemas": "workspace:*",
     "@exifi/utils": "workspace:*",
-    "file-type": "^22.2.0",
-    "hono": "^4.13.14",
-    "hono-openapi": "^1.5.0",
+    "file-type": "^22.3.0",
+    "hono": "^4.13.21",
+    "hono-openapi": "^1.6.0",
     "hono-rate-limiter": "^0.5.4",
-    "libexif-wasm": "^0.5.6",
-    "nitro": "3.0.260903-beta",
+    "libexif-wasm": "^0.5.7",
+    "nitro": "3.0.261103-rc",
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "netlify-plugin-emsdk": "^0.0.4",
-    "vite": "^8.3.5",
+    "vite": "^8.3.8",
     "vite-plugin-static-copy": "^4.1.1"
   }
 }

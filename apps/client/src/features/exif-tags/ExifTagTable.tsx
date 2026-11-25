@@ -69,7 +69,7 @@ const ExifTagTable = () => {
         unsubscribe();
       };
     },
-    // oxlint-disable-next-line react-hooks/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
+    // oxlint-disable-next-line react/exhaustive-effect-dependencies react-hooks/exhaustive-deps -- https://tanstack.com/table/latest/docs/framework/react/examples/column-resizing-performant
     [],
   );
 

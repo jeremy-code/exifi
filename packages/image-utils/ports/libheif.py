@@ -7,8 +7,8 @@ URL = "https://github.com/strukturag/libheif"
 DESCRIPTION = "libheif is an ISO/IEC 23008-12 HEIF/HEIC and AVIF image container format decoder and encoder"
 LICENSE = "GNU Lesser General Public License (LGPL) v3 or later"
 
-TAG = "1.23.6"
-HASH = "60a3b974a6c8d2d053098bc3cd36da78c6aa1d4d3282ce0055263fb4120e8390316d63bc3f2312f20c5d97f1cc35afaf89fa7321c0cb163c778883bae6dbb5e6"
+TAG = "1.23.7"
+HASH = "e3b59c0ab6da9a86273d3f6de693d5d1fc955c84d97ca5514c58c62b6ff8ece44e81e215a126d6dbb4248b1e344f60251443c520058033fd71a7282263492180"
 
 port_name = "libheif"
 
