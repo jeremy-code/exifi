@@ -20,18 +20,22 @@ COMPILE_FLAGS=(
   -flto # Necessary for -fvirtual-function-elimination in ports/libheif.py
   -fwasm-exceptions
   -lembind
+  --no-entry
   --emit-tsd "${OUTPUT_DIR}/imageUtils.d.ts"
   --use-port="${PWD}/ports/libheif.py"
   --use-port=contrib.libwebp
+  --use-port=libjpeg
+  --use-port=libpng
   -sSTACK_SIZE=$((2 ** 16))
   -sALLOW_MEMORY_GROWTH=1
-  -sINCOMING_MODULE_JS_API="[]"
   -sFILESYSTEM=0
+  -sSTRICT
   -sMODULARIZE=1
   -sEXPORT_ES6=1
   -sEXPORT_NAME="ImageUtilsModule"
-  -sUSE_LIBJPEG=1
-  -sUSE_LIBPNG=1
+  -sTEXTDECODER=2
+  # std::string is used for arbitrary data, not UTF-8
+  -sEMBIND_STD_STRING_IS_UTF8=0
   -o "${OUTPUT_DIR}/imageUtils.js"
 )
 
