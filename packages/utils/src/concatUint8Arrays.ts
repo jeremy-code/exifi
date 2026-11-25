@@ -1,11 +1,16 @@
-const concatUint8Arrays = (arrays: Uint8Array[]): Uint8Array<ArrayBuffer> => {
-  const totalLength = arrays.reduce((acc, array) => acc + array.length, 0);
+const concatUint8Arrays = (
+  buffers: readonly Uint8Array[],
+): Uint8Array<ArrayBuffer> => {
+  let totalLength = 0;
+  for (const buffer of buffers) {
+    totalLength += buffer.length;
+  }
   const mergedArray = new Uint8Array(totalLength);
 
   let currentOffset = 0;
-  for (const array of arrays) {
-    mergedArray.set(array, currentOffset);
-    currentOffset += array.length;
+  for (const buffer of buffers) {
+    mergedArray.set(buffer, currentOffset);
+    currentOffset += buffer.length;
   }
 
   return mergedArray;
