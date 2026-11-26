@@ -25,12 +25,6 @@ const ExifGpsMap = lazy(() =>
   })),
 );
 
-// Otherwise, if declared in prop, Oxlint will error with
-// react(no-unstable-nested-components)
-const ExifGpsMapErrorComponent = () => (
-  <p className="text-fg-muted">{m.viewer_gps_map_error()}</p>
-);
-
 const ExifViewerContent = ({ file }: { file: File }) => {
   const exifData = useExifData(file);
   if (exifData === null) {
@@ -65,7 +59,9 @@ const ExifViewerContent = ({ file }: { file: File }) => {
         {exifDataGps.count !== 0 && (
           <CatchBoundary
             getResetKey={() => ""}
-            errorComponent={ExifGpsMapErrorComponent}
+            errorComponent={() => (
+              <p className="text-fg-muted">{m.viewer_gps_map_error()}</p>
+            )}
           >
             <ExifGpsMap exifDataGps={exifDataGps} />
           </CatchBoundary>
