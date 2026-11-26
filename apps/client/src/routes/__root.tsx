@@ -15,6 +15,13 @@ import { useLocale } from "react-aria/I18nProvider";
 import { Footer } from "#components/layout/Footer";
 import { Navbar } from "#components/layout/Navbar";
 import { AppProvider } from "#components/misc/AppProvider";
+import { LocaleProvider } from "#components/misc/LocaleProvider";
+import {
+  baseLocale,
+  deLocalizeUrl,
+  locales,
+  localizeUrl,
+} from "#paraglide/runtime";
 import { getBaseUrl } from "#utils/getBaseUrl";
 import { seo } from "#utils/seo";
 import uiCss from "@exifi/ui/globals.css?url";
@@ -35,6 +42,22 @@ const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
     <html lang={locale} dir={direction} suppressHydrationWarning>
       <head>
         <link rel="canonical" href={canonicalUrl} />
+        {locales.map((linkLocale) => (
+          <link
+            key={linkLocale}
+            rel="alternate"
+            hrefLang={linkLocale}
+            href={(linkLocale === baseLocale
+              ? deLocalizeUrl(canonicalUrl)
+              : localizeUrl(canonicalUrl, { locale: linkLocale })
+            ).toString()}
+          />
+        ))}
+        <link
+          rel="alternate"
+          hrefLang="x-default"
+          href={deLocalizeUrl(canonicalUrl).toString()}
+        />
         <meta property="og:url" content={canonicalUrl} />
         <meta property="twitter:url" content={canonicalUrl} />
         <HeadContent />
@@ -49,15 +72,17 @@ const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
 
 const RootComponent = () => {
   return (
-    <RootDocument>
-      <AppProvider>
-        <Navbar />
-        <main className="grid grid-cols-1">
-          <Outlet />
-        </main>
-        <Footer />
-      </AppProvider>
-    </RootDocument>
+    <LocaleProvider>
+      <RootDocument>
+        <AppProvider>
+          <Navbar />
+          <main className="grid grid-cols-1">
+            <Outlet />
+          </main>
+          <Footer />
+        </AppProvider>
+      </RootDocument>
+    </LocaleProvider>
   );
 };
 
