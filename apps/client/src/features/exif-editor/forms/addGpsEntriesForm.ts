@@ -8,12 +8,17 @@ import type {
   ExifDataObject,
   ExifEntryObject,
 } from "@exifi/core/exif/interfaces";
-import { latitudeSchema, longitudeSchema } from "@exifi/schemas/geo";
 import { toastQueue } from "@exifi/ui/components/Toast";
 
 const gpsFormSchema = z.strictObject({
-  latitude: latitudeSchema,
-  longitude: longitudeSchema,
+  latitude: z
+    .number()
+    .min(-90, "Latitude must be at least -90 degrees.")
+    .max(90, "Latitude must be less than or equal to 90 degrees."),
+  longitude: z
+    .number()
+    .min(-180, "Longitude must be at least 180 degrees.")
+    .max(180, "Longitude must be less than or equal to 180 degrees."),
   altitude: z.number().min(-MAX_UINT32_VALUE).max(MAX_UINT32_VALUE).optional(),
 });
 
