@@ -35,7 +35,9 @@ describe("formatUserComment", () => {
       ).toStrictEqual(
         userComment.encoding === "JIS"
           ? iconv.shift_jis.encode(userComment.value)
-          : iconv.utf8.encode(userComment.value),
+          : userComment.encoding === "UNICODE"
+            ? iconv.utf_16be.encode(userComment.value)
+            : iconv.utf8.encode(userComment.value),
       );
     });
     test("is parsed correctly by parseUserComment", () => {

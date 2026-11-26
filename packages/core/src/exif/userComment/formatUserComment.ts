@@ -1,6 +1,7 @@
 import * as iconv from "iconv-nano";
 
 import { assertNever } from "@exifi/utils/assertNever";
+import { concatUint8Arrays } from "@exifi/utils/concatUint8Arrays";
 
 import { ENCODING_TO_HEADER_MAP } from "./constants";
 import type { UserComment } from "./interfaces";
@@ -13,6 +14,10 @@ const formatUserComment = (userComment: UserComment): Uint8Array => {
       );
     }
     case "UNICODE":
+      return concatUint8Arrays([
+        iconv.utf8.encode(ENCODING_TO_HEADER_MAP[userComment.encoding]),
+        iconv.utf_16be.encode(userComment.value),
+      ]);
     case "EMPTY":
       return iconv.utf8.encode(
         `${ENCODING_TO_HEADER_MAP[userComment.encoding]}${userComment.value}`,

@@ -1,6 +1,8 @@
 import * as iconv from "iconv-nano";
 import { describe, expect, test } from "vitest";
 
+import { concatUint8Arrays } from "@exifi/utils/concatUint8Arrays";
+
 import { ENCODING_TO_HEADER_MAP } from "./constants";
 import { parseUserComment } from "./parseUserComment";
 
@@ -14,7 +16,12 @@ describe("parseUserComment", () => {
     const userCommentBytes =
       encoding === "JIS"
         ? iconv.shift_jis.encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`)
-        : iconv.utf8.encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`);
+        : encoding === "UNICODE"
+          ? concatUint8Arrays([
+              iconv.utf8.encode(ENCODING_TO_HEADER_MAP[encoding]),
+              iconv.utf_16be.encode(value),
+            ])
+          : iconv.utf8.encode(`${ENCODING_TO_HEADER_MAP[encoding]}${value}`);
 
     expect(parseUserComment(userCommentBytes)).toStrictEqual({
       encoding,
@@ -28,7 +35,7 @@ describe("parseUserComment", () => {
 
     const bytes = new Uint8Array([
       ...unknownHeader,
-      ...iconv.utf8.encode(value),
+      ...iconv.utf_16be.encode(value),
     ]);
 
     expect(parseUserComment(bytes)).toStrictEqual({
