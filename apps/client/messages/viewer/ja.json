@@ -46,5 +46,6 @@
   "viewer_map_search_label": "住所を入力",
   "viewer_map_search_clear": "検索をクリア",
   "viewer_map_search_provider": "検索プロバイダー",
-  "viewer_map_leaflet_title": "インタラクティブな地図のためのJavaScriptライブラリ"
+  "viewer_map_leaflet_title": "インタラクティブな地図のためのJavaScriptライブラリ",
+  "viewer_english_callout": "残念ながら、このExifビューアーは英語ロケール向けにWebAssemblyへコンパイルされたバージョンのlibexifに基づいているため、ビューアー内の一部のテキストは英語で表示されます。ローカライズされたテキストでこの画像のExifデータを確認したい場合は、代わりに{#editorLink}エディター{/editorLink}をご利用ください。"
 }

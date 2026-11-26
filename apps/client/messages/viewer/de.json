@@ -46,5 +46,6 @@
   "viewer_map_search_label": "Adresse eingeben",
   "viewer_map_search_clear": "Suche löschen",
   "viewer_map_search_provider": "Suchanbieter",
-  "viewer_map_leaflet_title": "Eine JavaScript-Bibliothek für interaktive Karten"
+  "viewer_map_leaflet_title": "Eine JavaScript-Bibliothek für interaktive Karten",
+  "viewer_english_callout": "Da dieser Exif-Viewer auf einer Version von libexif basiert, die für die englische Sprachumgebung in WebAssembly kompiliert wurde, werden einige Texte im Viewer leider auf Englisch angezeigt. Verwenden Sie stattdessen den {#editorLink}Editor{/editorLink}, um die Exif-Daten dieses Bildes zu betrachten und die Texte in der jeweils lokalisierten Sprache zu sehen."
 }
