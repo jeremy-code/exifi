@@ -2,6 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import type { Ifd } from "libexif-wasm";
 
 import type { Features } from "#components/table/tableFeatures";
+import { m } from "#paraglide/messages";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 
 import { EditCell } from "./EditCell";
@@ -30,17 +31,17 @@ const columns = columnHelper.columns([
     id: "ifd",
     aggregatedCell: IfdCell,
     cell: IfdCell,
-    header: "IFD",
+    header: () => m.editor_table_header_ifd(),
     size: 72, // 4.5rem
   }),
   columnHelper.accessor("tag", {
     id: "tag",
-    header: "Tag",
+    header: () => m.editor_table_header_tag(),
     cell: TagCell,
     size: 252, // 15.75rem
   }),
   columnHelper.accessor("formattedValue", {
-    header: "Value",
+    header: () => m.editor_table_header_value(),
     cell: ValueCell,
     size: 260, // 16.25rem
   }),

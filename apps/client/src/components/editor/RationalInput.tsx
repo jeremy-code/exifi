@@ -5,6 +5,7 @@ import type { RationalObject } from "libexif-wasm";
 import { Group } from "react-aria-components/Group";
 import { useNumberFormatter } from "react-aria/useNumberFormatter";
 
+import { m } from "#paraglide/messages";
 import { approximateRational } from "@exifi/core/math/approximateRational";
 import {
   NumberField,
@@ -60,8 +61,10 @@ const RationalInput = ({
         }
         aria-label={
           sharedProps["aria-label"] !== undefined
-            ? sharedProps["aria-label"] + " Numerator"
-            : " Numerator"
+            ? m.editor_rational_numerator_labeled({
+                label: sharedProps["aria-label"],
+              })
+            : m.editor_rational_numerator()
         }
         value={numerator}
         onChange={(value) => {
@@ -77,8 +80,10 @@ const RationalInput = ({
         {...denominatorInputProps}
         aria-label={
           sharedProps["aria-label"] !== undefined
-            ? sharedProps["aria-label"] + " Denominator"
-            : "Denominator"
+            ? m.editor_rational_denominator_labeled({
+                label: sharedProps["aria-label"],
+              })
+            : m.editor_rational_denominator()
         }
         placeholder={
           placeholderRational !== undefined
@@ -106,8 +111,10 @@ const RationalInput = ({
         }
         aria-label={
           sharedProps["aria-label"] !== undefined
-            ? sharedProps["aria-label"] + " Decimal"
-            : "Decimal"
+            ? m.editor_rational_decimal_labeled({
+                label: sharedProps["aria-label"],
+              })
+            : m.editor_rational_decimal()
         }
         value={decimal}
         onChange={(value) => {

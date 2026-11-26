@@ -1,9 +1,11 @@
 import { useEffect, type ComponentPropsWithRef } from "react";
 
+import { ParaglideMessage } from "@inlang/paraglide-js-react";
 import { cn } from "tailwind-variants";
 
 import { ExifEntryDraftContext } from "#features/exif-editor/contexts/ExifEntryDraftContext";
 import { useExifEntryDraft } from "#features/exif-editor/hooks/useExifEntryDraft";
+import { m } from "#paraglide/messages";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { Button } from "@exifi/ui/components/Button";
@@ -37,20 +39,28 @@ const ExifEntryInspector = ({
           <ExifEntryEditor />
         </div>
         <div>
-          {"Expected change: "}
-          {isChanged ? (
-            <ExifEntryValidity
-              exifEntryObject={
-                { ...exifEntryObject, value: draft } as ExifEntryObject
-              }
-            />
-          ) : (
-            <span className="text-fg-muted italic">no changes</span>
-          )}
+          <ParaglideMessage
+            message={m.editor_inspector_expected_change}
+            inputs={{ value: m.editor_inspector_no_changes() }}
+            markup={{
+              changes: ({ children }) =>
+                isChanged ? (
+                  <ExifEntryValidity
+                    exifEntryObject={
+                      { ...exifEntryObject, value: draft } as ExifEntryObject
+                    }
+                  />
+                ) : (
+                  <span className="text-fg-muted italic">{children}</span>
+                ),
+            }}
+          />
         </div>
         <ExifEntryByteEditor />
         <Button isDisabled={!isChanged} onPress={() => save()}>
-          {isChanged ? "Save changes" : "Saved"}
+          {isChanged
+            ? m.editor_inspector_save_changes()
+            : m.editor_inspector_saved()}
         </Button>
       </ExifEntryDraftContext>
     </div>

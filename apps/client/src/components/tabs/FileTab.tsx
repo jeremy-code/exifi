@@ -2,6 +2,7 @@ import { useSortable } from "@dnd-kit/react/sortable";
 import { X } from "lucide-react";
 import { cn } from "tailwind-variants";
 
+import { m } from "#paraglide/messages";
 import { Button } from "@exifi/ui/components/Button";
 import { Tab, type TabProps } from "@exifi/ui/components/Tabs";
 import { composeTailwindRenderProps } from "@exifi/ui/utils/composeTailwindRenderProps";
@@ -25,9 +26,19 @@ const FileTab = ({
 
   return (
     <Tab
-      ref={ref}
+      ref={(element) => {
+        // React Aria's `Tab` doesn't forward `aria-roledescription` to the DOM,
+        // and dnd-kit only applies its English "draggable" default when the
+        // attribute is missing
+        element?.setAttribute(
+          "aria-roledescription",
+          m.viewer_tab_draggable_role(),
+        );
+        ref(element);
+      }}
       id={id}
       data-dragging={isDragSource}
+      aria-roledescription={m.viewer_tab_draggable_role()}
       className={composeTailwindRenderProps(className, [
         "group/tabs-trigger",
         "flex min-w-50 items-center pr-10! transition-colors data-[dragging=true]:opacity-50",
@@ -40,8 +51,8 @@ const FileTab = ({
         {file !== null
           ? file.name !== ""
             ? file.name
-            : "Unnamed File"
-          : "New Tab"}
+            : m.files_tab_unnamed_file()
+          : m.files_tab_new_tab()}
       </span>
       <Button
         className={cn("absolute right-1", [
@@ -51,7 +62,7 @@ const FileTab = ({
         variant="ghost"
         size="icon-xs"
         onPress={() => removeTab()}
-        aria-label="Close tab"
+        aria-label={m.files_tab_close()}
       >
         <X className="size-4" />
       </Button>

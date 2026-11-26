@@ -1,5 +1,6 @@
 import { Minus, Plus } from "lucide-react";
 
+import { m } from "#paraglide/messages";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { Button } from "@exifi/ui/components/Button";
 
@@ -16,6 +17,7 @@ const ExifEntryAddEditorControls = ({
     <div className="flex gap-1">
       <Button
         size="icon"
+        aria-label={m.editor_byte_editor_add_component()}
         onPress={() => {
           // If length is zero, then there is already one (uncontrolled) input.
           // Hence, if the user wants to add another input, add two new inputs
@@ -52,6 +54,7 @@ const ExifEntryAddEditorControls = ({
       </Button>
       <Button
         size="icon"
+        aria-label={m.editor_byte_editor_remove_component()}
         isDisabled={exifEntryObject.value.length === 0}
         onPress={() => {
           setValues(exifEntryObject.value.slice(0, -1));

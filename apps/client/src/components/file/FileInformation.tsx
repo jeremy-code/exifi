@@ -8,6 +8,7 @@ import { cn } from "tailwind-variants";
 
 import { useBlobHash } from "#hooks/useBlobHash";
 import { useObjectUrl } from "#hooks/useObjectUrl";
+import { m } from "#paraglide/messages";
 import { formatBytes } from "#utils/formatBytes";
 import { Badge } from "@exifi/ui/components/Badge";
 import {
@@ -40,7 +41,9 @@ const FileHashInformation = ({
 }: { file: File } & DataListItemValueProps) => {
   const fileHash = useBlobHash(file);
   return (
-    <DataListItemValue {...props}>{fileHash ?? "Unknown"}</DataListItemValue>
+    <DataListItemValue {...props}>
+      {fileHash ?? m.files_unknown()}
+    </DataListItemValue>
   );
 };
 
@@ -85,16 +88,17 @@ const FileInformation = ({
           // MDN calls revoking object URL on load an anti-pattern
           // https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Schemes/blob#memory_management
           src={objectUrl}
+          alt={m.files_file_info_preview_alt({ fileName: file.name })}
         />
       </Card>
       <Card className="max-w-full min-w-0">
         <CardHeader>
-          <CardTitle>File information</CardTitle>
+          <CardTitle>{m.files_file_info_title()}</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
           <DataList orientation="vertical" variant="bold">
             <DataListItem>
-              <DataListItemLabel>File</DataListItemLabel>
+              <DataListItemLabel>{m.files_file_info_file()}</DataListItemLabel>
               <DataListItemValue className="flex-wrap gap-2">
                 <Link
                   className="line-clamp-1 cursor-pointer wrap-break-word break-all"
@@ -104,12 +108,14 @@ const FileInformation = ({
                   {file.name}
                 </Link>
                 <Badge variant="muted" className="select-auto">
-                  {file.type !== "" ? file.type : "Unknown"}
+                  {file.type !== "" ? file.type : m.files_unknown()}
                 </Badge>
               </DataListItemValue>
             </DataListItem>
             <DataListItem>
-              <DataListItemLabel>File size</DataListItemLabel>
+              <DataListItemLabel>
+                {m.files_file_info_file_size()}
+              </DataListItemLabel>
               <DataListItemValue>
                 <TooltipTrigger>
                   <TooltipTarget>
@@ -129,7 +135,9 @@ const FileInformation = ({
               </DataListItemValue>
             </DataListItem>
             <DataListItem>
-              <DataListItemLabel>Last modified</DataListItemLabel>
+              <DataListItemLabel>
+                {m.files_file_info_last_modified()}
+              </DataListItemLabel>
               <DataListItemValue>
                 <TooltipTrigger>
                   <TooltipTarget>
@@ -149,7 +157,9 @@ const FileInformation = ({
               </DataListItemValue>
             </DataListItem>
             <DataListItem>
-              <DataListItemLabel>Dimensions</DataListItemLabel>
+              <DataListItemLabel>
+                {m.files_file_info_dimensions()}
+              </DataListItemLabel>
               <DataListItemValue {...props}>
                 <Suspense fallback={<Skeleton className="h-5 w-20" />}>
                   <ImageDimensions
@@ -159,7 +169,7 @@ const FileInformation = ({
               </DataListItemValue>
             </DataListItem>
             <DataListItem>
-              <DataListItemLabel>File hash (SHA-256)</DataListItemLabel>
+              <DataListItemLabel>{m.files_file_info_hash()}</DataListItemLabel>
               <Suspense fallback={<Skeleton className="h-5 w-60" />}>
                 <FileHashInformation
                   className="block overflow-hidden text-ellipsis"

@@ -1,9 +1,14 @@
 import type { ReactNode } from "react";
 
+import {
+  ParaglideMessage,
+  type MarkupRenderer,
+} from "@inlang/paraglide-js-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Cog, Lock, Zap } from "lucide-react";
 
 import { Link as RouterLink } from "#components/common/Link";
+import { m } from "#paraglide/messages";
 import { getBaseUrl } from "#utils/getBaseUrl";
 import {
   Accordion,
@@ -36,410 +41,323 @@ const FeatureCard = ({ icon, title, description }: FeatureCardProps) => {
   );
 };
 
-const FEATURES = [
-  {
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="size-4"
-      >
-        <Lock />
-        <rect
-          fill="currentcolor"
-          width="18"
-          height="11"
-          x="3"
-          y="11"
-          rx="2"
-          ry="2"
-        />
-      </svg>
-    ),
-    title: "Private",
-    description: (
-      <span>
-        {"Images never leave your browser and are "}
-        <em>never</em>
-        {" uploaded to someone else's server"}
-      </span>
-    ),
+const paraglideMessageMarkup = {
+  link: ({ children, options }) => {
+    if (typeof options.href !== "string") {
+      throw new Error(
+        `'href' was not found in options: ${JSON.stringify(options)}`,
+      );
+    }
+    return (
+      <Link href={options.href} color="link">
+        {children}
+      </Link>
+    );
   },
-  {
-    icon: <Cog className="size-5" />,
-    title: "Standardized",
-    description: (
-      <>
-        {"Uses the WebAssembly library "}
-        <Link
-          href="https://www.npmjs.com/package/libexif-wasm"
-          color="link"
-          underline="hover"
-        >
-          libexif-wasm
-        </Link>
-        {" based on the "}
-        <Link href="https://libexif.github.io/" color="link" underline="hover">
-          libexif
-        </Link>
-        {" C library, which supports all of Exif standard 2.1 and most of 2.2"}
-      </>
-    ),
-  },
-  {
-    icon: <Zap className="size-5 fill-current stroke-0" />,
-    title: "Convenient",
-    description: "Read and write Exif data directly in the browser",
-  },
-] satisfies FeatureCardProps[];
+  em: ({ children }) => <em>{children}</em>,
+  strong: ({ children }) => <strong>{children}</strong>,
+  abbr: ({ children }) => <abbr>{children}</abbr>,
+} satisfies Record<string, MarkupRenderer<unknown>>;
 
-const FAQS = [
-  {
-    question: "What is this?",
-    answer: (
-      <span>
-        {
-          "exifi is an open-source (MIT) tool to view and edit Exif data in the browser. It uses the C library "
-        }
-        <Link color="link" href="https://github.com/libexif/libexif">
-          libexif
-        </Link>
-        {" compiled to WebAssembly ("}
-        <Link color="link" href="https://github.com/jeremy-code/libexif-wasm">
-          libexif-wasm
-        </Link>
-        {"). "}
-        {"It also makes use of the following C libraries for image writing: "}
-        <Link color="link" href="https://www.ijg.org">
-          libjpeg
-        </Link>
-        {", "}
-        <Link color="link" href="https://github.com/pnggroup/libpng">
-          libpng
-        </Link>
-        {", "}
-        <Link
-          color="link"
-          href="https://chromium.googlesource.com/webm/libwebp"
+const getFeatures = () =>
+  [
+    {
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="size-4"
         >
-          libwebp
-        </Link>
-        {", and "}
-        <Link color="link" href="https://github.com/kjk/heicdec">
-          heicdec
-        </Link>
-        {"."}
-      </span>
-    ),
-  },
-  {
-    question: "What image formats are supported?",
-    answer: (
-      <span>
-        {
-          "JPEG images, PNG images, WebP images, raw Exif metadata files are supported. HEIC, HEIF, and AVIF images are supported on a read-only basis. For more information, see "
-        }
-        <Link
-          color="link"
-          href="https://github.com/jeremy-code/exifi/issues/13"
-        >
-          jeremy-code/exifi#13
-        </Link>
-        {"."}
-      </span>
-    ),
-  },
-  {
-    question:
-      "Why should I use this over a specialized tool like ExifTool or Adobe Lightroom?",
-    answer: (
-      <span>
-        {
-          "Realistically, if you are a photographer or someone who edits images on a frequent basis, you probably should be using a specialized tool for the job. "
-        }
-        {"These may include: "}
-        <Link color="link" href="https://exiftool.org/">
-          ExifTool
-        </Link>{" "}
-        {" by Phil Harvey"}
-        {", "}
-        <Link color="link" href="https://www.darktable.org/">
-          darktable
-        </Link>
-        {", "}
-        <Link color="link" href="https://lightroom.adobe.com/">
-          Adobe Lightroom
-        </Link>
-        {", or many other software. "}
-        {
-          "This is more of a service for those who want to quickly add a little bit of metadata to their images quickly online without having to upload them to someone's server."
-        }
-      </span>
-    ),
-  },
-  {
-    question: "What image metadata can be viewed or edited?",
-    answer: (
-      <span>
-        {
-          "Only the Exif standard 2.1 and most of 2.2 are supported. Other metadata that may be stored, such as XMP, are not supported. "
-        }
-        {
-          "This also means that Exif data defined by the XMP namespace for Exif ("
-        }
-        <Link
-          color="link"
-          href="https://developer.adobe.com/xmp/docs/xmp-namespaces/exif/"
-        >
-          EXIF namespace
-        </Link>
-        {") is also not supported. "}
-        {
-          "For more information on the Exif specification, see the Wikipedia article on "
-        }
-        <Link color="link" href="https://en.wikipedia.org/wiki/Exif">
-          Exif
-        </Link>
-        {" or or view the official Exif 2.21 standard published by JEITA "}
-        <Link
-          color="link"
-          href="https://web.archive.org/web/20160429150748/http://www.jeita.or.jp/cgi-bin/standard_e/pdf.cgi?jk_n=47&jk_pdf_file=CP-3451B-E.pdf"
-        >
-          at this URL
-        </Link>{" "}
+          <Lock />
+          <rect
+            fill="currentcolor"
+            width="18"
+            height="11"
+            x="3"
+            y="11"
+            rx="2"
+            ry="2"
+          />
+        </svg>
+      ),
+      id: "private",
+      title: m.home_feature_private_title(),
+      description: (
         <span>
-          {"(or in "}
-          <Link
-            color="link"
-            href="http://www.jeita.or.jp/cgi-bin/standard_e/pdf.cgi?jk_n=46&jk_pdf_file=CP-3451B-J.pdf"
-          >
-            Japanese
-          </Link>
-          {")"}
+          <ParaglideMessage
+            message={m.home_feature_private_description}
+            markup={paraglideMessageMarkup}
+          />
         </span>
-        {". "}
+      ),
+    },
+    {
+      icon: <Cog className="size-5" />,
+      id: "standardized",
+      title: m.home_feature_standardized_title(),
+      description: (
+        <ParaglideMessage
+          message={m.home_feature_standardized_description}
+          inputs={{
+            libexifWasmUrl: "https://www.npmjs.com/package/libexif-wasm",
+            libexifUrl: "https://libexif.github.io/",
+          }}
+          markup={paraglideMessageMarkup}
+        />
+      ),
+    },
+    {
+      icon: <Zap className="size-5 fill-current stroke-0" />,
+      id: "convenient",
+      title: m.home_feature_convenient_title(),
+      description: m.home_feature_convenient_description(),
+    },
+  ] satisfies (FeatureCardProps & { id: string })[];
+
+const getFaqs = () => [
+  {
+    id: "what",
+    question: m.home_faq_what_question(),
+    answer: (
+      <span>
+        <ParaglideMessage
+          message={m.home_faq_what_answer}
+          inputs={{
+            libexifUrl: "https://github.com/libexif/libexif",
+            libexifWasmUrl: "https://github.com/jeremy-code/libexif-wasm",
+            libpngUrl: "https://github.com/pnggroup/libpng",
+            libjpegUrl: "https://ijg.org",
+            libwebpUrl: "https://chromium.googlesource.com/webm/libwebp",
+            libheifUrl: "https://github.com/strukturag/libheif",
+          }}
+          markup={paraglideMessageMarkup}
+        />
       </span>
     ),
   },
   {
-    question: "How do I read Exif data from a link?",
+    id: "formats",
+    question: m.home_faq_formats_question(),
     answer: (
       <span>
-        {"You can open a link with a URL search parameter like this: "}
-        <RouterLink
-          to="/viewer"
-          className="inline"
-          search={{
-            url: "https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg",
+        <ParaglideMessage
+          message={m.home_faq_formats_answer}
+          inputs={{
+            issueUrl: "https://github.com/jeremy-code/exifi/issues/13",
           }}
-        >
-          {
-            new URL(
+          markup={paraglideMessageMarkup}
+        />
+      </span>
+    ),
+  },
+  {
+    id: "specialized",
+    question: m.home_faq_specialized_question(),
+    answer: (
+      <span>
+        <ParaglideMessage
+          message={m.home_faq_specialized_answer}
+          inputs={{
+            exifToolUrl: "https://exiftool.org/",
+            darktableUrl: "https://www.darktable.org/",
+            lightroomUrl: "https://lightroom.adobe.com/",
+          }}
+          markup={paraglideMessageMarkup}
+        />
+      </span>
+    ),
+  },
+  {
+    id: "metadata",
+    question: m.home_faq_metadata_question(),
+    answer: (
+      <span>
+        <ParaglideMessage
+          message={m.home_faq_metadata_answer}
+          inputs={{
+            xmpExifUrl:
+              "https://developer.adobe.com/xmp/docs/xmp-namespaces/exif/",
+            jeitaUrl:
+              "https://web.archive.org/web/20160429150748/http://www.jeita.or.jp/cgi-bin/standard_e/pdf.cgi?jk_n=47&jk_pdf_file=CP-3451B-E.pdf",
+            jeitaJapaneseUrl:
+              "http://www.jeita.or.jp/cgi-bin/standard_e/pdf.cgi?jk_n=46&jk_pdf_file=CP-3451B-J.pdf",
+          }}
+          markup={paraglideMessageMarkup}
+        />
+      </span>
+    ),
+  },
+  {
+    id: "link",
+    question: m.home_faq_link_question(),
+    answer: (
+      <span>
+        <ParaglideMessage
+          message={m.home_faq_link_answer}
+          inputs={{
+            viewerUrl: new URL(
               `viewer?url=https://upload.wikimedia.org/wikipedia/commons/c/c9/Metadata_demo_exif_only.jpg`,
               getBaseUrl(),
-            ).href
-          }
-        </RouterLink>
-        {"."}
+            ).href,
+          }}
+          markup={{
+            viewerLink: ({ children, options }) => (
+              <RouterLink
+                to="/viewer"
+                className="inline"
+                search={{
+                  url:
+                    // oxlint-disable-next-line typescript/no-base-to-string -- options.url is a string
+                    new URL(String(options.url)).searchParams.get("url") ?? "",
+                }}
+              >
+                {children}
+              </RouterLink>
+            ),
+          }}
+        />
       </span>
     ),
   },
   {
-    question: "Can this be used offline?",
+    id: "offline",
+    question: m.home_faq_offline_question(),
     answer: (
       <span>
-        {"Yes! exifi can be used as a progressive web app ("}
-        <abbr>PWA</abbr>
-        {"). "}
-        {
-          "For more information on how to install a PWA, see this guide by MDN: "
-        }
-        <Link
-          color="link"
-          href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing"
-        >
-          Installing and uninstalling web apps
-        </Link>
-        {"."}
+        <ParaglideMessage
+          message={m.home_faq_offline_answer}
+          markup={paraglideMessageMarkup}
+        />
       </span>
     ),
   },
   {
-    question: "What are some useful tags someone may want to add?",
+    id: "tags",
+    question: m.home_faq_tags_question(),
     answer: (
       <span>
         <ol className="list-outside list-disc pl-[1.35em]">
-          <li>
-            {
-              "Tags that provide additional textual information include: ImageDescription, Artist, Copyright, XPTitle, XPAuthor, XPKeywords, XPSubject, and CameraOwnerName"
-            }
-          </li>
-          <li>
-            {
-              'GPS data such as Longitude, Latitude can be added or edited accordingly in the "Edit GPS" menu'
-            }
-          </li>
-          <li>
-            {
-              "DateTime/OffsetTime or their variants, DateTimeOriginal/OffsetTimeOriginal or DateTimeDigitized/OffsetTimeDigitized can also be edited"
-            }
-          </li>
+          <li>{m.home_faq_tags_text_item()}</li>
+          <li>{m.home_faq_tags_gps_item()}</li>
+          <li>{m.home_faq_tags_date_item()}</li>
         </ol>
         <RouterLink color="link" to="/tags">
-          A full list of tags can be found here.
+          {m.home_faq_tags_full_list_link()}
         </RouterLink>
       </span>
     ),
   },
   {
-    question: "What is an IFD?",
+    id: "ifd",
+    question: m.home_faq_ifd_question(),
     answer: (
       <span>
-        An Image File Domain (<abbr>IFD</abbr>)
-        {
-          " refers to the type of data an Exif entry pertains to. There are five IFDs for Exif data: "
-        }
+        <ParaglideMessage
+          message={m.home_faq_ifd_intro}
+          markup={paraglideMessageMarkup}
+        />{" "}
         <ol className="list-outside list-disc pl-[1.35em]">
           <li>
-            <strong>IFD 0</strong>
-            {
-              " refers to the main data regarding the image (X or Y-Resolution, ImageDescription, Model, etc.)."
-            }
+            <ParaglideMessage
+              message={m.home_faq_ifd_ifd0_item}
+              markup={paraglideMessageMarkup}
+            />
           </li>
           <li>
-            <strong>IFD 1</strong>
-            {
-              " refers to data regarding the thumbnail of the image. If a tag is avaliable in both IFD 0 and IFD 1, you probably want to put it in IFD 0."
-            }
+            <ParaglideMessage
+              message={m.home_faq_ifd_ifd1_item}
+              markup={paraglideMessageMarkup}
+            />
           </li>
           <li>
-            {"The "}
-            <strong>Exif IFD</strong>
-            {
-              " refers to additional miscellanous metadata on the image (e.g. ExifVersion, ColorSpace, ExposureTime, etc.)."
-            }
+            <ParaglideMessage
+              message={m.home_faq_ifd_exif_item}
+              markup={paraglideMessageMarkup}
+            />
           </li>
           <li>
-            {"The "}
-            <strong>GPS IFD</strong>
-            {
-              " refers to geographic data relevant to the image (e.g. Latitude, Longitude)."
-            }
+            <ParaglideMessage
+              message={m.home_faq_ifd_gps_item}
+              markup={paraglideMessageMarkup}
+            />
           </li>
           <li>
-            {"The "}
-            <strong>Interoperability IFD</strong>
-            {
-              " refers to interoperability tags (InteroperabilityIndex and/or InteroperabilityVersion)."
-            }
+            <ParaglideMessage
+              message={m.home_faq_ifd_interoperability_item}
+              markup={paraglideMessageMarkup}
+            />
           </li>
         </ol>
-        {"For more information, see "}
-        <Link color="link" href="https://en.wikipedia.org/wiki/Exif#Technical">
-          Wikipedia:Exif#Technical
-        </Link>
-        {"."}
+        <ParaglideMessage
+          message={m.home_faq_ifd_outro}
+          inputs={{
+            wikipediaUrl: "https://en.wikipedia.org/wiki/Exif#Technical",
+          }}
+          markup={paraglideMessageMarkup}
+        />
       </span>
     ),
   },
   {
-    question: "What is MakerNote data?",
+    id: "makernote",
+    question: m.home_faq_makernote_question(),
     answer: (
       <span>
-        {
-          "MakerNote data is stored a special tag in the Exif IFD reserved exclusively for manufacturer-specific binary data."
-        }
-        {" For more information, see "}
-        <Link
-          color="link"
-          href="https://en.wikipedia.org/wiki/Exif#MakerNote_data"
-        >
-          Wikipedia:Exif#MakerNote data
-        </Link>
-        {". "}
-        {"Currently, libexif is able of decoding the following manufacturers: "}
-        <Link
-          color="link"
-          href="https://github.com/libexif/libexif/tree/master/libexif/canon"
-        >
-          Canon
-        </Link>
-        {", "}
-        <Link
-          color="link"
-          href="https://github.com/libexif/libexif/tree/master/libexif/fuji"
-        >
-          Fuji
-        </Link>
-        {", "}
-        <Link
-          color="link"
-          href="https://github.com/libexif/libexif/tree/master/libexif/olympus"
-        >
-          Olympus
-        </Link>
-        {" (Epson, Sanyo) , and "}
-        <Link
-          color="link"
-          href="https://github.com/libexif/libexif/tree/master/libexif/pentax"
-        >
-          Pentax
-        </Link>
-        {" (Casio) ."}
+        <ParaglideMessage
+          message={m.home_faq_makernote_answer}
+          inputs={{
+            wikipediaUrl: "https://en.wikipedia.org/wiki/Exif#MakerNote_data",
+            canonUrl:
+              "https://github.com/libexif/libexif/tree/master/libexif/canon",
+            fujiUrl:
+              "https://github.com/libexif/libexif/tree/master/libexif/fuji",
+            olympusUrl:
+              "https://github.com/libexif/libexif/tree/master/libexif/olympus",
+            pentaxUrl:
+              "https://github.com/libexif/libexif/tree/master/libexif/pentax",
+          }}
+          markup={paraglideMessageMarkup}
+        />
       </span>
     ),
   },
   {
-    question: "Why is exifi not correctly reading my PNG's Exif data?",
+    id: "png",
+    question: m.home_faq_png_question(),
     answer: (
       <span>
-        {"In July 2017, "}
-        <Link
-          color="blue"
-          href="http://ftp-osl.osuosl.org/pub/libpng/documents/pngext-1.5.0.html#C.eXIf"
-        >
-          version 1.5.0 of the extensions to the PNG 1.2 Specification
-        </Link>
-        {" added support for a eXIf chunk in PNGs that stored Exif metadata. "}
-        {
-          'Previously, legacy encoders stored Exif data in nonstandard methods. For example, ImageMagick stored Exif information in a "Raw profile type APP1" zTXt chunk whereas Photoshop stored it in a "Raw profile type exif" zTXt chunk. '
-        }
-        {
-          "Furthermore, some PNG encoders will, when converting from JPEG, choose to encode Exif data as XMP data under the "
-        }
-        <Link
-          color="link"
-          href="https://developer.adobe.com/xmp/docs/xmp-namespaces/exif/"
-        >
-          EXIF namespace
-        </Link>
-        {". "}
-        {
-          "Since read and write support for PNGs is handled by libpng reading the eXIf chunk specifically, you may experience false negatives for older PNGs where exifi claims that an image has no Exif data when it was actually stored somewhere else."
-        }
+        <ParaglideMessage
+          message={m.home_faq_png_answer}
+          inputs={{
+            specUrl:
+              "http://ftp-osl.osuosl.org/pub/libpng/documents/pngext-1.5.0.html#C.eXIf",
+            xmpExifUrl:
+              "https://developer.adobe.com/xmp/docs/xmp-namespaces/exif/",
+          }}
+          markup={paraglideMessageMarkup}
+        />
       </span>
     ),
   },
   {
-    question:
-      "I am looking for a web app to remove all metadata from my photos, is exifi for me?",
+    id: "remove",
+    question: m.home_faq_remove_question(),
     answer: (
       <span>
-        No, exifi only is capable of reading Exif metadata and not other forms
-        of metadata such as XMP. You probably should look towards something like
-        Google Chrome Lab's{" "}
-        <Link color="link" href="https://squoosh.app/">
-          squoosh.app
-        </Link>
-        , which also uses WebAssembly to handle image encoding directly in the
-        browser and most importantly, <em>only</em> preserves image data.
+        <ParaglideMessage
+          inputs={{
+            squooshUrl: "https://squoosh.app/",
+          }}
+          message={m.home_faq_remove_answer}
+          markup={paraglideMessageMarkup}
+        />
       </span>
     ),
   },
@@ -450,7 +368,7 @@ const HomeComponent = () => {
     <div className="container py-8">
       <div className="grid max-h-dvh min-h-80 place-content-center gap-8">
         <Heading level={1} size="4xl">
-          View and edit Exif data locally
+          {m.home_hero_heading()}
         </Heading>
         <div className="flex items-center justify-start gap-2 md:justify-center">
           <RouterLink
@@ -464,7 +382,7 @@ const HomeComponent = () => {
               })
             }
           >
-            View
+            {m.home_hero_view()}
           </RouterLink>
           <RouterLink
             to="/editor"
@@ -473,20 +391,20 @@ const HomeComponent = () => {
               buttonVariants({ variant: "ghost", ...renderProps })
             }
           >
-            Edit
+            {m.home_hero_edit()}
           </RouterLink>
         </div>
       </div>
       <div className="pt-16">
         <div className="text-center">
           <Heading level={2} size="3xl" id="features">
-            Features
+            {m.home_features_heading()}
           </Heading>
         </div>
         <div className="mt-12">
           <dl className="grid gap-6 md:grid-cols-3">
-            {FEATURES.map((informationItem) => (
-              <FeatureCard key={informationItem.title} {...informationItem} />
+            {getFeatures().map((informationItem) => (
+              <FeatureCard key={informationItem.id} {...informationItem} />
             ))}
           </dl>
         </div>
@@ -494,13 +412,13 @@ const HomeComponent = () => {
       <div className="py-16">
         <div className="text-center">
           <Heading level={2} size="3xl" id="faq">
-            FAQ
+            {m.home_faq_heading()}
           </Heading>
         </div>
         <div className="mt-12">
           <Accordion variant="enclosed" allowsMultipleExpanded>
-            {FAQS.map((faq) => (
-              <AccordionItem key={faq.question}>
+            {getFaqs().map((faq) => (
+              <AccordionItem key={faq.id}>
                 <AccordionHeader>{faq.question}</AccordionHeader>
                 <AccordionPanel className="leading-relaxed text-fg-muted">
                   {faq.answer}
@@ -533,7 +451,7 @@ const Route = createFileRoute("/")({
               "@type": "WebPage",
               name: "exifi",
               url: getBaseUrl(),
-              description: "Local Exif viewer and editor",
+              description: m.home_head_description(),
               inLanguage: "en-US",
               isPartOf: {
                 "@id": `${getBaseUrl()}/#website`,

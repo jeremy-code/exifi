@@ -4,6 +4,7 @@ import { ExifData } from "libexif-wasm";
 
 import { ExifInformation } from "#components/file/ExifInformation";
 import { useExifData } from "#hooks/useExifData";
+import { m } from "#paraglide/messages";
 import { toastQueue } from "@exifi/ui/components/Toast";
 
 import { ExifTable } from "./components/ExifTable";
@@ -14,7 +15,7 @@ import { ExifEditorProvider } from "./contexts/ExifEditorContext";
 const initializeExifData = () => {
   toastQueue.add(
     {
-      title: "No Exif data was found. Initializing with default Exif data...",
+      title: m.editor_toast_no_exif_data(),
       toastProps: { variant: "subtle" },
     },
     { timeout: 5_000 /* 5 seconds */ },

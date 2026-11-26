@@ -5,6 +5,7 @@ import type { RowSelectionState, Table } from "@tanstack/react-table";
 
 import type { Features } from "#components/table/tableFeatures";
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
+import { m } from "#paraglide/messages";
 
 import { DeleteEntriesDialog } from "../dialogs/DeleteEntriesDialog";
 import type { ExifTableRow } from "./columns";
@@ -45,7 +46,7 @@ const SelectionBar = ({
     <div className="pointer-events-none fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+(--spacing(4)))] flex justify-center">
       <div className="pointer-events-auto flex items-center gap-3 rounded-md bg-surface px-3 py-2.5 shadow-md">
         <button className="inline-flex items-center gap-2 self-stretch rounded-sm border border-dashed px-4 py-1 text-sm">
-          {selectedRowIds.length} selected
+          {m.editor_selection_count({ count: selectedRowIds.length })}
         </button>
         <div className="h-5 w-px bg-border" />
         <DeleteEntriesDialog rows={selectedRowIds} deleteRows={deleteRows} />

@@ -4,6 +4,7 @@ import { Group, type GroupProps } from "react-aria-components/Group";
 import { cn } from "tailwind-variants";
 
 import type { ExifVersion } from "#features/exif-editor/editors/shared/interfaces";
+import { m } from "#paraglide/messages";
 import {
   NumberField,
   type NumberFieldProps,
@@ -33,8 +34,10 @@ const ExifVersionInput = ({
         {...inputProps}
         aria-label={
           inputProps?.["aria-label"] !== undefined
-            ? inputProps["aria-label"] + " Major"
-            : "Major"
+            ? m.editor_exif_version_major_labeled({
+                label: inputProps["aria-label"],
+              })
+            : m.editor_exif_version_major()
         }
         size="xs"
         minValue={1}
@@ -63,8 +66,10 @@ const ExifVersionInput = ({
         {...inputProps}
         aria-label={
           inputProps?.["aria-label"] !== undefined
-            ? inputProps["aria-label"] + " Minor"
-            : "Minor"
+            ? m.editor_exif_version_minor_labeled({
+                label: inputProps["aria-label"],
+              })
+            : m.editor_exif_version_minor()
         }
         minValue={0}
         size="xs"

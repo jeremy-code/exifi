@@ -12,6 +12,7 @@ import {
 import { composeRenderProps } from "react-aria-components/composeRenderProps";
 import { cn, tv } from "tailwind-variants";
 
+import { useLocalizedUiStringFormatter } from "../hooks/useLocalizedStringFormatter";
 import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 import { Button, type ButtonProps as DialogCloseButtonProps } from "./Button";
 
@@ -45,12 +46,14 @@ const DialogTitle = ({ className, ...props }: DialogTitleProps) => (
 );
 
 const DialogCloseButton = ({ className, ...props }: DialogCloseButtonProps) => {
+  const stringFormatter = useLocalizedUiStringFormatter();
+
   return (
     <Button
       slot="close"
       size="icon-sm"
       variant="ghost"
-      aria-label="Close"
+      aria-label={stringFormatter.format("dialog.dismiss")}
       className={composeTailwindRenderProps(
         className,
         "absolute top-2 right-2",

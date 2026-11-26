@@ -1,0 +1,51 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "viewer_tag_count": [
+    {
+      "declarations": ["input count", "local countPlural = count: plural"],
+      "selectors": ["countPlural"],
+      "match": {
+        "countPlural=one": "{count} etiqueta",
+        "countPlural=other": "{count} etiquetas"
+      }
+    }
+  ],
+  "viewer_gps_map_error": "Se encontró el IFD GPS en los metadatos EXIF de la imagen, pero no se hallaron coordenadas de longitud y latitud válidas.",
+  "viewer_no_exif_title": "Información Exif",
+  "viewer_no_exif_body": "No se encontraron datos Exif en este archivo. ¿Quieres {#editorLink}abrirlo en el editor{/editorLink} para añadir algunos?",
+  "viewer_makernote_title": "Makernote",
+  "viewer_makernote_entry_fallback_title": "ID {id} ({index})",
+  "viewer_tags_column_tag": "Etiqueta",
+  "viewer_tags_column_name": "Nombre",
+  "viewer_tags_column_support_level": "Nivel de compatibilidad",
+  "viewer_tags_column_ifd_0": "IFD 0",
+  "viewer_tags_column_ifd_1": "IFD 1",
+  "viewer_tags_column_exif": "EXIF",
+  "viewer_tags_column_gps": "GPS",
+  "viewer_tags_column_interop": "Interop.",
+  "viewer_table_expand": "Expandir",
+  "viewer_table_collapse": "Contraer",
+  "viewer_table_resizer": "Redimensionador",
+  "viewer_table_resizer_value": [
+    {
+      "declarations": ["input width", "local widthPlural = width: plural"],
+      "selectors": ["widthPlural"],
+      "match": {
+        "widthPlural=one": "{width} píxel",
+        "widthPlural=other": "{width} píxeles"
+      }
+    }
+  ],
+  "viewer_tab_draggable_role": "arrastrable",
+  "viewer_map_zoom_in": "Acercar",
+  "viewer_map_zoom_out": "Alejar",
+  "viewer_map_marker_alt": "Marcador de ubicación",
+  "viewer_map_attribution": "© colaboradores de {openStreetMapLink}",
+  "viewer_map_unknown_location": "Ubicación desconocida",
+  "viewer_map_geo_uri": "URI geo",
+  "viewer_map_search_label": "Introduce una dirección",
+  "viewer_map_search_clear": "Borrar búsqueda",
+  "viewer_map_search_provider": "Proveedor de búsqueda",
+  "viewer_map_leaflet_title": "Una biblioteca de JavaScript para mapas interactivos",
+  "viewer_english_callout": "Lamentablemente, dado que este visor de datos Exif se basa en una versión de libexif compilada en WebAssembly para la configuración regional en inglés, parte del texto en el visor aparecerá en inglés. Te sugerimos utilizar el {#editorLink}editor{/editorLink} para consultar los datos Exif de esta imagen y así ver el texto en tu idioma."
+}

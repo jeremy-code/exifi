@@ -3,14 +3,20 @@ import { type ComponentPropsWithRef } from "react";
 import { Link as RouterLink } from "@tanstack/react-router";
 import { Disclosure, DisclosurePanel } from "react-aria-components/Disclosure";
 
+import { m } from "#paraglide/messages";
 import { Button, type ButtonProps } from "@exifi/ui/components/Button";
 
 import { navigationMenuTriggerVariants } from "./Navbar";
-import { NAVIGATION_ITEMS } from "./constants";
+import { getNavigationItems } from "./constants";
 
 const MobileNavButton = (props: ButtonProps) => {
   return (
-    <Button variant="ghost" size="icon" {...props}>
+    <Button
+      variant="ghost"
+      size="icon"
+      aria-label={m.layout_mobile_nav_toggle_aria_label()}
+      {...props}
+    >
       <svg
         aria-hidden="true"
         viewBox="0 0 24 24"
@@ -61,7 +67,7 @@ const MobileNav = (props: Omit<MobileNavProps, "children">) => {
       >
         <nav role="navigation" className="border-b bg-bg p-3 text-fg">
           <ul className="space-y-0.5">
-            {NAVIGATION_ITEMS.map((item) => (
+            {getNavigationItems().map((item) => (
               <li key={item.to}>
                 <RouterLink
                   to={item.to}

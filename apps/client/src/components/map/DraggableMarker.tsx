@@ -1,6 +1,8 @@
 import { Marker as MarkerInstance, type DragEndEvent } from "leaflet";
 import { Marker, type MarkerProps } from "react-leaflet";
 
+import { m } from "#paraglide/messages";
+
 import { icon } from "./icon";
 
 interface MarkerDragEndEvent extends DragEndEvent {
@@ -14,6 +16,7 @@ type DraggableMarkerProps = MarkerProps & {
 const DraggableMarker = ({ onDragEnd, ...props }: DraggableMarkerProps) => {
   return (
     <Marker
+      alt={m.viewer_map_marker_alt()}
       {...props}
       icon={icon}
       draggable

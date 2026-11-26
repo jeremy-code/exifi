@@ -5,6 +5,7 @@ import { ChevronDown, Save } from "lucide-react";
 import { useShallow } from "zustand/react/shallow";
 
 import { useFile } from "#contexts/FileContext";
+import { m } from "#paraglide/messages";
 import { isMobileWebKit } from "#utils/platform";
 import { saveFile } from "#utils/saveFile";
 import { setExifData } from "@exifi/core/exif/utils/setExifData";
@@ -85,7 +86,11 @@ const ExifDownload = () => {
         onPress={() => handleSave()}
       >
         <Save className="size-4" />
-        {!isDirty ? "Saved" : isSaving ? "Saving..." : "Save"}
+        {!isDirty
+          ? m.editor_download_saved()
+          : isSaving
+            ? m.editor_download_saving()
+            : m.editor_download_save()}
       </Button>
       <MenuTrigger
         // @ts-expect-error -- Not sure why TypeScript can't find the right types
@@ -93,7 +98,7 @@ const ExifDownload = () => {
       >
         <Button
           className="rounded-l-none"
-          aria-label="Actions"
+          aria-label={m.editor_actions()}
           size="icon"
           variant="surface"
         >
@@ -110,7 +115,7 @@ const ExifDownload = () => {
               void saveFile(exifDataFile);
             }}
           >
-            Download Exif data
+            {m.editor_download_exif_data()}
           </MenuItem>
           <MenuItem
             isDisabled={makerNoteEntryObject === undefined}
@@ -125,7 +130,7 @@ const ExifDownload = () => {
               }
             }}
           >
-            Download MakerNote data
+            {m.editor_download_maker_note()}
           </MenuItem>
           <MenuItem
             isDisabled={thumbnail === undefined}
@@ -140,7 +145,7 @@ const ExifDownload = () => {
               }
             }}
           >
-            Download thumbnail
+            {m.editor_download_thumbnail()}
           </MenuItem>
         </Menu>
       </MenuTrigger>

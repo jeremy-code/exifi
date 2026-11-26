@@ -2,6 +2,7 @@ import type { NotFoundRouteProps } from "@tanstack/react-router";
 import { ChevronLeft } from "lucide-react";
 
 import { Link } from "#/components/common/Link";
+import { m } from "#paraglide/messages";
 import { Button, buttonVariants } from "@exifi/ui/components/Button";
 import { Heading } from "@exifi/ui/components/Heading";
 
@@ -13,17 +14,15 @@ const NotFound = (props: NotFoundRouteProps) => {
   return (
     <div className="container flex flex-col justify-center gap-8 py-4">
       <img
-        alt="Illustration of a flying saucer beaming up a cyclopean alien while another alien watches from the ground."
+        alt={m.layout_not_found_image_alt()}
         className="mx-auto aspect-[auto_17/20] max-w-[min(100%,36svh)]"
         src="/static/not-found.webp"
       />
       <div className="flex flex-col items-start justify-center gap-2 sm:items-center">
         <Heading level={1} size="4xl">
-          Not Found
+          {m.layout_not_found_title()}
         </Heading>
-        <p className="mb-4 text-fg-muted">
-          The page you are looking for does not exist.
-        </p>
+        <p className="mb-4 text-fg-muted">{m.layout_not_found_description()}</p>
         <div role="group" className="flex gap-2">
           <Link
             underline={false}
@@ -36,11 +35,11 @@ const NotFound = (props: NotFoundRouteProps) => {
             }
             to="/"
           >
-            Go Home
+            {m.layout_not_found_go_home()}
           </Link>
           <Button variant="ghost" onClick={() => window.history.back()}>
             <ChevronLeft className="size-4" />
-            Go Back
+            {m.layout_not_found_go_back()}
           </Button>
         </div>
       </div>

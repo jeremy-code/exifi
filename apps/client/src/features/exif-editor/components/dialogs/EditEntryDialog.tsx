@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { Pencil } from "lucide-react";
 
 import { useDialogState } from "#hooks/useDialogState";
+import { m } from "#paraglide/messages";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { Button } from "@exifi/ui/components/Button";
 import {
@@ -17,8 +18,8 @@ import { Modal } from "@exifi/ui/components/Modal";
 import { Skeleton } from "@exifi/ui/components/Skeleton";
 
 const ExifEntryInspector = lazy(() =>
-  import("../entries/edit/ExifEntryInspector").then((m) => ({
-    default: m.ExifEntryInspector,
+  import("../entries/edit/ExifEntryInspector").then((mod) => ({
+    default: mod.ExifEntryInspector,
   })),
 );
 
@@ -31,16 +32,19 @@ const EditEntryDialog = ({ exifEntryObject }: EditEntryDialogProps) => {
 
   return (
     <DialogTrigger isOpen={isOpen} onOpenChange={onOpenChange}>
-      <Button variant="outline" size="icon" aria-label="Edit">
+      <Button
+        variant="outline"
+        size="icon"
+        aria-label={m.editor_edit_entry_button_label()}
+      >
         <Pencil size="16" />
       </Button>
       <Modal isDismissable>
-        <Dialog aria-description="Edit Exif data dialog">
+        <Dialog aria-description={m.editor_edit_entry_dialog_description()}>
           <DialogHeader>
-            <DialogTitle>Edit Exif data</DialogTitle>
+            <DialogTitle>{m.editor_edit_entry_dialog_title()}</DialogTitle>
             <DialogDescription>
-              Make changes to the Exif entry here. Click save when you&apos;re
-              done.
+              {m.editor_edit_entry_dialog_body()}
             </DialogDescription>
           </DialogHeader>
           <DialogBody>

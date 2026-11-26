@@ -1,0 +1,6 @@
+{
+  "callout.alert": "Alert",
+  "combobox.selectedCount": "{count, plural, =0 {Keine Elemente ausgewählt} one {# Element ausgewählt} other {# Elemente ausgewählt}}.",
+  "dialog.dismiss": "Schließen",
+  "toast.close": "Schließen"
+}

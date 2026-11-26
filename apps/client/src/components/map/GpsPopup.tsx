@@ -8,6 +8,7 @@ import { useNominatimApiReverse } from "#hooks/useNominatimApiReverse";
 import { formatLatLng } from "#lib/leaflet/formatLatLng";
 import { formatLatLngAsGeoUri } from "#lib/leaflet/formatLatLngAsGeoUri";
 import { formatLatLngAsOsmUrl } from "#lib/leaflet/formatLatLngAsOsmUrl";
+import { m } from "#paraglide/messages";
 import {
   HorizontalList,
   HorizontalListItem,
@@ -19,7 +20,7 @@ const GpsPopupLabel = ({ coordinate }: { coordinate: LatLng }) => {
 
   return typeof feature?.properties?.display_name === "string"
     ? feature?.properties?.display_name
-    : "Unknown location";
+    : m.viewer_map_unknown_location();
 };
 
 type GpsPopupProps = {
@@ -51,7 +52,7 @@ const GpsPopup = ({ coordinate, label, ...props }: GpsPopupProps) => {
             </HorizontalListItem>
             <HorizontalListItem>
               <a href={formatLatLngAsGeoUri(coordinate)} target="_blank">
-                geo URI
+                {m.viewer_map_geo_uri()}
               </a>
             </HorizontalListItem>
           </HorizontalList>

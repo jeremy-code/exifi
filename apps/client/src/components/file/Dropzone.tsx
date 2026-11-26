@@ -1,5 +1,6 @@
 import type { ComponentPropsWithRef, RefObject } from "react";
 
+import { ParaglideMessage } from "@inlang/paraglide-js-react";
 import { Clapperboard, File, FileUp, Image, Music, X } from "lucide-react";
 import { Button as AriaButton } from "react-aria-components/Button";
 import { useLocale } from "react-aria/I18nProvider";
@@ -11,6 +12,7 @@ import {
 import { cn } from "tailwind-variants";
 import { useShallow } from "zustand/react/shallow";
 
+import { m } from "#paraglide/messages";
 import { useDropzoneStore } from "#stores/dropzoneStore";
 import { formatBytes } from "#utils/formatBytes";
 import { Button } from "@exifi/ui/components/Button";
@@ -62,7 +64,7 @@ const AcceptedFile = ({
         <Button
           size="icon"
           onPress={() => removeFile()}
-          aria-label="Remove file"
+          aria-label={m.files_dropzone_remove_file()}
         >
           <X className="size-4" />
         </Button>
@@ -125,26 +127,32 @@ const Dropzone = ({
       })}
     >
       <div className="inline-flex grow flex-row items-center justify-normal gap-2 text-base">
-        <FileUp aria-label="Upload file" />
+        <FileUp aria-label={m.files_dropzone_upload_file_icon()} />
         {isDragActive ? (
-          "Drop a file here"
+          m.files_dropzone_drop_here()
         ) : (
           <div>
-            {"Drag a file here or "}
-            <AriaButton
-              type="button"
-              className={(renderProps) =>
-                linkVariants({
-                  ...renderProps,
-                  underline: "hover",
-                  color: "link",
-                  className: "cursor-pointer appearance-none select-text",
-                })
-              }
-              onPress={open}
-            >
-              upload a file
-            </AriaButton>
+            <ParaglideMessage
+              message={m.files_dropzone_drag_or_upload}
+              markup={{
+                uploadButton: ({ children }) => (
+                  <AriaButton
+                    type="button"
+                    className={(renderProps) =>
+                      linkVariants({
+                        ...renderProps,
+                        underline: "hover",
+                        color: "link",
+                        className: "cursor-pointer appearance-none select-text",
+                      })
+                    }
+                    onPress={open}
+                  >
+                    {children}
+                  </AriaButton>
+                ),
+              }}
+            />
           </div>
         )}
       </div>
@@ -156,6 +164,7 @@ const Dropzone = ({
           // react-dropzone/react-dropzone#1481 that no longer clips the input,
           // leading to the input taking up space in the div
           className: cn("sr-only", inputProps?.className),
+          "aria-label": m.files_dropzone_input_label(),
         })}
       />
       {acceptedFiles.length > 0 && (

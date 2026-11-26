@@ -2,12 +2,13 @@ import { useMemo, useState } from "react";
 
 import { useDebouncedCallback } from "@tanstack/react-pacer/debouncer";
 import type { CellContext } from "@tanstack/react-table";
-import { ExifTagInfo } from "libexif-wasm";
 
 import { EnumSelect } from "#components/editor/EnumSelect";
 import { ExifVersionInput } from "#components/editor/ExifVersionInput";
 import { GpsTagVersionInput } from "#components/editor/GpsTagVersionInput";
 import type { Features } from "#components/table/tableFeatures";
+import { getExifEnumValueLabel, getExifTagTitle } from "#lib/exif/labels";
+import { m } from "#paraglide/messages";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { DateField } from "@exifi/ui/components/DateField";
 import { DatePicker } from "@exifi/ui/components/DatePicker";
@@ -56,19 +57,16 @@ const ValueCellInner = ({
     );
   }
 
-  const title = ExifTagInfo.getTitleInIfd(
-    exifEntryObject.tag,
-    exifEntryObject.ifd,
-  );
-  const label = title !== "" ? title : exifEntryObject.tag;
+  const label = getExifTagTitle(exifEntryObject.tag, exifEntryObject.ifd);
 
   switch (quickEditor.kind) {
     case "enum":
     case "enumAscii":
       return (
         <EnumSelect
-          placeholder={`Select a value for ${label}`}
+          placeholder={m.editor_select_value_for({ label })}
           aria-label={label}
+          getLabel={(key) => getExifEnumValueLabel(exifEntryObject.tag, key)}
           {...quickEditor}
         />
       );

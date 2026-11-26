@@ -8,7 +8,7 @@ import { ThemeToggle } from "#components/misc/ThemeToggle";
 import { focusRing } from "@exifi/ui/utils/focusRing";
 
 import { MobileNav } from "./MobileNav";
-import { NAVIGATION_ITEMS } from "./constants";
+import { getNavigationItems } from "./constants";
 
 type NavbarProps = ComponentPropsWithRef<"header">;
 
@@ -41,13 +41,13 @@ const Navbar = ({ className, ...props }: NavbarProps) => {
     >
       <div className="container flex h-full items-center justify-between">
         <Link className="flex items-center gap-1 font-semibold" to="/">
-          <img width="32" height="32" src="/favicon.svg" />
+          <img alt="" width="32" height="32" src="/favicon.svg" />
           exifi
         </Link>
         <div className="flex items-center gap-2">
           <nav className="relative z-10 flex grow justify-center max-sm:hidden">
             <ul className="flex justify-center gap-2 rounded-md p-1">
-              {NAVIGATION_ITEMS.map((item) => (
+              {getNavigationItems().map((item) => (
                 <li key={item.to}>
                   <RouterLink
                     className={navigationMenuTriggerVariants({

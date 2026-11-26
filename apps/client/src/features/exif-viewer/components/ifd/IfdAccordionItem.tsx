@@ -1,7 +1,11 @@
-import { exifIfdGetName, ExifTagInfo, type ExifContent } from "libexif-wasm";
-import { useLocale } from "react-aria/I18nProvider";
+import type { ExifContent } from "libexif-wasm";
 
-import { formatPlural } from "#utils/formatPlural";
+import {
+  getExifIfdName,
+  getExifTagDescription,
+  getExifTagTitle,
+} from "#lib/exif/labels";
+import { m } from "#paraglide/messages";
 import {
   AccordionItem,
   AccordionHeader,
@@ -22,8 +26,6 @@ import {
 import { focusRing } from "@exifi/ui/utils/focusRing";
 
 const IfdAccordionItem = ({ exifContent }: { exifContent: ExifContent }) => {
-  const { locale } = useLocale();
-
   const ifdName = exifContent.ifd;
   if (ifdName === null) {
     throw new Error("Invalid IFD");
@@ -35,13 +37,9 @@ const IfdAccordionItem = ({ exifContent }: { exifContent: ExifContent }) => {
     <AccordionItem id={ifdName} isDisabled={isEmpty}>
       <AccordionHeader>
         <div className="flex gap-2 text-sm in-data-[disabled=true]:opacity-50">
-          {exifIfdGetName(ifdName)}
+          {getExifIfdName(ifdName)}
           <Badge variant="muted">
-            {formatPlural(
-              exifContent.count,
-              { one: " tag", other: " tags" },
-              locale,
-            )}
+            {m.viewer_tag_count({ count: exifContent.count })}
           </Badge>
         </div>
       </AccordionHeader>
@@ -53,11 +51,8 @@ const IfdAccordionItem = ({ exifContent }: { exifContent: ExifContent }) => {
               .filter((entry) => entry.tag !== null)
               .map((entry) => {
                 const tag = entry.tag!;
-                const title = ExifTagInfo.getTitleInIfd(tag, ifdName);
-                const description = ExifTagInfo.getDescriptionInIfd(
-                  tag,
-                  ifdName,
-                );
+                const title = getExifTagTitle(tag, ifdName);
+                const description = getExifTagDescription(tag, ifdName);
 
                 return (
                   <DataListItem className="flex-col! md:flex-row!" key={tag}>

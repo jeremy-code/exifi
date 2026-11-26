@@ -15,7 +15,10 @@
     "test": "vitest --run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
-    "codegen:openapi": "openapi-ts"
+    "inlang-check": "inlang check --project ./project.inlang --source ./src",
+    "generate-exif-messages": "oxnode ./scripts/generate-exif-messages",
+    "codegen:openapi": "openapi-ts",
+    "codegen:paraglide": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide"
   },
   "dependencies": {
     "@dnd-kit/dom": "^0.5.3",
@@ -26,6 +29,7 @@
     "@exifi/schemas": "workspace:*",
     "@exifi/ui": "workspace:*",
     "@exifi/utils": "workspace:*",
+    "@inlang/paraglide-js-react": "^1.0.4",
     "@internationalized/date": "^3.12.4",
     "@internationalized/number": "^3.6.9",
     "@noble/hashes": "^2.4.0",
@@ -66,6 +70,12 @@
   "devDependencies": {
     "@exifi/test-fixtures": "workspace:*",
     "@hey-api/openapi-ts": "^0.99.0",
+    "@inlang/cli": "^3.7.1",
+    "@inlang/paraglide-js": "^3.2.2",
+    "@inlang/plugin-m-function-matcher": "^2.4.4",
+    "@inlang/plugin-message-format": "^4.6.2",
+    "@oxc-node/cli": "^1.0.2",
+    "@react-aria/optimize-locales-plugin": "^2.1.0",
     "@serwist/vite": "^9.6.0",
     "@tailwindcss/vite": "^4.3.5",
     "@tanstack/devtools-vite": "^0.8.7",

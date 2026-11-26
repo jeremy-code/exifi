@@ -2,13 +2,12 @@ import { useLayoutEffect, useRef, type CSSProperties } from "react";
 
 import { flexRender, useTable } from "@tanstack/react-table";
 import { getExifTagTable } from "libexif-wasm";
-import { useLocale } from "react-aria/I18nProvider";
 
 import { ColumnResizer } from "#components/table/ColumnResizer";
 import { ExpandRows } from "#components/table/ExpandRows";
 import { SortingHandlerToggle } from "#components/table/SortingHandlerToggle";
 import { features } from "#components/table/tableFeatures";
-import { formatPlural } from "#utils/formatPlural";
+import { m } from "#paraglide/messages";
 import { Badge } from "@exifi/ui/components/Badge";
 import {
   Table,
@@ -25,7 +24,6 @@ import { columns } from "./components/table/columns";
 const exifTagTable = getExifTagTable();
 
 const ExifTagTable = () => {
-  const { locale } = useLocale();
   const table = useTable({
     features,
     columns,
@@ -140,14 +138,7 @@ const ExifTagTable = () => {
                           cell.getContext(),
                         )}
                         <Badge variant="muted">
-                          {formatPlural(
-                            row.subRows.length,
-                            {
-                              one: " tag",
-                              other: " tags",
-                            },
-                            locale,
-                          )}
+                          {m.viewer_tag_count({ count: row.subRows.length })}
                         </Badge>
                       </span>
                     </ExpandRows>

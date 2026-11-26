@@ -1,8 +1,16 @@
 import type { ReactNode, RefObject } from "react";
 
+import { Accessibility } from "@dnd-kit/dom";
 import { RestrictToElement } from "@dnd-kit/dom/modifiers";
-import { DragDropProvider, type DragEndEvent } from "@dnd-kit/react";
+import {
+  DragDropProvider,
+  type DragEndEvent,
+  type DragOverEvent,
+  type DragStartEvent,
+} from "@dnd-kit/react";
 import { isSortable } from "@dnd-kit/react/sortable";
+
+import { m } from "#paraglide/messages";
 
 type SortableListProps = {
   onSortEnd?: (event: { initialIndex: number; index: number }) => void;
@@ -37,6 +45,44 @@ const SortableList = ({
         ...(containerRef
           ? [RestrictToElement.configure({ element: containerRef.current })]
           : []),
+      ]}
+      plugins={(defaults) => [
+        ...defaults.filter((plugin) => plugin !== Accessibility),
+        Accessibility.configure({
+          screenReaderInstructions: { draggable: m.editor_dnd_instructions() },
+          announcements: {
+            dragstart: ({ operation: { source } }: DragStartEvent) =>
+              source ? m.editor_dnd_picked_up({ id: source.id }) : undefined,
+            dragover: ({ operation: { source, target } }: DragOverEvent) => {
+              if (!source || source.id === target?.id) {
+                return undefined;
+              }
+              return target
+                ? m.editor_dnd_moved_over({
+                    id: source.id,
+                    targetId: target.id,
+                  })
+                : m.editor_dnd_no_longer_over({ id: source.id });
+            },
+            dragend: ({
+              operation: { source, target },
+              canceled,
+            }: DragEndEvent) => {
+              if (!source) {
+                return undefined;
+              }
+              if (canceled) {
+                return m.editor_dnd_cancelled({ id: source.id });
+              }
+              return target
+                ? m.editor_dnd_dropped_over({
+                    id: source.id,
+                    targetId: target.id,
+                  })
+                : m.editor_dnd_dropped({ id: source.id });
+            },
+          },
+        }),
       ]}
       onDragEnd={handleDragEnd}
     >

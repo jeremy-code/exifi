@@ -4,6 +4,7 @@ import type { MenuTriggerProps } from "react-aria-components/Menu";
 
 import { useFile } from "#contexts/FileContext";
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
+import { m } from "#paraglide/messages";
 import { getCurrentPosition } from "#utils/getCurrentPosition";
 import { addImageUniqueId } from "@exifi/core/exif/actions/addImageUniqueId";
 import { updateDateAndTimeDigitized } from "@exifi/core/exif/actions/updateDateAndTimeDigitized";
@@ -22,12 +23,12 @@ const ExifMenu = (props: ExifMenuProps) => {
 
   return (
     <MenuTrigger {...props}>
-      <Button aria-label="Actions" size="icon" variant="outline">
+      <Button aria-label={m.editor_actions()} size="icon" variant="outline">
         <Ellipsis className="size-4" />
       </Button>
       <Menu>
         <MenuItem onAction={() => act((exifData) => exifData.fix())}>
-          Fix
+          {m.editor_menu_fix()}
         </MenuItem>
         <MenuItem
           onAction={async () => {
@@ -42,7 +43,7 @@ const ExifMenu = (props: ExifMenuProps) => {
             act((exifData) => updatePixelDimensions(exifData, imageDimensions));
           }}
         >
-          Add image dimensions
+          {m.editor_menu_add_image_dimensions()}
         </MenuItem>
         <MenuItem
           onAction={async () => {
@@ -52,19 +53,19 @@ const ExifMenu = (props: ExifMenuProps) => {
             );
           }}
         >
-          Set Exif to current GPS position
+          {m.editor_menu_set_gps_position()}
         </MenuItem>
         <MenuItem
           onAction={() =>
             act((exifData) => updateDateAndTimeDigitized(exifData))
           }
         >
-          Set Date and Time Digitized to current time
+          {m.editor_menu_set_date_time_digitized()}
         </MenuItem>
         <MenuItem
           onAction={() => act((exifData) => addImageUniqueId(exifData))}
         >
-          Add image unique ID
+          {m.editor_menu_add_unique_id()}
         </MenuItem>
         <MenuItem
           onAction={async () => {
@@ -77,9 +78,9 @@ const ExifMenu = (props: ExifMenuProps) => {
                 if (exifData.data.length > 0) {
                   toastQueue.add(
                     {
-                      title: "Thumbnail already exists",
+                      title: m.editor_toast_thumbnail_exists_title(),
                       description:
-                        "A thumbnail already exists in the Exif metadata for this image",
+                        m.editor_toast_thumbnail_exists_description(),
                       toastProps: { color: "gray", variant: "surface" },
                     },
                     { timeout: 5_000 /* 5 seconds */ },
@@ -90,7 +91,7 @@ const ExifMenu = (props: ExifMenuProps) => {
             } catch (e) {
               toastQueue.add(
                 {
-                  title: "Unable to create thumbnail",
+                  title: m.editor_toast_thumbnail_failed_title(),
                   description: e instanceof Error ? e.message : undefined,
                   toastProps: { color: "red" },
                 },
@@ -99,7 +100,7 @@ const ExifMenu = (props: ExifMenuProps) => {
             }
           }}
         >
-          Add image thumbnail
+          {m.editor_menu_add_thumbnail()}
         </MenuItem>
       </Menu>
     </MenuTrigger>

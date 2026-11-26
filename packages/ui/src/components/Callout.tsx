@@ -5,6 +5,8 @@ import { Text, type TextProps } from "react-aria-components/Text";
 import { twMerge } from "tailwind-merge";
 import { tv, type VariantProps } from "tailwind-variants";
 
+import { useLocalizedUiStringFormatter } from "../hooks/useLocalizedStringFormatter";
+
 const calloutVariants = tv({
   base: "mx-auto flex items-center gap-4 rounded p-4",
   variants: {
@@ -40,10 +42,12 @@ const Callout = ({
   variant,
   ...props
 }: CalloutProps) => {
+  const stringFormatter = useLocalizedUiStringFormatter();
+
   return (
     <div className={calloutVariants({ className, variant, color })} {...props}>
       <div className="w-8">
-        <TriangleAlert aria-label="Alert" />
+        <TriangleAlert aria-label={stringFormatter.format("callout.alert")} />
       </div>
       {children}
     </div>

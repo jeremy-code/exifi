@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { NotFound } from "#components/misc/NotFound";
+import { m } from "#paraglide/messages";
 import { seo } from "#utils/seo";
 
 // Not an actual route, only here so TanStack Start can find this route, so it
@@ -13,7 +14,7 @@ const NotFoundComponent = () => {
 const Route = createFileRoute("/404")({
   head: () => ({
     meta: seo({
-      title: "Not Found | exifi",
+      title: m.layout_seo_not_found_title(),
       noindex: true,
     }),
   }),

@@ -5,6 +5,7 @@ import { Marker } from "react-leaflet";
 import { GpsPopup } from "#components/map/GpsPopup";
 import { Map } from "#components/map/Map";
 import { icon } from "#components/map/icon";
+import { m } from "#paraglide/messages";
 import { getLatLngFromExif } from "@exifi/core/exif/gps/getLatLngFromExif";
 
 type ExifGpsMapProps = {
@@ -16,7 +17,7 @@ const ExifGpsMap = ({ exifDataGps }: ExifGpsMapProps) => {
 
   return (
     <Map className="h-120 rounded" center={coordinate}>
-      <Marker icon={icon} position={coordinate}>
+      <Marker alt={m.viewer_map_marker_alt()} icon={icon} position={coordinate}>
         <GpsPopup coordinate={coordinate} />
       </Marker>
     </Map>

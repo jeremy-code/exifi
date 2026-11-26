@@ -1,6 +1,7 @@
 import { useBlocker } from "@tanstack/react-router";
 
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
+import { m } from "#paraglide/messages";
 import { Button } from "@exifi/ui/components/Button";
 import {
   Dialog,
@@ -32,19 +33,20 @@ const UnsavedDialog = () => {
           "max-w-[min(calc(var(--visual-viewport-width)-2rem),--spacing(100))]",
       }}
     >
-      <Dialog role="alertdialog" aria-description="Unsaved Exif data dialog">
+      <Dialog
+        role="alertdialog"
+        aria-description={m.editor_unsaved_dialog_description()}
+      >
         <DialogHeader>
-          <DialogTitle>Unsaved Exif data</DialogTitle>
+          <DialogTitle>{m.editor_unsaved_dialog_title()}</DialogTitle>
           <DialogDescription>
-            {
-              "This page is asking you to confirm that you want to leave — information you\u2019ve entered may not be saved."
-            }
+            {m.editor_unsaved_dialog_body()}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button onPress={reset}>Stay on page</Button>
+          <Button onPress={reset}>{m.editor_unsaved_stay()}</Button>
           <Button variant="ghost" onPress={proceed}>
-            Leave page
+            {m.editor_unsaved_leave()}
           </Button>
         </DialogFooter>
       </Dialog>

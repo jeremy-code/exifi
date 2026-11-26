@@ -2,6 +2,7 @@ import type { ComponentPropsWithRef } from "react";
 
 import { cn } from "tailwind-variants";
 
+import { m } from "#paraglide/messages";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { getValueFromEntryObject } from "@exifi/core/exif/utils/getValueFromEntryObject";
 
@@ -22,7 +23,7 @@ const ExifEntryValidity = ({
       className={cn({ "text-fg-muted italic": isEmptyString }, className)}
       {...props}
     >
-      {!isEmptyString ? expectedValue : "(empty)"}
+      {!isEmptyString ? expectedValue : m.editor_validity_empty()}
     </span>
   );
 };

@@ -30,6 +30,62 @@ for = "/manifest.json"
 [headers.values]
 Cache-Control = "public, max-age=0, must-revalidate"
 
+[[redirects]]
+from = "/*"
+to = "/de/:splat"
+status = 301
+force = true
+conditions = { Language = ["de"] }
+
+[[redirects]]
+from = "/*"
+to = "/es/:splat"
+status = 301
+force = true
+conditions = { Language = ["es"] }
+
+[[redirects]]
+from = "/*"
+to = "/fr/:splat"
+status = 301
+force = true
+conditions = { Language = ["fr"] }
+
+[[redirects]]
+from = "/*"
+to = "/ja/:splat"
+status = 301
+force = true
+conditions = { Language = ["ja"] }
+
+[[redirects]]
+from = "/*"
+to = "/de/404/index.html"
+status = 404
+# If from is "/404", prevent it from redirecting to "/404/index.html"
+force = true
+conditions = { Language = ["de"] }
+
+[[redirects]]
+from = "/*"
+to = "/es/404/index.html"
+status = 404
+force = true
+conditions = { Language = ["es"] }
+
+[[redirects]]
+from = "/*"
+to = "/fr/404/index.html"
+status = 404
+conditions = { Language = ["fr"] }
+
+[[redirects]]
+from = "/*"
+to = "/ja/404/index.html"
+status = 404
+force = true
+conditions = { Language = ["ja"] }
+
 # https://docs.netlify.com/manage/routing/redirects/redirect-options/#custom-404-page-handling
 [[redirects]]
 from = "/*"

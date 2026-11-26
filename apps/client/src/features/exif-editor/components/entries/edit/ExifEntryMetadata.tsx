@@ -1,10 +1,4 @@
-import {
-  ExifTagInfo,
-  exifIfdGetName,
-  exifFormatGetName,
-  exifFormatGetSize,
-  exifSupportLevelGetName,
-} from "libexif-wasm";
+import { ExifTagInfo, exifFormatGetSize } from "libexif-wasm";
 import { ChevronDown } from "lucide-react";
 import {
   Disclosure,
@@ -12,12 +6,17 @@ import {
   DisclosurePanel,
   Heading,
 } from "react-aria-components/Disclosure";
-import { useLocale } from "react-aria/I18nProvider";
 import { useNumberFormatter } from "react-aria/useNumberFormatter";
 
-import { formatPlural } from "#utils/formatPlural";
+import { getEntryLabel } from "#features/exif-editor/utils/getEntryLabel";
+import {
+  getExifFormatName,
+  getExifIfdName,
+  getExifSupportLevelName,
+  getExifTagDescription,
+} from "#lib/exif/labels";
+import { m } from "#paraglide/messages";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
-import { getEntryObjectLabel } from "@exifi/core/exif/utils/getEntryObjectLabel";
 import { Button } from "@exifi/ui/components/Button";
 import {
   DataList,
@@ -34,7 +33,6 @@ const ExifEntryMetadata = ({
   exifEntryObject,
   ...props
 }: ExifEntryMetadataProps) => {
-  const { locale } = useLocale();
   const byteNumberFormatter = useNumberFormatter({
     style: "unit",
     unit: "byte",
@@ -45,13 +43,17 @@ const ExifEntryMetadata = ({
     <Disclosure {...props}>
       <DataList orientation="horizontal" variant="bold">
         <DataListItem>
-          <DataListItemLabel className="min-w-50">Tag</DataListItemLabel>
+          <DataListItemLabel className="min-w-50">
+            {m.editor_metadata_tag()}
+          </DataListItemLabel>
           <DataListItemValue>
-            {getEntryObjectLabel(exifEntryObject)}
+            {getEntryLabel(exifEntryObject)}
           </DataListItemValue>
         </DataListItem>
         <DataListItem>
-          <DataListItemLabel className="min-w-50">Value</DataListItemLabel>
+          <DataListItemLabel className="min-w-50">
+            {m.editor_metadata_value()}
+          </DataListItemLabel>
           <DataListItemValue>
             {exifEntryObject.formattedValue}
           </DataListItemValue>
@@ -60,10 +62,10 @@ const ExifEntryMetadata = ({
           <DataList>
             <DataListItem>
               <DataListItemLabel className="min-w-50">
-                Tag description
+                {m.editor_metadata_tag_description()}
               </DataListItemLabel>
               <DataListItemValue>
-                {ExifTagInfo.getDescriptionInIfd(
+                {getExifTagDescription(
                   exifEntryObject.tag,
                   exifEntryObject.ifd,
                 )}
@@ -71,18 +73,18 @@ const ExifEntryMetadata = ({
             </DataListItem>
             <DataListItem>
               <DataListItemLabel className="min-w-50">
-                Image File Directory
+                {m.editor_metadata_ifd()}
               </DataListItemLabel>
               <DataListItemValue>
-                {exifIfdGetName(exifEntryObject.ifd)}
+                {getExifIfdName(exifEntryObject.ifd)}
               </DataListItemValue>
             </DataListItem>
             <DataListItem>
               <DataListItemLabel className="min-w-50">
-                Support level
+                {m.editor_metadata_support_level()}
               </DataListItemLabel>
               <DataListItemValue>
-                {exifSupportLevelGetName(
+                {getExifSupportLevelName(
                   ExifTagInfo.getSupportLevelInIfd(
                     exifEntryObject.tag,
                     exifEntryObject.ifd,
@@ -91,25 +93,27 @@ const ExifEntryMetadata = ({
               </DataListItemValue>
             </DataListItem>
             <DataListItem>
-              <DataListItemLabel className="min-w-50">Format</DataListItemLabel>
+              <DataListItemLabel className="min-w-50">
+                {m.editor_metadata_format()}
+              </DataListItemLabel>
               <DataListItemValue>
-                {`${exifFormatGetName(exifEntryObject.format)} (${byteNumberFormatter.format(
-                  exifFormatGetSize(exifEntryObject.format),
-                )})`}
+                {m.editor_metadata_format_value({
+                  format: getExifFormatName(exifEntryObject.format),
+                  size: byteNumberFormatter.format(
+                    exifFormatGetSize(exifEntryObject.format),
+                  ),
+                })}
               </DataListItemValue>
             </DataListItem>
             <DataListItem>
               <DataListItemLabel className="min-w-50">
-                Components
+                {m.editor_metadata_components()}
               </DataListItemLabel>
               <DataListItemValue>
-                {`${formatPlural(
-                  exifEntryObject.components,
-                  { one: " component", other: " components" },
-                  locale,
-                )} (${byteNumberFormatter.format(
-                  exifEntryObject.size,
-                )} in total)`}
+                {m.editor_metadata_components_value({
+                  count: exifEntryObject.components,
+                  size: byteNumberFormatter.format(exifEntryObject.size),
+                })}
               </DataListItemValue>
             </DataListItem>
           </DataList>
@@ -123,10 +127,10 @@ const ExifEntryMetadata = ({
         >
           <ChevronDown className="size-4 transition-transform group-aria-expanded/collapsible-trigger:rotate-180" />
           <span className="group-aria-[expanded=false]/collapsible-trigger:hidden">
-            See less
+            {m.editor_metadata_see_less()}
           </span>
           <span className="group-aria-expanded/collapsible-trigger:hidden">
-            See more
+            {m.editor_metadata_see_more()}
           </span>
         </Button>
       </Heading>

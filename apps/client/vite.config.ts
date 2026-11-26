@@ -1,3 +1,5 @@
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
+import optimizeLocales from "@react-aria/optimize-locales-plugin";
 import { serwist } from "@serwist/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
@@ -8,6 +10,8 @@ import { Features } from "lightningcss";
 import { defineConfig } from "vite";
 import { analyzer } from "vite-bundle-analyzer";
 import * as z from "zod";
+
+import inlangSettings from "./project.inlang/settings.json" with { type: "json" };
 
 const isAnalyzerEnabled = z
   .stringbool()
@@ -23,8 +27,32 @@ const url = z
   )
   .parse(process.env.URL);
 
+const localesWithoutBaseLocale = inlangSettings.locales.filter(
+  (locale) => locale !== inlangSettings.baseLocale,
+);
+
 const viteConfig = defineConfig({
   plugins: [
+    paraglideVitePlugin({
+      project: "./project.inlang",
+      outdir: "./src/paraglide",
+      strategy: ["url", "baseLocale"],
+      isServer: "import.meta.env.SSR",
+      emitTsDeclarations: true,
+      urlPatterns: [
+        {
+          pattern: "/:path(.*)?",
+          localized: [
+            ...localesWithoutBaseLocale.map<[string, string]>((locale) => [
+              locale,
+              `/${locale}/:path(.*)?`,
+            ]),
+            [inlangSettings.baseLocale, "/:path(.*)?"],
+          ],
+        },
+      ],
+      lazyUrlPatternPolyfill: true,
+    }),
     tanstackStart({
       router: {
         generatedRouteTree: "generated/routeTree.gen.ts",
@@ -35,7 +63,17 @@ const viteConfig = defineConfig({
         crawlLinks: false,
         autoSubfolderIndex: true,
       },
-      pages: [{ path: "/404", sitemap: { exclude: true } }],
+      pages: [
+        { path: "/404", sitemap: { exclude: true } },
+        ...localesWithoutBaseLocale.flatMap((locale) =>
+          ["/", "/editor", "/viewer", "/status", "/tags", "/404"].map(
+            (path) => ({
+              path: `/${locale}${path}`,
+              sitemap: { exclude: path === "/404" },
+            }),
+          ),
+        ),
+      ],
       sitemap: {
         enabled: true,
         host: url,
@@ -43,6 +81,9 @@ const viteConfig = defineConfig({
     }),
     react({ compiler: true }),
     tailwindcss({ optimize: { minify: true } }),
+    optimizeLocales.vite({
+      locales: ["en-US", "de-DE", "es-ES", "fr-FR", "ja-JP"],
+    }),
     fontless(),
     devtools(),
     serwist({

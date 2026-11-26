@@ -2,6 +2,7 @@ import { Outlet, createFileRoute } from "@tanstack/react-router";
 import * as z from "zod";
 
 import { FileTabs } from "#components/tabs/FileTabs";
+import { m } from "#paraglide/messages";
 import { useFileTabsStore } from "#stores/fileTabsStore";
 import { getFileFromResponse } from "#utils/getFileFromResponse";
 import { toastQueue } from "@exifi/ui/components/Toast";
@@ -44,8 +45,11 @@ const Route = createFileRoute("/_app")({
         if (!(error instanceof DOMException && error.name === "AbortError")) {
           toastQueue.add(
             {
-              title: "Fetching from URL failed",
-              description: `Fetching ${deps.url} failed with error ${error.message}.`,
+              title: m.layout_app_fetch_failed_title(),
+              description: m.layout_app_fetch_failed_description({
+                url: deps.url,
+                message: error.message,
+              }),
               toastProps: { color: "red" },
             },
             { timeout: 5_000 /* 5 seconds */ },

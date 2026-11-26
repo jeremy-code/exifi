@@ -1,0 +1,78 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "files_unknown": "Unbekannt",
+  "files_does_not_exist": "Nicht vorhanden",
+  "files_image_dimensions": "{width} px × {height} px",
+  "files_dropzone_remove_file": "Datei entfernen",
+  "files_dropzone_upload_file_icon": "Datei hochladen",
+  "files_dropzone_drop_here": "Datei hier ablegen",
+  "files_dropzone_drag_or_upload": "Datei hierher ziehen oder {#uploadButton}Datei hochladen{/uploadButton}",
+  "files_url_input_label": "Datei-URL",
+  "files_url_input_invalid_url": "Ungültige URL",
+  "files_url_input_upload": "Hochladen",
+  "files_url_input_error_title": "Abruf von URL fehlgeschlagen",
+  "files_url_input_error_description": "Der Abruf von {url} ist mit dem Fehler {message} fehlgeschlagen.",
+  "files_file_info_title": "Dateiinformationen",
+  "files_file_info_preview_alt": "Vorschau von {fileName}",
+  "files_file_info_file": "Datei",
+  "files_file_info_file_size": "Dateigröße",
+  "files_file_info_last_modified": "Zuletzt geändert",
+  "files_file_info_dimensions": "Abmessungen",
+  "files_file_info_hash": "Datei-Hash (SHA-256)",
+  "files_exif_info_title": "Exif-Informationen",
+  "files_exif_info_byte_order": "Byte-Reihenfolge",
+  "files_exif_byte_order": [
+    {
+      "declarations": ["input byteOrder"],
+      "selectors": ["byteOrder"],
+      "match": {
+        "byteOrder=MOTOROLA": "Big-Endian",
+        "byteOrder=INTEL": "Little-Endian",
+        "byteOrder=*": "Unbekannt"
+      }
+    }
+  ],
+  "files_exif_info_data_type": "Datentyp",
+  "files_exif_info_makernote": "Makernote",
+  "files_exif_info_makernote_entries": [
+    {
+      "declarations": ["input count", "local countPlural = count: plural"],
+      "selectors": ["countPlural"],
+      "match": {
+        "countPlural=one": "{count} Eintrag",
+        "countPlural=other": "{count} Einträge"
+      }
+    }
+  ],
+  "files_exif_info_makernote_unable_to_parse": "Nicht auswertbar",
+  "files_exif_info_thumbnail": "Miniaturbild",
+  "files_exif_info_number_of_entries": "Anzahl der Einträge",
+  "files_exif_data_type": [
+    {
+      "declarations": ["input dataType"],
+      "selectors": ["dataType"],
+      "match": {
+        "dataType=UNCOMPRESSED_CHUNKY": "Unkomprimiert (Chunky)",
+        "dataType=UNCOMPRESSED_PLANAR": "Unkomprimiert (Planar)",
+        "dataType=UNCOMPRESSED_YCC": "Unkomprimiert (YCC)",
+        "dataType=COMPRESSED": "Komprimiert",
+        "dataType=UNKNOWN": "Unbekannt",
+        "dataType=*": "Unbekannt"
+      }
+    }
+  ],
+  "files_exif_date_time": "Datum und Uhrzeit",
+  "files_exif_date_time_original": "Datum und Uhrzeit (Original)",
+  "files_exif_date_time_digitized": "Datum und Uhrzeit (Digitalisierung)",
+  "files_exif_date_time_gps": "Datum und Uhrzeit (GPS)",
+  "files_tab_unnamed_file": "Unbenannte Datei",
+  "files_tab_new_tab": "Neuer Tab",
+  "files_tab_close": "Tab schließen",
+  "files_tabs_add_tab": "Neuer Tab",
+  "files_tab_panel_heading": "Datei hochladen, um Exif-Metadaten anzuzeigen",
+  "files_tab_panel_demo": "Für eine kurze Demo {#demoLink}hier klicken{/demoLink}.",
+  "files_tab_panel_or": "ODER",
+  "files_dialog_unsaved_changes_title": "Nicht gespeicherte Änderungen",
+  "files_dialog_unsaved_changes_description": "Es gibt nicht gespeicherte Änderungen, die beim Fortfahren verloren gehen.",
+  "files_dropzone_input_label": "Datei-Upload"
+}

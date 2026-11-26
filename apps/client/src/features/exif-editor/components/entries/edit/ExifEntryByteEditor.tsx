@@ -14,6 +14,8 @@ import {
 } from "react-aria-components/Disclosure";
 
 import { useExifEntryDraftContext } from "#features/exif-editor/contexts/ExifEntryDraftContext";
+import { getEntryLabel } from "#features/exif-editor/utils/getEntryLabel";
+import { m } from "#paraglide/messages";
 import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
 import { XP_TAGS } from "@exifi/core/exif/xp/constants";
 import { Button } from "@exifi/ui/components/Button";
@@ -66,10 +68,10 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
             variant="outline"
           >
             <span className="group-aria-[expanded=false]/collapsible-trigger:hidden">
-              Close byte editor
+              {m.editor_byte_editor_close()}
             </span>
             <span className="group-aria-expanded/collapsible-trigger:hidden">
-              Open byte editor
+              {m.editor_byte_editor_open()}
             </span>
           </Button>
         </Heading>
@@ -96,7 +98,10 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
 
                       setDraft(newEntryValue);
                     }}
-                    aria-label={`${exifEntryObject.tag} component ${index + 1}`}
+                    aria-label={m.editor_byte_editor_component_label({
+                      label: getEntryLabel(exifEntryObject),
+                      index: index + 1,
+                    })}
                   />
                 ))}
               </div>
@@ -106,7 +111,7 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
                     <Button
                       size="icon"
                       onPress={() => setDraft((prev) => prev.slice(0, -1))}
-                      aria-label="Remove component"
+                      aria-label={m.editor_byte_editor_remove_component()}
                     >
                       <Minus className="size-4" />
                     </Button>
@@ -128,7 +133,7 @@ const ExifEntryByteEditor = (props: ExifEntryEditorProps) => {
                         return (prev as number[]).concat([0]);
                       });
                     }}
-                    aria-label="Add component"
+                    aria-label={m.editor_byte_editor_add_component()}
                   >
                     <Plus className="size-4" />
                   </Button>

@@ -1,6 +1,7 @@
 import type { DistributedPick } from "type-fest";
 
 import { getExifAddEditor } from "#features/exif-editor/editors/add/getExifAddEditor";
+import { m } from "#paraglide/messages";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { TextAreaField } from "@exifi/ui/components/TextAreaField";
 
@@ -24,8 +25,8 @@ const ExifEntryAddEditor = ({
   if (exifEntryObject.format === undefined) {
     return (
       <TextAreaField
-        placeholder="Enter a value"
-        label="Value"
+        placeholder={m.editor_add_value_placeholder()}
+        label={m.editor_field_value()}
         value={exifEntryObject.value}
         onChange={(value) => onValueChange(value)}
       />
@@ -38,7 +39,9 @@ const ExifEntryAddEditor = ({
 
   if (exifAddEditor === null) {
     throw new Error(
-      `A valid Exif Editor for adding this entry (${exifEntryObject.tag ?? "*empty*"}) was not found.`,
+      m.editor_add_error_no_editor({
+        tag: exifEntryObject.tag ?? m.editor_add_error_empty_tag(),
+      }),
     );
   }
 

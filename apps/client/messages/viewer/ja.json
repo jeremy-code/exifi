@@ -1,0 +1,51 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "viewer_tag_count": [
+    {
+      "declarations": ["input count", "local countPlural = count: plural"],
+      "selectors": ["countPlural"],
+      "match": {
+        "countPlural=one": "{count} 個のタグ",
+        "countPlural=other": "{count} 個のタグ"
+      }
+    }
+  ],
+  "viewer_gps_map_error": "画像の EXIF メタデータに GPS IFD が見つかりましたが、有効な経度・緯度の座標が見つかりませんでした。",
+  "viewer_no_exif_title": "Exif 情報",
+  "viewer_no_exif_body": "このファイルには Exif データが見つかりませんでした。{#editorLink}エディターで開いて{/editorLink}追加しますか?",
+  "viewer_makernote_title": "メーカーノート",
+  "viewer_makernote_entry_fallback_title": "ID {id} ({index})",
+  "viewer_tags_column_tag": "タグ",
+  "viewer_tags_column_name": "名前",
+  "viewer_tags_column_support_level": "サポートレベル",
+  "viewer_tags_column_ifd_0": "IFD 0",
+  "viewer_tags_column_ifd_1": "IFD 1",
+  "viewer_tags_column_exif": "EXIF",
+  "viewer_tags_column_gps": "GPS",
+  "viewer_tags_column_interop": "相互運用性",
+  "viewer_table_expand": "展開",
+  "viewer_table_collapse": "折りたたむ",
+  "viewer_table_resizer": "サイズ変更ハンドル",
+  "viewer_table_resizer_value": [
+    {
+      "declarations": ["input width", "local widthPlural = width: plural"],
+      "selectors": ["widthPlural"],
+      "match": {
+        "widthPlural=one": "{width} ピクセル",
+        "widthPlural=other": "{width} ピクセル"
+      }
+    }
+  ],
+  "viewer_tab_draggable_role": "ドラッグ可能",
+  "viewer_map_zoom_in": "拡大",
+  "viewer_map_zoom_out": "縮小",
+  "viewer_map_marker_alt": "位置マーカー",
+  "viewer_map_attribution": "© {openStreetMapLink} の寄稿者",
+  "viewer_map_unknown_location": "不明な場所",
+  "viewer_map_geo_uri": "geo URI",
+  "viewer_map_search_label": "住所を入力",
+  "viewer_map_search_clear": "検索をクリア",
+  "viewer_map_search_provider": "検索プロバイダー",
+  "viewer_map_leaflet_title": "インタラクティブな地図のためのJavaScriptライブラリ",
+  "viewer_english_callout": "残念ながら、このExifビューアーは英語ロケール向けにWebAssemblyへコンパイルされたバージョンのlibexifに基づいているため、ビューアー内の一部のテキストは英語で表示されます。ローカライズされたテキストでこの画像のExifデータを確認したい場合は、代わりに{#editorLink}エディター{/editorLink}をご利用ください。"
+}
