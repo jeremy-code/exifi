@@ -63,7 +63,17 @@ const viteConfig = defineConfig({
         crawlLinks: false,
         autoSubfolderIndex: true,
       },
-      pages: [{ path: "/404", sitemap: { exclude: true } }],
+      pages: [
+        { path: "/404", sitemap: { exclude: true } },
+        ...localesWithoutBaseLocale.flatMap((locale) =>
+          ["/", "/editor", "/viewer", "/status", "/tags", "/404"].map(
+            (path) => ({
+              path: `/${locale}${path}`,
+              sitemap: { exclude: path === "/404" },
+            }),
+          ),
+        ),
+      ],
       sitemap: {
         enabled: true,
         host: url,
