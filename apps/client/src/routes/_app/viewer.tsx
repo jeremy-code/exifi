@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { useFile } from "#contexts/FileContext";
 import { ExifViewer } from "#features/exif-viewer/ExifViewer";
+import { m } from "#paraglide/messages";
 import { seo } from "#utils/seo";
 
 const ViewerComponent = () => {
@@ -13,8 +14,8 @@ const ViewerComponent = () => {
 const Route = createFileRoute("/_app/viewer")({
   head: () => ({
     meta: seo({
-      title: "Viewer | exifi",
-      description: "Local-only Exif viewer for JPG images",
+      title: m.layout_seo_viewer_title(),
+      description: m.layout_seo_viewer_description(),
     }),
   }),
   component: ViewerComponent,

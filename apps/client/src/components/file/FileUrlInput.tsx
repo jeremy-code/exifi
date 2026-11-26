@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useListFormatter } from "react-aria/useListFormatter";
 import * as z from "zod";
 
+import { m } from "#paraglide/messages";
 import { useDropzoneStore } from "#stores/dropzoneStore";
 import { getFileFromResponse } from "#utils/getFileFromResponse";
 import { Button, type ButtonProps } from "@exifi/ui/components/Button";
@@ -46,8 +47,11 @@ const FileUrlInput = ({
     onError: (error, variables) => {
       toastQueue.add(
         {
-          title: "Fetching from URL failed",
-          description: `Fetching ${variables} failed with error ${error.message}.`,
+          title: m.files_url_input_error_title(),
+          description: m.files_url_input_error_description({
+            url: variables,
+            message: error.message,
+          }),
           toastProps: { color: "red" },
         },
         { timeout: 5_000 /* 5 seconds */ },
@@ -58,7 +62,7 @@ const FileUrlInput = ({
     defaultValues: { fileUrl: "" },
     validators: {
       onChange: z.strictObject({
-        fileUrl: z.httpUrl(),
+        fileUrl: z.httpUrl({ error: () => m.files_url_input_invalid_url() }),
       }),
     },
     // Using mutateAsync so form.isSubmitting is true while fetching
@@ -80,7 +84,7 @@ const FileUrlInput = ({
             <TextField
               isRequired
               type="url"
-              aria-label={field.name}
+              aria-label={m.files_url_input_label()}
               {...textFieldProps}
               className={composeTailwindRenderProps(
                 textFieldProps?.className,
@@ -129,7 +133,7 @@ const FileUrlInput = ({
                 className="data-[pending=true]:invisible"
                 data-pending={isSubmitting}
               >
-                Upload
+                {m.files_url_input_upload()}
               </span>
             </Button>
           )}

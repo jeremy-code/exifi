@@ -3,6 +3,7 @@ import { useDateFormatter } from "react-aria/useDateFormatter";
 
 import { parseDateTimeEntries } from "#lib/exif/parseDateTimeEntries";
 import { parseGpsDateTimeEntries } from "#lib/exif/parseGpsDateTimeEntries";
+import { m } from "#paraglide/messages";
 import {
   DataListItem,
   DataListItemLabel,
@@ -29,19 +30,19 @@ const ExifDateTimeInformation = ({
   const dateTimeItems = Array.from(
     [
       {
-        label: "Date and Time",
+        label: m.files_exif_date_time(),
         value: parseDateTimeEntries(exifData, "DATE_TIME"),
       },
       {
-        label: "Date and Time (Original)",
+        label: m.files_exif_date_time_original(),
         value: parseDateTimeEntries(exifData, "DATE_TIME_ORIGINAL"),
       },
       {
-        label: "Date and Time (Digitized)",
+        label: m.files_exif_date_time_digitized(),
         value: parseDateTimeEntries(exifData, "DATE_TIME_DIGITIZED"),
       },
       {
-        label: "Date and Time (GPS)",
+        label: m.files_exif_date_time_gps(),
         value: parseGpsDateTimeEntries(exifData),
       },
     ]

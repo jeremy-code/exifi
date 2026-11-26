@@ -1,13 +1,11 @@
 import { Suspense, useMemo, type ComponentPropsWithRef } from "react";
 
 import { imageDimensionsFromStream } from "image-dimensions";
-import { type ExifData } from "libexif-wasm";
-import { useLocale } from "react-aria/I18nProvider";
+import type { ExifData } from "libexif-wasm";
 import { cn } from "tailwind-variants";
 
 import { useObjectUrl } from "#hooks/useObjectUrl";
-import { formatPlural } from "#utils/formatPlural";
-import { DATA_TYPE_MAP } from "@exifi/core/exif/constants";
+import { m } from "#paraglide/messages";
 import {
   Card,
   CardContent,
@@ -22,7 +20,6 @@ import {
 } from "@exifi/ui/components/DataList";
 import { Link } from "@exifi/ui/components/Link";
 import { Skeleton } from "@exifi/ui/components/Skeleton";
-import { assertNever } from "@exifi/utils/assertNever";
 
 import { ExifDateTimeInformation } from "./ExifDateTimeInformation";
 import { ImageDimensions } from "./ImageDimensions";
@@ -56,12 +53,10 @@ const ExifInformation = ({
   className,
   ...props
 }: ExifInformationProps) => {
-  const { locale } = useLocale();
-
   return (
     <Card className={cn("max-w-full min-w-0", className)} {...props}>
       <CardHeader>
-        <CardTitle>Exif information</CardTitle>
+        <CardTitle>{m.files_exif_info_title()}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-3">
         <DataList
@@ -71,58 +66,49 @@ const ExifInformation = ({
         >
           <DataListItem>
             <DataListItemLabel className="min-w-[unset]">
-              Byte order
+              {m.files_exif_info_byte_order()}
             </DataListItemLabel>
             <DataListItemValue>
-              {exifData.byteOrder === "MOTOROLA"
-                ? "Big-endian"
-                : exifData.byteOrder === "INTEL"
-                  ? "Little-endian"
-                  : assertNever(exifData.byteOrder)}
+              {m.files_exif_byte_order({ byteOrder: exifData.byteOrder })}
             </DataListItemValue>
           </DataListItem>
           <DataListItem>
             <DataListItemLabel className="min-w-[unset]">
-              Data type
+              {m.files_exif_info_data_type()}
             </DataListItemLabel>
             <DataListItemValue>
-              {DATA_TYPE_MAP[exifData.dataType]}
+              {m.files_exif_data_type({ dataType: exifData.dataType })}
             </DataListItemValue>
           </DataListItem>
           <DataListItem>
             <DataListItemLabel className="min-w-[unset]">
-              Makernote
+              {m.files_exif_info_makernote()}
             </DataListItemLabel>
             <DataListItemValue>
               {exifData.mnoteData !== null
-                ? formatPlural(
-                    exifData.mnoteData.dataCount,
-                    {
-                      one: " entry",
-                      other: " entries",
-                    },
-                    locale,
-                  )
+                ? m.files_exif_info_makernote_entries({
+                    count: exifData.mnoteData.dataCount,
+                  })
                 : exifData.getEntry("MAKER_NOTE") !== null
-                  ? "Unable to parse"
-                  : "Does not exist"}
+                  ? m.files_exif_info_makernote_unable_to_parse()
+                  : m.files_does_not_exist()}
             </DataListItemValue>
           </DataListItem>
           <DataListItem>
             <DataListItemLabel className="min-w-[unset]">
-              Thumbnail
+              {m.files_exif_info_thumbnail()}
             </DataListItemLabel>
             <DataListItemValue>
               {exifData.data.length !== 0 ? (
                 <ExifThumbnailInformation thumbnail={exifData.data} />
               ) : (
-                "Does not exist"
+                m.files_does_not_exist()
               )}
             </DataListItemValue>
           </DataListItem>
           <DataListItem>
             <DataListItemLabel className="min-w-[unset]">
-              Number of entries
+              {m.files_exif_info_number_of_entries()}
             </DataListItemLabel>
             <DataListItemValue>
               {exifData.ifd.reduce(

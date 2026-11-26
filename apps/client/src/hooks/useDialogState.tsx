@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 import { useBlocker } from "@tanstack/react-router";
 import { useShallow } from "zustand/react/shallow";
 
+import { m } from "#paraglide/messages";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
 import { toastQueue } from "@exifi/ui/components/Toast";
 
@@ -26,9 +27,8 @@ const useDialogState = () => {
         setIsDialogBlocked(false);
         if (!nextIsOpen) {
           toastQueue.add({
-            title: "Unsaved changes",
-            description:
-              "You have unsaved changes that will be lost if you proceed.",
+            title: m.files_dialog_unsaved_changes_title(),
+            description: m.files_dialog_unsaved_changes_description(),
             toastProps: { color: "red" },
           });
         }

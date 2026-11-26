@@ -1,11 +1,13 @@
 import { lazy, Suspense } from "react";
 
+import { ParaglideMessage } from "@inlang/paraglide-js-react";
 import { CatchBoundary } from "@tanstack/react-router";
 import { ExifIfd } from "libexif-wasm";
 
 import { Link as RouterLink } from "#components/common/Link";
 import { ExifInformation } from "#components/file/ExifInformation";
 import { useExifData } from "#hooks/useExifData";
+import { m } from "#paraglide/messages";
 import {
   Card,
   CardContent,
@@ -18,18 +20,15 @@ import { IfdAccordion } from "./components/ifd/IfdAccordion";
 import { MakerNoteAccordion } from "./components/makernote/MakerNoteAccordion";
 
 const ExifGpsMap = lazy(() =>
-  import("./components/gps/ExifGpsMap").then((m) => ({
-    default: m.ExifGpsMap,
+  import("./components/gps/ExifGpsMap").then((mod) => ({
+    default: mod.ExifGpsMap,
   })),
 );
 
 // Otherwise, if declared in prop, Oxlint will error with
 // react(no-unstable-nested-components)
 const ExifGpsMapErrorComponent = () => (
-  <p className="text-fg-muted">
-    The GPS IFD was found in the image EXIF metadata, but valid longitude and
-    latitude coordinates were not found.
-  </p>
+  <p className="text-fg-muted">{m.viewer_gps_map_error()}</p>
 );
 
 const ExifViewerContent = ({ file }: { file: File }) => {
@@ -38,14 +37,19 @@ const ExifViewerContent = ({ file }: { file: File }) => {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Exif information</CardTitle>
+          <CardTitle>{m.viewer_no_exif_title()}</CardTitle>
         </CardHeader>
         <CardContent>
-          No Exif data was found in this file. Would you like to{" "}
-          <RouterLink underline to="/editor">
-            open it in the editor
-          </RouterLink>{" "}
-          to add some?
+          <ParaglideMessage
+            message={m.viewer_no_exif_body}
+            markup={{
+              editorLink: ({ children }) => (
+                <RouterLink underline to="/editor">
+                  {children}
+                </RouterLink>
+              ),
+            }}
+          />
         </CardContent>
       </Card>
     );

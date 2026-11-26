@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { useFile } from "#contexts/FileContext";
 import { ExifEditor } from "#features/exif-editor/ExifEditor";
+import { m } from "#paraglide/messages";
 import { seo } from "#utils/seo";
 
 const EditorComponent = () => {
@@ -13,8 +14,8 @@ const EditorComponent = () => {
 const Route = createFileRoute("/_app/editor")({
   head: () => ({
     meta: seo({
-      title: "Editor | exifi",
-      description: "Local-only Exif editor for JPG images",
+      title: m.layout_seo_editor_title(),
+      description: m.layout_seo_editor_description(),
     }),
   }),
   component: EditorComponent,

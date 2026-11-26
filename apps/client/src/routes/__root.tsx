@@ -16,6 +16,7 @@ import { Footer } from "#components/layout/Footer";
 import { Navbar } from "#components/layout/Navbar";
 import { AppProvider } from "#components/misc/AppProvider";
 import { LocaleProvider } from "#components/misc/LocaleProvider";
+import { m } from "#paraglide/messages";
 import {
   baseLocale,
   deLocalizeUrl,
@@ -92,15 +93,15 @@ const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       ...seo({
-        title: "exifi",
-        description: "Local Exif viewer and editor",
-        keywords: ["exif", "local", "image", "metadata", "editor", "viewer"],
+        title: m.layout_seo_site_title(),
+        description: m.layout_seo_site_description(),
+        keywords: m.layout_seo_site_keywords().split(","),
         image: {
           url: `${getBaseUrl()}/og-image.png`,
           type: "image/png",
           width: 1200,
           height: 600,
-          alt: "Jeremy Nguyen",
+          alt: m.layout_seo_og_image_alt(),
         },
       }),
     ],

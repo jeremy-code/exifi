@@ -5,8 +5,10 @@ import { RationalInput } from "#components/editor/RationalInput";
 import { UserCommentEncodingSelect } from "#components/editor/UserCommentEncodingSelect";
 import { UserCommentTextarea } from "#components/editor/UserCommentTextarea";
 import type { AddEditor } from "#features/exif-editor/editors/add/interfaces";
+import { getEntryLabel } from "#features/exif-editor/utils/getEntryLabel";
+import { getExifEnumValueLabel } from "#lib/exif/labels";
+import { m } from "#paraglide/messages";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
-import { getEntryObjectLabel } from "@exifi/core/exif/utils/getEntryObjectLabel";
 import { DateField } from "@exifi/ui/components/DateField";
 import { DatePicker } from "@exifi/ui/components/DatePicker";
 import { NumberField } from "@exifi/ui/components/NumberField";
@@ -24,15 +26,20 @@ const ExifEntryAddEditorFields = ({
   exifAddEditor,
   exifEntryObject,
 }: ExifEntryAddEditorFieldsProps) => {
-  const label = getEntryObjectLabel(exifEntryObject);
+  const label = getEntryLabel(exifEntryObject);
 
   switch (exifAddEditor.kind) {
     case "enum":
     case "enumAscii":
       return (
         <EnumSelect
-          placeholder={`Select a value for ${label}`}
-          label="Value"
+          placeholder={m.editor_select_value_for({ label })}
+          label={m.editor_field_value()}
+          getLabel={(key) =>
+            exifEntryObject.tag !== undefined
+              ? getExifEnumValueLabel(exifEntryObject.tag, key)
+              : key
+          }
           aria-label={label}
           {...exifAddEditor}
         />
@@ -41,7 +48,7 @@ const ExifEntryAddEditorFields = ({
       return (
         <DateField
           {...exifAddEditor}
-          label="Value"
+          label={m.editor_field_value()}
           onChange={(value) => {
             if (value !== null) {
               exifAddEditor.onValueChange(value);
@@ -52,7 +59,7 @@ const ExifEntryAddEditorFields = ({
     case "versionId":
       return (
         <>
-          <Label>Value</Label>
+          <Label>{m.editor_field_value()}</Label>
           <GpsTagVersionInput aria-label={label} {...exifAddEditor} />
         </>
       );
@@ -62,7 +69,7 @@ const ExifEntryAddEditorFields = ({
           {...exifAddEditor}
           aria-label={label}
           granularity="second"
-          label="Value"
+          label={m.editor_field_value()}
           onChange={(value) => {
             if (value !== null) {
               exifAddEditor.onValueChange(value);
@@ -75,7 +82,7 @@ const ExifEntryAddEditorFields = ({
         <TimeField
           granularity="second"
           {...exifAddEditor}
-          label="Value"
+          label={m.editor_field_value()}
           aria-label={label}
           onChange={(value) => {
             if (value !== null) {
@@ -88,7 +95,7 @@ const ExifEntryAddEditorFields = ({
     case "xp":
       return (
         <TextAreaField
-          label="Value"
+          label={m.editor_field_value()}
           aria-label={label}
           {...exifAddEditor}
           onChange={(value) => exifAddEditor.onValueChange(value)}
@@ -97,7 +104,7 @@ const ExifEntryAddEditorFields = ({
     case "exifVersion":
       return (
         <>
-          <Label>Value</Label>
+          <Label>{m.editor_field_value()}</Label>
           <ExifVersionInput
             inputProps={{ "aria-label": label }}
             {...exifAddEditor}
@@ -107,7 +114,7 @@ const ExifEntryAddEditorFields = ({
     case "rational":
       return (
         <>
-          <Label>Value</Label>
+          <Label>{m.editor_field_value()}</Label>
           <RationalInput
             aria-label={label}
             placeholderRational={{ numerator: 0, denominator: 1 }}
@@ -117,7 +124,10 @@ const ExifEntryAddEditorFields = ({
           {exifAddEditor.values.slice(1).map((value, index) => (
             <RationalInput
               key={index}
-              aria-label={`${label} ${index + 1}`}
+              aria-label={m.editor_entry_value_index_label({
+                label,
+                index: index + 1,
+              })}
               initialRational={value}
               setRational={(rational) =>
                 exifAddEditor.onValueChange(rational, index)
@@ -130,7 +140,7 @@ const ExifEntryAddEditorFields = ({
       return (
         <>
           <NumberField
-            label="Value"
+            label={m.editor_field_value()}
             aria-label={label}
             placeholder="0"
             value={exifAddEditor.values.at(0)}
@@ -138,7 +148,10 @@ const ExifEntryAddEditorFields = ({
           />
           {exifAddEditor.values.slice(1).map((value, index) => (
             <NumberField
-              aria-label={`${label} ${index + 1}`}
+              aria-label={m.editor_entry_value_index_label({
+                label,
+                index: index + 1,
+              })}
               key={index}
               value={value}
               onChange={(nextValue) =>
@@ -152,12 +165,12 @@ const ExifEntryAddEditorFields = ({
       return (
         <div className="flex flex-col gap-2">
           <UserCommentEncodingSelect
-            label="Encoding"
-            aria-label="Select a value for the user comment encoding"
+            label={m.editor_field_encoding()}
+            aria-label={m.editor_user_comment_encoding_label()}
             {...exifAddEditor}
           />
           <UserCommentTextarea
-            label="Value"
+            label={m.editor_field_value()}
             aria-label={label}
             {...exifAddEditor}
           />

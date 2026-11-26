@@ -2,6 +2,8 @@ import { formOptions } from "@tanstack/react-form";
 import type { Tag } from "libexif-wasm";
 import * as z from "zod";
 
+import { m } from "#paraglide/messages";
+import { getLocale } from "#paraglide/runtime";
 import { MAX_UINT32_VALUE } from "@exifi/core/exif/constants";
 import { parseCoordinateEntry } from "@exifi/core/exif/gps/parseCoordinateEntry";
 import type {
@@ -10,16 +12,28 @@ import type {
 } from "@exifi/core/exif/interfaces";
 import { toastQueue } from "@exifi/ui/components/Toast";
 
+const altitudeRangeMessage = () => {
+  const numberFormat = new Intl.NumberFormat(getLocale());
+  return m.editor_gps_altitude_range({
+    min: numberFormat.format(-MAX_UINT32_VALUE),
+    max: numberFormat.format(MAX_UINT32_VALUE),
+  });
+};
+
 const gpsFormSchema = z.strictObject({
   latitude: z
-    .number()
-    .min(-90, "Latitude must be at least -90 degrees.")
-    .max(90, "Latitude must be less than or equal to 90 degrees."),
+    .number({ error: () => m.editor_gps_latitude_required() })
+    .min(-90, { error: () => m.editor_gps_latitude_min() })
+    .max(90, { error: () => m.editor_gps_latitude_max() }),
   longitude: z
-    .number()
-    .min(-180, "Longitude must be at least 180 degrees.")
-    .max(180, "Longitude must be less than or equal to 180 degrees."),
-  altitude: z.number().min(-MAX_UINT32_VALUE).max(MAX_UINT32_VALUE).optional(),
+    .number({ error: () => m.editor_gps_longitude_required() })
+    .min(-180, { error: () => m.editor_gps_longitude_min() })
+    .max(180, { error: () => m.editor_gps_longitude_max() }),
+  altitude: z
+    .number({ error: () => m.editor_gps_altitude_invalid() })
+    .min(-MAX_UINT32_VALUE, { error: altitudeRangeMessage })
+    .max(MAX_UINT32_VALUE, { error: altitudeRangeMessage })
+    .optional(),
 });
 
 type GpsFieldValues = Partial<z.infer<typeof gpsFormSchema>>;
@@ -42,8 +56,8 @@ const getInitialGpsFieldValues = (
   ) {
     toastQueue.add(
       {
-        title: "No GPS Exif entries found",
-        description: "Initializing default values...",
+        title: m.editor_gps_toast_none_title(),
+        description: m.editor_gps_toast_none_description(),
         toastProps: { variant: "surface" },
       },
       { timeout: 5_000 /* 5 seconds */ },
@@ -67,7 +81,7 @@ const getInitialGpsFieldValues = (
     gpsEntries.LATITUDE?.format !== "RATIONAL" ||
     gpsEntries.LATITUDE_REF?.format !== "ASCII"
   ) {
-    throw new Error("Longitude or Latitude is in an invalid format");
+    throw new Error(m.editor_gps_error_invalid_coordinates());
   }
 
   const longitude =
@@ -86,7 +100,7 @@ const getInitialGpsFieldValues = (
       gpsEntries.ALTITUDE?.format !== "RATIONAL" ||
       gpsEntries.ALTITUDE_REF?.format !== "BYTE"
     ) {
-      throw new Error("Altitude is in an invalid format");
+      throw new Error(m.editor_gps_error_invalid_altitude());
     }
     const altitude =
       parseCoordinateEntry(

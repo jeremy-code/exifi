@@ -8,6 +8,7 @@ import { useShallow } from "zustand/react/shallow";
 
 import { useExifEditor } from "#features/exif-editor/contexts/ExifEditorContext";
 import { addGpsEntriesFormOptions } from "#features/exif-editor/forms/addGpsEntriesForm";
+import { m } from "#paraglide/messages";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
 import { getCurrentPosition } from "#utils/getCurrentPosition";
 import { updateLatLng } from "@exifi/core/exif/actions/updateLatLng";
@@ -87,7 +88,7 @@ const ExifEntryAddGpsForm = ({
           );
         }}
       >
-        Set latitude/longitude to current position
+        {m.editor_gps_set_current_position()}
       </Button>
       <gpsForm.Subscribe selector={(state) => state.values}>
         {(values) => (
@@ -112,7 +113,7 @@ const ExifEntryAddGpsForm = ({
           <gpsForm.Field name="latitude">
             {(field) => (
               <NumberField
-                label="Latitude"
+                label={m.editor_gps_latitude()}
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 minValue={-90}
@@ -143,7 +144,7 @@ const ExifEntryAddGpsForm = ({
           <gpsForm.Field name="longitude">
             {(field) => (
               <NumberField
-                label="Longitude"
+                label={m.editor_gps_longitude()}
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(value) => {
@@ -174,7 +175,7 @@ const ExifEntryAddGpsForm = ({
           <gpsForm.Field name="altitude">
             {(field) => (
               <NumberField
-                label="Altitude"
+                label={m.editor_gps_altitude()}
                 value={field.state.value}
                 onBlur={field.handleBlur}
                 onChange={(value) => {
@@ -204,7 +205,7 @@ const ExifEntryAddGpsForm = ({
                   className="data-[pending=true]:invisible"
                   data-pending={isSubmitting}
                 >
-                  Submit
+                  {m.editor_gps_submit()}
                 </span>
               </Button>
             )}

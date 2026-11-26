@@ -1,3 +1,4 @@
+import { m } from "#paraglide/messages";
 import { ENCODING_TO_HEADER_MAP } from "@exifi/core/exif/userComment/constants";
 import type {
   UserComment,
@@ -21,6 +22,7 @@ const UserCommentEncodingSelect = ({
       {...props}
       value={userComment?.encoding}
       values={Object.keys(ENCODING_TO_HEADER_MAP)}
+      getLabel={(val) => m.editor_user_comment_encoding({ encoding: val })}
       onValueChange={(value) => {
         if (value in ENCODING_TO_HEADER_MAP && userComment !== undefined) {
           onUserCommentChange?.({

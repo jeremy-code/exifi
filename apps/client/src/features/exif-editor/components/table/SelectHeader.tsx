@@ -1,6 +1,7 @@
 import { Subscribe, type HeaderContext } from "@tanstack/react-table";
 
 import type { Features } from "#components/table/tableFeatures";
+import { m } from "#paraglide/messages";
 import { Checkbox } from "@exifi/ui/components/Checkbox";
 
 import type { ExifTableRow } from "./columns";
@@ -24,6 +25,7 @@ const SelectHeader = ({ table }: HeaderContext<Features, ExifTableRow>) => {
       {(state) => (
         <Checkbox
           checkboxButtonProps={{ boxProps: { className: "mx-auto" } }}
+          aria-label={m.editor_table_select_all()}
           isSelected={state === true}
           isIndeterminate={state === "indeterminate"}
           onChange={(isSelected) => {

@@ -1,7 +1,6 @@
 import type { ExifMnoteData } from "libexif-wasm";
-import { useLocale } from "react-aria/I18nProvider";
 
-import { formatPlural } from "#utils/formatPlural";
+import { m } from "#paraglide/messages";
 import {
   AccordionItem,
   AccordionHeader,
@@ -26,18 +25,13 @@ const MakerNoteAccordionItem = ({
 }: {
   mnoteData: ExifMnoteData;
 }) => {
-  const { locale } = useLocale();
   return (
     <AccordionItem id="MAKERNOTE">
       <AccordionHeader>
         <div className="flex gap-2">
-          Makernote
+          {m.viewer_makernote_title()}
           <Badge variant="muted">
-            {formatPlural(
-              mnoteData.dataCount,
-              { one: " tag", other: " tags" },
-              locale,
-            )}
+            {m.viewer_tag_count({ count: mnoteData.dataCount })}
           </Badge>
         </div>
       </AccordionHeader>
@@ -64,7 +58,10 @@ const MakerNoteAccordionItem = ({
                 ) : (
                   (mnoteDatum.title ??
                   mnoteDatum.name ??
-                  `ID ${mnoteDatum.id} (${index})`)
+                  m.viewer_makernote_entry_fallback_title({
+                    id: String(mnoteDatum.id),
+                    index,
+                  }))
                 )}
               </DataListItemLabel>
               <DataListItemValue className="relative before:relative before:left-0 before:pr-1.5 before:text-fg-muted before:content-['=']">

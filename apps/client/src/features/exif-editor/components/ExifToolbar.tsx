@@ -1,3 +1,4 @@
+import { m } from "#paraglide/messages";
 import { Toolbar, type ToolbarProps } from "@exifi/ui/components/Toolbar";
 
 import { ExifDownload } from "./ExifDownload";
@@ -10,7 +11,7 @@ type ExifToolbarProps = Omit<ToolbarProps, "children">;
 
 const ExifToolbar = (props: ExifToolbarProps) => {
   return (
-    <Toolbar aria-label="Exif editor toolbar" {...props}>
+    <Toolbar aria-label={m.editor_toolbar_label()} {...props}>
       <ExifDownload />
       <DiffDialog />
       <AddEntryDialog />

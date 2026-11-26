@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { MapPin } from "lucide-react";
 
 import { useDialogState } from "#hooks/useDialogState";
+import { m } from "#paraglide/messages";
 import { Button } from "@exifi/ui/components/Button";
 import {
   Dialog,
@@ -19,8 +20,8 @@ import { Skeleton } from "@exifi/ui/components/Skeleton";
 type AddGpsEntriesDialogProps = Omit<DialogTriggerProps, "children">;
 
 const ExifEntryAddGpsForm = lazy(() =>
-  import("../entries/add/ExifEntryAddGpsForm").then((m) => ({
-    default: m.ExifEntryAddGpsForm,
+  import("../entries/add/ExifEntryAddGpsForm").then((mod) => ({
+    default: mod.ExifEntryAddGpsForm,
   })),
 );
 
@@ -29,15 +30,19 @@ const AddGpsEntriesDialog = (props: AddGpsEntriesDialogProps) => {
 
   return (
     <DialogTrigger isOpen={isOpen} onOpenChange={onOpenChange} {...props}>
-      <Button variant="outline" size="icon" aria-label="Add GPS entries">
+      <Button
+        variant="outline"
+        size="icon"
+        aria-label={m.editor_add_gps_button_label()}
+      >
         <MapPin size="16" />
       </Button>
       <Modal isDismissable>
-        <Dialog aria-description="Add GPS Exif entries dialog">
+        <Dialog aria-description={m.editor_add_gps_dialog_description()}>
           <DialogHeader>
-            <DialogTitle>Add GPS Exif entries</DialogTitle>
+            <DialogTitle>{m.editor_add_gps_dialog_title()}</DialogTitle>
             <DialogDescription>
-              Add GPS Exif entries here. Click submit when you&apos;re done.
+              {m.editor_add_gps_dialog_body()}
             </DialogDescription>
           </DialogHeader>
           <DialogBody>

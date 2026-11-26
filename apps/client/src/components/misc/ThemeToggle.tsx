@@ -3,6 +3,7 @@ import { Moon, RefreshCw, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { cn } from "tailwind-variants";
 
+import { m } from "#paraglide/messages";
 import { type SwitchProps, Switch } from "@exifi/ui/components/Switch";
 
 type ThemeToggleProps = SwitchProps;
@@ -20,9 +21,9 @@ const ThemeToggle = ({
 
   const [ThemeIcon, themeIconLabel] = isHydrated
     ? isDark
-      ? [Moon, "Switch to light theme"]
-      : [Sun, "Switch to dark theme"]
-    : [RefreshCw, "Loading"];
+      ? [Moon, m.layout_theme_switch_to_light()]
+      : [Sun, m.layout_theme_switch_to_dark()]
+    : [RefreshCw, m.layout_theme_loading()];
 
   return (
     <Switch

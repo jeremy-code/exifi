@@ -1,3 +1,4 @@
+import { m } from "#paraglide/messages";
 import { formatExifVersion } from "@exifi/core/exif/exifVersion/formatExifVersion";
 import { parseExifVersion } from "@exifi/core/exif/exifVersion/parseExifVersion";
 
@@ -15,7 +16,7 @@ const resolveExifVersion: QuickEditorResolver = (
   ) {
     const exifVersion = parseExifVersion(exifEntryObject.value);
     if (exifVersion === null) {
-      throw new Error("Invalid Exif Version!");
+      throw new Error(m.editor_error_invalid_exif_version());
     }
 
     return {

@@ -2,6 +2,7 @@ import type { CellContext } from "@tanstack/react-table";
 import { Subscribe } from "@tanstack/react-table";
 
 import type { Features } from "#components/table/tableFeatures";
+import { m } from "#paraglide/messages";
 import { Checkbox } from "@exifi/ui/components/Checkbox";
 
 import type { ExifTableRow } from "./columns";
@@ -23,6 +24,7 @@ const SelectCell = ({ row }: CellContext<Features, ExifTableRow>) => {
       {(state) => (
         <Checkbox
           checkboxButtonProps={{ boxProps: { className: "mx-auto" } }}
+          aria-label={m.editor_table_select_row()}
           isSelected={state === true}
           isIndeterminate={state === "indeterminate"}
           onChange={(isSelected) => {

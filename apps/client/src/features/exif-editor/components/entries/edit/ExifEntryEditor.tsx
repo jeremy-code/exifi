@@ -3,8 +3,9 @@ import { UserCommentEncodingSelect } from "#components/editor/UserCommentEncodin
 import { UserCommentTextarea } from "#components/editor/UserCommentTextarea";
 import { useExifEntryDraftContext } from "#features/exif-editor/contexts/ExifEntryDraftContext";
 import { getExifAdvancedEditor } from "#features/exif-editor/editors/advanced/getExifAdvancedEditor";
+import { getEntryLabel } from "#features/exif-editor/utils/getEntryLabel";
+import { m } from "#paraglide/messages";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
-import { getEntryObjectLabel } from "@exifi/core/exif/utils/getEntryObjectLabel";
 import { NumberField } from "@exifi/ui/components/NumberField";
 import { TextAreaField } from "@exifi/ui/components/TextAreaField";
 import { assertNever } from "@exifi/utils/assertNever";
@@ -19,14 +20,17 @@ const ExifEntryEditor = () => {
   if (exifAdvancedEditor === null) {
     return null;
   }
-  const label = getEntryObjectLabel(exifEntryObject);
+  const label = getEntryLabel(exifEntryObject);
 
   switch (exifAdvancedEditor.kind) {
     case "rational":
       return exifAdvancedEditor.values.map((value, index) => (
         <RationalInput
           key={index}
-          aria-label={`${label} ${index + 1}`}
+          aria-label={m.editor_entry_value_index_label({
+            label,
+            index: index + 1,
+          })}
           initialRational={value}
           setRational={(rational) =>
             exifAdvancedEditor.onValueChange(rational, index)
@@ -45,7 +49,10 @@ const ExifEntryEditor = () => {
     case "numeric":
       return exifAdvancedEditor.values.map((value, index) => (
         <NumberField
-          aria-label={`${label} ${index + 1}`}
+          aria-label={m.editor_entry_value_index_label({
+            label,
+            index: index + 1,
+          })}
           key={index}
           value={value}
           onChange={(nextValue) =>

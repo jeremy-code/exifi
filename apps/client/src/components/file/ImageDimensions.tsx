@@ -3,6 +3,8 @@ import { use } from "react";
 import type { ImageType } from "image-dimensions";
 import { useNumberFormatter } from "react-aria/useNumberFormatter";
 
+import { m } from "#paraglide/messages";
+
 type ImageDimensionsPromise = {
   imageDimensionsPromise: Promise<
     { width: number; height: number; type: ImageType } | undefined
@@ -17,10 +19,13 @@ const ImageDimensions = ({
   const imageDimensions = use(imageDimensionsPromise);
 
   if (imageDimensions === undefined) {
-    return "Unknown";
+    return m.files_unknown();
   }
 
-  return `${numberFormatter.format(imageDimensions.width)}px \u00d7 ${numberFormatter.format(imageDimensions.height)}px`;
+  return m.files_image_dimensions({
+    width: numberFormatter.format(imageDimensions.width),
+    height: numberFormatter.format(imageDimensions.height),
+  });
 };
 
 export { ImageDimensions };

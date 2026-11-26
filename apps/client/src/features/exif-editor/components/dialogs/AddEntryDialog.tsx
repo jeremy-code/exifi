@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { Plus } from "lucide-react";
 
 import { useDialogState } from "#hooks/useDialogState";
+import { m } from "#paraglide/messages";
 import { Button } from "@exifi/ui/components/Button";
 import {
   Dialog,
@@ -19,8 +20,8 @@ import { Skeleton } from "@exifi/ui/components/Skeleton";
 type AddEntryDialogProps = Omit<DialogTriggerProps, "children">;
 
 const ExifEntryAddForm = lazy(() =>
-  import("../entries/add/ExifEntryAddForm").then((m) => ({
-    default: m.ExifEntryAddForm,
+  import("../entries/add/ExifEntryAddForm").then((mod) => ({
+    default: mod.ExifEntryAddForm,
   })),
 );
 
@@ -29,16 +30,20 @@ const AddEntryDialog = (props: AddEntryDialogProps) => {
 
   return (
     <DialogTrigger isOpen={isOpen} onOpenChange={onOpenChange} {...props}>
-      <Button variant="outline" size="icon" aria-label="Add entry">
+      <Button
+        variant="outline"
+        size="icon"
+        aria-label={m.editor_add_entry_button_label()}
+      >
         <Plus size="16" />
       </Button>
 
       <Modal>
-        <Dialog aria-description="Add Exif entry dialog">
+        <Dialog aria-description={m.editor_add_entry_dialog_description()}>
           <DialogHeader>
-            <DialogTitle>Add Exif entry</DialogTitle>
+            <DialogTitle>{m.editor_add_entry_dialog_title()}</DialogTitle>
             <DialogDescription>
-              Add an Exif entry here. Click submit when you&apos;re done.
+              {m.editor_add_entry_dialog_body()}
             </DialogDescription>
           </DialogHeader>
           <DialogBody>

@@ -2,6 +2,7 @@ import type { CellContext } from "@tanstack/react-table";
 import type { TagEntry } from "libexif-wasm";
 
 import type { Features } from "#components/table/tableFeatures";
+import { getExifTagDescription } from "#lib/exif/labels";
 import {
   Tooltip,
   TooltipTarget,
@@ -15,8 +16,9 @@ const NameCell = ({
 }: CellContext<Features, TagEntry, string>) => {
   const value = getValue();
   const name = value !== "" ? value : row.original.name;
+  const description = getExifTagDescription(row.original.tag);
 
-  if (row.original.description === "") {
+  if (description === "") {
     return name;
   }
 
@@ -30,7 +32,7 @@ const NameCell = ({
           {name}
         </span>
       </TooltipTarget>
-      <Tooltip>{row.original.description}</Tooltip>
+      <Tooltip>{description}</Tooltip>
     </TooltipTrigger>
   );
 };

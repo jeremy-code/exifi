@@ -6,6 +6,7 @@ import {
   type CSSProperties,
 } from "react";
 
+import { ParaglideMessage } from "@inlang/paraglide-js-react";
 import {
   flexRender,
   useTable,
@@ -15,13 +16,12 @@ import {
 } from "@tanstack/react-table";
 import type { Ifd } from "libexif-wasm";
 import { Button as AriaButton } from "react-aria-components/Button";
-import { useLocale } from "react-aria/I18nProvider";
 import { useShallow } from "zustand/react/shallow";
 
 import { ColumnResizer } from "#components/table/ColumnResizer";
 import { ExpandRows } from "#components/table/ExpandRows";
 import { features } from "#components/table/tableFeatures";
-import { formatPlural } from "#utils/formatPlural";
+import { m } from "#paraglide/messages";
 import type { ExifEntryObject } from "@exifi/core/exif/interfaces";
 import { Badge } from "@exifi/ui/components/Badge";
 import { linkVariants } from "@exifi/ui/components/Link";
@@ -53,7 +53,6 @@ const fallbackData: ExifEntryObject[] = [];
 type ExifTableProps = TableProps;
 
 const ExifTableInner = (props: ExifTableProps) => {
-  const { locale } = useLocale();
   const exifDataObject = useExifEditor((state) => state.exifDataObject);
   const exifContentObjects = useMemo(
     () =>
@@ -177,14 +176,9 @@ const ExifTableInner = (props: ExifTableProps) => {
                         cell.getContext(),
                       )}
                       <Badge variant="muted">
-                        {formatPlural(
-                          row.subRows.length,
-                          {
-                            one: " tag",
-                            other: " tags",
-                          },
-                          locale,
-                        )}
+                        {m.editor_table_tag_count({
+                          count: row.subRows.length,
+                        })}
                       </Badge>
                     </ExpandRows>
                   ) : cell.getIsAggregated() ? (
@@ -220,15 +214,25 @@ const ExifTable = (props: ExifTableProps) => {
   if (isEmpty) {
     return (
       <div className="mb-2 text-base">
-        {"There doesn't seem to be any Exif entries. "}
-        <AriaButton
-          className={(renderProps) =>
-            linkVariants({ ...renderProps, color: "blue", underline: true })
-          }
-          onPress={() => act((exifData) => exifData.fix())}
-        >
-          Initialize with default entries?
-        </AriaButton>
+        <ParaglideMessage
+          message={m.editor_table_empty}
+          markup={{
+            initializeButton: ({ children }) => (
+              <AriaButton
+                className={(renderProps) =>
+                  linkVariants({
+                    ...renderProps,
+                    color: "blue",
+                    underline: true,
+                  })
+                }
+                onPress={() => act((exifData) => exifData.fix())}
+              >
+                {children}
+              </AriaButton>
+            ),
+          }}
+        />
       </div>
     );
   }

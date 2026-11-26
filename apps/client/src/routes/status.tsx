@@ -1,6 +1,8 @@
+import { ParaglideMessage } from "@inlang/paraglide-js-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useDateFormatter } from "react-aria/useDateFormatter";
 
+import { m } from "#paraglide/messages";
 import { getBaseUrl } from "#utils/getBaseUrl";
 import { seo } from "#utils/seo";
 import { Card } from "@exifi/ui/components/Card";
@@ -22,21 +24,27 @@ const StatusComponent = () => {
     <div className="container flex flex-col gap-8 py-8">
       <div>
         <Heading level={1} size="2xl" className="mb-4">
-          Status
+          {m.layout_status_heading()}
         </Heading>
         <p className="text-fg-muted">
-          Licenses of bundled JavaScript dependencies can be found at{" "}
-          <Link color="link" href="/license.md">
-            {`${getBaseUrl()}/license.md`}
-          </Link>
-          {"."}
+          <ParaglideMessage
+            message={m.layout_status_licenses}
+            inputs={{ licenseUrl: `${getBaseUrl()}/license.md` }}
+            markup={{
+              link: ({ children, options }) => (
+                <Link color="link" href={options.href as string}>
+                  {children}
+                </Link>
+              ),
+            }}
+          />
         </p>
       </div>
       <Card className="p-6">
         <DataList>
           <DataListItem className="max-sm:flex-col!">
             <DataListItemLabel className="min-w-40">
-              Build time
+              {m.layout_status_build_time()}
             </DataListItemLabel>
             <DataListItemValue>
               <time dateTime={buildTimestampInstant.toString()}>
@@ -46,12 +54,14 @@ const StatusComponent = () => {
           </DataListItem>
           <DataListItem className="max-sm:flex-col!">
             <DataListItemLabel className="min-w-40">
-              libexif-wasm version
+              {m.layout_status_libexif_version()}
             </DataListItemLabel>
             <DataListItemValue>{__LIBEXIF_WASM_VERSION__}</DataListItemValue>
           </DataListItem>
           <DataListItem className="max-sm:flex-col!">
-            <DataListItemLabel className="min-w-40">Commit</DataListItemLabel>
+            <DataListItemLabel className="min-w-40">
+              {m.layout_status_commit()}
+            </DataListItemLabel>
             <DataListItemValue>
               {import.meta.env.COMMIT_REF !== null ? (
                 <Link
@@ -61,7 +71,7 @@ const StatusComponent = () => {
                   {import.meta.env.COMMIT_REF}
                 </Link>
               ) : (
-                "Unknown commit"
+                m.layout_status_unknown_commit()
               )}
             </DataListItemValue>
           </DataListItem>
@@ -74,8 +84,8 @@ const StatusComponent = () => {
 const Route = createFileRoute("/status")({
   head: () => ({
     meta: seo({
-      title: "Status | exifi",
-      description: "Exifi status page",
+      title: m.layout_seo_status_title(),
+      description: m.layout_seo_status_description(),
     }),
   }),
   component: StatusComponent,

@@ -2,7 +2,6 @@ import type { ComponentPropsWithRef } from "react";
 
 import { useForm } from "@tanstack/react-form";
 import {
-  exifIfdGetName,
   getExifTagTable,
   mapRationalFromObject,
   mapRationalToObject,
@@ -16,11 +15,10 @@ import {
   addFormSchema,
   type AddFieldValues,
 } from "#features/exif-editor/forms/addEntryForm";
+import { getExifFormatName, getExifIfdName } from "#lib/exif/labels";
+import { m } from "#paraglide/messages";
 import { useDialogBlockerStore } from "#stores/dialogBlockerStore";
-import {
-  GEOLOCATION_TAGS,
-  SUPPORT_LEVEL_MAP,
-} from "@exifi/core/exif/constants";
+import { GEOLOCATION_TAGS } from "@exifi/core/exif/constants";
 import { EXIF_TAG_MAP } from "@exifi/core/exif/exifTagMap";
 import { typedArrayInFormat } from "@exifi/core/exif/utils/typedArrayInFormat";
 import { formatSchema } from "@exifi/schemas/libexif";
@@ -70,9 +68,7 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
           if (tag !== undefined && GEOLOCATION_TAGS.includes(tag)) {
             return (
               <Callout color="yellow" variant="surface" className="mb-4">
-                <CalloutText>
-                  {`Are you trying to edit a geolocation field? Consider using the "Edit GPS" button instead in the toolbar to the right of the Add Exif Entry button.`}
-                </CalloutText>
+                <CalloutText>{m.editor_add_geolocation_hint()}</CalloutText>
               </Callout>
             );
           }
@@ -107,8 +103,8 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
                   }
                 }}
                 onBlur={field.handleBlur}
-                label="Tag"
-                placeholder="ImageDescription"
+                label={m.editor_add_tag_label()}
+                placeholder={m.editor_add_tag_placeholder()}
                 // Not using isInvalid/errorMessage because the default error messages
                 // are more informative compared to Zod's
                 isRequired
@@ -124,12 +120,12 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
           <addForm.Field name="ifd">
             {(field) => (
               <Select
-                label="Image File Domain"
+                label={m.editor_add_ifd_label()}
                 value={field.state.value}
                 onChange={(value) => {
                   field.handleChange(value as AddFieldValues["ifd"]);
                 }}
-                placeholder="Select an IFD"
+                placeholder={m.editor_add_ifd_placeholder()}
                 onBlur={field.handleBlur}
                 isRequired
               >
@@ -146,11 +142,14 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
                           ["UNKNOWN", "NOT_RECORDED"].includes(esl[ifdName])
                         }
                       >
-                        {`${exifIfdGetName(ifdName)}${
-                          esl === undefined
-                            ? ""
-                            : ` (${SUPPORT_LEVEL_MAP[esl[ifdName]]})`
-                        }`}
+                        {esl === undefined
+                          ? getExifIfdName(ifdName)
+                          : m.editor_add_ifd_option_with_support_level({
+                              ifd: getExifIfdName(ifdName),
+                              level: m.editor_support_level({
+                                supportLevel: esl[ifdName],
+                              }),
+                            })}
                       </SelectItem>
                     )}
                   </addForm.Subscribe>
@@ -161,9 +160,9 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
           <addForm.Field name="format">
             {(field) => (
               <Select
-                label="Format"
+                label={m.editor_add_format_label()}
                 value={field.state.value}
-                placeholder="Select a format"
+                placeholder={m.editor_add_format_placeholder()}
                 onChange={(value) => {
                   const currFormValues = addForm.state.values;
 
@@ -232,7 +231,7 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
                           !EXIF_TAG_MAP[tag]?.format.includes(format)
                         }
                       >
-                        {format}
+                        {getExifFormatName(format)}
                       </SelectItem>
                     )}
                   </addForm.Subscribe>
@@ -270,7 +269,7 @@ const ExifEntryAddForm = (props: ExifEntryAddFormProps) => {
                   className="data-[pending=true]:invisible"
                   data-pending={isSubmitting}
                 >
-                  Submit
+                  {m.editor_add_submit()}
                 </span>
               </Button>
             )}

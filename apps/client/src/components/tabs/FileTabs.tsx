@@ -6,6 +6,7 @@ import { tv } from "tailwind-variants";
 import { useShallow } from "zustand/react/shallow";
 
 import { SortableList } from "#components/dnd/SortableList";
+import { m } from "#paraglide/messages";
 import { useFileTabsStore } from "#stores/fileTabsStore";
 import { Button } from "@exifi/ui/components/Button";
 import { ScrollArea } from "@exifi/ui/components/ScrollArea";
@@ -113,7 +114,7 @@ const FileTabs = ({ children, ...props }: FileTabsProps) => {
                   size="icon"
                   variant="ghost"
                   onPress={() => createNewTab()}
-                  aria-label="New tab"
+                  aria-label={m.files_tabs_add_tab()}
                 >
                   <Plus className="size-4" />
                 </Button>

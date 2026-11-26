@@ -4,6 +4,7 @@ import { Group, type GroupProps } from "react-aria-components/Group";
 import { Fragment } from "react/jsx-runtime";
 import { cn } from "tailwind-variants";
 
+import { m } from "#paraglide/messages";
 import {
   NumberField,
   type NumberFieldProps,
@@ -45,7 +46,12 @@ const GpsTagVersionInput = ({
           <NumberField
             size="xs"
             {...inputProps}
-            aria-label={`${inputProps?.["aria-label"] ?? "GPS Tag Version"}+${index + 1}`}
+            aria-label={m.editor_gps_version_byte_label({
+              label:
+                inputProps?.["aria-label"] ??
+                m.editor_gps_version_default_label(),
+              index: index + 1,
+            })}
             value={byte}
             onChange={(nextValue) => {
               const nextGpsTagVersion = gpsTagVersion.with(index, nextValue);
