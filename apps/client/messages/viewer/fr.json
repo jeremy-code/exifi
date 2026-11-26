@@ -12,7 +12,7 @@
   ],
   "viewer_gps_map_error": "L'IFD GPS a été trouvé dans les métadonnées EXIF de l'image, mais aucune coordonnée valide de longitude et de latitude n'a été trouvée.",
   "viewer_no_exif_title": "Informations Exif",
-  "viewer_no_exif_body": "Aucune donnée Exif n'a été trouvée dans ce fichier. Souhaitez-vous {#editorLink}l'ouvrir dans l'éditeur{/editorLink} pour en ajouter§?",
+  "viewer_no_exif_body": "Aucune donnée Exif n'a été trouvée dans ce fichier. Souhaitez-vous {#editorLink}l'ouvrir dans l'éditeur{/editorLink} pour en ajouter ?",
   "viewer_makernote_title": "Makernote",
   "viewer_makernote_entry_fallback_title": "ID {id} ({index})",
   "viewer_tags_column_tag": "Balise",

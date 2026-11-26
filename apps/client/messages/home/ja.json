@@ -19,7 +19,7 @@
   "home_faq_specialized_question": "ExifTool や Adobe Lightroom のような専用ツールではなく、これを使う理由は何ですか?",
   "home_faq_specialized_answer": "正直なところ、写真家の方や頻繁に画像を編集する方は、専用ツールを使うほうがよいでしょう。たとえば Phil Harvey 氏の {#link href=$exifToolUrl}ExifTool{/link}、{#link href=$darktableUrl}darktable{/link}、{#link href=$lightroomUrl}Adobe Lightroom{/link} など、多くのソフトウェアがあります。exifi は、画像を他人のサーバーにアップロードせずに、オンラインで手早く少しだけメタデータを追加したい方向けのサービスです。",
   "home_faq_metadata_question": "どの画像メタデータを表示・編集できますか?",
-  "home_faq_metadata_answer": "対応しているのは Exif 規格 2.1 と 2.2 の大部分のみです。XMP など、その他の保存されうるメタデータには対応していません。そのため、Exif 用の XMP 名前空間 ({#link href=$xmpExifUrl}EXIF namespace{/link}) で定義された Exif データにも対応していません。Exif 仕様の詳細については、{#link href=|https://ja.wikipedia.org/wiki/Exchangeable_image_file_format|}Exif{/link} の Wikipedia 記事をご覧いただくか、JEITA が公開している公式の Exif 2.21 規格を{#link href=$jeitaUrl}こちらの URL{/link} ({#link href=$jeitaJapaneseUrl}日本語版{/link}もあります) でご覧ください。",
+  "home_faq_metadata_answer": "対応しているのは Exif 規格 2.1 と 2.2 の大部分のみです。XMP など、その他の保存されうるメタデータには対応していません。そのため、Exif 用の XMP 名前空間 ({#link href=$xmpExifUrl}EXIF 名前空間{/link}) で定義された Exif データにも対応していません。Exif 仕様の詳細については、{#link href=|https://ja.wikipedia.org/wiki/Exchangeable_image_file_format|}Exif{/link} の Wikipedia 記事をご覧いただくか、JEITA が公開している公式の Exif 2.21 規格を{#link href=$jeitaUrl}こちらの URL{/link} ({#link href=$jeitaJapaneseUrl}日本語版{/link}もあります) でご覧ください。",
   "home_faq_link_question": "リンクから Exif データを読み込むには?",
   "home_faq_link_answer": "次のように URL の検索パラメーターを付けてリンクを開けます: {#viewerLink url=$viewerUrl}{viewerUrl}{/viewerLink}",
   "home_faq_offline_question": "オフラインで使えますか?",
@@ -40,7 +40,7 @@
   "home_faq_makernote_question": "メーカーノートとは何ですか?",
   "home_faq_makernote_answer": "メーカーノートのデータは、Exif IFD 内にある、メーカー固有のバイナリデータ専用に予約された特別なタグに保存されます。詳しくは {#link href=$wikipediaUrl}Wikipedia:Exif#MakerNote data{/link} をご覧ください。現在、libexif は次のメーカーのデータを解読できます: {#link href=$canonUrl}Canon{/link}、{#link href=$fujiUrl}Fuji{/link}、{#link href=$olympusUrl}Olympus{/link} (Epson、Sanyo)、{#link href=$pentaxUrl}Pentax{/link} (Casio)。",
   "home_faq_png_question": "PNG の Exif データが正しく読み込まれないのはなぜですか?",
-  "home_faq_png_answer": "2017 年 7 月、{#link href=$specUrl}PNG 1.2 仕様の拡張のバージョン 1.5.0{/link} で、Exif メタデータを格納する eXIf チャンクが PNG に追加されました。それ以前の従来のエンコーダーは、標準外の方法で Exif データを保存していました。たとえば ImageMagick は「Raw profile type APP1」という zTXt チャンクに、Photoshop は「Raw profile type exif」という zTXt チャンクに Exif 情報を保存していました。さらに、JPEG から変換する際に、Exif データを {#link href=$xmpExifUrl}EXIF namespace{/link} の XMP データとして保存する PNG エンコーダーもあります。exifi では PNG の読み書きを、eXIf チャンクだけを対象とする libpng で処理しているため、古い PNG では、実際には別の場所に Exif データが保存されているのに「Exif データがない」と判定される偽陰性が起こる場合があります。",
+  "home_faq_png_answer": "2017 年 7 月、{#link href=$specUrl}PNG 1.2 仕様の拡張のバージョン 1.5.0{/link} で、Exif メタデータを格納する eXIf チャンクが PNG に追加されました。それ以前の従来のエンコーダーは、標準外の方法で Exif データを保存していました。たとえば ImageMagick は「Raw profile type APP1」という zTXt チャンクに、Photoshop は「Raw profile type exif」という zTXt チャンクに Exif 情報を保存していました。さらに、JPEG から変換する際に、Exif データを {#link href=$xmpExifUrl}EXIF 名前空間{/link} の XMP データとして保存する PNG エンコーダーもあります。exifi では PNG の読み書きを、eXIf チャンクだけを対象とする libpng で処理しているため、古い PNG では、実際には別の場所に Exif データが保存されているのに「Exif データがない」と判定される偽陰性が起こる場合があります。",
   "home_faq_remove_question": "写真からすべてのメタデータを削除するウェブアプリを探しています。exifi は向いていますか?",
   "home_faq_remove_answer": "いいえ。exifi は Exif メタデータの読み書きのみが可能で、XMP などその他の形式のメタデータは扱えません。Google Chrome Labs の {#link href=$squooshUrl}squoosh.app{/link} のようなツールをお探しください。squoosh.app も WebAssembly を使ってブラウザー上で直接画像をエンコードでき、何より画像データ{#em}のみ{/em}を残します。"
 }

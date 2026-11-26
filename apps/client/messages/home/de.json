@@ -30,7 +30,7 @@
   "home_faq_tags_date_item": "DateTime/OffsetTime oder deren Varianten, DateTimeOriginal/OffsetTimeOriginal oder DateTimeDigitized/OffsetTimeDigitized können ebenfalls bearbeitet werden",
   "home_faq_tags_full_list_link": "Eine vollständige Liste der Tags findet sich hier.",
   "home_faq_ifd_question": "Was ist ein IFD?",
-  "home_faq_ifd_intro": "Ein Image File Domain ({#abbr}IFD{/abbr}) bezeichnet die Art von Daten, auf die sich ein Exif-Eintrag bezieht. Es gibt fünf IFDs für Exif-Daten:",
+  "home_faq_ifd_intro": "Eine Image File Domain ({#abbr}IFD{/abbr}) bezeichnet die Art von Daten, auf die sich ein Exif-Eintrag bezieht. Es gibt fünf IFDs für Exif-Daten:",
   "home_faq_ifd_ifd0_item": "{#strong}IFD 0{/strong} bezeichnet die Hauptdaten zum Bild (X- oder Y-Auflösung, ImageDescription, Model usw.).",
   "home_faq_ifd_ifd1_item": "{#strong}IFD 1{/strong} bezeichnet Daten zum Miniaturbild. Ist ein Tag sowohl in IFD 0 als auch in IFD 1 verfügbar, sollte er wahrscheinlich in IFD 0 abgelegt werden.",
   "home_faq_ifd_exif_item": "Das {#strong}Exif-IFD{/strong} bezeichnet zusätzliche, vermischte Metadaten zum Bild (z. B. ExifVersion, ColorSpace, ExposureTime usw.).",

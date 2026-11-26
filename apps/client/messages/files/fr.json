@@ -2,7 +2,7 @@
   "$schema": "https://inlang.com/schema/inlang-message-format",
   "files_unknown": "Inconnu",
   "files_does_not_exist": "Inexistant",
-  "files_image_dimensions": "{width}§px × {height}§px",
+  "files_image_dimensions": "{width} px × {height} px",
   "files_dropzone_remove_file": "Retirer le fichier",
   "files_dropzone_upload_file_icon": "Téléverser un fichier",
   "files_dropzone_drop_here": "Déposez un fichier ici",
@@ -54,7 +54,7 @@
       "match": {
         "dataType=UNCOMPRESSED_CHUNKY": "Non compressé, entrelacé (chunky)",
         "dataType=UNCOMPRESSED_PLANAR": "Non compressé, planaire",
-        "dataType=UNCOMPRESSED_YCC": "Non compressé YCC",
+        "dataType=UNCOMPRESSED_YCC": "Non compressé, YCC",
         "dataType=COMPRESSED": "Compressé",
         "dataType=UNKNOWN": "Inconnu",
         "dataType=*": "Inconnu"

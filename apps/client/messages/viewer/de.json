@@ -13,7 +13,7 @@
   "viewer_gps_map_error": "Das GPS-IFD wurde in den EXIF-Metadaten des Bildes gefunden, aber es wurden keine gültigen Längen- und Breitengradkoordinaten gefunden.",
   "viewer_no_exif_title": "Exif-Informationen",
   "viewer_no_exif_body": "In dieser Datei wurden keine Exif-Daten gefunden. Möchten Sie sie {#editorLink}im Editor öffnen{/editorLink}, um welche hinzuzufügen?",
-  "viewer_makernote_title": "Makernote",
+  "viewer_makernote_title": "MakerNote",
   "viewer_makernote_entry_fallback_title": "ID {id} ({index})",
   "viewer_tags_column_tag": "Tag",
   "viewer_tags_column_name": "Name",
@@ -47,5 +47,5 @@
   "viewer_map_search_clear": "Suche löschen",
   "viewer_map_search_provider": "Suchanbieter",
   "viewer_map_leaflet_title": "Eine JavaScript-Bibliothek für interaktive Karten",
-  "viewer_english_callout": "Da dieser Exif-Viewer auf einer Version von libexif basiert, die für die englische Sprachumgebung in WebAssembly kompiliert wurde, werden einige Texte im Viewer leider auf Englisch angezeigt. Verwenden Sie stattdessen den {#editorLink}Editor{/editorLink}, um die Exif-Daten dieses Bildes zu betrachten und die Texte in der jeweils lokalisierten Sprache zu sehen."
+  "viewer_english_callout": "Da dieser Exif-Viewer auf einer Version von libexif basiert, die für die englische Sprachumgebung in WebAssembly kompiliert wurde, werden einige Texte im Viewer leider auf Englisch angezeigt. Verwenden Sie stattdessen den {#editorLink}Editor{/editorLink}, um die Exif-Daten dieses Bildes in Ihrer Sprache anzuzeigen."
 }

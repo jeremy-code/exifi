@@ -28,7 +28,7 @@
   "layout_nav_viewer": "Visionneuse",
   "layout_nav_editor": "Éditeur",
   "layout_mobile_nav_toggle_aria_label": "Afficher ou masquer le menu de navigation",
-  "layout_catch_title": "Une erreur est survenue§!",
+  "layout_catch_title": "Une erreur est survenue !",
   "layout_catch_description": "Une erreur inattendue s'est produite pendant l'exécution de l'application.",
   "layout_catch_try_again": "Réessayer",
   "layout_catch_home": "Accueil",

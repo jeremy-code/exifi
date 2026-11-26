@@ -33,7 +33,7 @@
     }
   ],
   "files_exif_info_data_type": "Datentyp",
-  "files_exif_info_makernote": "Makernote",
+  "files_exif_info_makernote": "MakerNote",
   "files_exif_info_makernote_entries": [
     {
       "declarations": ["input count", "local countPlural = count: plural"],
