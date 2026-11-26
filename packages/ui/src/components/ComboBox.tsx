@@ -8,6 +8,7 @@ import {
   ListBox,
 } from "react-aria-components/ComboBox";
 
+import { useLocalizedUiStringFormatter } from "../hooks/useLocalizedStringFormatter";
 import { composeTailwindRenderProps } from "../utils/composeTailwindRenderProps";
 import { FieldButton } from "./FieldButton";
 import {
@@ -49,6 +50,8 @@ const ComboBox = <T extends object, M extends SelectionMode = "single">({
   listBoxProps,
   ...props
 }: ComboBoxProps<T, M>) => {
+  const stringFormatter = useLocalizedUiStringFormatter();
+
   return (
     <AriaComboBox
       {...props}
@@ -66,7 +69,9 @@ const ComboBox = <T extends object, M extends SelectionMode = "single">({
       </FieldGroup>
       {props.selectionMode === "multiple" && (
         <ComboBoxValue
-          placeholder="No items selected"
+          placeholder={stringFormatter.format("combobox.selectedCount", {
+            count: 0,
+          })}
           className="text-xs text-fg-muted"
         />
       )}

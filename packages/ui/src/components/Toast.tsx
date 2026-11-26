@@ -15,6 +15,7 @@ import {
 import { composeRenderProps } from "react-aria-components/composeRenderProps";
 import { tv, type VariantProps } from "tailwind-variants";
 
+import { useLocalizedUiStringFormatter } from "../hooks/useLocalizedStringFormatter";
 import { focusRing } from "../utils/focusRing";
 
 type ToastInfo = {
@@ -88,10 +89,12 @@ const closeToastButtonVariants = tv({
 });
 
 const CloseToastButton = (props: ButtonProps) => {
+  const stringFormatter = useLocalizedUiStringFormatter();
+
   return (
     <Button
       slot="close"
-      aria-label="Close"
+      aria-label={stringFormatter.format("toast.close")}
       {...props}
       className={composeRenderProps(props.className, (className, renderProps) =>
         closeToastButtonVariants({ className, ...renderProps }),
