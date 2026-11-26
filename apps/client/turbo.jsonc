@@ -8,11 +8,15 @@
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!.env.example"]
     },
     "codegen": {
-      "dependsOn": ["codegen:openapi"]
+      "dependsOn": ["codegen:openapi", "codegen:paraglide"]
     },
     "codegen:openapi": {
       "inputs": ["openapi-ts.config.ts"],
       "outputs": ["src/generated/nominatim/**/*"]
+    },
+    "codegen:paraglide": {
+      "inputs": ["project.inlang/**/*", "messages/**/*"],
+      "outputs": ["src/paraglide/**/*"]
     },
     "dev": {
       "dependsOn": ["@exifi/image-utils#build"],
