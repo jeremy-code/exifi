@@ -122,6 +122,13 @@ const viteConfig = defineConfig({
     cssCodeSplit: true,
     cssMinify: "lightningcss",
     minify: "oxc",
+    rolldownOptions: {
+      transform: {
+        inject: {
+          Temporal: ["temporal-polyfill", "Temporal"],
+        },
+      },
+    },
     license: { fileName: "license.md" },
   },
   /**
