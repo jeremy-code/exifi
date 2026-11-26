@@ -553,9 +553,6 @@ importers:
       libexif-wasm:
         specifier: ^0.5.7
         version: 0.5.7
-      temporal-polyfill:
-        specifier: ^1.0.8
-        version: 1.0.8
       uuid:
         specifier: ^14.0.3
         version: 14.0.3

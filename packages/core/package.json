@@ -20,7 +20,6 @@
     "file-type": "^22.3.0",
     "iconv-nano": "^0.0.22",
     "libexif-wasm": "^0.5.7",
-    "temporal-polyfill": "^1.0.8",
     "uuid": "^14.0.3"
   },
   "devDependencies": {
