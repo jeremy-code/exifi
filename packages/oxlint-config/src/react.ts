@@ -45,6 +45,10 @@ const reactConfig = defineConfig({
      */
     "react/jsx-pascal-case": "error",
     /**
+     * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/react/no-unstable-nested-components}
+     */
+    "react/no-unstable-nested-components": ["deny", { allowAsProps: true }],
+    /**
      * @see {@link https://oxc.rs/docs/guide/usage/linter/rules/react/prefer-function-component}
      */
     "react/prefer-function-component": "error",
