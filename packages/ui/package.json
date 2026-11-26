@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
-    "lucide-react": "^1.78.0",
+    "lucide-react": "^1.79.0",
     "react-aria-components": "^1.22.1",
     "tailwind-merge": "^3.7.1",
     "tailwind-variants": "^4.0.2"

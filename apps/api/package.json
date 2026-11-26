@@ -16,7 +16,7 @@
     "@exifi/schemas": "workspace:*",
     "@exifi/utils": "workspace:*",
     "file-type": "^22.3.0",
-    "hono": "^4.13.21",
+    "hono": "^4.13.22",
     "hono-openapi": "^1.6.0",
     "hono-rate-limiter": "^0.5.4",
     "libexif-wasm": "^0.5.7",
