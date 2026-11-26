@@ -48,12 +48,12 @@ const Navbar = ({ className, ...props }: NavbarProps) => {
           <nav className="relative z-10 flex grow justify-center max-sm:hidden">
             <ul className="flex justify-center gap-2 rounded-md p-1">
               {NAVIGATION_ITEMS.map((item) => (
-                <li key={item.href}>
+                <li key={item.to}>
                   <RouterLink
                     className={navigationMenuTriggerVariants({
                       variant: "trigger",
                     })}
-                    to={item.href}
+                    to={item.to}
                   >
                     {item.name}
                   </RouterLink>

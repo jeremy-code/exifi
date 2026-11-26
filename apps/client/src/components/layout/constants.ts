@@ -1,21 +1,21 @@
 import type { FileRoutesByPath } from "@tanstack/react-router";
 
 type NavigationItem = {
-  href: FileRoutesByPath[keyof FileRoutesByPath]["path"];
+  to: FileRoutesByPath[keyof FileRoutesByPath]["fullPath"];
   name: string;
 };
 
 const NAVIGATION_ITEMS = [
   {
-    href: "/",
+    to: "/",
     name: "Home",
   },
   {
-    href: "/viewer",
+    to: "/viewer",
     name: "Viewer",
   },
   {
-    href: "/editor",
+    to: "/editor",
     name: "Editor",
   },
 ] satisfies NavigationItem[];

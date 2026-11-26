@@ -62,9 +62,9 @@ const MobileNav = (props: Omit<MobileNavProps, "children">) => {
         <nav role="navigation" className="border-b bg-bg p-3 text-fg">
           <ul className="space-y-0.5">
             {NAVIGATION_ITEMS.map((item) => (
-              <li key={item.href}>
+              <li key={item.to}>
                 <RouterLink
-                  to={item.href}
+                  to={item.to}
                   className={navigationMenuTriggerVariants({ variant: "link" })}
                 >
                   {item.name}
