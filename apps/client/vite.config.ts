@@ -76,6 +76,7 @@ const viteConfig = defineConfig({
         crawlLinks: false,
         autoSubfolderIndex: true,
       },
+      pages: [{ path: "/404", sitemap: { exclude: true } }],
       sitemap: {
         enabled: true,
         host: url,
