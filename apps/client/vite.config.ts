@@ -1,3 +1,4 @@
+import optimizeLocales from "@react-aria/optimize-locales-plugin";
 import { serwist } from "@serwist/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
@@ -43,6 +44,9 @@ const viteConfig = defineConfig({
     }),
     react({ compiler: true }),
     tailwindcss({ optimize: { minify: true } }),
+    optimizeLocales.vite({
+      locales: ["en-US", "de-DE", "es-ES", "fr-FR", "ja-JP"],
+    }),
     fontless(),
     devtools(),
     serwist({

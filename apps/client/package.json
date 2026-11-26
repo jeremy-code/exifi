@@ -66,6 +66,7 @@
   "devDependencies": {
     "@exifi/test-fixtures": "workspace:*",
     "@hey-api/openapi-ts": "^0.99.0",
+    "@react-aria/optimize-locales-plugin": "^2.1.0",
     "@serwist/vite": "^9.6.0",
     "@tailwindcss/vite": "^4.3.5",
     "@tanstack/devtools-vite": "^0.8.7",
