@@ -128,6 +128,9 @@ auto jpeg_set_exif_data(const std::string jpeg_data,
   jpeg_finish_decompress(&srcinfo);
   jpeg_destroy_decompress(&srcinfo);
 
-  return Uint8Array(
-      emscripten::val(emscripten::typed_memory_view(output_size, output)));
+  auto jsOutput = Uint8Array(
+      emscripten::val(emscripten::typed_memory_view(output_size, output))
+          .call<emscripten::val>("slice"));
+  std::free(output);
+  return jsOutput;
 }

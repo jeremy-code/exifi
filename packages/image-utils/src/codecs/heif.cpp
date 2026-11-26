@@ -77,8 +77,10 @@ auto heif_get_exif_data(const std::string heif_data) noexcept
             std::memcpy(exif_data + std::size(constants::kExifHeader),
                         heif_exif_data + tiff_offset,
                         heif_exif_size - tiff_offset);
-            output = Uint8Array(emscripten::val(
-                emscripten::typed_memory_view(exif_size, exif_data)));
+            output = Uint8Array(emscripten::val(emscripten::typed_memory_view(
+                                                    exif_size, exif_data))
+                                    .call<emscripten::val>("slice"));
+            std::free(exif_data);
           }
         }
       }

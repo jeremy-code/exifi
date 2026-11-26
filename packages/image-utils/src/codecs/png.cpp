@@ -112,7 +112,9 @@ auto png_get_exif_data(const std::string png_data) noexcept
       std::memcpy(exif_data + std::size(constants::kExifHeader), png_exif_data,
                   png_exif_size);
       output = Uint8Array(
-          emscripten::val(emscripten::typed_memory_view(exif_size, exif_data)));
+          emscripten::val(emscripten::typed_memory_view(exif_size, exif_data))
+              .call<emscripten::val>("slice"));
+      std::free(exif_data);
     }
   }
 #endif
@@ -196,6 +198,10 @@ auto png_set_exif_data(const std::string png_data, const std::string exif_data)
   png_destroy_read_struct(&read_png_ptr, &info_ptr, nullptr);
   png_destroy_write_struct(&write_png_ptr, nullptr);
 
-  return Uint8Array(emscripten::val(
-      emscripten::typed_memory_view(write_buffer.size, write_buffer.data)));
+  auto jsOutput =
+      Uint8Array(emscripten::val(emscripten::typed_memory_view(
+                                     write_buffer.size, write_buffer.data))
+                     .call<emscripten::val>("slice"));
+  std::free(write_buffer.data);
+  return jsOutput;
 }

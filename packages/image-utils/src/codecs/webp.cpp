@@ -47,7 +47,9 @@ auto webp_get_exif_data(const std::string webp_data) noexcept
                   chunk_iter.chunk.bytes, chunk_iter.chunk.size);
 
       output = Uint8Array(
-          emscripten::val(emscripten::typed_memory_view(exif_size, exif_data)));
+          emscripten::val(emscripten::typed_memory_view(exif_size, exif_data))
+              .call<emscripten::val>("slice"));
+      std::free(const_cast<unsigned char *>(exif_data));
     }
 
     WebPDemuxReleaseChunkIterator(&chunk_iter);
@@ -103,6 +105,9 @@ auto webp_set_exif_data(const std::string webp_data,
                              ") occurred while assembling the WebP data");
   }
 
-  return Uint8Array(emscripten::val(
-      emscripten::typed_memory_view(output.size, output.bytes)));
+  auto jsOutput = Uint8Array(
+      emscripten::val(emscripten::typed_memory_view(output.size, output.bytes))
+          .call<emscripten::val>("slice"));
+  WebPDataClear(&output);
+  return jsOutput;
 }
