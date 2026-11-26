@@ -1,0 +1,78 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "files_unknown": "不明",
+  "files_does_not_exist": "存在しません",
+  "files_image_dimensions": "{width}px × {height}px",
+  "files_dropzone_remove_file": "ファイルを削除",
+  "files_dropzone_upload_file_icon": "ファイルをアップロード",
+  "files_dropzone_drop_here": "ここにファイルをドロップ",
+  "files_dropzone_drag_or_upload": "ここにファイルをドラッグするか、{#uploadButton}ファイルをアップロード{/uploadButton}してください",
+  "files_url_input_label": "ファイルの URL",
+  "files_url_input_invalid_url": "無効な URL です",
+  "files_url_input_upload": "アップロード",
+  "files_url_input_error_title": "URL からの取得に失敗しました",
+  "files_url_input_error_description": "{url} の取得に失敗しました。エラー: {message}",
+  "files_file_info_title": "ファイル情報",
+  "files_file_info_preview_alt": "{fileName} のプレビュー",
+  "files_file_info_file": "ファイル",
+  "files_file_info_file_size": "ファイルサイズ",
+  "files_file_info_last_modified": "最終更新日時",
+  "files_file_info_dimensions": "画像サイズ",
+  "files_file_info_hash": "ファイルハッシュ (SHA-256)",
+  "files_exif_info_title": "Exif 情報",
+  "files_exif_info_byte_order": "バイトオーダー",
+  "files_exif_byte_order": [
+    {
+      "declarations": ["input byteOrder"],
+      "selectors": ["byteOrder"],
+      "match": {
+        "byteOrder=MOTOROLA": "ビッグエンディアン",
+        "byteOrder=INTEL": "リトルエンディアン",
+        "byteOrder=*": "不明"
+      }
+    }
+  ],
+  "files_exif_info_data_type": "データ形式",
+  "files_exif_info_makernote": "メーカーノート",
+  "files_exif_info_makernote_entries": [
+    {
+      "declarations": ["input count", "local countPlural = count: plural"],
+      "selectors": ["countPlural"],
+      "match": {
+        "countPlural=one": "{count} 件のエントリー",
+        "countPlural=other": "{count} 件のエントリー"
+      }
+    }
+  ],
+  "files_exif_info_makernote_unable_to_parse": "解析できません",
+  "files_exif_info_thumbnail": "サムネイル",
+  "files_exif_info_number_of_entries": "エントリー数",
+  "files_exif_data_type": [
+    {
+      "declarations": ["input dataType"],
+      "selectors": ["dataType"],
+      "match": {
+        "dataType=UNCOMPRESSED_CHUNKY": "非圧縮 (チャンキー形式)",
+        "dataType=UNCOMPRESSED_PLANAR": "非圧縮 (プレーナー形式)",
+        "dataType=UNCOMPRESSED_YCC": "非圧縮 (YCC)",
+        "dataType=COMPRESSED": "圧縮",
+        "dataType=UNKNOWN": "不明",
+        "dataType=*": "不明"
+      }
+    }
+  ],
+  "files_exif_date_time": "日時",
+  "files_exif_date_time_original": "日時 (撮影)",
+  "files_exif_date_time_digitized": "日時 (デジタル化)",
+  "files_exif_date_time_gps": "日時 (GPS)",
+  "files_tab_unnamed_file": "名称未設定のファイル",
+  "files_tab_new_tab": "新しいタブ",
+  "files_tab_close": "タブを閉じる",
+  "files_tabs_add_tab": "新しいタブ",
+  "files_tab_panel_heading": "ファイルをアップロードして Exif メタデータを表示",
+  "files_tab_panel_demo": "簡単なデモは{#demoLink}こちら{/demoLink}。",
+  "files_tab_panel_or": "または",
+  "files_dialog_unsaved_changes_title": "未保存の変更",
+  "files_dialog_unsaved_changes_description": "未保存の変更があります。続行すると変更は失われます。",
+  "files_dropzone_input_label": "ファイルアップロード"
+}

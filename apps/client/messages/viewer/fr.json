@@ -1,0 +1,50 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "viewer_tag_count": [
+    {
+      "declarations": ["input count", "local countPlural = count: plural"],
+      "selectors": ["countPlural"],
+      "match": {
+        "countPlural=one": "{count} balise",
+        "countPlural=other": "{count} balises"
+      }
+    }
+  ],
+  "viewer_gps_map_error": "L'IFD GPS a été trouvé dans les métadonnées EXIF de l'image, mais aucune coordonnée valide de longitude et de latitude n'a été trouvée.",
+  "viewer_no_exif_title": "Informations Exif",
+  "viewer_no_exif_body": "Aucune donnée Exif n'a été trouvée dans ce fichier. Souhaitez-vous {#editorLink}l'ouvrir dans l'éditeur{/editorLink} pour en ajouter§?",
+  "viewer_makernote_title": "Makernote",
+  "viewer_makernote_entry_fallback_title": "ID {id} ({index})",
+  "viewer_tags_column_tag": "Balise",
+  "viewer_tags_column_name": "Nom",
+  "viewer_tags_column_support_level": "Niveau de prise en charge",
+  "viewer_tags_column_ifd_0": "IFD 0",
+  "viewer_tags_column_ifd_1": "IFD 1",
+  "viewer_tags_column_exif": "EXIF",
+  "viewer_tags_column_gps": "GPS",
+  "viewer_tags_column_interop": "Interop.",
+  "viewer_table_expand": "Développer",
+  "viewer_table_collapse": "Réduire",
+  "viewer_table_resizer": "Poignée de redimensionnement",
+  "viewer_table_resizer_value": [
+    {
+      "declarations": ["input width", "local widthPlural = width: plural"],
+      "selectors": ["widthPlural"],
+      "match": {
+        "widthPlural=one": "{width} pixel",
+        "widthPlural=other": "{width} pixels"
+      }
+    }
+  ],
+  "viewer_tab_draggable_role": "déplaçable",
+  "viewer_map_zoom_in": "Zoom avant",
+  "viewer_map_zoom_out": "Zoom arrière",
+  "viewer_map_marker_alt": "Repère de localisation",
+  "viewer_map_attribution": "© les contributeurs d'{openStreetMapLink}",
+  "viewer_map_unknown_location": "Lieu inconnu",
+  "viewer_map_geo_uri": "URI geo",
+  "viewer_map_search_label": "Saisir une adresse",
+  "viewer_map_search_clear": "Effacer la recherche",
+  "viewer_map_search_provider": "Fournisseur de recherche",
+  "viewer_map_leaflet_title": "Une bibliothèque JavaScript pour les cartes interactives"
+}

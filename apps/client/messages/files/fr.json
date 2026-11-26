@@ -1,0 +1,78 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "files_unknown": "Inconnu",
+  "files_does_not_exist": "Inexistant",
+  "files_image_dimensions": "{width}§px × {height}§px",
+  "files_dropzone_remove_file": "Retirer le fichier",
+  "files_dropzone_upload_file_icon": "Téléverser un fichier",
+  "files_dropzone_drop_here": "Déposez un fichier ici",
+  "files_dropzone_drag_or_upload": "Glissez un fichier ici ou {#uploadButton}téléversez un fichier{/uploadButton}",
+  "files_url_input_label": "URL du fichier",
+  "files_url_input_invalid_url": "URL invalide",
+  "files_url_input_upload": "Téléverser",
+  "files_url_input_error_title": "Échec de la récupération depuis l'URL",
+  "files_url_input_error_description": "La récupération de {url} a échoué avec l'erreur {message}.",
+  "files_file_info_title": "Informations sur le fichier",
+  "files_file_info_preview_alt": "Aperçu de {fileName}",
+  "files_file_info_file": "Fichier",
+  "files_file_info_file_size": "Taille du fichier",
+  "files_file_info_last_modified": "Dernière modification",
+  "files_file_info_dimensions": "Dimensions",
+  "files_file_info_hash": "Empreinte du fichier (SHA-256)",
+  "files_exif_info_title": "Informations Exif",
+  "files_exif_info_byte_order": "Ordre des octets",
+  "files_exif_byte_order": [
+    {
+      "declarations": ["input byteOrder"],
+      "selectors": ["byteOrder"],
+      "match": {
+        "byteOrder=MOTOROLA": "Gros-boutiste (big-endian)",
+        "byteOrder=INTEL": "Petit-boutiste (little-endian)",
+        "byteOrder=*": "Inconnu"
+      }
+    }
+  ],
+  "files_exif_info_data_type": "Type de données",
+  "files_exif_info_makernote": "Makernote",
+  "files_exif_info_makernote_entries": [
+    {
+      "declarations": ["input count", "local countPlural = count: plural"],
+      "selectors": ["countPlural"],
+      "match": {
+        "countPlural=one": "{count} entrée",
+        "countPlural=other": "{count} entrées"
+      }
+    }
+  ],
+  "files_exif_info_makernote_unable_to_parse": "Analyse impossible",
+  "files_exif_info_thumbnail": "Miniature",
+  "files_exif_info_number_of_entries": "Nombre d'entrées",
+  "files_exif_data_type": [
+    {
+      "declarations": ["input dataType"],
+      "selectors": ["dataType"],
+      "match": {
+        "dataType=UNCOMPRESSED_CHUNKY": "Non compressé, entrelacé (chunky)",
+        "dataType=UNCOMPRESSED_PLANAR": "Non compressé, planaire",
+        "dataType=UNCOMPRESSED_YCC": "Non compressé YCC",
+        "dataType=COMPRESSED": "Compressé",
+        "dataType=UNKNOWN": "Inconnu",
+        "dataType=*": "Inconnu"
+      }
+    }
+  ],
+  "files_exif_date_time": "Date et heure",
+  "files_exif_date_time_original": "Date et heure (d'origine)",
+  "files_exif_date_time_digitized": "Date et heure (de numérisation)",
+  "files_exif_date_time_gps": "Date et heure (GPS)",
+  "files_tab_unnamed_file": "Fichier sans nom",
+  "files_tab_new_tab": "Nouvel onglet",
+  "files_tab_close": "Fermer l'onglet",
+  "files_tabs_add_tab": "Nouvel onglet",
+  "files_tab_panel_heading": "Téléversez un fichier pour afficher ses métadonnées Exif",
+  "files_tab_panel_demo": "Pour une démo rapide, {#demoLink}cliquez ici{/demoLink}.",
+  "files_tab_panel_or": "OU",
+  "files_dialog_unsaved_changes_title": "Modifications non enregistrées",
+  "files_dialog_unsaved_changes_description": "Des modifications non enregistrées seront perdues si vous continuez.",
+  "files_dropzone_input_label": "Téléversement de fichier"
+}
