@@ -1,54 +1,13 @@
-import {
-  createApi,
-  createContext,
-  dev as serwistDev,
-  main as serwistMain,
-  type PluginOptions,
-  type SerwistViteApi,
-  type SerwistViteContext,
-} from "@serwist/vite";
+import { serwist } from "@serwist/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { devtools } from "@tanstack/devtools-vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
 import { fontless } from "fontless";
 import { Features } from "lightningcss";
-import { defineConfig, type Plugin } from "vite";
+import { defineConfig } from "vite";
 import { analyzer } from "vite-bundle-analyzer";
 import * as z from "zod";
-
-// https://github.com/serwist/serwist/pull/370
-// https://github.com/serwist/serwist/blob/adf0d79ae8ba7d87cce2251ffc29526955511a2b/packages/vite/src/plugins/build.ts
-const serwistBuild = (ctx: SerwistViteContext, api: SerwistViteApi): Plugin => {
-  return {
-    name: "@serwist/vite:build",
-    enforce: "post",
-    apply: "build",
-    // Only run in client environment
-    applyToEnvironment(environment) {
-      return environment.config.consumer === "client";
-    },
-    closeBundle: {
-      sequential: true,
-      order: ctx.userOptions?.integration?.closeBundleOrder,
-      async handler() {
-        if (!ctx.options.disable) {
-          await api.generateSW();
-        }
-      },
-    },
-    buildEnd(error) {
-      if (error) throw error;
-    },
-  };
-};
-
-// https://github.com/serwist/serwist/blob/adf0d79ae8ba7d87cce2251ffc29526955511a2b/packages/vite/src/index.ts
-const serwist = (userOptions: PluginOptions): Plugin[] => {
-  const ctx = createContext(userOptions, undefined);
-  const api = createApi(ctx);
-  return [serwistMain(ctx, api), serwistBuild(ctx, api), serwistDev(ctx, api)];
-};
 
 const isAnalyzerEnabled = z
   .stringbool()
