@@ -183,12 +183,19 @@ auto png_set_exif_data(const std::string png_data, const std::string exif_data)
       .size = 0,
       .capacity = rowbytes,
   };
+  if (write_buffer.data == nullptr) {
+    png_destroy_read_struct(&read_png_ptr, &info_ptr, nullptr);
+    png_destroy_write_struct(&write_png_ptr, nullptr);
+    throw std::runtime_error(
+        "An error occurred while allocating the PNG output buffer");
+  }
   png_set_write_fn(write_png_ptr, &write_buffer, png_write_to_memory,
                    png_flush_memory);
 
   if (setjmp(png_jmpbuf(write_png_ptr))) {
     png_destroy_read_struct(&read_png_ptr, &info_ptr, nullptr);
     png_destroy_write_struct(&write_png_ptr, &info_ptr);
+    std::free(write_buffer.data);
     throw std::runtime_error("An error occurred while writing the PNG");
   }
 

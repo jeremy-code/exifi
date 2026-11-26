@@ -37,8 +37,14 @@ auto heif_get_exif_data(const std::string heif_data) noexcept
     return std::nullopt;
   }
 
-  struct heif_image_handle *image_handle;
-  heif_context_get_primary_image_handle(ctx, &image_handle);
+  struct heif_image_handle *image_handle = nullptr;
+  struct heif_error handle_err =
+      heif_context_get_primary_image_handle(ctx, &image_handle);
+
+  if (handle_err.code != heif_error_Ok || image_handle == nullptr) {
+    heif_context_free(ctx);
+    return std::nullopt;
+  }
 
   heif_item_id exif_item_id;
   int n = heif_image_handle_get_list_of_metadata_block_IDs(

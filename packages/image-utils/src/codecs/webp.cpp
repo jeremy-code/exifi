@@ -33,7 +33,11 @@ auto webp_get_exif_data(const std::string webp_data) noexcept
   uint32_t flags = WebPDemuxGetI(demux, WEBP_FF_FORMAT_FLAGS);
   if (flags & EXIF_FLAG) {
     WebPChunkIterator chunk_iter;
-    WebPDemuxGetChunk(demux, "EXIF", /* chunk_number */ 1, &chunk_iter);
+    if (WebPDemuxGetChunk(demux, "EXIF", /* chunk_number */ 1, &chunk_iter) ==
+        0) {
+      WebPDemuxDelete(demux);
+      return std::nullopt;
+    }
     size_t exif_size =
         std::size(constants::kExifHeader) + chunk_iter.chunk.size;
     const auto *exif_data =
