@@ -1,6 +1,9 @@
 {
   "callout.alert": "Alerta",
   "combobox.selectedCount": "{count, plural, =0 {Ningún elemento seleccionado} one {# elemento seleccionado} other {# elementos seleccionados}}.",
-  "dialog.dismiss": "Descartar",
+  "dialog.dismiss": "Cerrar",
+  "field.invalid": "Introduce un valor válido.",
+  "field.valueMissing": "Este campo es obligatorio.",
+  "dialog.close": "Cerrar",
   "toast.close": "Cerrar"
 }

@@ -92,6 +92,8 @@ const DialogFooter = ({
   children,
   ...props
 }: DialogFooterProps) => {
+  const stringFormatter = useLocalizedUiStringFormatter();
+
   return (
     <div
       className={cn(
@@ -103,7 +105,7 @@ const DialogFooter = ({
       {children}
       {closeButton && (
         <Button slot="close" variant="outline">
-          Close
+          {stringFormatter.format("dialog.close")}
         </Button>
       )}
     </div>

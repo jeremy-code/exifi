@@ -2,5 +2,8 @@
   "callout.alert": "Alert",
   "combobox.selectedCount": "{count, plural, =0 {No items selected} one {# item selected} other {# items selected}}.",
   "dialog.dismiss": "Dismiss",
+  "field.invalid": "Please enter a valid value.",
+  "field.valueMissing": "This field is required.",
+  "dialog.close": "Close",
   "toast.close": "Close"
 }

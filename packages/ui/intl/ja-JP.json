@@ -2,5 +2,8 @@
   "callout.alert": "警告",
   "combobox.selectedCount": "{count, plural, =0 {項目が選択されていません} one {# 項目を選択しました} other {# 項目を選択しました}}。",
   "dialog.dismiss": "閉じる",
+  "field.invalid": "有効な値を入力してください。",
+  "field.valueMissing": "この項目は必須です。",
+  "dialog.close": "閉じる",
   "toast.close": "閉じる"
 }
