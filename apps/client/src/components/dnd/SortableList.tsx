@@ -2,15 +2,57 @@ import type { ReactNode, RefObject } from "react";
 
 import { Accessibility } from "@dnd-kit/dom";
 import { RestrictToElement } from "@dnd-kit/dom/modifiers";
-import {
-  DragDropProvider,
-  type DragEndEvent,
-  type DragOverEvent,
-  type DragStartEvent,
-} from "@dnd-kit/react";
+import { DragDropProvider, type DragEndEvent } from "@dnd-kit/react";
 import { isSortable } from "@dnd-kit/react/sortable";
 
 import { m } from "#paraglide/messages";
+
+type AccessibilityOptions = Exclude<
+  ConstructorParameters<typeof Accessibility>["1"],
+  undefined
+>;
+
+// English text and functionality is based on https://github.com/clauderic/dnd-kit/blob/ccaf3d583903a5d0b68616310a24aec891ee0d69/packages/dom/src/core/plugins/accessibility/defaults.ts
+const accessibilityOptions = {
+  screenReaderInstructions: { draggable: m.editor_dnd_instructions() },
+  announcements: {
+    dragstart: ({ operation: { source } }) => {
+      if (!source) {
+        return;
+      }
+      return m.editor_dnd_picked_up({ id: source.id });
+    },
+    dragover: ({ operation: { source, target } }) => {
+      if (!source || source.id === target?.id) {
+        return;
+      }
+
+      if (target) {
+        return m.editor_dnd_moved_over({
+          id: source.id,
+          targetId: target.id,
+        });
+      }
+
+      return m.editor_dnd_no_longer_over({ id: source.id });
+    },
+    dragend: ({ operation: { source, target }, canceled }) => {
+      if (!source) {
+        return;
+      }
+      if (canceled) {
+        return m.editor_dnd_cancelled({ id: source.id });
+      }
+      if (target) {
+        return m.editor_dnd_dropped_over({
+          id: source.id,
+          targetId: target.id,
+        });
+      }
+      return m.editor_dnd_dropped({ id: source.id });
+    },
+  },
+} satisfies AccessibilityOptions;
 
 type SortableListProps = {
   onSortEnd?: (event: { initialIndex: number; index: number }) => void;
@@ -48,41 +90,7 @@ const SortableList = ({
       ]}
       plugins={(defaults) => [
         ...defaults.filter((plugin) => plugin !== Accessibility),
-        Accessibility.configure({
-          screenReaderInstructions: { draggable: m.editor_dnd_instructions() },
-          announcements: {
-            dragstart: ({ operation: { source } }: DragStartEvent) =>
-              source ? m.editor_dnd_picked_up({ id: source.id }) : undefined,
-            dragover: ({ operation: { source, target } }: DragOverEvent) => {
-              if (!source || source.id === target?.id) {
-                return undefined;
-              }
-              return target
-                ? m.editor_dnd_moved_over({
-                    id: source.id,
-                    targetId: target.id,
-                  })
-                : m.editor_dnd_no_longer_over({ id: source.id });
-            },
-            dragend: ({
-              operation: { source, target },
-              canceled,
-            }: DragEndEvent) => {
-              if (!source) {
-                return undefined;
-              }
-              if (canceled) {
-                return m.editor_dnd_cancelled({ id: source.id });
-              }
-              return target
-                ? m.editor_dnd_dropped_over({
-                    id: source.id,
-                    targetId: target.id,
-                  })
-                : m.editor_dnd_dropped({ id: source.id });
-            },
-          },
-        }),
+        Accessibility.configure(accessibilityOptions),
       ]}
       onDragEnd={handleDragEnd}
     >
