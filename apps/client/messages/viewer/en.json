@@ -1,0 +1,50 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "viewer_tag_count": [
+    {
+      "declarations": ["input count", "local countPlural = count: plural"],
+      "selectors": ["countPlural"],
+      "match": {
+        "countPlural=one": "{count} tag",
+        "countPlural=other": "{count} tags"
+      }
+    }
+  ],
+  "viewer_gps_map_error": "The GPS IFD was found in the image EXIF metadata, but valid longitude and latitude coordinates were not found.",
+  "viewer_no_exif_title": "Exif information",
+  "viewer_no_exif_body": "No Exif data was found in this file. Would you like to {#editorLink}open it in the editor{/editorLink} to add some?",
+  "viewer_makernote_title": "Makernote",
+  "viewer_makernote_entry_fallback_title": "ID {id} ({index})",
+  "viewer_tags_column_tag": "Tag",
+  "viewer_tags_column_name": "Name",
+  "viewer_tags_column_support_level": "Support Level",
+  "viewer_tags_column_ifd_0": "IFD 0",
+  "viewer_tags_column_ifd_1": "IFD 1",
+  "viewer_tags_column_exif": "EXIF",
+  "viewer_tags_column_gps": "GPS",
+  "viewer_tags_column_interop": "Interop.",
+  "viewer_table_expand": "Expand",
+  "viewer_table_collapse": "Collapse",
+  "viewer_table_resizer": "Resizer",
+  "viewer_table_resizer_value": [
+    {
+      "declarations": ["input width", "local widthPlural = width: plural"],
+      "selectors": ["widthPlural"],
+      "match": {
+        "widthPlural=one": "{width} pixel",
+        "widthPlural=other": "{width} pixels"
+      }
+    }
+  ],
+  "viewer_tab_draggable_role": "draggable",
+  "viewer_map_zoom_in": "Zoom in",
+  "viewer_map_zoom_out": "Zoom out",
+  "viewer_map_marker_alt": "Location marker",
+  "viewer_map_attribution": "© {openStreetMapLink} contributors",
+  "viewer_map_unknown_location": "Unknown location",
+  "viewer_map_geo_uri": "geo URI",
+  "viewer_map_search_label": "Enter address",
+  "viewer_map_search_clear": "Clear search",
+  "viewer_map_search_provider": "Search provider",
+  "viewer_map_leaflet_title": "A JavaScript library for interactive maps"
+}
