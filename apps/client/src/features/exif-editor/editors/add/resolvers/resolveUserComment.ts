@@ -15,10 +15,12 @@ const resolveUserComment: AddEditorResolver = (
       kind: "userComment",
       value:
         exifEntryObject.value.length !== 0
-          ? parseUserComment(exifEntryObject.value)
+          ? parseUserComment(exifEntryObject.value, exifEntryObject.byteOrder)
           : undefined,
       onValueChange: (value) =>
-        onValueChange(Array.from(formatUserComment(value))),
+        onValueChange(
+          Array.from(formatUserComment(value, exifEntryObject.byteOrder)),
+        ),
     };
   }
 

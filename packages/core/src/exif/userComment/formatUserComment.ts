@@ -1,4 +1,5 @@
 import * as iconv from "iconv-nano";
+import type { ByteOrder } from "libexif-wasm";
 
 import { assertNever } from "@exifi/utils/assertNever";
 import { concatUint8Arrays } from "@exifi/utils/concatUint8Arrays";
@@ -6,7 +7,10 @@ import { concatUint8Arrays } from "@exifi/utils/concatUint8Arrays";
 import { ENCODING_TO_HEADER_MAP } from "./constants";
 import type { UserComment } from "./interfaces";
 
-const formatUserComment = (userComment: UserComment): Uint8Array => {
+const formatUserComment = (
+  userComment: UserComment,
+  byteOrder?: ByteOrder,
+): Uint8Array => {
   switch (userComment.encoding) {
     case "ASCII": {
       return iconv.ascii.encode(
@@ -16,7 +20,9 @@ const formatUserComment = (userComment: UserComment): Uint8Array => {
     case "UNICODE":
       return concatUint8Arrays([
         iconv.utf8.encode(ENCODING_TO_HEADER_MAP[userComment.encoding]),
-        iconv.utf_16be.encode(userComment.value),
+        iconv.utf_16.encode(userComment.value, {
+          endianness: byteOrder === "INTEL" ? "little-endian" : "big-endian",
+        }),
       ]);
     case "EMPTY":
       return iconv.utf8.encode(

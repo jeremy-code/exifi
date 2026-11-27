@@ -13,9 +13,11 @@ const resolveUserComment: AdvancedEditorResolver = (
   ) {
     return {
       kind: "userComment",
-      value: parseUserComment(exifEntryObject.value),
+      value: parseUserComment(exifEntryObject.value, exifEntryObject.byteOrder),
       onValueChange: (value) =>
-        onValueChange(Array.from(formatUserComment(value))),
+        onValueChange(
+          Array.from(formatUserComment(value, exifEntryObject.byteOrder)),
+        ),
     };
   }
 
