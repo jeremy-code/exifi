@@ -19,8 +19,8 @@ import { AppProvider } from "#components/misc/AppProvider";
 import { LocaleProvider } from "#components/misc/LocaleProvider";
 import { m } from "#paraglide/messages";
 import {
-  baseLocale,
   deLocalizeUrl,
+  getLocale,
   locales,
   localizeUrl,
 } from "#paraglide/runtime";
@@ -30,7 +30,9 @@ import uiCss from "@exifi/ui/globals.css?url";
 
 const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
   const pathname = useLocation({ select: (location) => location.pathname });
-  const canonicalUrl = new URL(pathname, getBaseUrl()).toString();
+  const canonicalUrl = localizeUrl(new URL(pathname, getBaseUrl()).toString(), {
+    locale: getLocale(),
+  }).toString();
   const { locale, direction } = useLocale();
 
   return (
@@ -49,10 +51,7 @@ const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
             key={linkLocale}
             rel="alternate"
             hrefLang={linkLocale}
-            href={(linkLocale === baseLocale
-              ? deLocalizeUrl(canonicalUrl)
-              : localizeUrl(canonicalUrl, { locale: linkLocale })
-            ).toString()}
+            href={localizeUrl(canonicalUrl, { locale: linkLocale }).toString()}
           />
         ))}
         <link
