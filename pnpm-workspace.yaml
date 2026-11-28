@@ -24,6 +24,8 @@ trustPolicyExclude:
   #
   # https://github.com/pnpm/pnpm/issues/10202
   - semver@6.3.1
+  # https://github.com/oxc-project/tsrs/issues/945
+  - tsrs
 blockExoticSubdeps: true
 
 # Build settings (https://pnpm.io/settings/build)
