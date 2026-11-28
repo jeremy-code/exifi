@@ -13,6 +13,40 @@ package = "netlify-plugin-emsdk"
 [plugins.inputs]
 version = "7.0.1"
 
+[[headers]]
+for = "/*"
+[headers.values]
+# This CSP is not ideal due to the usage of 'unsafe-inline' in `script-src`;
+# however, "perfect is the enemy of good."
+#
+# 1. 'unsafe-inline' is necessary in `script-src` for TanStack Router and
+#    next-themes. While both can use nonces, that doesn't make sense in a
+#    prerendered app. The alternative would be to use
+#    `@netlify/plugin-csp-nonce`, but that conflicts with an offline PWA.
+# 2. 'wasm-unsafe-eval' in `script-src` is needed for compiling WebAssembly
+#    modules for `libexif-wasm` and `@exifi/image-utils`.
+# 3. 'unsafe-inline' is necessary in `style-src` for React Aria for visually
+#    hidden components (see URL). Inline style is also used in other
+#    places in the app (e.g. FileInformation, ExifTable).
+# 4. * is necessary in `img-src` and `connect-src` since the app needs to be
+#      able to fetch and display arbitrary images from a URL.
+# 5. blob: is necessary to display local images
+# 6. `img-src` also requires 'https://tile.openstreetmap.org' (leaflet);
+#    `connect-src` requires 'https://nominatim.openstreetmap.org'
+#
+# @see {@link https://github.com/adobe/react-spectrum/blob/aadf9e27c03df966bc8caa4ae1d8f06d894b2aa2/packages/react-aria/src/visually-hidden/VisuallyHidden.tsx#L40-L51}
+Content-Security-Policy-Report-Only = """\
+default-src 'self'; \
+script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; \
+style-src 'self' 'unsafe-inline'; \
+img-src 'self' * data: blob:; \
+connect-src 'self' *; \
+object-src 'none'; \
+base-uri 'self'; \
+form-action 'self'; \
+frame-ancestors 'none'; \
+"""
+
 # Vite emits fingerprinted files under /assets, so they can be cached until the
 # filename changes on a later build.
 [[headers]]
