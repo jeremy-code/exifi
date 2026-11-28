@@ -1,5 +1,7 @@
 // oxlint-disable import/no-unassigned-import -- Allow side effect imports only in root route
 import "temporal-polyfill/global";
+// Using side effect import here because of https://github.com/TanStack/router/issues/7034
+import "@exifi/ui/globals.css";
 // oxlint-enable import/no-unassigned-import
 import { type ReactNode } from "react";
 
@@ -11,6 +13,7 @@ import {
   useLocation,
 } from "@tanstack/react-router";
 import { useLocale } from "react-aria/I18nProvider";
+import * as z from "zod";
 
 import { Footer } from "#components/layout/Footer";
 import { Navbar } from "#components/layout/Navbar";
@@ -25,7 +28,8 @@ import {
 } from "#paraglide/runtime";
 import { getBaseUrl } from "#utils/getBaseUrl";
 import { seo } from "#utils/seo";
-import uiCss from "@exifi/ui/globals.css?url";
+
+z.config({ jitless: true });
 
 const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
   const pathname = useLocation({ select: (location) => location.pathname });
@@ -105,7 +109,6 @@ const Route = createRootRoute({
       }),
     ],
     links: [
-      { rel: "stylesheet", href: uiCss },
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
       {
         rel: "apple-touch-icon",
