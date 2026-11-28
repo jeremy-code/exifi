@@ -46,6 +46,20 @@ base-uri 'self'; \
 form-action 'self'; \
 frame-ancestors 'none'; \
 """
+Permissions-Policy-Report-Only = """\
+accelerometer=(), \
+bluetooth(), \
+camera=(self), \
+geolocation=(self), \
+gyroscope=(), \
+magnetometer=(), \
+microphone=(), \
+payment=(), \
+usb=() \
+"""
+Referrer-Policy = "strict-origin-when-cross-origin"
+X-Content-Type-Options = "nosniff"
+X-Frame-Options = "DENY"
 
 # Vite emits fingerprinted files under /assets, so they can be cached until the
 # filename changes on a later build.
