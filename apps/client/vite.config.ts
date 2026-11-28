@@ -10,6 +10,7 @@ import { Features } from "lightningcss";
 import { defineConfig } from "vite";
 import { analyzer } from "vite-bundle-analyzer";
 import * as z from "zod";
+import zodCompiler from "zod-compiler/vite";
 
 import inlangSettings from "./project.inlang/settings.json" with { type: "json" };
 
@@ -81,6 +82,7 @@ const viteConfig = defineConfig({
     }),
     react({ compiler: true }),
     tailwindcss({ optimize: { minify: true } }),
+    zodCompiler(),
     optimizeLocales.vite({
       locales: ["en-US", "de-DE", "es-ES", "fr-FR", "ja-JP"],
     }),

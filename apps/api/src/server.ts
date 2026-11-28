@@ -1,5 +1,3 @@
-// oxlint-disable-next-line import/no-unassigned-import -- Allow side effect imports only in server entrypoint
-import "zod/compile";
 import { rateLimiter } from "hono-rate-limiter";
 import { every } from "hono/combine";
 import { cors } from "hono/cors";

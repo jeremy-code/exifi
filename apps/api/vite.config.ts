@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import zodCompiler from "zod-compiler/vite";
 
 const WASM_FILE_SPECIFIERS = [
   "libexif-wasm/output/libexif.wasm",
@@ -54,6 +55,7 @@ const viteConfig = defineConfig(({ command }) => {
         // https://github.com/nitrojs/nitro/blob/4f90285191f80157d80c88c516b43aa1b744dc55/src/build/vite/plugin.ts#L116
         environment: "nitro",
       }),
+      zodCompiler(),
     ],
   };
 });
