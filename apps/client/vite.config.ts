@@ -136,6 +136,8 @@ const viteConfig = defineConfig({
     include: [
       // virtual:serwist imports "@serwist/window"
       "@serwist/window",
+      // zod-compiler imports "zod/v4/core"
+      "zod/v4/core",
     ],
   },
 });
