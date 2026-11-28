@@ -11,6 +11,7 @@ import {
   useLocation,
 } from "@tanstack/react-router";
 import { useLocale } from "react-aria/I18nProvider";
+import * as z from "zod";
 
 import { Footer } from "#components/layout/Footer";
 import { Navbar } from "#components/layout/Navbar";
@@ -26,6 +27,8 @@ import {
 import { getBaseUrl } from "#utils/getBaseUrl";
 import { seo } from "#utils/seo";
 import uiCss from "@exifi/ui/globals.css?url";
+
+z.config({ jitless: true });
 
 const RootDocument = ({ children }: Readonly<{ children: ReactNode }>) => {
   const pathname = useLocation({ select: (location) => location.pathname });
